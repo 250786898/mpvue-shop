@@ -1,0 +1,302 @@
+<template>
+  <div>
+    <div class="card">
+      <img src="/static/images/deliverycode_card_bg@2x.png" class="card__bg">
+      <div class="card__bd">
+        <!-- 条形码 -->
+        <canvas canvas-id="barcode" class="card__barcode"></canvas>
+        <div class="card__barcode-text">{{ result.pickUpCode }}</div>
+        <canvas canvas-id="qrcode" class="card__qrcode"></canvas>
+
+        <!-- <img src="/static/images/membershipcode_qrcode@2x.png" class="card__qrcode"> -->
+        <div class="card__qrcode-tip">自提订单提货凭证 请勿告诉陌生人</div>
+        <!-- 门店 -->
+        <div class="card__shop-item">
+          <div class="weui-cell weui-cell_access" hover-class="navigator-hover" @click="openLocation">
+            <div class="weui-cell__hd">
+              <img src="/static/images/deliverycode_img_logo@2x.png">
+            </div>
+            <div class="weui-cell__bd">
+              <div class="primary">提货门店{{ result.stroreName }}</div>
+              <div class="second">{{ result.storeAddress }}</div>
+            </div>
+            <div class="weui-cell__ft weui-cell__ft_in-access"></div>
+          </div>
+        </div>
+        <div class="card__dt">
+          <navigator url="/pages/pickup/instruction/main" class="weui-cell weui-cell_access">
+            <div class="weui-cell__hd">
+              <img src="/static/images/deliverycode_icon_gifrbag@2x.png">
+            </div>
+            <div class="weui-cell__bd">提货须知</div>
+            <div class="weui-cell__ft weui-cell__ft_in-access"></div>
+          </navigator>
+          <div class="weui-cell">
+            <div class="weui-cell__hd">
+              <img src="/static/images/deliverycode_icon_gifrbag@2x(1).png">
+            </div>
+            <div class="weui-cell__bd">提货时间：{{ showPickUpTime }}</div><div @click="getorderPickUpcode">点击</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <img src="http://bucketlejia.oss-cn-shenzhen.aliyuncs.com/deliverycode_bg@2x.png" class="footer__bg" mode="widthFix">
+  </div>
+</template>
+
+<script>
+  import wxbarcode from 'wxbarcode'
+  import { Api } from '@/http/api'
+  
+  export default {
+    data () {
+      return {
+        orderId: '',
+        result: {},
+        currentBrightness: 0
+      }
+    },
+
+    methods: {
+    // 扫码
+      getorderPickUpcode() {
+        wx.showLoading()
+        Api.order.getorderPickUpcode({ orderId: this.orderId })
+        .then(res => {
+          if (res.code === Api.CODES.SUCCESS) {
+            // this.result = res.data
+            console.log('条形码123',res )
+
+            wx.showToast({
+                title: res.message,
+                icon: 'success',
+                duration: 2000
+            })
+          } else {
+            wx.showToast({
+              title: res.message,
+              icon: 'none'
+            })
+          }
+        })
+        .catch(e => console.log(e))
+        .then(() => wx.hideLoading())
+      },
+
+    // 条形码
+      getOrderPickUpCodeDetail() {
+        wx.showLoading({})
+        Api.order.orderPickUpCode({ orderId: this.orderId })
+        .then(res => {
+          if (res.code === Api.CODES.SUCCESS) {
+            this.result = res.data
+            console.log('条形码',this.result )
+            wxbarcode.barcode('barcode', this.result.pickUpCode, 620, 160)
+            wxbarcode.qrcode('qrcode', this.result.pickUpCode, 360, 360)
+          } else {
+            wx.showToast({
+              title: res.message,
+              icon: 'none'
+            })
+          }
+        })
+        .catch(e => console.log(e))
+        .then(() => wx.hideLoading())
+      },
+
+      openLocation() {
+        wx.openLocation({
+          latitude: this.result.lat,
+          longitude: this.result.lng,
+          // scale
+          name: this.result.stroreName,
+          address: this.result.storeAddress
+        })
+      },
+
+    /**
+      * @description 获取明天后天时间
+      */
+       getDateStr(dayCount){
+        if(null == dayCount){
+          dayCount = 0;
+        }
+        var dd = new Date();
+        dd.setDate(dd.getDate()+dayCount);//设置日期
+        var m = dd.getMonth()+1;//获取当前月份的日期
+        m = m < 10 ? `0${m}` : m 
+        var d = dd.getDate();
+        d = d < 10 ? `0${d}` : d
+        return `${m}月${d}日`
+      },
+
+      // 设置屏幕亮度
+      getScreenBright () {
+         var that = this;
+        wx.getScreenBrightness({
+
+          success: function (res) {
+
+          that.currentBrightness = res.value
+
+          }
+        });
+      
+        wx.setScreenBrightness({
+          value: 1,
+        })
+      },
+
+      //恢复之前屏幕亮度
+      recoverScreen () {
+         
+        var that = this;
+        wx.setScreenBrightness({
+
+        value: that.currentBrightness
+
+        })
+      }
+    },
+
+     computed: {
+
+   showPickUpTime () { //显示的提货时间
+        const hours = new Date().getHours()
+        let showPickUpTime = ''
+        if(hours > 20) {
+          //超过20：00设置成显示后天提货
+          showPickUpTime = this.getDateStr(2)
+        }else{
+          showPickUpTime = this.getDateStr(1)
+        }
+        return showPickUpTime
+      },
+     },
+
+    onShow: function () {
+      this.getScreenBright()
+    },
+    onUnload () {
+      this.recoverScreen()
+    },
+    onLoad(e) {
+      this.orderId = e.id
+      this.getOrderPickUpCodeDetail()
+      this.getorderPickUpcode()
+    }
+  }
+</script>
+
+<style>
+  page { background-color: #0FD7C0; }
+</style>
+
+<style lang="scss" scoped>
+  .card {
+    position: relative;
+    z-index: 2;
+    margin: 20rpx auto 0;
+    width: 698rpx;
+    height: 1022rpx;
+    &__bg {
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+    }
+    
+    &__bd {
+      padding-top: 86rpx;
+      position: relative;
+      z-index: 2;
+    }
+
+    &__barcode {
+      margin: 0 auto;
+      display: block;
+      width: 620rpx;
+      height: 160rpx;
+      &-text {
+        font-size: 30rpx;
+        line-height: 60rpx;
+        text-align: center;
+        color: $text-black;
+      }
+    }
+
+    &__qrcode {
+      margin: -25rpx auto;
+      display: block;
+      width: 360rpx;
+      height: 360rpx;
+      &-tip {
+        font-size: 30rpx;
+        line-height: 80rpx;
+        text-align: center;
+        color: $text-gray;
+      }
+    }
+
+    &__shop-item {
+      padding-left: 22rpx;
+      padding-right: 22rpx;
+      .weui-cell {
+        &__hd img {
+          margin-right: 20rpx;
+          width: 64rpx;
+          height: 64rpx;
+          vertical-align: middle;
+        }
+        &__bd {
+          width: 80%;
+          font-size: 28rpx;
+          color: #B3B3B3;
+          .primary {
+            font-size: 30rpx;
+            color: #000;
+            @include ellipsis
+          }
+          .second {
+            @include ellipsis
+          }
+        }
+        &__ft:after {
+          border-color: #B3B3B3;
+        }
+      }
+    }
+    &__dt {
+      padding-top: 20rpx;
+      padding-left: 22rpx;
+      padding-right: 22rpx;
+      .weui-cell {
+        padding-top: 2rpx;
+        padding-bottom: 2rpx;
+        &:before {
+          display: none;
+        }
+        &__hd img {
+          margin-right: 8rpx;
+          width: 50rpx;
+          height: 50rpx;
+          vertical-align: -10rpx;
+        }
+        &__bd {
+          font-size: 30rpx;
+        }
+        &__ft:after {
+          border-color: #B3B3B3;
+        }
+      }
+    }
+  }
+
+  .footer__bg {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+  }
+</style>

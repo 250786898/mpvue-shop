@@ -1,0 +1,101 @@
+{
+  "pages": [
+    
+    "pages/index/main",
+    "pages/index/selectaddress/main",
+    "pages/index/searchgoods/main",
+    "pages/cart/main",
+    "pages/mine/main",
+    "pages/location/main",
+    "pages/address/list/main",
+    "pages/address/form/main",
+    "pages/activity/main",
+    
+    "pages/newcomepacks/main",
+    "pages/goodstheme/main",
+    "pages/coupon/index/main",
+    "pages/coupon/shop/main",
+    "pages/coupon/goods/main",
+    "pages/coupon/qrcode/main",
+    "pages/bonuspoint/index/main",
+    "pages/scan/cart/main",
+    "pages/goods/index/main",
+    "pages/goods/detail/main",
+  
+    "pages/member/theme/main",
+    "pages/theme/manjian/main",
+    "pages/theme/maisong/main",
+    "pages/theme/miaosha/main",
+    "pages/timelimit/index/main",
+    "pages/order/preview/main",
+    "pages/order/index/main",
+    "pages/order/comment/main",
+    "pages/order/commenthistory/main",
+    "pages/order/detail/main",
+    "pages/order/consult/main",
+    "pages/order/contact/main",
+    "pages/order/returns/main",
+    "pages/order/returndetail/main",
+    "pages/order/returngoods/main",
+    "pages/order/returnapply/main",
+    "pages/order/progress/main",
+    "pages/order/teamlist/main",
+    "pages/order/teamdetail/main",
+    "pages/order/selectshop/main",
+    "pages/mine/auth/main",
+    "pages/mine/bind/main",
+    "pages/mine/register/main",
+    "pages/mine/info/main",
+    "pages/settings/index/main",
+    "pages/password/set/main",
+    "pages/password/question/main",
+    "pages/password/modify/main",
+    "pages/password/find/main",
+    "pages/pickup/index/main",
+    "pages/pickup/detail/main",
+    "pages/pickup/instruction/main",
+    "pages/rider/detail/main",
+    "pages/scanorder/returnapply/main",
+    
+    "pages/portal/main",
+    "pages/free-order/free-order/main",
+    "pages/free-order/share-free-order/main"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "乐家生鲜",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#00dec7"
+  },
+  "tabBar": {
+    "color": "#797979",
+    "selectedColor": "#00dec7",
+    "list": [
+      {
+        "pagePath": "pages/index/main",
+        "text": "首页",
+        "iconPath": "/static/images/homee_icon.png",
+        "selectedIconPath": "static/images/home_icon.png"
+      },
+   
+      {
+        "pagePath": "pages/cart/main",
+        "text": "购物车",
+        "iconPath": "/static/images/cart_icon.png",
+        "selectedIconPath": "/static/images/cartt_icon.png"
+      },
+      {
+        "pagePath": "pages/mine/main",
+        "text": "我的",
+        "iconPath": "/static/images/minee_icon.png",
+        "selectedIconPath": "/static/images/mine_icon.png"
+      }
+    ]
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "根据你的位置信息为你选择最近的门店"
+    }
+  }
+}

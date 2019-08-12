@@ -1,0 +1,507 @@
+{
+	"description": "项目配置文件。",
+	"setting": {
+		"urlCheck": false,
+		"es6": false,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true,
+		"autoAudits": false
+	},
+	"miniprogramRoot": "dist/wx/",
+	"compileType": "miniprogram",
+	"appid": "wx78ba77fefdec0ccc",
+	"projectname": "%E4%B9%90%E5%AE%B6%E5%95%86%E5%9F%8E",
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
+			"list": []
+		},
+		"miniprogram": {
+<<<<<<< HEAD
+			"current": 72,
+=======
+			"current": 47,
+>>>>>>> 6ac6650f5243a40d0938672e2b9ba628e282e2be
+			"list": [
+				{
+					"id": -1,
+					"name": "授权定位",
+					"pathName": "pages/location/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "选择地址",
+					"pathName": "pages/index/selectaddress/main",
+					"query": ""
+				},
+				{
+					"id": 2,
+					"name": "我的收货地址-列表",
+					"pathName": "pages/address/list/main",
+					"query": ""
+				},
+				{
+					"id": 3,
+					"name": "我的收货地址-新增编辑",
+					"pathName": "pages/address/form/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "乐家头条-列表",
+					"pathName": "pages/topnews/list/main",
+					"query": ""
+				},
+				{
+					"id": 5,
+					"name": "乐家头条-详情",
+					"pathName": "pages/topnews/detail/main",
+					"query": "id=6483620044067573760",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "新人专享",
+					"pathName": "pages/newcomepacks/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "商品专题",
+					"pathName": "pages/goodstheme/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "商品搜索",
+					"pathName": "pages/index/searchgoods/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "会员码",
+					"pathName": "pages/qrcode/index/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "会员码-权益说明",
+					"pathName": "pages/qrcode/memberrights/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "会员卡-充值",
+					"pathName": "pages/membercard/charge/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "会员卡-消费明细",
+					"pathName": "pages/membercard/detail/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "我的优惠券",
+					"pathName": "pages/coupon/index/main",
+					"query": ""
+				},
+				{
+					"id": 14,
+					"name": "优惠券限定门店限商品",
+					"pathName": "pages/coupon/goods/main",
+					"query": "id=2",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "优惠券适用门店",
+					"pathName": "pages/coupon/shop/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "积分明细",
+					"pathName": "pages/bonuspoint/index/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "扫码购-主页",
+					"pathName": "pages/scan/index/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "扫码购-选择门店",
+					"pathName": "pages/scan/selectshop/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "扫码购-手动输入条形码",
+					"pathName": "pages/scan/input/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "扫码购-购物车",
+					"pathName": "pages/scan/cart/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "积分商城-主页",
+					"pathName": "pages/bpshop/index/main",
+					"query": ""
+				},
+				{
+					"id": 22,
+					"name": "商品详情",
+					"pathName": "pages/goods/detail/main",
+					"query": "id=6490886367537532928",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "抢红包",
+					"pathName": "pages/rockpack/index/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "会员专题",
+					"pathName": "pages/member/theme/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "专题-满减",
+					"pathName": "pages/theme/manjian/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "专题-买送",
+					"pathName": "pages/theme/maisong/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "专题-秒杀",
+					"pathName": "pages/theme/miaosha/main",
+					"query": ""
+				},
+				{
+					"id": 28,
+					"name": "拼团购",
+					"pathName": "pages/group/index/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "乐家生鲜限时购",
+					"pathName": "pages/timelimit/index/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "商城主页",
+					"pathName": "pages/goods/index/main",
+					"query": ""
+				},
+				{
+					"id": 31,
+					"name": "确认订单",
+					"pathName": "pages/order/preview/main",
+					"query": "cartIds=6508748675378843648",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "我的",
+					"pathName": "pages/mine/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "授权页",
+					"pathName": "pages/mine/auth/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "绑定页",
+					"pathName": "pages/mine/bind/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "注册页",
+					"pathName": "pages/mine/register/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "设置",
+					"pathName": "pages/settings/index/main",
+					"query": ""
+				},
+				{
+					"id": 37,
+					"name": "支付密码-修改",
+					"pathName": "pages/password/modify/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "支付密码-找回",
+					"pathName": "pages/password/find/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "我的-会员信息",
+					"pathName": "pages/mine/info/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "支付密码-设置",
+					"pathName": "pages/password/set/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "支付密码-安全问题",
+					"pathName": "pages/password/question/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "提货码-主页",
+					"pathName": "pages/pickup/index/main",
+					"query": ""
+				},
+				{
+					"id": 43,
+					"name": "提货码-详情",
+					"pathName": "pages/pickup/detail/main",
+					"query": "id=6509469481746567168",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "提货码-提码须知",
+					"pathName": "pages/pickup/instruction/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "我的订单-主页",
+					"pathName": "pages/order/index/main",
+					"query": ""
+				},
+				{
+					"id": 46,
+					"name": "我的订单-评价",
+					"pathName": "pages/order/comment/main",
+					"query": "id=6508729264886517760",
+					"scene": null
+				},
+				{
+					"id": 47,
+					"name": "我的订单-详情",
+					"pathName": "pages/order/detail/main",
+					"query": "id=6535061905180987392",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "骑手-详情页",
+					"pathName": "pages/rider/detail/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "骑手-投诉",
+					"pathName": "pages/rider/complaint/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "我的订单-协商历史",
+					"pathName": "pages/order/consult/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "我的订单-联系卖家",
+					"pathName": "pages/order/contact/main",
+					"query": ""
+				},
+				{
+					"id": 52,
+					"name": "退货-选择商品",
+					"pathName": "pages/order/returngoods/main",
+					"query": "id=6508729264886517760",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "退货-申请",
+					"pathName": "pages/order/returnapply/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "订单进度",
+					"pathName": "pages/order/progress/main",
+					"query": ""
+				},
+				{
+					"id": 55,
+					"name": "订单-历史评论",
+					"pathName": "pages/order/commenthistory/main",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "优惠券-电子券",
+					"pathName": "pages/coupon/qrcode/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "扫码购订单-主页",
+					"pathName": "pages/scanorder/index/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "扫码购订单-详情",
+					"pathName": "pages/scanorder/detail/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "扫码购订单-退货",
+					"pathName": "pages/scanorder/returnapply/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "VIP-开通",
+					"pathName": "pages/vip/pay/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "VIP-主页",
+					"pathName": "pages/vip/index/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "VIP-兑换码",
+					"pathName": "pages/vip/exchange/main",
+					"query": ""
+				},
+				{
+					"id": 63,
+					"name": "购物车",
+					"pathName": "pages/cart/main",
+					"query": "cartIds=all&carts=all&storeId=1"
+				},
+				{
+					"id": -1,
+					"name": "综合入口",
+					"pathName": "pages/portal/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "自提切换店铺",
+					"pathName": "pages/order/selectshop/main",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 66,
+					"name": "拼团列表",
+					"pathName": "pages/group/index/main",
+					"query": "id=6532459323677741056"
+				},
+				{
+					"id": 67,
+					"name": "拼团详情",
+					"pathName": "pages/goods/detail/main",
+					"query": "id=6512237034512322560&activityId=6532459323677741056"
+				},
+				{
+					"id": -1,
+					"name": "我的团购",
+					"pathName": "pages/order/teamlist/main",
+					"query": ""
+				},
+				{
+					"id": 69,
+					"name": " tuangouxiangq",
+					"pathName": "pages/order/teamdetail/main",
+					"query": "groupOrderId=3&orderId=6528471709291384832"
+				},
+				{
+					"id": 70,
+					"name": "免单",
+					"pathName": "pages/free-order/free-order/main",
+					"query": "orderId=6537970340465741824&activityId=6528900212591693824",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "免单-分享",
+					"pathName": "pages/free-order/share-free-order/main",
+					"query": "activityId=6528900212591693824&shareMember=6521185842973642752",
+					"scene": null
+				},
+				{
+					"id": 72,
+					"name": "免单-分享",
+					"pathName": "pages/free-order/share-free-order/main",
+					"query": "activityId=6537991668619026432&shareMember=obq-K5Ucp91FkluNC54MLz4-NZbI",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "jifen",
+					"pathName": "pages/bpshop/index/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "manjian",
+					"pathName": "pages/theme/manjian/main",
+					"query": ""
+				}
+			]
+		}
+	}
+}
