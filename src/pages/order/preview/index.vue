@@ -854,6 +854,7 @@
   .goods-list-panel {
     .weui-panel {
       &__hd {
+        padding: 28rpx 30rpx 20rpx 60rpx;
         padding-top: 20rpx;
         font-size: 28rpx;
         color: $text-black;
@@ -862,6 +863,9 @@
           vertical-align: middle;
           width: 24rpx;
           height: 24rpx;
+          position: absolute;
+          top:30rpx;
+          left:16rpx;
         }
         &:after { left: 0; }
         .weui-cell__ft_in-access {

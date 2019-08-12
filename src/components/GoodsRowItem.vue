@@ -12,7 +12,7 @@
 
       <div class="weui-media-box__bd weui-media-box__bd_in-appmsg">
         <div class="weui-media-box__title">{{ item.goodsName }}</div>
-        <div class="weui-media-box__desc">{{ item.goodsSellDesc }}</div>
+        <div class="weui-media-box__desc" v-if="item.goodsSellDesc">{{ item.goodsSellDesc || '' }}</div>
         <div class="goods-row-item__tb" v-if="item">
   <!-- 替换组件 -->
     <div class="goods-row-item__price"  >
@@ -61,7 +61,6 @@
 
     methods: {
         attached(){
-     
        console.log('333333',this.$store.state.shopDetail.storeId)
 
       //   Api.index.storeGoodsListByshopId({

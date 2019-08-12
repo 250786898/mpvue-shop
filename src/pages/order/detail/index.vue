@@ -82,11 +82,6 @@
         </template>
       </div>
 
-
-
-
-
-
       <!-- if 配送 -->
       <div class="order-address" v-if="order.deliveryType === 1">
         <div class="weui-cell">
@@ -365,7 +360,6 @@
     <template v-else-if="order.deliveryType === 2">
       <!-- 待核销 -->
       <div class="footer-bar" v-if="order.state === 20 || order.state === 21 || order.state === 30">
-
         <template v-if="isAssemble">
           <button :plain="true" type="default" @click="applyReturns">申请售后</button>
         </template>
@@ -600,16 +594,21 @@
         .catch(e => wx.hideLoading())
       },
 
-      cancel() {
-
-
-
-        
+    cancel() {
         wx.showLoading({ title: '取消中' })
         Api.order.cancel({
           orderId: this.order.orderId
         }).then(res => {
           wx.hideLoading()
+
+          if (res.code === Api.CODES.FAILED) {
+             wx.showToast({
+              title: '抱歉！商品已打包，不能取消订单',
+              icon: 'none'
+            })
+            return false
+          }
+
           if (res.code === Api.CODES.SUCCESS) {
             this.getDetail({ orderId: this.order.orderId })
           } else {

@@ -35,7 +35,7 @@
             <div class="weui-cell__hd">
               <img src="/static/images/deliverycode_icon_gifrbag@2x(1).png">
             </div>
-            <div class="weui-cell__bd">提货时间：{{ showPickUpTime }}</div><div @click="getorderPickUpcode">点击</div>
+            <div class="weui-cell__bd">提货时间：{{ showPickUpTime }}</div>
           </div>
         </div>
       </div>
@@ -53,31 +53,29 @@
       return {
         orderId: '',
         result: {},
-        currentBrightness: 0
+        currentBrightness: 0,
+        timer: null // 扫码提示定时
       }
     },
 
     methods: {
-    // 扫码
+    // 扫码后提示
       getorderPickUpcode() {
-        wx.showLoading()
+       
+        // wx.showLoading()
         Api.order.getorderPickUpcode({ orderId: this.orderId })
         .then(res => {
           if (res.code === Api.CODES.SUCCESS) {
             // this.result = res.data
-            console.log('条形码123',res )
-
+            console.log('判断',res )
             wx.showToast({
-                title: res.message,
+                title: '成功',
                 icon: 'success',
-                duration: 2000
+                duration: 1500
             })
-          } else {
-            wx.showToast({
-              title: res.message,
-              icon: 'none'
-            })
-          }
+            clearInterval(this.timer) 
+          } 
+       
         })
         .catch(e => console.log(e))
         .then(() => wx.hideLoading())
@@ -158,8 +156,7 @@
         })
       }
     },
-
-     computed: {
+ computed: {
 
    showPickUpTime () { //显示的提货时间
         const hours = new Date().getHours()
@@ -179,11 +176,16 @@
     },
     onUnload () {
       this.recoverScreen()
+       clearInterval(this.timer) 
     },
     onLoad(e) {
+       clearInterval(this.timer) 
       this.orderId = e.id
       this.getOrderPickUpCodeDetail()
-      this.getorderPickUpcode()
+      this.timer = setInterval(() => { 
+        this.getorderPickUpcode()
+      }, 3000)
+    
     }
   }
 </script>

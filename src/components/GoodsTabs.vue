@@ -21,7 +21,6 @@
       <div class="empty-tip__text">目前没有相关商品</div>
     </div>
 
-  
   </div>
 </template>
 

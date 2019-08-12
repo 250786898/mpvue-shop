@@ -765,6 +765,7 @@
       border-color: #EAEAEA;
     }
     &__title {
+      font-weight:bold;
       overflow: hidden;
       text-overflow: ellipsis;
       display:  -webkit-box;
@@ -779,6 +780,7 @@
       font-size: 24rpx;
     }
     &__price {
+      font-weight:bold;
       color: $text-red;
       font-size: 46rpx;
       &-old {
@@ -1318,6 +1320,7 @@
 
   .goods-hd-info__bd_member-only {
     .goods-hd-info__price {
+      font-weight:bold;
       font-size: 34rpx;
       padding-left: 6rpx;
     }

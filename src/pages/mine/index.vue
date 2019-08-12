@@ -362,7 +362,7 @@
       position: fixed;
       top:0rpx;
       left:0rpx;
-      
+
   }
   .headline{
     position: fixed;
@@ -373,7 +373,7 @@
     height: 12%;
     z-index: 1;
     text-align: center;
-    line-height: 238rpx;
+    line-height: 188rpx;
     color:#fff;
 
   }

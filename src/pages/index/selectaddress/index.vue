@@ -607,6 +607,7 @@
     height: 70rpx;
     padding-top:8rpx;
     line-height: 35rpx;
+    text-align: left;
   }
   .weui-icon-search_in-box {
     left: 28rpx;
@@ -686,7 +687,6 @@
         display: none;
       }
       &__bd{
-        display: flex;
         text-align: center;
       }
     }
@@ -760,7 +760,7 @@
     .weui-panel {
       margin-top: 20rpx;
       &_bd{
-        text-align: center;
+        // text-align: center;
       }
     }
   }
@@ -855,6 +855,7 @@
         height:26rpx;
         font-size:28rpx;
         color:#12D5C0;
+        margin-bottom:16rpx;
         span{
           color:#999;
           font-size:28rpx;
