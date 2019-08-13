@@ -69,8 +69,6 @@
       //   if (res.code === Api.CODES.SUCCESS) {
       //     console.log('9999',res)
       //     this.storeList = res.data.storeList
-
-   
       //   }
       // })
 
