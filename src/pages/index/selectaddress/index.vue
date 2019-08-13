@@ -14,7 +14,7 @@
         </div>
         <label class="weui-search-bar__label" :hidden="inputShowed" @click="showInput">
           <icon class="weui-icon-search" type="search" size="14"></icon>
-          <div class="weui-search-bar__text">请输入收货地址</div>
+          <div class="weui-search-bar__text">请输入门店地址</div>
         </label>
       </div>
       <div class="weui-search-bar__cancel-btn" :hidden="!inputShowed" @click="hideInput">取消</div>
@@ -79,7 +79,7 @@
       <div class="weui-cell"   >
         <div  class="weui-cell__bd">
           <div class="head">
-            <!-- <image  :src= "storeLid.storeLogoImg"  alt=""></image> -->
+            <image  :src= "storeLid.storeLogoImg"  alt=""></image>
           </div>
           <h2 style="font-weight:bold;margin-bottom:20rpx">{{ storeLid.storeName }}</h2>
           <p style="color:#333;">{{storeLid.city+storeLid.area +storeLid.storeAddress }}</p>
@@ -271,7 +271,7 @@
                     }
                   }
                 }) 
-              
+  // 搜索门店
                 regin = JSON.stringify(regin)
                 Api.index.queryByRegin({ regin }).then(res => {
                   if (res.code === Api.CODES.SUCCESS) {
@@ -462,18 +462,18 @@
           .then(() => wx.hideLoading())
       },
 
-// 常用门店
+// 当前门店
         StoreLid() {
+          console.log('当前门店ID',this.storeId)
           wx.showLoading()
           Api.index.storeLid({
             storeId:this.storeId
-
           })
           .then(res => {
             console.log('3333333',res)
              if (res.code === Api.CODES.SUCCESS) {
               this.storeLid = res.data.storeLid || res.data.shopStore
-            
+
               console.log('11111',this.storeLid)
             }
             

@@ -108,7 +108,7 @@
             }
           })
           // this.$store.commit('setSessionId', res.data.sessionId)
-          wx.switchTab({ url: '/pages/mine/main' })
+          wx.switchTab({ url: '/pages/index/main' })
         })
         .catch(e => console.log(e))
         .then(() => wx.hideLoading())

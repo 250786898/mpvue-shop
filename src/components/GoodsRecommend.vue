@@ -64,7 +64,7 @@
       getGoodsClassList(storeId, pcId, pageNumber, pageSize) {
         this.loading = true
         let promise
-
+        console.log('getGoodsClassList',storeId)
         if (this.type === 1) {
           promise = Api.index.topGoods({ storeId, pcId, pageNumber, pageSize }).then(res => {
             if(res.code == Api.CODES.SUCCESS){

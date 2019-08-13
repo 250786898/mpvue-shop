@@ -285,7 +285,7 @@ export const Api = {
       })
     },
 
-    // 6.0  常用门店信息
+    // 6.0  当前门店信息
     storeLid({ storeId }) {
       return post({
         url: '/index/findNowStore',

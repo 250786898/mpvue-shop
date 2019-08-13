@@ -43,7 +43,7 @@
     <div class="weui-cell goods-hd-info">
       <div class="weui-cell__bd">
         <div class="goods-hd-info__title">{{ goodsDetailInfo.goodsName }}</div>
-        <div class="goods-hd-info__desc">{{ goodsDetailInfo.goodsSellDesc }}</div>
+        <div class="goods-hd-info__desc">{{ goodsDetailInfo.shareDescription }}</div>
         <!-- Type start: 限时抢购 -->
         <div class="goods-hd-info__bd goods-hd-info__bd_member-only"
           v-if="activityInfo && activityInfo.activityType == 10">
@@ -690,7 +690,7 @@
     onShareAppMessage() {
       return {
         title: this.goodsDetailInfo.goodsName,
-        path: `/pages/index/main?r=${ encodeURIComponent(serialize(this.$mp.page)) }`,
+        path: `/pages/goods/detail/main?r=${ encodeURIComponent(serialize(this.$mp.page)) }`,
         imageUrl: this.goodsDetailInfo.goodsImage
       }
     },

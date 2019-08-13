@@ -72,11 +72,7 @@
           </navigator>
         </swiper>
       </div>
-
-
     </template>
-
-
   </div>
 </template>
 
@@ -122,7 +118,9 @@ export default {
       navigateToUrl: config.ACTIVITY_TYPE,
       long:'',
       lat:'',
+      sto:'',
       shareStoreId: 0 , //分享的门店id
+    
     };
   },
   created() {
@@ -167,13 +165,9 @@ export default {
   onUnload() {
     // console.log('onUnload')
   },
-  methods: {
-
-  
-      
-
+  methods: { 
      getData(){
-       Api.index.storeList({ longitude:this.long, latitude:this.lat }).then(res => {
+       Api.index.storeList({ longitude:this.long, latitude:this.lat,storeId:this.sto }).then(res => {
          this.setInitStoreInfo(res.data.storeList)
          
        })
@@ -185,11 +179,16 @@ export default {
     setInitStoreInfo (storeList) {
       if(this.shareStoreId) {
         //有分享情况
+        console.log('有分享情况')
         const storeItem = this.findStoreByStoreId(storeList,this.shareStoreId)
         this.$store.commit('setItem', this.shareStoreId )
         this.$store.commit('setItem', storeItem )
+        this.getStoreData(this.shareStoreId)
       }else{
+         console.log('NO情况',storeList[0].storeId)
+         this.$store.commit("setStoreId", storeList[0].storeId); 
         this.$store.commit('setItem',{storeName:storeList[0].storeName,storeId:storeList[0].storeId})
+        this.getStoreData(storeList[0].storeId)
       }
     },
 
@@ -209,8 +208,6 @@ export default {
       console.log('tt',this.formId)
     },
 
-
-
     // 获取店铺数据
     getStoreData(storeId) {
       Api.index.getIndexData({ storeId }).then(res => {
@@ -225,7 +222,6 @@ export default {
       });
    
     },
-
     //优惠券加载
     getCouponsFresh() {
       Api.activity
@@ -240,8 +236,6 @@ export default {
           }
         });
     },
-
- 
 
     // 获取配送外时的首页数据
     getDataOutScope() {
@@ -280,7 +274,7 @@ export default {
             if (res.data.isInScope === 1) {
               console.log("在配送范围内");
               console.log("setStoreId", res.data.storeId);
-              this.$store.commit("setStoreId", this.shareStoreId || res.data.storeId);
+              // this.$store.commit("setStoreId", this.shareStoreId || res.data.storeId);
               this.$store.commit("setStoreInfo", res.data);
               this.getStoreData(this.shareStoreId || res.data.storeId);
             } else {
@@ -372,14 +366,13 @@ export default {
         url: "/pages/goods/index/main"
       });
     },
-
   },
 
   onShow() {
     // console.log(this.location);
-
     if (!this.location.longitude) {
       //获取当前定位
+      console.log('获取当前定位')
       wx.showLoading({ title: "定位中", mask: true });
       let amap = new AMapWX({ key: config.AMAP_KEY });
       //检索周边的POI
@@ -387,6 +380,8 @@ export default {
         success: res => {
           // console.log('e.success',res)
           this.$store.commit("setLocationInfo", res.markers[0]);
+
+          console.log('8888',res.markers[0])
           this.long=res.markers[0].longitude;
           this.lat=res.markers[0].latitude
           this.getData();

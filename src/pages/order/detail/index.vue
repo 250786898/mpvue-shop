@@ -223,10 +223,10 @@
           <div class="weui-form-preview__label">优惠券</div>
           <div class="weui-form-preview__value">-￥{{ order.couponPrice }}</div>
         </div>
-        <div class="weui-form-preview__item">
+        <!-- <div class="weui-form-preview__item">
           <div class="weui-form-preview__label">配送费</div>
           <div class="weui-form-preview__value">￥{{ order.shippingFee }}</div>
-        </div>
+        </div> -->
         <div class="weui-form-preview__item" v-if="order.pointNum">
           <div class="weui-form-preview__label">积分({{ order.pointNum }})</div>
           <div class="weui-form-preview__value">￥{{ order.pointPayAmount }}</div>
