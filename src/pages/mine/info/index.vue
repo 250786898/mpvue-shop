@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="tip" v-if="tipShown">完善个人信息,有助于我们为您提供更好的会员服务</div>
+    <!-- <div class="tip" v-if="tipShown">完善个人信息,有助于我们为您提供更好的会员服务</div> -->
     <div class="lj-form">
       <form>
         <div class="weui-cells weui-cells_after-title weui-cells_no-border">
@@ -107,7 +107,7 @@
         // educationError: false,
         // maritalStatusError: false,
 
-        tipShown: false,
+        // tipShown: false,
 
         profile: {},
 
@@ -139,11 +139,9 @@
           this.birthdayError = !this.profile.birthday
           // this.educationError = !this.profile.education
           // this.maritalStatusError = !this.profile.maritalStatus
-
           if (!this.truenameError && !this.birthdayError ) {
             this.updateProfile()
           }
-        
       },
 
       getProfile() {
@@ -151,7 +149,7 @@
         .then(res => {
           if (res.code === Api.CODES.SUCCESS) {
             this.profile = res.data
-            this.tipShown = !this.profile.birthday
+            // this.tipShown = !this.profile.birthday
             console.log(this.profile.birthday)
             if(this.profile.birthday != '') {
                 this.isFirstSubmit = false
@@ -169,7 +167,7 @@
         .then(res => {
           if (res.code === Api.CODES.SUCCESS) {
             wx.showToast({ title: '提交成功~' })
-            this.tipShown = false
+            // this.tipShown = false
           } else {
             wx.showToast({
               title: res.message,

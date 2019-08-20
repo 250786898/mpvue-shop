@@ -25,7 +25,7 @@
       <div class="order-status bg-gradient">
         <!-- 待支付 -->
         <template v-if="order.state === 10">
-          待支付<span v-if="false">(300秒后自动取消订单）</span>
+          待支付<span v-if="true">({{timers}}秒后自动取消订单）</span>
         </template>
         <!-- 待配送 -->
         <template v-else-if="order.state === 20 || order.state === 21">
@@ -38,7 +38,8 @@
           <template v-else>
             <div>
               待提货
-              <div class="desc">提货时间:{{ showPickUpTime }}</div>
+              <div class="desc">提货时间 ：{{  order.pickTime }}</div>
+             
             </div>
           </template>
         </template>
@@ -242,6 +243,8 @@
       </div>
     </div>
 
+
+
     <!-- 待配送、配送中 -->
     <template v-if="order.deliveryType === 1">
       <div v-if="order.state == 20 || order.state == 21 || order.state == 30 || order.state == 40 || order.state == 49"
@@ -313,13 +316,12 @@
         </div>
       </div>
     </div>
-
-
     <!-- Footer Start -->
     <!-- 待支付 -->
     <div class="footer-bar" v-if="order.state === 10">
       <button :plain="true" type="default" @click="cancel" v-if="order.orderType !=1">取消订单</button>
       <button :plain="true" type="primary" @click="pay">去支付</button>
+      
     </div>
 
     <!-- 已关闭 -->
@@ -403,10 +405,19 @@
         paymentDialogShowed: false,
         redPackageShow: false,
         isRequestedFunction: false,
-        isAssemble: false //是否是拼团页面详情
+        isAssemble: false, //是否是拼团页面详情
+        timers:299,
+        timer:null,
+        
+
       }
     },
     computed: {
+
+      pickup(){
+         let pickup=this.$store.state.pickup;
+         return pickup
+      },
 
       hms() {
         let h = Math.floor(this.order.times / 3600)
@@ -425,7 +436,7 @@
         return { h, m, s }
       },
 
-       showPickUpTime () { //显示的提货时间
+        showPickUpTime () { //显示的提货时间
         const hours = new Date().getHours()
         let showPickUpTime = ''
         if(hours > 20) {
@@ -457,7 +468,7 @@
           let [endDay, endTime] = this.order.deliveryEndTime.split(' ')
 
           startTime = startTime.split(':').slice(0, 2).join(':')
-          endTime = endTime.split(':').slice(0, 2).join(':')
+          // endTime = endTime.split(':').slice(0, 2).join(':')
 
           if (startDay === endDay) {
             return `${ startDay } ${ startTime }-${ endTime }`
@@ -479,10 +490,31 @@
         }
       }
     },
-
     methods: {
 
-        /**
+      // 待支付
+       daojishi(){
+          let times=300
+          let miao= 300
+          let that =this
+            clearInterval(that.timer);
+          if(this.$store.state.runingtime>0){
+            times = this.$store.state.runingtime
+          }
+          that.timer =  setInterval(() => {
+           miao = --times
+              // console.log(miao)
+              that.timers=miao
+              that.$store.commit('setRunTime',miao)
+              // console.log(that.timers)
+            if(miao==0){
+               clearInterval(that.timer);
+            }
+
+          },1000)
+        },
+
+          /**
          * @description 获取明天后天时间
          */
        getDateStr(dayCount){
@@ -492,11 +524,14 @@
         var dd = new Date();
         dd.setDate(dd.getDate()+dayCount);//设置日期
         var m = dd.getMonth()+1;//获取当前月份的日期
-        m = m < 10 ? `0${m}` : m 
+        m = m <10 ? `0${m}` : m 
         var d = dd.getDate();
-        d = d < 10 ? `0${d}` : d
+        d = d <10 ? `0${d}` : d
         return `${m}月${d}日`
       },
+
+
+
       /**
        * @description 跳转拼团商品详情
        */
@@ -532,7 +567,6 @@
           this.la = this._la.export()
         }
       },
-
       copyOrderNO() {
         wx.setClipboardData({
           data: this.order.orderSn,
@@ -543,7 +577,7 @@
 
       getDetail({ orderId }) {
         wx.showLoading({ title: '加载中' })
-        Api.order.detail({ orderId })
+        Api.order.detail({ orderId  })
         .then(res => {
           if (res.code === Api.CODES.SUCCESS) {
             this.order = res.data
@@ -603,7 +637,7 @@
 
           if (res.code === Api.CODES.FAILED) {
              wx.showToast({
-              title: '抱歉！商品已打包，不能取消订单',
+              title: res.message,
               icon: 'none'
             })
             return false
@@ -781,18 +815,22 @@
       /**
        * 关闭摇一摇红包
        */
-      handleCloseRedPackage () {
-        this.redPackageShow = false
-        setTimeout(() => {
-          wx.hideLoading()
-          wx.navigateTo({
-            url: `/pages/order/detail/main?id=${ order.orderId }`
-          })
-        }, 1000)
-      }
+      // handleCloseRedPackage () {
+      //   this.redPackageShow = false
+      //   setTimeout(() => {
+      //     wx.hideLoading()
+      //     wx.navigateTo({
+      //       url: `/pages/order/detail/main?id=${ order.orderId }`
+      //     })
+      //   }, 1000)
+      // }
     },
 
     onLoad(e) {
+      console.log('提货',this.$store.state.pickup)
+      let pickup=this.$store.state.pickup;
+
+      this.daojishi()
       if (e.id) {
         this.id = e.id
         this.getDetail({ orderId: e.id })
@@ -818,7 +856,7 @@
     },
 
     onUnload() {
-      clearInterval(this.__timer)
+    clearInterval(this.__timer)
     }
   }
 </script>
@@ -1017,6 +1055,8 @@
       box-shadow: 0 6rpx 4rpx rgba(147, 147, 147, 0.57);
     }
   }
+
+
 
   .footer-bar {
     padding: 15rpx 30rpx;

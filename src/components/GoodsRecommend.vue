@@ -3,6 +3,7 @@
     <div class="goods-recommend__title">
       <template v-if="type == 1">为你推荐</template>
       <template v-else-if="type == 2">猜你喜欢</template>
+
     </div>
     <div class="goods-recommend__bd">
       <goods-tabs

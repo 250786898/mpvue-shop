@@ -35,7 +35,7 @@
             <div class="weui-cell__hd">
               <img src="/static/images/deliverycode_icon_gifrbag@2x(1).png">
             </div>
-            <div class="weui-cell__bd">提货时间：{{ showPickUpTime }}</div>
+            <div class="weui-cell__bd">提货时间：{{result.shippingTime }}</div>
           </div>
         </div>
       </div>
@@ -60,19 +60,19 @@
 
     methods: {
     // 扫码后提示
-      getorderPickUpcode() {
-       
+      findOrderStat() {
         // wx.showLoading()
-        Api.order.getorderPickUpcode({ orderId: this.orderId })
+        Api.order.findOrderStat({ orderId: this.orderId })
         .then(res => {
           if (res.code === Api.CODES.SUCCESS) {
             // this.result = res.data
             console.log('判断',res )
             wx.showToast({
-                title: '成功',
+                title: '核销成功',
                 icon: 'success',
-                duration: 1500
+                duration: 1000
             })
+            return  false
             clearInterval(this.timer) 
           } 
        
@@ -89,8 +89,10 @@
           if (res.code === Api.CODES.SUCCESS) {
             this.result = res.data
             console.log('条形码',this.result )
-            wxbarcode.barcode('barcode', this.result.pickUpCode, 620, 160)
-            wxbarcode.qrcode('qrcode', this.result.pickUpCode, 360, 360)
+            setTimeout(()=>{
+              wxbarcode.barcode('barcode', this.result.pickUpCode, 620, 160)
+              wxbarcode.qrcode('qrcode', this.result.pickUpCode, 360, 360)
+            },200);
           } else {
             wx.showToast({
               title: res.message,
@@ -147,16 +149,18 @@
 
       //恢复之前屏幕亮度
       recoverScreen () {
-         
         var that = this;
         wx.setScreenBrightness({
-
         value: that.currentBrightness
-
         })
       }
     },
  computed: {
+
+      pickup(){
+         let pickup=this.$store.state.pickup;
+         return pickup
+      },
 
    showPickUpTime () { //显示的提货时间
         const hours = new Date().getHours()
@@ -179,11 +183,12 @@
        clearInterval(this.timer) 
     },
     onLoad(e) {
+      console.log('提货',this.$store.state.pickup)
        clearInterval(this.timer) 
       this.orderId = e.id
       this.getOrderPickUpCodeDetail()
       this.timer = setInterval(() => { 
-        this.getorderPickUpcode()
+      this.findOrderStat()
       }, 3000)
     
     }

@@ -131,7 +131,7 @@
             <div>提货码</div>
           </navigator> -->
           <!-- 1.0 -->
-          <navigator url="/pages/coupon/index/main" class="weui-flex__item">
+          <navigator @click="discount" class="weui-flex__item">
           <img src="/static/images/coupon_icon.png">
             <!-- <div class="primary" v-if="sessionId">{{ personCenter.couponNum }}</div> -->
             <!-- <div class="primary" v-else="sessionId">***</div> -->
@@ -160,9 +160,6 @@
         </div>
       </div>
     </div>
- 
-   
-
     <!-- <div>
       <div class="weui-mask" id="iosMask" style="opacity: 1;"></div>
       <div class="weui-actionsheet weui-actionsheet_toggle" id="iosActionsheet">
@@ -178,7 +175,6 @@
       </div> -->
     </div>
 </template>
-
 <script>
   import { mapState } from 'vuex'
   import { Api, ORDER_STATE, ORDER_STATE_TEXT } from '@/http/api'
@@ -191,7 +187,6 @@
         completedTipShown: false
       }
     },
-
     computed: {
       ...mapState(['sessionId', 'personCenter'])
     },
@@ -228,7 +223,6 @@
         //             })
         //             break;
         //           case 2:
-
         //         }
         //       },
         //       fail: res => {
@@ -238,6 +232,26 @@
         //   }
         // })
 
+      },
+// 优惠券
+      discount() {
+        if (this.sessionId) {
+          wx.navigateTo({
+            url: '/pages/coupon/index/main'
+          })
+        } else {
+          wx.showModal({
+            content: '请先登录',
+            confirmText: '去登录',
+            success: res => {
+              if (res.confirm) {
+                wx.navigateTo({
+                  url: '/pages/mine/auth/main'
+                })
+              }
+            }
+          })
+        }
       },
 
       toSettings() {
@@ -275,7 +289,6 @@
             }
         }
       }
-
     },
 
     onShow() {

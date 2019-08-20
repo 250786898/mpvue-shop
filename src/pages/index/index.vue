@@ -1,6 +1,8 @@
 <template>
   <div class="container" v-if="located">
     <div class="headline">乐家生鲜</div>
+<!-- 测试倒计时 -->
+    <!-- <div class='timeLeft'>还有：<text style='color:red'>{{timeLeft}}</text></div> -->
     <!-- 搜索栏 -->
     <goods-search-bar :location="location" :showtip="tipShown" > </goods-search-bar>
     <!-- if 配送范围内 -->
@@ -29,9 +31,9 @@
         </swiper>
       </div>
     
+
       <!-- GoodsRecommend -->
       <goods-recommend></goods-recommend>
-
       <!-- Fixed -->
       <!-- <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/home_img_Redenvelopes@2x.png" class="fixed-redpack" @click="navigateToRedpack"> -->
       <img
@@ -120,7 +122,7 @@ export default {
       lat:'',
       sto:'',
       shareStoreId: 0 , //分享的门店id
-    
+     
     };
   },
   created() {
@@ -133,6 +135,8 @@ export default {
   },
 
   computed: {
+
+
     ...mapState(["location", "storeId"]),
     swiperHeightStyle() {
       return this.swiperHeight ? `height: ${this.swiperHeight}rpx;` : "";
@@ -166,6 +170,7 @@ export default {
     // console.log('onUnload')
   },
   methods: { 
+
      getData(){
        Api.index.storeList({ longitude:this.long, latitude:this.lat,storeId:this.sto }).then(res => {
          this.setInitStoreInfo(res.data.storeList)
@@ -183,6 +188,7 @@ export default {
         const storeItem = this.findStoreByStoreId(storeList,this.shareStoreId)
         this.$store.commit('setItem', this.shareStoreId )
         this.$store.commit('setItem', storeItem )
+        this.$store.commit('setItem', storeList.storeId )
         this.getStoreData(this.shareStoreId)
       }else{
          console.log('NO情况',storeList[0].storeId)
@@ -369,6 +375,19 @@ export default {
   },
 
   onShow() {
+
+      // this.data.timer = setInterval(() =>{ //注意箭头函数！！
+      // this.setData({
+      //   timeLeft: this.getTimeLeft(this.data.datetimeTo)//使用了util.getTimeLeft
+      // });
+      // if (this.data.timeLeft == "0天0时0分0秒") {
+      //   clearInterval(this.data.timer);
+      //   }
+      // }, 1000);
+
+
+
+
     // console.log(this.location);
     if (!this.location.longitude) {
       //获取当前定位
@@ -428,6 +447,7 @@ export default {
 
 
   onLoad(e) {
+
     console.log('this.$mp.page.options',this.$mp.page.options.storeId)
     const shareStoreId = this.$mp.page.options.storeId
     if(shareStoreId) {

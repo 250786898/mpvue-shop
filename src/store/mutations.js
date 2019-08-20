@@ -70,4 +70,10 @@ export default {
   setItem(state,payload){
     state.shopDetail=payload
   },
+  setRunTime(state,payload){
+    state.runingtime = payload
+  },
+  pickuptime(state,payload){
+    state.pickup=payload
+  }
 }
