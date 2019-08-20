@@ -23,8 +23,10 @@
     <!-- 待支付、待配送、订单已关闭-->
     <div v-else>
       <div class="order-status bg-gradient">
+       
         <!-- 待支付 -->
         <template v-if="order.state === 10">
+          <img src="/static/images/unpaid_icon.png" alt="">
           待支付<span v-if="true">({{timers}}秒后自动取消订单）</span>
         </template>
         <!-- 待配送 -->
@@ -36,7 +38,8 @@
             </div>
           </template>
           <template v-else>
-            <div>
+             <img src="/static/images/orderdetail.png" alt="">
+            <div style="margin-left:31rpx;">
               待提货
               <div class="desc">提货时间 ：{{  order.pickTime }}</div>
              
@@ -56,9 +59,11 @@
         </template>
         <!-- 订单已关闭 -->
         <template v-else-if="order.state === 50">
+           <img src="/static/images/close_icon.png" alt="">
           订单已关闭
         </template>
         <template v-else-if="order.state === 0 && !isAssemble">
+           <img src="/static/images/close_icon.png" alt="">
           订单已取消
         </template>
         <template v-else-if="order.state === 0 && isAssemble">
@@ -862,10 +867,16 @@
 </script>
 
 <style>
-  page { background-color: #F5F5F5; padding-bottom: 120rpx; }
+  page { background-color: #F5F5F5;
+         padding-bottom: 120rpx;
+        padding-left:24rpx; 
+        }
 </style>
 
 <style lang="scss" scoped>
+template{
+  padding-left:30rpx;
+}
   .group-buy-bar {
     &__tag{
       margin-left:10rpx;
@@ -879,18 +890,29 @@
       color:#FF1414;
       border: 1px solid #FF1414;
     }
+
   }
   .order-status {
+    position: relative;
     height: 196rpx;
-    padding: 0 30rpx;
     display: -webkit-flex;
     display: flex;
     align-items: center;
     font-size: 36rpx;
     color: #fff;
     word-break: break-all;
+    margin-top:24rpx;
+    width: 702rpx;
     .desc {
       font-size: 28rpx;
+    }
+    img{
+      position: absolute;
+      top:26rpx;
+      right:57rpx;
+      width:150rpx; 
+      height: 150rpx;
+
     }
   }
 
@@ -908,6 +930,7 @@
 
   .order-shop {
     background-color: #fff;
+    width: 702rpx;
     &__title {
       font-size: 26rpx;
       color: $text-black;
@@ -923,6 +946,8 @@
 
   .weui-form-preview {
     margin-top: 20rpx;
+    width: 702rpx;
+    border-radius: 14rpx;
     // padding-bottom: 100rpx;
     &:before, &:after {
       display: none;

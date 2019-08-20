@@ -121,12 +121,7 @@
     </div>
 
     <div class="empty-tip" v-else>
-      <img src="/static/images/shopcart_icon_bg.png@2x.png">
-      <div class="empty-tip__text empty-tip__text_main">购物车为空~</div>
-      <div class="empty-tip__text">赶紧去慰劳一下自己吧~</div>
-      <button type="primary" class="radius" @click="toIndex">
-        快去逛一逛吧~
-      </button>
+     <EmptyCart></EmptyCart>
     </div>
 
     <!-- <goods-recommend :type="1"></goods-recommend> -->
@@ -166,7 +161,8 @@
   import GoodsRecommend from '@/components/GoodsRecommend'
   import Counter from '@/components/Counter'
   import GoodsPrice from '@/components/GoodsPrice'
-  
+  import EmptyCart from './components/EmptyCart/index'
+
   const OPEN_WIDTH = 200
   const MOVE_THRESHOLD = 30
   const SLIDE_PARAMS = {
@@ -181,7 +177,8 @@
     components: {
       GoodsRecommend,
       Counter,
-      GoodsPrice
+      GoodsPrice,
+      EmptyCart
     },
 
     data () {
@@ -493,12 +490,18 @@
 
 <style lang="scss" scoped>
   .empty-tip {
-    padding-top: 220rpx;
+    padding-top: 100rpx;
     padding-bottom: 220rpx;
     border-bottom: 1rpx solid #F4F4F4;
+    font-size:24rpx;
     button {
       margin-top: 50rpx;
       width: 428rpx;
+    }
+    img{
+      width: 380rpx;
+      height: 264rpx;
+      margin-bottom:0rpx;
     }
   }
 

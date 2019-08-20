@@ -87,12 +87,11 @@
           <h2 style="font-weight:bold;margin-bottom:20rpx">{{ storeLid.storeName }}</h2>
           <p style="color:#333;">{{storeLid.city+storeLid.area +storeLid.storeAddress }}</p>
           <h3 style="color:#999;">团长：{{ storeLid.franchiseeName }}</h3> 
-          <p>{{item}}</p>
           <h4><span>电话：</span>{{  storeLid.franchiseeTel}}</h4>
           <p style="margin-bottom:20rpx">提货时间: 9：00 - 20：00</p>
           <div class="box">
             <img style="right:0rpx;" src="/static/images/rectangle.png" alt="">
-            <p style="position: absolute;top:118rpx;right:-484rpx;color:#fff;font-size:28rpx;">推荐</p>
+            <p class="recommend" >推荐</p>
           </div>
         </div>
         <!-- <div class="weui-cell__ft"> -->
@@ -112,7 +111,7 @@
       
       <div class="weui-cell" v-for=" item  in storeList" :key="item.storeId" @click="select(item)">
         <div class="tuijian" v-if="index <= 2">
-          <P class="tuijian_pp" style="font-size: 28rpx;color:#fff;position:absolute;top:127rpx;right:-10rpx;width:79rpx;z-index:1;">推荐</P>
+          <P class="tuijian_pp" >推荐</P>
           <img style="right:0rpx;" src="/static/images/rectangle.png" alt="">
           </div>
         <div  class="weui-cell__bd">
@@ -258,7 +257,9 @@
      },
 
       /**
-       * @description 显示输入框
+       * @param {Objec} url 
+       * @description 显示输入框\
+       * @returns 
        */
       showInput() {
         this.inputShowed = true
@@ -853,7 +854,15 @@
         // position: relative;
         top:95rpx;
         right:0rpx;
-
+        &_pp{
+            font-size: 28rpx;
+            color:#fff;
+            position:absolute;
+            top:127rpx;
+            right:-2rpx;
+            width:79rpx;
+            z-index:1;
+        }
         img{
           width: 95rpx;
           height: 38rpx;
@@ -871,6 +880,13 @@
         position: absolute;
         top:33%;
         right:0rpx;
+      .recommend{
+          position: absolute;
+          top:117rpx;
+          right:-480rpx;
+          color:#fff;
+          font-size:28rpx;
+      }
         img{
           width: 95rpx;
           height: 38rpx;
@@ -901,6 +917,7 @@
         height:35rpx;
         font-size:28rpx;
         color: #999;
+        margin-bottom:4rpx;
       }
       h4{
         width:355rpx;

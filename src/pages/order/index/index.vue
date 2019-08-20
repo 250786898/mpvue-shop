@@ -365,7 +365,7 @@
 </script>
 
 <style>
-  page { background-color: #F4F4F4; }
+  page { background-color: #F4F4F4;padding-left:24rpx; }
 </style>
 
 <style lang="scss" scoped>
