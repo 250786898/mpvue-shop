@@ -3,6 +3,7 @@
     <div class="goods-recommend__title">
       <template v-if="type == 1">为你推荐</template>
       <template v-else-if="type == 2">猜你喜欢</template>
+
     </div>
     <div class="goods-recommend__bd">
       <goods-tabs
@@ -64,7 +65,7 @@
       getGoodsClassList(storeId, pcId, pageNumber, pageSize) {
         this.loading = true
         let promise
-
+        console.log('getGoodsClassList',storeId)
         if (this.type === 1) {
           promise = Api.index.topGoods({ storeId, pcId, pageNumber, pageSize }).then(res => {
             if(res.code == Api.CODES.SUCCESS){

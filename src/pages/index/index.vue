@@ -1,6 +1,8 @@
 <template>
   <div class="container" v-if="located">
     <div class="headline">乐家生鲜</div>
+<!-- 测试倒计时 -->
+    <!-- <div class='timeLeft'>还有：<text style='color:red'>{{timeLeft}}</text></div> -->
     <!-- 搜索栏 -->
     <goods-search-bar :location="location" :showtip="tipShown" > </goods-search-bar>
     <!-- if 配送范围内 -->
@@ -29,9 +31,9 @@
         </swiper>
       </div>
     
+
       <!-- GoodsRecommend -->
       <goods-recommend></goods-recommend>
-
       <!-- Fixed -->
       <!-- <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/home_img_Redenvelopes@2x.png" class="fixed-redpack" @click="navigateToRedpack"> -->
       <img
@@ -72,11 +74,7 @@
           </navigator>
         </swiper>
       </div>
-
-
     </template>
-
-
   </div>
 </template>
 
@@ -122,7 +120,9 @@ export default {
       navigateToUrl: config.ACTIVITY_TYPE,
       long:'',
       lat:'',
+      sto:'',
       shareStoreId: 0 , //分享的门店id
+     
     };
   },
   created() {
@@ -135,6 +135,8 @@ export default {
   },
 
   computed: {
+
+
     ...mapState(["location", "storeId"]),
     swiperHeightStyle() {
       return this.swiperHeight ? `height: ${this.swiperHeight}rpx;` : "";
@@ -167,13 +169,10 @@ export default {
   onUnload() {
     // console.log('onUnload')
   },
-  methods: {
-
-  
-      
+  methods: { 
 
      getData(){
-       Api.index.storeList({ longitude:this.long, latitude:this.lat }).then(res => {
+       Api.index.storeList({ longitude:this.long, latitude:this.lat,storeId:this.sto }).then(res => {
          this.setInitStoreInfo(res.data.storeList)
          
        })
@@ -185,11 +184,16 @@ export default {
     setInitStoreInfo (storeList) {
       if(this.shareStoreId) {
         //有分享情况
+        console.log('有分享情况')
         const storeItem = this.findStoreByStoreId(storeList,this.shareStoreId)
         this.$store.commit('setItem', this.shareStoreId )
         this.$store.commit('setItem', storeItem )
+        this.getStoreData(this.shareStoreId)
       }else{
-        this.$store.commit('setItem',{storeName:storeList[0].storeName,storeId:storeList[0].storeId})
+         console.log('NO情况',storeList[0].storeId)
+         this.$store.commit("setStoreId", storeList[0].storeId); 
+         this.$store.commit('setItem',{storeName:storeList[0].storeName,storeId:storeList[0].storeId})
+         this.getStoreData(storeList[0].storeId)
       }
     },
 
@@ -209,8 +213,6 @@ export default {
       console.log('tt',this.formId)
     },
 
-
-
     // 获取店铺数据
     getStoreData(storeId) {
       Api.index.getIndexData({ storeId }).then(res => {
@@ -225,7 +227,6 @@ export default {
       });
    
     },
-
     //优惠券加载
     getCouponsFresh() {
       Api.activity
@@ -240,8 +241,6 @@ export default {
           }
         });
     },
-
- 
 
     // 获取配送外时的首页数据
     getDataOutScope() {
@@ -280,7 +279,7 @@ export default {
             if (res.data.isInScope === 1) {
               console.log("在配送范围内");
               console.log("setStoreId", res.data.storeId);
-              this.$store.commit("setStoreId", this.shareStoreId || res.data.storeId);
+              // this.$store.commit("setStoreId", this.shareStoreId || res.data.storeId);
               this.$store.commit("setStoreInfo", res.data);
               this.getStoreData(this.shareStoreId || res.data.storeId);
             } else {
@@ -372,14 +371,26 @@ export default {
         url: "/pages/goods/index/main"
       });
     },
-
   },
 
   onShow() {
-    // console.log(this.location);
 
+      // this.data.timer = setInterval(() =>{ //注意箭头函数！！
+      // this.setData({
+      //   timeLeft: this.getTimeLeft(this.data.datetimeTo)//使用了util.getTimeLeft
+      // });
+      // if (this.data.timeLeft == "0天0时0分0秒") {
+      //   clearInterval(this.data.timer);
+      //   }
+      // }, 1000);
+
+
+
+
+    // console.log(this.location);
     if (!this.location.longitude) {
       //获取当前定位
+      console.log('获取当前定位')
       wx.showLoading({ title: "定位中", mask: true });
       let amap = new AMapWX({ key: config.AMAP_KEY });
       //检索周边的POI
@@ -387,6 +398,8 @@ export default {
         success: res => {
           // console.log('e.success',res)
           this.$store.commit("setLocationInfo", res.markers[0]);
+
+          console.log('8888',res.markers[0])
           this.long=res.markers[0].longitude;
           this.lat=res.markers[0].latitude
           this.getData();
@@ -433,6 +446,7 @@ export default {
 
 
   onLoad(e) {
+
     console.log('this.$mp.page.options',this.$mp.page.options.storeId)
     const shareStoreId = this.$mp.page.options.storeId
     if(shareStoreId) {
@@ -441,7 +455,7 @@ export default {
     }
     
     this.r = e.r;
-    mta.Page.init();
+  
 
   },
 

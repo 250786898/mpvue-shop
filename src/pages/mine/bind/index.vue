@@ -61,6 +61,7 @@
                   this.login({
                     openid: res.data.openid,
                     mobile: res.data.mobile,
+                    
                   })
                 }
               })
@@ -75,13 +76,17 @@
           })
 
         
-        } else if (detail.errMsg !== 'getPhoneNumber:fail user deny') {
-          wx.showModal({
-            title: '获取手机号码失败',
-            content: detail.errMsg
-          })
-        }
-      },
+        } else if (detail.errMsg !== 'getPhoneNumber:获取手机号失败') {
+          // wx.showModal({
+          //   title: '获取手机号码失败',
+          //   content: detail.errMsg
+          // })
+          //  wx.navigateTo({ url: '/pages/mine/auth/main' })
+              wx.navigateBack({
+              delta: 1
+              })
+          }
+          },
 
       toRegister() {
         wx.navigateTo({ url: '/pages/mine/register/main' })
@@ -111,7 +116,10 @@
             }
           })
           // this.$store.commit('setSessionId', res.data.sessionId)
+
+    
           // wx.switchTab({ url: '/pages/mine/main' })
+
         })
         .catch(e => console.log(e))
         .then(() => wx.hideLoading())

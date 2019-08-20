@@ -15,13 +15,12 @@
       <img src="/static/images/Spin-1s-60px.gif">
     </div>
 
-    <div class="goods-tabs__tip" v-if="isAllLoaded && goodsList.length">亲、已经看到最后啦！</div>
+    <div class="goods-tabs__tip" v-if="isAllLoaded && goodsList.length">亲,已经看到最后啦！</div>
 
     <div v-if="isAllLoaded && !goodsList.length" class="empty-tip">
       <div class="empty-tip__text">目前没有相关商品</div>
     </div>
 
-  
   </div>
 </template>
 
@@ -90,7 +89,6 @@
     padding: 0 24rpx;
     // background-color:rgb(190, 29, 29);
     // margin-bottom: 16rpx;
-    
   }
   .goods-tabs {
 
@@ -105,8 +103,10 @@
       }
     }
     &__tip {
+      height: 116rpx;
       padding: 20rpx;
       font-size: 26rpx;
+      line-height: 124rpx;
       color: $text-gray;
       text-align: center;
     }

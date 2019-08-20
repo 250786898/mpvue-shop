@@ -14,9 +14,9 @@ export default {
   cartNum: 0,
 
   tempOrder: {},
-
   gradePrivilegeExplain: '',
   cityName:'广州市',
   shopDetail:{},
-
+  runingtime:0,
+  pickup:''
 }

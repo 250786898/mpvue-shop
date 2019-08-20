@@ -12,7 +12,7 @@
 
       <div class="weui-media-box__bd weui-media-box__bd_in-appmsg">
         <div class="weui-media-box__title">{{ item.goodsName }}</div>
-        <div class="weui-media-box__desc">{{ item.goodsSellDesc }}</div>
+        <div class="weui-media-box__desc" v-if="item.shareDescription">{{ item.shareDescription || '' }}</div>
         <div class="goods-row-item__tb" v-if="item">
   <!-- 替换组件 -->
     <div class="goods-row-item__price"  >
@@ -61,18 +61,15 @@
 
     methods: {
         attached(){
-     
        console.log('333333',this.$store.state.shopDetail.storeId)
-
       //   Api.index.storeGoodsListByshopId({
-      //   storeId: this.shopMsg.storeId
+      //   storeId: this.storeId
       // })
       // .then(res => {
-      //   // if (res.code === Api.CODES.SUCCESS) {
-      //     // this.storeList = res.data.storeList
-
-      //     console.log('777',res);
-      //   // }
+      //   if (res.code === Api.CODES.SUCCESS) {
+      //     console.log('9999',res)
+      //     this.storeList = res.data.storeList
+      //   }
       // })
 
     },
