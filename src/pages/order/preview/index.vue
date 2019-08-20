@@ -134,8 +134,8 @@
     <!-- 底部 -->
     <div class="footer-bar">
       <span>合计:</span><span class="price">￥{{ orderAmount }}</span>
-      <form report-submit @submit="uploadFormId">
-        <button type="primary" class="radius bg-gradient" form-type="submit" @click="submit">提交订单</button>
+      <form report-submit @submit="uploadFormId" >
+        <button  type="primary" class="radius bg-gradient" form-type="submit" @click="submit">提交订单</button>
       </form>
     </div>
 
@@ -237,6 +237,7 @@
           return 0
         }
       },
+      
       showPickUpTime () { //显示的提货时间
         const hours = new Date().getHours()
         let showPickUpTime = ''
@@ -246,8 +247,11 @@
         }else{
           showPickUpTime = this.getDateStr(1)
         }
+         this.$store.commit('pickuptime',showPickUpTime)
         return showPickUpTime
+         
       }
+     
     },
 
     methods: {
@@ -395,8 +399,8 @@
         if(this.result.cartOrderVoList[0].activityType == 30) {
           this.activityType = 0
         }
-        this.bills[0].value = `-￥${ (this.result.couponPrice || 0).toFixed(2) }`
-        this.bills[1].value = `￥${ (this.result.shippingFee || 0).toFixed(2) }`
+        // this.bills[0].value = `-￥${ (this.result.couponPrice || 0).toFixed(2) }`
+        // this.bills[1].value = `￥${ (this.result.shippingFee || 0).toFixed(2) }`
       },
 
       onComplete(password) {
@@ -538,6 +542,7 @@
               resolve(this.order)
             } else {
               let form = {
+                showPickUpTime:this.showPickUpTime,
                 formId: this.formId,
                 cartIds: this.cartIds,
                 orderMessages: this.orderMessages,
@@ -599,7 +604,6 @@
                 // }
 
                 let { day, startTime, endTime } = this.selfHelpSelected
-
                 day = day === '今天' ? TODAY_DATE :
                   day === '明天' ? TOMORROW_DATE :
                   day
@@ -738,6 +742,7 @@
     },
 
      onLoad(e) {
+       console.log('dadadadad',this.$store.state.runingtime)
       // let teamOrder = wx.getStorageSync('teamOrder') || ''
       // if(teamOrder) {
       //   this.teamOrder = teamOrder
@@ -747,7 +752,6 @@
       //   wx.removeStorageSync('teamOrder')
       // }
       this.cartIds = e.cartIds
-        
       this.getCheckoutData()
           if(e.storeId) {
             this.$bus.$on('shopChange', e => {
@@ -755,9 +759,7 @@
               // this.getTimeRange(e.storeId)
             })
           }
-          
-           this._setDefaultAddress()  //设置默认第一个门店地址
-      
+      this._setDefaultAddress()  //设置默认第一个门店地址
     },
 
     onUnload() {
@@ -850,10 +852,12 @@
     }
   }
 
+
   /** TODO: 通用化考虑 */
   .goods-list-panel {
     .weui-panel {
       &__hd {
+        padding: 28rpx 30rpx 20rpx 60rpx;
         padding-top: 20rpx;
         font-size: 28rpx;
         color: $text-black;
@@ -862,6 +866,9 @@
           vertical-align: middle;
           width: 24rpx;
           height: 24rpx;
+          position: absolute;
+          top:35%;
+          left:22rpx;
         }
         &:after { left: 0; }
         .weui-cell__ft_in-access {
@@ -930,11 +937,9 @@
   .footer-bar {
     padding: 15rpx 30rpx;
     background-color: #fff;
-    // border-top: 1rpx solid #DEDEDE;
     text-align: right;
-    // background-color: #DEDEDE;
     z-index: 10;
-
+    
     span {
       font-size: 34rpx;
       font-weight: 700;
@@ -954,6 +959,12 @@
       width: 220rpx;
       vertical-align: middle;
     }
+  }
+
+  .box{
+    height: 30rpx;
+    width: 100%;
+  
   }
 
   .timerange-picker {

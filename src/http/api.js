@@ -285,7 +285,7 @@ export const Api = {
       })
     },
 
-    // 6.0  常用门店信息
+    // 6.0  当前门店信息
     storeLid({ storeId }) {
       return post({
         url: '/index/findNowStore',
@@ -306,10 +306,10 @@ export const Api = {
 
 
 
-    queryByRegin({ regin }) {
+    queryByRegin({ latitude,longitude,storeNameLike }) {
       return post({
         url: '/index/queryByRegin',
-        data: { regin }
+        data: { latitude,longitude,storeNameLike }
       })
     }
   },
@@ -728,7 +728,7 @@ export const Api = {
   order: {
 
     // 提货码调用
-    getorderPickUpcode({ orderId }) {
+    findOrderStat({ orderId }) {
       return post({
         url: '/order/findOrderStat',
         data: { orderId }
@@ -745,6 +745,7 @@ export const Api = {
 
     // 提交订单
     submit({
+      showPickUpTime,
       formId,
       cartIds,
       orderMessages,
@@ -768,6 +769,7 @@ export const Api = {
       return post({
         url: '/order/submit',
         data: {
+          showPickUpTime,
           formId,
           cartIds,
           orderMessages,

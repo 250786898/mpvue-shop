@@ -43,7 +43,7 @@
     <div class="weui-cell goods-hd-info">
       <div class="weui-cell__bd">
         <div class="goods-hd-info__title">{{ goodsDetailInfo.goodsName }}</div>
-        <div class="goods-hd-info__desc">{{ goodsDetailInfo.goodsSellDesc }}</div>
+        <div class="goods-hd-info__desc">{{ goodsDetailInfo.shareDescription }}</div>
         <!-- Type start: 限时抢购 -->
         <div class="goods-hd-info__bd goods-hd-info__bd_member-only"
           v-if="activityInfo && activityInfo.activityType == 10">
@@ -348,7 +348,6 @@
         groupDialogShowed: false,
         countModifyDialogShowed: false,
         backToTopButtonShowed: false,
-
         activityInfo: {}, // 活动信息
         goodsDetailInfo: {},
         commendGoodsList: [],
@@ -365,9 +364,12 @@
     },
 
     onLoad(e) {
+      // console.log('111',this.$store.state.shopDetail)
+      this.storeId=this.$store.state.shopDetail.storeId
+      console.log('获取门店id',this.storeId)
       //获取拼团id
       this.groupOrderId = this.$mp.page.options.groupOrderId
-      //  this.storeId = this.$mp.page.options.storeId
+       this.storeId = this.$mp.page.options.storeId
       // this.page.activityId = e.id
       // this.page.storeId = e.storeId || this.storeId
       // this.page.groupOrderId = e.groupOrderId   
@@ -563,11 +565,12 @@
             icon: 'none'
           })
         }
-
+        console.log('options.shareStoreId',options.shareStoreId)
+        console.log('this.storeId',this.storeId)
         wx.showLoading()
         let params = {
           goodsId: options.id,
-          storeId: this.storeId || '162'
+          storeId: options.shareStoreId || this.storeId
         }
 
         if (options.activityId) {
@@ -669,6 +672,14 @@
         })
       },
 
+    setStore () {
+      if(this.$mp.page.options.shareStoreId){
+        //如果从分享别人的商品进来设置门店ID为分享者的门店
+        this.$store.commit('setStoreId', this.$mp.page.options.shareStoreId)
+      }
+      
+    },
+
       /**
        * @description 拼团活动列表开始倒计时
        */
@@ -686,16 +697,23 @@
     },
     /*
      * @description 页面分享
-     */
+    */
     onShareAppMessage() {
+      console.log('shareInfo',this.$mp.page)
+      let options = `id=${this.$mp.page.options.id}&shareStoreId=${this.storeId}`
+      console.log('options',options)
       return {
         title: this.goodsDetailInfo.goodsName,
-        path: `/pages/index/main?r=${ encodeURIComponent(serialize(this.$mp.page)) }`,
+        path: `/pages/goods/detail/main?${options}`,
         imageUrl: this.goodsDetailInfo.goodsImage
-      }
+      }    
+      
+
     },
 
+    
     onShow () {
+      this.setStore()
       this.activityInfo = {}
       this.goodsDetailInfo = {}
       this.commendGoodsList = []
@@ -765,6 +783,7 @@
       border-color: #EAEAEA;
     }
     &__title {
+      font-weight:bold;
       overflow: hidden;
       text-overflow: ellipsis;
       display:  -webkit-box;
@@ -779,6 +798,7 @@
       font-size: 24rpx;
     }
     &__price {
+      font-weight:bold;
       color: $text-red;
       font-size: 46rpx;
       &-old {
@@ -1318,6 +1338,7 @@
 
   .goods-hd-info__bd_member-only {
     .goods-hd-info__price {
+      font-weight:bold;
       font-size: 34rpx;
       padding-left: 6rpx;
     }

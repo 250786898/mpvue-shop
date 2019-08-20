@@ -29,8 +29,7 @@
 
     methods: {
       select(item) {
-        console.log('999')
-
+        
         // this.cityname = this.$store.state.cityName
         //   Api.index.storeList({
            
