@@ -46,7 +46,7 @@
 </template>
 
 <script>
-  import CouponPopup from './CouponPopup.vue'
+  import CouponPopup from '@/components/CouponPopup.vue'
   export default {
      components: {
       CouponPopup

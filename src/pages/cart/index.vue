@@ -1,37 +1,24 @@
 <template>
   <div>
     <div class="goods-list" v-if="(result.cartItemResultList && result.cartItemResultList.length) || (result.failureGoodsList && result.failureGoodsList.length)">
-      <!-- <template v-if="result.globalActivityId">
-        <div class="top-tip">
-          <div class="weui-cell weui-cell_access">
-            <div class="weui-cell__hd">
-              <div class="top-tip__tag">包邮</div>
-            </div>
-            <rich-text :nodes="result.globalActivityDescribe" class="weui-cell__bd"></rich-text>
-            <navigator url="/pages/index/main" open-type="switchTab" class="weui-cell__ft weui-cell__ft_in-access" v-if="!result.matchState">去凑单</navigator>
-          </div>
-        </div>
-        <div class="top-tip__placeholder"></div>
-      </template> -->
-      
       <div class="group" v-for="(list, activityId) in groupedCartList" :key="index">
-        <!-- <div class="group-tip" v-if="activityId && list[0].activityDesc"> -->
-        <div class="group-tip" v-if="false">
-          <div class="weui-cell weui-cell_access">
-            <div class="weui-cell__bd">{{ list[0].activityDesc }}</div>
-            <!-- <div class="weui-cell__bd">还差<span>10.00</span>元 满50减10元</div> -->
-            <!-- 会员 -->
-            <!--
-            <navigator v-if="list[0].activityType == 50"
-              class="weui-cell__ft weui-cell__ft_in-access"
-              :url="'/pages/activity/main?id=' + activityId + '&activityType=' + list[0].activityType + '&activitySubType=' + (list[0].activitySubType || 0)">
-              去凑单
-            </navigator>
-            -->
+        <div class="group-header">
+          <div class="group-header-left">
+             <label class="">
+                <switch type="checkbox" class="weui-check" :checked="allChecked" @change="onAllCheckedChange"></switch>
+                <div class="weui-check__hd_in-checkbox">
+                  <icon class="weui-icon-checkbox_circle" type="circle" size="20" v-if="!allChecked"></icon>
+                  <icon class="weui-icon-checkbox_success" type="success" color="#0EDABC" size="20" v-if="allChecked"></icon>
+                </div>
+              </label>
+              <span class="group-desc">门店自提</span>
+          </div>
+          <div class="group-header-right">
+            <span>删除</span>
           </div>
         </div>
-        <div v-for="(item,index) in list" :key="item.goodsId">
-          <movable-area class="slider-left-item" style="width: 930rpx; margin-left:-180rpx;">
+        <div v-for="(item,index) in list" :key="item.goodsId" class="goods-list-item">
+          <movable-area class="slider-left-item" style="width: 888rpx; margin-left:-180rpx;">
             <movable-view class="slider-left-content"
               damping="0"
               :x="item.x"
@@ -42,11 +29,11 @@
               <div class="weui-panel goods-list-panel" >
                 <div class="weui-panel__bd">
                   <div class="weui-media-box weui-media-box_appmsg">
-                    <label class="checkbox">
+                    <label class="checkbox goods-item-checkbox">
                       <switch type="checkbox" class="weui-check" :checked="item.checked" @change="onGoodsCBChange($event, item,index)"/>
                       <div class="weui-cell__hd weui-check__hd_in-checkbox">
-                        <icon v-if="item.checked" class="weui-icon-checkbox_success" type="success" size="23" color="#12D6BE" ></icon>
-                        <icon v-else class="weui-icon-checkbox_circle" type="circle" size="23"></icon>
+                        <icon v-if="item.checked" class="weui-icon-checkbox_success" type="success" size="20" color="#12D6BE" ></icon>
+                        <icon v-else class="weui-icon-checkbox_circle" type="circle" size="20"></icon>
                       </div>
                     </label>
                     <div class="weui-media-box__hd weui-media-box__hd_in-appmsg">
@@ -57,12 +44,16 @@
                         <span class="ddd" v-if="item.activityEnable && item.activityType == 20 && item.activityName">{{item.activityName}}</span>
                         {{ item.goodsName }}
                         </div>
+                      <div>
+                        <!-- <limmit-tag :count="item.maxNum" v-if="item.maxNum > 0"/> -->
+                      </div>
                       <div class="goods-row-item__tb">
                         <goods-price :item="item" :showNormalTag="false"></goods-price>
                         <div class="goods-count">
                           <counter v-model="item.itemTotalNum" :max="item.maxNum" @change="onGoodsNumChange(item)"></counter>
                         </div>
                       </div>
+
                     </div>
                   </div>
                 </div>
@@ -75,12 +66,16 @@
             </view>
           </movable-area>
         </div>
+        <div class="group-footer">
+          <span class="sale-date">7月18日 20:00开售</span>
+        </div>
       </div>
       
+      <!-- 失效商品 -->
       <div class="group" v-if="result.failureGoodsList && result.failureGoodsList.length">
         <div class="group__title">失效商品</div>
-        <div v-for="item in result.failureGoodsList" :key="item.goodsId">
-          <movable-area class="slider-left-item" style="width: 930rpx; margin-left:-180rpx;">
+        <div v-for="item in result.failureGoodsList" :key="item.goodsId" class="group-item">
+          <movable-area class="slider-left-item" style="width: 888rpx; margin-left:-180rpx;">
             <movable-view class="slider-left-content"
               damping="0"
               direction="horizontal"
@@ -101,8 +96,8 @@
                       <div class="weui-media-box__desc">
                        
                         <span class="goods-price">￥{{ item.onlinePrice }}</span>
-                        <div class="goods-count" @touchstart.stop>
-                          <counter :disabled="true" v-model="item.goodsNum"></counter>
+                        <div class="goods-count">
+    
                         </div>
                       </div>
                     </div>
@@ -118,6 +113,12 @@
           </movable-area>
         </div>
       </div>
+
+      <!-- 清空失效商品 -->
+      <div class="group clear-invalid-goods-btn">
+        清空失效商品
+      </div>
+
     </div>
 
     <div class="empty-tip" v-else>
@@ -132,12 +133,12 @@
         <label class="weui-cell weui-check__label">
           <switch type="checkbox" class="weui-check" :checked="allChecked" @change="onAllCheckedChange"></switch>
           <div class="weui-check__hd_in-checkbox">
-            <icon class="weui-icon-checkbox_circle" type="circle" size="23" v-if="!allChecked"></icon>
-            <icon class="weui-icon-checkbox_success" type="success" color="#0EDABC" size="23" v-if="allChecked"></icon>
+            <icon class="weui-icon-checkbox_circle" type="circle" size="20" v-if="!allChecked"></icon>
+            <icon class="weui-icon-checkbox_success" type="success" color="#0EDABC" size="20" v-if="allChecked"></icon>
           </div>
-          <div>全选</div>
+          <div class="all-chooice-text">全选</div>
         </label>
-        <div class="weui-flex__item">
+        <div class="weui-flex__item all-count-box">
           <div class="all-count">
             <h4>
               <span class="all-count__desc"></span>
@@ -148,7 +149,7 @@
           </div>
         </div>
         <div>
-          <button type="primary" class="radius bg-gradient"  @click="checkout" :disabled="!hasSelectedGoods">结算</button>
+          <button class="radius bg-gradient settlement-btn"  @click="checkout" :disabled="!hasSelectedGoods">结算</button>
         </div>
       </div>
     </div>
@@ -160,9 +161,10 @@
   import { mapState } from 'vuex'
   import GoodsRecommend from '@/components/GoodsRecommend'
   import Counter from '@/components/Counter'
-  import GoodsPrice from '@/components/GoodsPrice'
-  import EmptyCart from './components/EmptyCart/index'
 
+  import GoodsPrice from './components/GoodsPrice/index'
+  import LimmitTag from './components/LimitTag/index'
+  
   const OPEN_WIDTH = 200
   const MOVE_THRESHOLD = 30
   const SLIDE_PARAMS = {
@@ -178,7 +180,7 @@
       GoodsRecommend,
       Counter,
       GoodsPrice,
-      EmptyCart
+      LimmitTag
     },
 
     data () {
@@ -383,7 +385,12 @@
           }
         })
       },
-
+      
+      /**
+       * @param {Object} item 购物车商品对象
+       * @param {boolean} isFailureGoods 是否是失效商品
+       * @description 删除购物车的商品
+       */
       del(item, isFailureGoods) {
         wx.showLoading({
           title: '移除商品中',
@@ -485,7 +492,7 @@
 </script>
 
 <style>
-  page { background-color: #F5F5F5; }
+  page { background-color: #F5F5F5;padding: 24rpx 0; }
 </style>
 
 <style lang="scss" scoped>
@@ -541,6 +548,15 @@
   }
 
   .group {
+    width: 708rpx;
+    margin: auto;
+    overflow: hidden;
+    border-radius:14rpx;
+    background: $white-color;
+    &-item{
+      border-radius:14rpx;
+      background: $white-color;
+    }
     + .group {
       margin-top: 20rpx;
     }
@@ -568,12 +584,72 @@
       }
     }
     &__title {
-      background-color: #fff;
-      padding: 30rpx 0 10rpx;
+      background-color: $white-color;
+      font-weight:800;
       text-align: center;
       font-size: 32rpx;
-      color: $text-black;
+      color: $text-gray;
+      height: 90rpx;
+      line-height: 90rpx;
+      border-bottom: 1rpx solid #F4F4F4;
     }
+  }
+
+  /*正常商品样式*/
+  .group-header{
+    display: flex;
+    height: 90rpx;
+    padding: 0 20rpx;
+    box-sizing: border-box;
+    justify-content: space-between;
+    border-bottom: 1rpx solid #F4F4F4;
+    align-items: center;
+    &-left{
+      display: flex;
+      font-size: 30rpx;
+      font-weight:800;
+    }
+    &-right{
+      color: #666666;
+      font-size: 28rpx;
+      font-weight: 800;
+    }
+  }
+  .group-footer{
+    height: 74rpx;
+    line-height: 74rpx;
+    text-align: center;
+    color: $text-gray-deep;
+    font-size: 24rpx;
+  }
+  .goods-item-checkbox {
+    margin-left: 48rpx;
+  }
+  .goods-list-item{
+    border-bottom: 1px solid #F4F4F4;
+  }
+  /*正常商品样式*/
+
+  /*失效商品样式*/
+  .clear-invalid-goods-btn{
+    height: 90rpx;
+    line-height: 90rpx;
+    text-align: center;
+  }
+  /*失效商品样式*/
+
+  /*悬浮操作区样式*/
+  .all-chooice-text{
+    font-size: 26rpx;
+    color: #333333;
+  }
+  .settlement-btn{
+    width:251rpx;
+    height:105rpx;
+    background:linear-gradient(-90deg,rgba(18,205,207,1),rgba(12,225,179,1));
+    line-height: 105rpx;
+    text-align: center;
+    color: #fff;
   }
   
   .goods-list-panel {
@@ -637,25 +713,14 @@
 
     .goods-row-item__tb {
       height: 60rpx;
-  // .goods-price{
-  // .goods-row-item__price{
-  //      position: absolute;
-  //      top:0;
-  //      left:0;
-  //      .primary{
-  //         position: absolute;
-  //        top:-115rpx;
-  //      }
+      display: flex;
+      align-items: center;
 
-
-
-  //    }
-  // }
       
    
       .primary { font-size: 28rpx; }
       .secondary { font-size: 22rpx; }
-      .goods-count {
+      .goods-count,.goods-price {
         top: auto!important;
         bottom: 0!important;
       }
@@ -664,8 +729,10 @@
 
   .footer-bar {
     z-index: 101;
-    padding: 15rpx 30rpx;
+    padding: 0px 0 0rpx 30rpx;
     background-color: #fff;
+    height: 105rpx;
+    box-sizing: border-box;
     .weui-check__label {
       padding-left: 0;
       padding-top: 0;
@@ -679,8 +746,8 @@
       padding-right: 20rpx;
       text-align: right;
       line-height: 32rpx;
-      font-size: 24rpx;
-      color: $text-black;
+      font-size: 22rpx;
+      color: $text-gray;
       h4 {
         font-size: 26rpx;
         .all-count__desc {
@@ -688,12 +755,14 @@
           color: #999;
         }
         .all-count__total {
-          font-size: 32rpx;
+          font-size: 36rpx;
+          font-weight:bold;
+          color: #333;
         }
         .all-count__price {
-          font-weight: 700;
-          color: #F03E3E;
-          font-size: 32rpx;
+          font-weight:bold;
+          color: #CC3333;
+          font-size: 36rpx;
         }
       }
     }

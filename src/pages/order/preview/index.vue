@@ -168,8 +168,8 @@
   import config from '@/config'
   import LjFormPreview from './components/LjFormPreview/index'
   import Payways from './components/Payways/index'
-  import PaymentDialog from '@/components/PaymentDialog'
-  import TimeRangePicker from '@/components/TimeRangePicker'
+  import PaymentDialog from './components/PaymentDialog/index'
+  import TimeRangePicker from './components/TimeRangePicker'
 
   let today = new Date()
   const TODAY_DATE = formatDate(today)
