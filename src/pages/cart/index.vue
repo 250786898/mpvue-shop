@@ -50,7 +50,7 @@
                       <div class="goods-row-item__tb">
                         <goods-price :item="item" :showNormalTag="false"></goods-price>
                         <div class="goods-count">
-                          <counter v-model="item.itemTotalNum" :max="item.maxNum" @change="onGoodsNumChange(item)"></counter>
+                          <counter v-model="item.itemTotalNum" :max="item.maxNum" @change="onGoodsNumChange($event,item)"></counter>
                         </div>
                       </div>
 
@@ -115,7 +115,7 @@
       </div>
 
       <!-- 清空失效商品 -->
-      <div class="group clear-invalid-goods-btn">
+      <div class="group clear-invalid-goods-btn" v-if="result.failureGoodsList && result.failureGoodsList.length">
         清空失效商品
       </div>
 
@@ -154,7 +154,7 @@
           </div>
         </div>
         <div>
-          <button class="radius bg-gradient settlement-btn"  @click="checkout" :disabled="!hasSelectedGoods">结算</button>
+          <button class="radius bg-gradient settlement-btn"  @click="checkout">结算</button>
         </div>
       </div>
     </div>
@@ -165,7 +165,7 @@
   import { Api } from '@/http/api'
   import { mapState } from 'vuex'
   import GoodsRecommend from '@/components/GoodsRecommend'
-  import Counter from '@/components/Counter'
+  import Counter from './components/Counter/index'
   import GoodsPrice from './components/GoodsPrice/index'
   import LimmitTag from './components/LimitTag/index'
   
@@ -333,6 +333,11 @@
           .join(',')
       },
 
+      /**
+       * @param {boolean} 当前购物车商品是否选中
+       * @param {index} 购物车商品所在索引
+       * @description 更新购物车列表数据
+       */
       updateActivityStatus(checked,index) {
         wx.showLoading({})
         console.log(this.getCheckedCartIds())
@@ -370,10 +375,15 @@
         })
       },
 
-      onGoodsNumChange(item) {
-        Api.cart.update({
+      /**
+       * @param {object} item 该购物车商品对象
+       * @param {number} num 自定义更新购物车数量
+       * @description 更新购物车数量
+       */
+      updateCartNum (item,num) {
+         Api.cart.update({
           cartId: item.cartId,
-          num: item.itemTotalNum,
+          num: num || item.itemTotalNum,
           storeId: this.storeId
         }).then(res => {
           if (res.code === Api.CODES.SUCCESS) {
@@ -388,6 +398,39 @@
             }
           }
         })
+      },
+
+      /**
+       * @param {object} item 该购物车商品对象
+       * @description 操作商品数量加减
+       */
+      onGoodsNumChange(count,item) {
+        console.log('onGoodsNumChange',count)
+        if(count < 1) {
+          //该购物车商品数量为1的时候再减为0删除该购物车商品
+          wx.showModal({
+            title: '提示',
+            content: '您确定删除该商品？',
+            success: (result) => {
+              if (result.confirm) {
+                //确定删除
+                this.del(item)
+              }else{
+                //取消删除
+                this.updateCartNum(item,1)
+              }
+            },
+            fail: () => {},
+            complete: () => {}
+          });
+            
+          
+        }else{
+          //多于等于1的时候更新购物车
+          this.updateCartNum(item)
+        }
+        
+       
       },
       
       /**
@@ -425,16 +468,35 @@
         .then(() => wx.hideLoading())        
       },
 
-      checkout() {
-        if (this.result.cartItemResultList) {
-          let cartIds = this.result.cartItemResultList
+      /**
+       * @description 获取购车商品id集合，以逗号隔开(1,2,3...)
+       * @returns {string} cartIds id集合
+       */
+      fetchCartIds(){
+        const cartIds = this.result.cartItemResultList
             .filter(item => item.checked)
             .map(item => item.cartId)
             .join(',')
+        return  cartIds 
+      },
 
+
+      /**
+       * @description 核对结算订单
+       */
+      checkout() {
+        if (this.result.cartItemResultList) {
+          let cartIds = this.fetchCartIds()
           if (cartIds) {
+            //存在购物车订单,跳转预订单界面
             wx.navigateTo({
               url: `/pages/order/preview/main?cartIds=${ cartIds }`
+            })
+          }else{
+            //没有订单列表
+            wx.showToast({
+              title: '未选择任何商品', //提示的内容,
+              icon: 'none', //图标,
             })
           }
         }
@@ -616,7 +678,7 @@
   .group-footer{
     height: 74rpx;
     line-height: 74rpx;
-    text-align: center;
+    padding-left: 307rpx;
     color: $text-gray-deep;
     font-size: 24rpx;
   }
@@ -738,7 +800,11 @@
       font-size: 26rpx;
       color: $text-gray;
     }
-
+    .all-count-box{
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
     .all-count {
       margin-bottom: 4rpx;
       padding-right: 20rpx;

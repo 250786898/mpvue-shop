@@ -187,12 +187,11 @@ export default {
         console.log('有分享情况')
         const storeItem = this.findStoreByStoreId(storeList,this.shareStoreId)
         this.$store.commit('setItem', this.shareStoreId )
-        this.$store.commit('setItem', storeItem )
-        this.$store.commit('setItem', storeList.storeId )
+        this.$store.commit('setItem', storeItem)
         this.getStoreData(this.shareStoreId)
       }else{
-         console.log('NO情况',storeList[0].storeId)
-         this.$store.commit("setStoreId", storeList[0].storeId); 
+        console.log('NO情况',storeList[0].storeId)
+        this.$store.commit("setStoreId", storeList[0].storeId); 
         this.$store.commit('setItem',{storeName:storeList[0].storeName,storeId:storeList[0].storeId})
         this.getStoreData(storeList[0].storeId)
       }
@@ -456,7 +455,6 @@ export default {
     }
     
     this.r = e.r;
-    mta.Page.init();
 
   },
 
