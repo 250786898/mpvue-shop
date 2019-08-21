@@ -126,11 +126,10 @@
     </div>
 
     <!-- 结算预览 -->
-    <lj-form-preview  :items="bills" :deliveryType="deliveryType" :activityType="activityType" :list="list" @tapCouponItem="tapCouponItem" :couponPrice="result.couponPrice"></lj-form-preview>
+    <LjFormPreview  :items="bills" :deliveryType="deliveryType" :activityType="activityType" :list="list" @tapCouponItem="tapCouponItem" :couponPrice="result.couponPrice"></LjFormPreview>
 
     <!-- 支付方式 -->
-    <payways title="支付方式" ref="payways" v-model="paymentCode" :pp.sync="isPp" :rewardPoint="result.rewardPoint"> -->
-    </payways> 
+    <payways title="支付方式" ref="payways" v-model="paymentCode" :pp.sync="isPp" :rewardPoint="result.rewardPoint"></payways> 
 
     <!-- 底部 -->
     <div class="footer-bar">
@@ -167,7 +166,7 @@
   import { formatDate } from '@/utils/'
   import { Api } from '@/http/api'
   import config from '@/config'
-  import LjFormPreview from '@/components/LjFormPreview'
+  import LjFormPreview from './components/LjFormPreview/index'
   import Payways from './components/Payways/index'
   import PaymentDialog from '@/components/PaymentDialog'
   import TimeRangePicker from '@/components/TimeRangePicker'

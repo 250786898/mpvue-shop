@@ -21,8 +21,10 @@
     </div>
 
     <!-- 待支付、待配送、订单已关闭-->
-    <div v-else>
-      <div class="order-status bg-gradient">
+    <div style="position: relative;" v-else>
+      <img class="BackImg" src="/static/images/background_icon.png" alt="">
+      <div class="order-status ">
+        
        
         <!-- 待支付 -->
         <template v-if="order.state === 10">
@@ -98,20 +100,25 @@
         </div>
       </div>
 
+
+
       <!-- else 自提 -->
       <div class="order-shop" @click="openLocation" v-else>
-        <div class="weui-cell weui-cell_access" style="padding: 16rpx 25rpx;">
+        <div class="weui-cell weui-cell_access" style="padding: 16rpx 25rpx;margin-top:24rpx;">
           <div class="weui-cell__bd">
             <div class="order-shop__title">
               <div class="weui-flex">
                 <div class="weui-flex__item" v-show="false"></div>
-                <div>提货店铺 {{ order.receiverName }}</div>
+                <div class="store">提货店铺 </div>
+                <div class="xian"></div>
+                <div class="store_name">{{ order.receiverName }}</div>
               </div>
             </div>
             <div class="order-shop__desc">{{ order.receiverAddress }}</div>
           </div>
-          <div class="weui-cell__ft weui-cell__ft_in-access"></div>
+          <!-- <div class="weui-cell__ft weui-cell__ft_in-access"></div> -->
         </div>
+         <img class="addborder" src="/static/images/order_dividingline@2x.png">
       </div>
     </div>
 
@@ -874,9 +881,43 @@
 </style>
 
 <style lang="scss" scoped>
-template{
-  padding-left:30rpx;
-}
+  .addborder{
+    display: block;
+    width: 100%;
+    height: 8rpx;
+    position: absolute;
+    bottom:0rpx;
+    left:0rpx;
+  }
+
+
+ .store{
+          width:200rpx;
+          height:37rpx;
+          font-size:30rpx;
+          font-weight:bold;
+          color:rgba(51,51,51,1);
+          line-height:40rpx;
+          float:left;
+        }
+  .store_name{
+    float:left;
+    position: absolute;
+    top:102rpx;
+    left:31rpx;
+    color:#333;
+  }
+  .BackImg{
+    width: 702rpx;
+    height: 196rpx;
+    position: absolute;
+    top:0rpx;
+    left:0rpx;
+  }
+
+  template{
+    padding-left:30rpx;
+  }
   .group-buy-bar {
     &__tag{
       margin-left:10rpx;
@@ -890,9 +931,10 @@ template{
       color:#FF1414;
       border: 1px solid #FF1414;
     }
-
   }
   .order-status {
+    
+    // background-image: url('/static/images/background_icon.png') center no-repeat;
     position: relative;
     height: 196rpx;
     display: -webkit-flex;
@@ -903,6 +945,7 @@ template{
     word-break: break-all;
     margin-top:24rpx;
     width: 702rpx;
+    border-radius: 14rpx;
     .desc {
       font-size: 28rpx;
     }
@@ -928,19 +971,35 @@ template{
     }
   }
 
+
   .order-shop {
+    position: relative;
     background-color: #fff;
     width: 702rpx;
+    height: 245rpx;
     &__title {
       font-size: 26rpx;
       color: $text-black;
       word-break: break-all;
     }
     &__desc {
+      position: absolute;
+      left:0rpx;
+      bottom:-144rpx;
       text-align:left;
-      font-size: 24rpx;
-      color: $text-gray;
-      margin-left:114rpx
+      font-size: 28rpx;
+      color: #999;
+      margin-left:31rpx;
+      line-height: 32rpx;
+    }
+    .xian{
+      width:702rpx;
+      height:1rpx;
+      background:rgba(204,204,204,1);
+      opacity:0.4;
+      position: absolute;
+      top:82rpx;
+      left:0rpx;
     }
   }
 
@@ -1191,6 +1250,7 @@ template{
 
       .weui-flex {
         width: 100%;
+       
         &__item {
           position: relative;
           &.active {
