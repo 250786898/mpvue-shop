@@ -126,8 +126,7 @@ export default {
     };
   },
   created() {
-    this.getStoreData();
-   
+    this.getStoreData()
   },
 
   onReady() {
@@ -455,7 +454,7 @@ export default {
     }
     
     this.r = e.r;
-
+    mta.Page.init(); //第三方统计数据
   },
 
   /**

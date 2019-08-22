@@ -39,19 +39,27 @@
     
 
     computed: {
-      plusDisabled() {
+      plusDisabled() { //最大值禁用
         return this.disabled || !this.noSetMax && this.count >= this.max
       },
 
-      minusDisabled() {
+      minusDisabled() { //最小值禁用
         return this.disabled || this.count <= this.min
       }
     },
 
     methods: {
+
+      /**
+       * @description 数量增加emit
+       */
       plus() {
         this.$emit('change', this.count + 1)
       },
+
+      /**
+       * @description  数量减少emit
+       */
       minus() {
         if(this.count == 0) {
             return false

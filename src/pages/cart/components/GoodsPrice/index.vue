@@ -1,6 +1,6 @@
 <template>
   <div class="goods-row-item__price">
-    <div class="primary">￥{{ item.onlinePrice }}</div>
+    <div class="primary" :class="{ 'failure-price' : isFailure  }">￥{{ item.onlinePrice }}</div>
     <div class="secondary" v-if="item.onlineScribingPrice">￥{{ item.onlineScribingPrice }}</div>
   </div>
 </template>
@@ -12,7 +12,7 @@
         type: Object,
         default: () => ({})
       },
-      showNormalTag: {
+      isFailure: {
         type: Boolean,
         default: () => false
       }
@@ -32,6 +32,9 @@
 
   }
 
+}
+.failure-price{
+  color: #999999;
 }
 
 </style>

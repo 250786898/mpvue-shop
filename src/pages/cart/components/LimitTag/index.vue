@@ -7,7 +7,7 @@
 <script>
   export default {
     props: {
-      count: {
+      count: { //限购数量
         type: Number,
         default: 0
       },
