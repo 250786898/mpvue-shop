@@ -7,7 +7,7 @@ const ACTIVITY_SUB_TYPE = {
 export default {
   OSS_URL: '/static/images',
 
-  // apiURL: 'http://192.168.2.160:10002/api/',
+  
   // apiURL: 'http://192.168.2.167:10002/api/',
   // apiURL: 'http://192.168.2.150:8092/api/',
   // apiURL: 'https://shop.freshlejia.com/apitest/api/',

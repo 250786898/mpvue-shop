@@ -110,7 +110,6 @@
       </div>
     </div>
 
-    
     <!-- 拼团商品列表 -->
     <div class="weui-panel goods-list-panel" v-if="isAssemble">
       <div class="weui-panel__bd">
@@ -173,7 +172,7 @@
               <div class="goods-total">
                 ￥{{ item.onlinePrice * item.goodsNum }}<span v-if="item.points">+积分{{item.points}}</span>
                 <navigator v-if="item.refundState == 1 || item.refundState == 3" :url="'/pages/order/returndetail/main?id=' + item.refundId" @click.stop>
-                  <button class="weui-btn" :plain="true" size="mini">售后</button>
+                  <buttom class="weui-btn" :plain="true" size="mini">售后</buttom>
                 </navigator>
               </div>
             </div>
@@ -397,18 +396,17 @@
     },
     data () {
       return {
-        ORDER_STATE,
-        ORDER_STATE_TEXT,
+        ORDER_STATE, 
+        ORDER_STATE_TEXT, 
         la: null,
         ra: null,
-        order: {},
-        paymentDialogShowed: false,
-        redPackageShow: false,
-        isRequestedFunction: false,
+        order: {},  //倒计时
+        paymentDialogShowed: false,  //其他支付模块
+        redPackageShow: false,  //摇一摇模块显示隐藏
+        isRequestedFunction: false,  //摇一摇显示
         isAssemble: false, //是否是拼团页面详情
-        timers:299,
-        timer:null,
-        
+        timers:299, //待支付订单倒计时
+        timer:null,  //定时器
 
       }
     },
@@ -1188,7 +1186,8 @@
     height: 35rpx;
     white-space:nowrap;
   }
-  .goods-total button {
+  .goods-total .buttom {
+    border:1rpx solid #ccc;
     margin-top: 4rpx;
     border-color: #999;
     color: #999;

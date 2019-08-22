@@ -92,13 +92,10 @@
           <p style="margin-bottom:20rpx">提货时间: 9：00 - 20：00</p>
           <div class="box">
             <img style="right:0rpx;" src="/static/images/rectangle.png" alt="">
-            <p style="position: absolute;top:118rpx;right:-484rpx;color:#fff;font-size:28rpx;">推荐</p>
+            <p style="position: absolute;top:116rpx;right:-476rpx;color:#fff;font-size:28rpx;">推荐</p>
           </div>
         </div>
-        <!-- <div class="weui-cell__ft"> -->
-          <!-- <div class="weui-cell__ft">距离{{  storeLid.storeDistance }}km</div> -->
            <img src="/static/images/arrows.png">
-        <!-- </div> -->
       </div>
     </div>
  <div class="weui-cells__title"></div>
@@ -109,12 +106,11 @@
         附近门店
       </div>
       <div class="weui-cells_xian"></div>
-      
       <div class="weui-cell" v-for=" item  in storeList" :key="item.storeId" @click="select(item)">
         <div class="tuijian" v-if="index <= 2">
-          <P class="tuijian_pp" style="font-size: 28rpx;color:#fff;position:absolute;top:127rpx;right:-10rpx;width:79rpx;z-index:1;">推荐</P>
+          <P style="font-size: 28rpx;color:#fff;position:absolute;top:127rpx;right:-10rpx;width:79rpx;z-index:1;">推荐</P>
           <img style="right:0rpx;" src="/static/images/rectangle.png" alt="">
-          </div>
+        </div>
         <div  class="weui-cell__bd">
           <div class="head">
             <image  :src= "item.storeLogoImg"  alt=""></image>
@@ -234,17 +230,8 @@
         this.$store.commit('setItem', item )
         let storeId = this.$store.state.shopDetail.storeId;
         this.$store.commit('setStoreId', storeId)
-        // Api.index.storeGoodsListByshopId({ 
-        //   storeId: storeId 
-        // })
-        // .then(res => {
-        //   if (res.code === Api.CODES.SUCCESS) {
-        //     console.log("商品信息", res.data.shopStoreGoods);
-        //   }
-        // })
-
-          this.$bus.$emit('shopChange', item)
-          wx.navigateBack()
+        this.$bus.$emit('shopChange', item)
+        wx.navigateBack()
       },
  
      /*
@@ -282,26 +269,6 @@
           let storeNameLike = detail.value
      
           if ( storeNameLike != '' ) {   
-            // this.amap.getInputtips({ //高德地图获取关键字APi
-              // keywords: detail.value,
-              
-              // type: '120201|120302|141400|141200|170100|060101|050101|110101|150500',
-              // city: '020',
-              // citylimit: true,
-              // location: `${ this.location.longitude },${ this.location.latitude }`,
-              // success: res => {
-                // wx.hideLoading({})
-              
-                // let regin = res.tips.map(item => { //过滤所需的关键字
-                //   if(item.location) {
-                //     let [lng, lat] = typeof item.location === 'string' ?
-                //         item.location.split(',') : [] 
-                //     return {
-                //       longitude: lng,
-                //       latitude: lat
-                //     }
-                //   }
-                // }) 
   // 搜索门店    
                 console.log('输入内容', storeNameLike)
                 // regin = JSON.stringify(storeNameLike)
@@ -580,11 +547,6 @@
 
 <style  lang="scss" scoped>
 
-.weui-cell:nth-child(1){
-  // background-color: #000;
-
-}
-
   .weui-search-bar {
     position: fixed;
     top: 0;
@@ -728,7 +690,7 @@
       }
       img{
         position: absolute;
-        top: 32rpx;
+        top: 44rpx;
         left: 33rpx;
         width: 72rpx;
         height: 72rpx;
@@ -743,7 +705,7 @@
 
     .relocation {
       position: absolute;
-      top: 60rpx;
+      top: 58rpx;
       margin-top: -10rpx;
       right: 30rpx;
       font-size: 24rpx;
@@ -805,6 +767,29 @@
 
   .weui-cells {
     position: relative;
+      .box{
+        width: 110rpx;
+        height: 50rpx;
+        position: absolute;
+        top:34%;
+        right:0rpx;
+        img{
+          width: 95rpx;
+          height: 38rpx;
+        }
+      }
+    .tuijian{
+      width: 110rpx;
+      height: 50rpx;
+      position:absolute;
+      top:31%;
+      right:0%;
+       img{
+          width: 95rpx;
+          height: 38rpx;
+        }
+      }
+   
     .weui-cells_xian{
           position:absolute;
           width: 703rpx;
@@ -848,38 +833,13 @@
         border-radius: 50rpx;
         }
       }
-      .tuijian{
-        position:absolute;
-        // position: relative;
-        top:95rpx;
-        right:0rpx;
-
-        img{
-          width: 95rpx;
-          height: 38rpx;
-        }
-      }
-
-
+  
     &:before {
       display: none;
     }
     &__bd {
-      .box{
-        width: 110rpx;
-        height: 50rpx;
-        position: absolute;
-        top:33%;
-        right:0rpx;
-        img{
-          width: 95rpx;
-          height: 38rpx;
-          // position: absolute;
-          // top:132rpx;
-          // right:0rpx;
-        }
-
-      }
+    
+    
       h2 {
         font-size: 32rpx;
         color: $text-black;

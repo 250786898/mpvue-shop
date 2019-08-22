@@ -118,8 +118,8 @@ export default {
       newcomeActivityInfo: {},
       formId: "",
       navigateToUrl: config.ACTIVITY_TYPE,
-      long:'',
-      lat:'',
+      long:'', //经度
+      lat:'', //维度
       sto:'',
       shareStoreId: 0 , //分享的门店id
      

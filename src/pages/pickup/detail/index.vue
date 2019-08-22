@@ -41,25 +41,33 @@
       </div>
     </div>
     <img src="http://bucketlejia.oss-cn-shenzhen.aliyuncs.com/deliverycode_bg@2x.png" class="footer__bg" mode="widthFix">
+    <cancel-popup :shown="popupShowed" ></cancel-popup>
   </div>
 </template>
 
 <script>
   import wxbarcode from 'wxbarcode'
   import { Api } from '@/http/api'
+  import CancelPopup from './components/CancelPopup/index'
   
   export default {
+      components: {
+       CancelPopup
+    },
     data () {
       return {
-        orderId: '',
-        result: {},
-        currentBrightness: 0,
-        timer: null // 扫码提示定时
+        orderId: '',  //门店id
+        result: {},  //提货订单信息
+        currentBrightness: 0, //屏幕亮度
+        timer: null, // 扫码提示定时
+        popupShowed:false  //核销成功提示
       }
     },
 
     methods: {
-    // 扫码后提示
+     /**
+      * @description 核销后提示信息
+      */
       findOrderStat() {
         // wx.showLoading()
         Api.order.findOrderStat({ orderId: this.orderId })
@@ -67,21 +75,31 @@
           if (res.code === Api.CODES.SUCCESS) {
             // this.result = res.data
             console.log('判断',res )
-            wx.showToast({
-                title: '核销成功',
-                icon: 'success',
-                duration: 1000
-            })
-            return  false
+              this.popupShowed = true
+            // wx.showModal({
+            //     title: '感谢购买',
+            //     content: '订单已核销成功',
+            //     showCancel: false ,
+            //     confirmColor: '#11D2C8',
+            //     success (res) {
+            //       if (res.confirm) {
+            //         console.log('用户点击确定')
+            //          wx.navigateTo({
+            //             url: '/pages/order/index/main'
+            //           })
+            //       } 
+            //     }
+            //   })
             clearInterval(this.timer) 
           } 
-       
         })
         .catch(e => console.log(e))
         .then(() => wx.hideLoading())
       },
 
-    // 条形码
+     /**
+      * @description 条形码接口
+      */
       getOrderPickUpCodeDetail() {
         wx.showLoading({})
         Api.order.orderPickUpCode({ orderId: this.orderId })
@@ -134,19 +152,14 @@
       getScreenBright () {
          var that = this;
         wx.getScreenBrightness({
-
           success: function (res) {
-
           that.currentBrightness = res.value
-
           }
         });
-      
         wx.setScreenBrightness({
           value: 1,
         })
       },
-
       //恢复之前屏幕亮度
       recoverScreen () {
         var that = this;
@@ -155,7 +168,7 @@
         })
       }
     },
- computed: {
+  computed: {
 
       pickup(){
          let pickup=this.$store.state.pickup;

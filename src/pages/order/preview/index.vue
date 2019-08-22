@@ -357,7 +357,7 @@
         Api.cart.checkout({
           cartIds: this.cartIds,
           storeId:  this.storeId,
-          deliveryType: this.deliveryType,
+          deliveryType: 2,
           couponIds: this.couponId
         })
         .then(res => {
