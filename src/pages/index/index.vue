@@ -454,7 +454,12 @@ export default {
     }
     
     this.r = e.r;
+<<<<<<< HEAD
     mta.Page.init(); //第三方统计数据
+=======
+  
+
+>>>>>>> db9e2f19a3879e3bf906e39b10aec6ceb3177115
   },
 
   /**
