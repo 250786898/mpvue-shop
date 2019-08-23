@@ -21,11 +21,17 @@
     </div>
 
     <!-- 待支付、待配送、订单已关闭-->
-    <div v-else>
-      <div class="order-status bg-gradient">
+    <div style="position: relative;" v-else>
+      <img class="BackImg" src="/static/images/background_icon.png" alt="">
+      <div class="order-status ">
+        
         <!-- 待支付 -->
         <template v-if="order.state === 10">
-          待支付<span v-if="true">({{timers}}秒后自动取消订单）</span>
+          <div class="unpa">
+            <img src="/static/images/unpaid_icon.png" alt="">
+            <p class="unpaid">待支付</p><br>
+            <span v-if="true">{{timers}}秒后自动取消订单</span>
+          </div>
         </template>
         <!-- 待配送 -->
         <template v-else-if="order.state === 20 || order.state === 21">
@@ -36,10 +42,11 @@
             </div>
           </template>
           <template v-else>
-            <div>
+             <img src="/static/images/orderdetail.png" alt="">
+            <div style="margin-left:31rpx;">
               待提货
               <div class="desc">提货时间 ：{{  order.pickTime }}</div>
-             
+
             </div>
           </template>
         </template>
@@ -56,17 +63,21 @@
         </template>
         <!-- 订单已关闭 -->
         <template v-else-if="order.state === 50">
+           <img src="/static/images/close_icon.png" alt="">
           订单已关闭
         </template>
         <template v-else-if="order.state === 0 && !isAssemble">
-          订单已取消
+           <img src="/static/images/close_icon.png" alt="">
+         <p style="margin-left:32rpx;">订单已取消</p>  
         </template>
         <template v-else-if="order.state === 0 && isAssemble">
           拼团失败
         </template>
         <!-- 订单已签收 改 交易成功 -->
         <template v-else-if="order.state === 40 || order.state === 49">
-          交易成功
+           <img src="/static/images/success_icon.png" alt="">
+           <p style="margin-left:32rpx;">交易成功</p>
+          
         </template>
         <template v-else-if="order.state === 59">
           售后中
@@ -93,20 +104,25 @@
         </div>
       </div>
 
+
+
       <!-- else 自提 -->
       <div class="order-shop" @click="openLocation" v-else>
-        <div class="weui-cell weui-cell_access" style="padding: 16rpx 25rpx;">
+        <div class="weui-cell weui-cell_access" style="padding: 16rpx 25rpx;margin-top:24rpx;">
           <div class="weui-cell__bd">
             <div class="order-shop__title">
               <div class="weui-flex">
                 <div class="weui-flex__item" v-show="false"></div>
-                <div>提货店铺 {{ order.receiverName }}</div>
+                <div class="store">提货店铺 </div>
+                <div class="xian"></div>
+                <div class="store_name">{{ order.receiverName }}</div>
               </div>
             </div>
             <div class="order-shop__desc">{{ order.receiverAddress }}</div>
           </div>
-          <div class="weui-cell__ft weui-cell__ft_in-access"></div>
+          <!-- <div class="weui-cell__ft weui-cell__ft_in-access"></div> -->
         </div>
+         <img class="addborder" src="/static/images/order_dividingline@2x.png">
       </div>
     </div>
 
@@ -144,7 +160,7 @@
 
             <!-- else 赠品 -->
             <div class="weui-media-box__desc" v-if="!item.isPresentation || item.isPresentation == 2">
-              <span>单价:￥{{ item.onlinePrice }}</span>
+              <span style="color:#999;">单价:￥{{ item.onlinePrice }}</span>
               <div class="goods-count goods-count_ih">数量: x{{ item.goodsNum }}</div>
             </div>
           </div>
@@ -173,7 +189,7 @@
               <div class="goods-total">
                 ￥{{ item.onlinePrice * item.goodsNum }}<span v-if="item.points">+积分{{item.points}}</span>
                 <navigator v-if="item.refundState == 1 || item.refundState == 3" :url="'/pages/order/returndetail/main?id=' + item.refundId" @click.stop>
-                  <button class="weui-btn" :plain="true" size="mini">售后</button>
+                  <buttom class="weui-btn" :plain="true" size="mini">售后</buttom>
                 </navigator>
               </div>
             </div>
@@ -181,22 +197,21 @@
 
             <!-- else 赠品 -->
             <div class="weui-media-box__desc" v-if="!item.isPresentation || item.isPresentation == 2">
-              <span>单价:￥{{ item.onlinePrice }}</span>
-              <div class="goods-count goods-count_ih">数量: x{{ item.goodsNum }}</div>
+              <span style="color:#999;">单价:￥{{ item.onlinePrice }}</span>
+              <div class="goods-count goods-count_ih" style="color:#999;">数量: x{{ item.goodsNum }}</div>
             </div>
           </div>
         </navigator>
       </div>
     </div>
-
-
     <!-- 订单信息 -->
     <div class="weui-form-preview">
       <div class="weui-form-preview__hd">
         <div class="weui-form-preview__item">
-          <div class="weui-form-preview__label">订单信息</div>
+          <div class="weui-form-preview__label" style="font-weight:bold;font-size:30rpx;">订单信息</div>
         </div>
       </div>
+       <div class="xian"></div>
       <div class="weui-form-preview__bd">
         <div class="weui-form-preview__item">
           <div class="weui-form-preview__label">下单时间：</div>
@@ -238,7 +253,7 @@
         </div>
         <div class="weui-form-preview__item">
           <div class="weui-form-preview__label text-black">实际支付</div>
-          <div class="weui-form-preview__value">￥{{ order.orderAmount }}</div>
+          <div class="weui-form-preview__value" style="color:red;">￥{{ order.orderAmount }}</div>
         </div>
       </div>
     </div>
@@ -385,7 +400,7 @@
 
 <script>
   import { Api, ORDER_STATE, ORDER_STATE_TEXT } from '@/http/api'
-  import PaymentDialog from '@/components/PaymentDialog'
+  import PaymentDialog from './components/PaymentDialog/index'
   import Countdowner from '@/components/Countdowner'
   import RedPackage from '@/components/RedPackage'
 
@@ -403,11 +418,11 @@
         ra: null,
         order: {},
         paymentDialogShowed: false,
-        redPackageShow: false,
-        isRequestedFunction: false,
+        redPackageShow: false,  //摇一摇支付
+        isRequestedFunction: false, //摇一摇
         isAssemble: false, //是否是拼团页面详情
-        timers:299,
-        timer:null,
+        timers:299,  //待支付倒计时
+        timer:null,  //倒计时定时器
         
 
       }
@@ -418,7 +433,7 @@
          let pickup=this.$store.state.pickup;
          return pickup
       },
-
+      //倒计时
       hms() {
         let h = Math.floor(this.order.times / 3600)
         let m = Math.floor((this.order.times % 3600) / 60)
@@ -436,18 +451,9 @@
         return { h, m, s }
       },
 
-        showPickUpTime () { //显示的提货时间
-        const hours = new Date().getHours()
-        let showPickUpTime = ''
-        if(hours > 20) {
-          //超过20：00设置成显示后天提货
-          showPickUpTime = this.getDateStr(2)
-        }else{
-          showPickUpTime = this.getDateStr(1)
-        }
-        return showPickUpTime
-      },
-      // 支付方式文本
+      /** 
+       * @description 支付方式文本
+      */
       paymentCodeText() {
         if (this.order && this.order.paymentCode) {
           switch(this.order.paymentCode) {
@@ -461,7 +467,9 @@
         }
       },
 
-      // 配送时间
+      /** 
+       * @description 配送时间
+      */
       deliveryRange() {
         if (this.order.deliveryStartTime && this.order.deliveryEndTime) {
           let [startDay, startTime] = this.order.deliveryStartTime.split(' ')
@@ -491,8 +499,9 @@
       }
     },
     methods: {
-
-      // 待支付
+      /** 
+       * @description 待支付倒计时
+      */
        daojishi(){
           let times=300
           let miao= 300
@@ -502,36 +511,15 @@
             times = this.$store.state.runingtime
           }
           that.timer =  setInterval(() => {
-           miao = --times
-              // console.log(miao)
-              that.timers=miao
-              that.$store.commit('setRunTime',miao)
-              // console.log(that.timers)
+            miao = --times
+            that.timers=miao
+            that.$store.commit('setRunTime',miao)
             if(miao==0){
                clearInterval(that.timer);
             }
 
           },1000)
         },
-
-          /**
-         * @description 获取明天后天时间
-         */
-       getDateStr(dayCount){
-        if(null == dayCount){
-          dayCount = 0;
-        }
-        var dd = new Date();
-        dd.setDate(dd.getDate()+dayCount);//设置日期
-        var m = dd.getMonth()+1;//获取当前月份的日期
-        m = m <10 ? `0${m}` : m 
-        var d = dd.getDate();
-        d = d <10 ? `0${d}` : d
-        return `${m}月${d}日`
-      },
-
-
-
       /**
        * @description 跳转拼团商品详情
        */
@@ -539,7 +527,9 @@
         wx.navigateTo({ url: `/pages/goods/detail/main?id=${this.order.orderGoodsList[0].goodsId}&activityId=${this.order.orderGoodsList[0].activityId}` })
         },
 
-      // 图形进度条
+       /**
+       * @description 图形进度条
+       */
       setPercent(percent=100) {
         percent = Math.min(Math.max(0, percent), 100)
 
@@ -677,6 +667,7 @@
         this.__pay(this.order, pwd)
       },
 
+       // 微信支付
       __pay(order, pwd) {
         wx.showLoading({ mask: true, title: '支付中' })
         Api.order.pay({
@@ -686,16 +677,13 @@
           paymentPasswd: pwd ? pwd : void(0)
         }).then(res => {
           if (res.code === Api.CODES.SUCCESS) {
-            // 微信支付
             if (order.paymentCode === 'weixinAppletPaymentPlugin') {
               let params = JSON.parse(res.data.tocodeurl)
               wx.requestPayment({
                 ...params,
                 success: () => {
                   wx.showLoading({ mask: true, title: '请稍等' })
-                  // 支付有礼
-                  // this.redPackageShow = true
-                  // this.shake()
+
                 }
               })
             } else {
@@ -724,7 +712,9 @@
           this.__pay(this.order)
         }
       },
-
+/**
+ * des
+ */
       applyReturns() {
         var curHours = new Date().getHours()
         if(curHours >= 20) {
@@ -770,66 +760,15 @@
         })
       },
 
-      shake () {
-        let numX = 1 //x轴
-        let numY = 1 // y轴
-        let numZ = 0 // z轴
-        // let stsw = true // 开关，保证在一定的时间内只能是一次，摇成功
-        this.stsw = true // 开关，保证在一定的时间内只能是一次，摇成功
-        // let positivenum = 0 //正数 摇一摇总数
-        wx.onAccelerometerChange((res) => {  //小程序api 加速度计
-          if (numX < res.x || numY < res.y) {  //个人看法，一次正数算摇一次，还有更复杂的
-            this.positivenum++
-            setTimeout(() => { this.positivenum = 0 },2000) //计时两秒内没有摇到指定次数，重新计算
-          }
-          if (numZ < res.z || numY < res.y) { //可以上下摇，上面的是左右摇
-            this.positivenum++
-            setTimeout(() => { this.positivenum = 0 }, 2000) //计时两秒内没有摇到指定次数，重新计算
-          }
-          if (this.positivenum == 2 && this.stsw){ //是否摇了指定的次数，执行成功后的操作
-            this.stsw = false
-            // console.log('摇一摇成功')
-            Api.freeOrder.hasPayAward({
-              orderId: this.order.orderId
-            }).then(res => {
-              this.isRequestedFunction = false
-              this.redPackageShow = false
-              wx.redirectTo({
-                url: `/pages/free-order/free-order/main?orderId=${this.order.orderId}&activityId=${ res.data }`
-              })
-            })
-            setTimeout(() => { 
-              this.positivenum = 0 // 摇一摇总数，重新0开始，计算
-              this.stsw = true
-            },2000)
-          }
-        })
-      },
         /**
        * @description 设置该页面类型是拼团页面
        */
       _setAssemblePageType () {
         this.isAssemble = true
       },
-
-      /**
-       * 关闭摇一摇红包
-       */
-      // handleCloseRedPackage () {
-      //   this.redPackageShow = false
-      //   setTimeout(() => {
-      //     wx.hideLoading()
-      //     wx.navigateTo({
-      //       url: `/pages/order/detail/main?id=${ order.orderId }`
-      //     })
-      //   }, 1000)
-      // }
     },
 
     onLoad(e) {
-      console.log('提货',this.$store.state.pickup)
-      let pickup=this.$store.state.pickup;
-
       this.daojishi()
       if (e.id) {
         this.id = e.id
@@ -862,10 +801,61 @@
 </script>
 
 <style>
-  page { background-color: #F5F5F5; padding-bottom: 120rpx; }
+  page { background-color: #F5F5F5;
+         padding-bottom: 120rpx;
+        padding-left:24rpx; 
+        }
 </style>
 
 <style lang="scss" scoped>
+    .unpa{
+      margin-left:40rpx;
+      line-height: 52rpx;
+      .unpaid{
+      font-size: 40rpx;
+    }
+    span{
+      font-size: 28rpx;
+    }
+    }
+    
+  .addborder{
+    display: block;
+    width: 100%;
+    height: 8rpx;
+    position: absolute;
+    bottom:0rpx;
+    left:0rpx;
+  }
+
+
+ .store{
+          width:200rpx;
+          height:37rpx;
+          font-size:30rpx;
+          font-weight:bold;
+          color:rgba(51,51,51,1);
+          line-height:40rpx;
+          float:left;
+        }
+  .store_name{
+    float:left;
+    position: absolute;
+    top:102rpx;
+    left:31rpx;
+    color:#333;
+  }
+  .BackImg{
+    width: 702rpx;
+    height: 196rpx;
+    position: absolute;
+    top:0rpx;
+    left:0rpx;
+  }
+
+  template{
+    padding-left:30rpx;
+  }
   .group-buy-bar {
     &__tag{
       margin-left:10rpx;
@@ -881,16 +871,29 @@
     }
   }
   .order-status {
+    
+    // background-image: url('/static/images/background_icon.png') center no-repeat;
+    position: relative;
     height: 196rpx;
-    padding: 0 30rpx;
     display: -webkit-flex;
     display: flex;
     align-items: center;
     font-size: 36rpx;
     color: #fff;
     word-break: break-all;
+    margin-top:24rpx;
+    width: 702rpx;
+    border-radius: 14rpx;
     .desc {
       font-size: 28rpx;
+    }
+    img{
+      position: absolute;
+      top:26rpx;
+      right:57rpx;
+      width:150rpx; 
+      height: 150rpx;
+
     }
   }
 
@@ -906,24 +909,54 @@
     }
   }
 
+
   .order-shop {
+    position: relative;
     background-color: #fff;
+    width: 702rpx;
+    height: 245rpx;
     &__title {
       font-size: 26rpx;
       color: $text-black;
       word-break: break-all;
     }
     &__desc {
+      position: absolute;
+      left:0rpx;
+      bottom:-144rpx;
       text-align:left;
-      font-size: 24rpx;
-      color: $text-gray;
-      margin-left:114rpx
+      font-size: 28rpx;
+      color: #999;
+      margin-left:31rpx;
+      line-height: 32rpx;
+      width: 636rpx;
+    }
+    .xian{
+      width:702rpx;
+      height:1rpx;
+      background:rgba(204,204,204,1);
+      opacity:0.4;
+      position: absolute;
+      top:82rpx;
+      left:0rpx;
     }
   }
 
   .weui-form-preview {
+    position: relative;
     margin-top: 20rpx;
+    width: 702rpx;
+    border-radius: 14rpx;
     // padding-bottom: 100rpx;
+    .xian{
+      width:702rpx;
+      height:1rpx;
+      background:rgba(204,204,204,1);
+      opacity:0.6;
+      position: absolute;
+      top:79rpx;
+      left:0rpx;
+    }
     &:before, &:after {
       display: none;
     }
@@ -934,7 +967,7 @@
     }
     &__label,
     &__value {
-      font-size: 30rpx;
+      font-size: 28rpx;
     }
     &__value {
       button {
@@ -946,7 +979,7 @@
         line-height: 44rpx;
         border-radius: 22rpx;
         font-size: 26rpx;
-      }
+      }  
     }
     &__hd {
       line-height: inherit;
@@ -967,7 +1000,7 @@
     margin-top: 20rpx;
     .weui-cell {
       &__bd {
-        font-size: 34rpx;
+        font-size: 28rpx;
         color: $text-black;
       }
     }
@@ -1166,6 +1199,7 @@
 
       .weui-flex {
         width: 100%;
+       
         &__item {
           position: relative;
           &.active {
@@ -1188,7 +1222,8 @@
     height: 35rpx;
     white-space:nowrap;
   }
-  .goods-total button {
+  .goods-total{
+    .buttom {
     margin-top: 4rpx;
     border-color: #999;
     color: #999;
@@ -1196,4 +1231,5 @@
     line-height: 1.5;
     padding: 0 20rpx;
   }
+  } 
 </style>

@@ -254,12 +254,18 @@
 
 <style lang="scss" scoped>
   .empty-tip {
-    padding-top: 220rpx;
+    padding-top: 100rpx;
     padding-bottom: 220rpx;
     border-bottom: 1rpx solid #F4F4F4;
+    font-size:24rpx;
     button {
       margin-top: 50rpx;
       width: 428rpx;
+    }
+    img{
+      width: 380rpx;
+      height: 264rpx;
+      margin-bottom:0rpx;
     }
   }
 

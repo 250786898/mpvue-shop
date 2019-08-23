@@ -7,7 +7,6 @@
         <password v-model="oldPassword" @complete="onOldPasswordComplete" ref="oldPassword"></password>
       </div>
     </div>
-
     <div :hidden="step !== 2">
       <div class="title">请输入新密码</div>
       <div class="desc">保护您的账户余额安全</div>

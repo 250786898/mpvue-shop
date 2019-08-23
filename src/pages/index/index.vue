@@ -307,7 +307,6 @@ export default {
         this._cacheLocation &&
         (this._cacheLocation.longitude !== this.location.longitude ||
           this._cacheLocation.latitude !== this.location.latitude)
-
       )
         return true;
 

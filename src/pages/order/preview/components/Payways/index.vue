@@ -93,12 +93,12 @@
     },
 
     onLoad() {
-      Api.user.personCenter().then(res => {
-        if (res.code === Api.CODES.SUCCESS) {
-          this.payways[1].name = `会员卡支付(剩余：￥${ res.data.balance }）`
-          this.balance = res.data.balance
-        }
-      })
+      // Api.user.personCenter().then(res => {
+      //   if (res.code === Api.CODES.SUCCESS) {
+      //     this.payways[1].name = `会员卡支付(剩余：￥${ res.data.balance }）`
+      //     this.balance = res.data.balance
+      //   }
+      // })
     }
   }
 </script>

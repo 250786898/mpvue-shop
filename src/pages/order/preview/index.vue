@@ -66,7 +66,7 @@
         <div v-if="result.cartOrderVoList"  class="weui-cell weui-cell_access">
           <div class="weui-cell__bd">
             <template v-if="tempOrder.store">
-              <div>提货门店：{{ tempOrder.store.storeName }}</div>
+              <div class="collect">提货门店：{{ tempOrder.store.storeName }}</div>
               <div v-if="tempOrder.store.storeAddress" class="desc">
                 {{ tempOrder.store.storeAddress }}
               </div>
@@ -84,14 +84,10 @@
         <!-- <div class="weui-panel__hd" @click="selfHelpTimeRangePickerShowed = true"> -->
           <div class="weui-panel__hd">
           <img src="/static/images/details_icon_clock@2x.png">
-          提货时间
-          <div class="time">{{showPickUpTime}}</div>
-          <!-- <div class="weui-cell__ft weui-cell__ft_in-access">
-            <template v-if="selfHelpSelected.startTime && selfHelpSelected.endTime">
-             {{ selfHelpSelected.dataTime }} {{ selfHelpSelected.startTime }}-{{ selfHelpSelected.endTime }}
-            </template>
-            <template v-else>选择提货时间</template>
-          </div> -->
+        
+          <div class="time">预计 {{showPickUpTime}} 可提货</div>
+          <div class="xian"></div>
+        
         </div>
         <div class="weui-panel__bd">
           <div class="weui-media-box weui-media-box_appmsg" v-for="item in result.cartOrderVoList"
@@ -125,11 +121,10 @@
     </div>
 
     <!-- 结算预览 -->
-    <lj-form-preview  :items="bills" :deliveryType="deliveryType" :activityType="activityType" :list="list" @tapCouponItem="tapCouponItem" :couponPrice="result.couponPrice"></lj-form-preview>
+    <LjFormPreview  :items="bills" :deliveryType="deliveryType" :activityType="activityType" :list="list" @tapCouponItem="tapCouponItem" :couponPrice="result.couponPrice"></LjFormPreview>
 
     <!-- 支付方式 -->
-    <payways title="支付方式" ref="payways" v-model="paymentCode" :pp.sync="isPp" :rewardPoint="result.rewardPoint"> -->
-    </payways> 
+    <payways title="支付方式" ref="payways" v-model="paymentCode" :pp.sync="isPp" :rewardPoint="result.rewardPoint"></payways> 
 
     <!-- 底部 -->
     <div class="footer-bar">
@@ -138,15 +133,6 @@
         <button  type="primary" class="radius bg-gradient" form-type="submit" @click="submit">提交订单</button>
       </form>
     </div>
-
-    <!-- 送货上门时间选择 -->
-    <!-- <time-range-picker
-      title="选择送达时间"
-      :shown.sync="distributionTimeRangePickerShowed"
-      :data="distributionTimeRange"
-      empty-tip="不在配送时间范围内"
-      v-model="distributionSelected">
-    </time-range-picker> -->
 
     <!-- 门店自取时间选择 -->
     <time-range-picker
@@ -166,10 +152,10 @@
   import { formatDate } from '@/utils/'
   import { Api } from '@/http/api'
   import config from '@/config'
-  import LjFormPreview from '@/components/LjFormPreview'
-  import Payways from '@/components/Payways'
-  import PaymentDialog from '@/components/PaymentDialog'
-  import TimeRangePicker from '@/components/TimeRangePicker'
+  import LjFormPreview from './components/LjFormPreview/index'
+  import Payways from './components/Payways/index'
+  import PaymentDialog from './components/PaymentDialog/index'
+  import TimeRangePicker from './components/TimeRangePicker'
 
   let today = new Date()
   const TODAY_DATE = formatDate(today)
@@ -285,9 +271,9 @@
          this.list = []
          this.couponId= ''
          this.activityType= 1
-        this.deliveryStatus= 0
-         this.teamOrder= ''
-         this.storeList= []
+         this.deliveryStatus= 0   
+         this.teamOrder= ''   //订单信息
+         this.storeList= []   //门店信息
          this.activityGoodsIdOftimes= '' //时间接口。单独购买调用
       },
 
@@ -325,9 +311,10 @@
           }
         })
       },
-
+    /**
+     * @description  获取订单信息
+     */
       getCheckoutData(storeId) {
-        // 获取订单信息
         wx.showLoading({ mask: true })
         if(this.cartIds == 0 ) {
           this.$store.dispatch('addToActivity', {
@@ -488,7 +475,9 @@
         })
         .catch(() => wx.hideLoading())
       },
-
+    /**
+     * @description  支付方式
+     */
       submit() {
         new Promise((_resolve, _reject) => {
           if (this.paymentCode === 'balancePaymentPlugin') {
@@ -531,6 +520,7 @@
                   icon: 'none'
                 })
               }
+              
             })
           } else {
             _resolve()
@@ -671,15 +661,8 @@
         }))
       },
 
-      // getTimeRange(storeId) {
-      //   Api.cart.times({ storeId: storeId || this.storeId , activityGoodsId: this.result.cartOrderVoList[0].activityGoodsId || this.activityGoodsIdOftimes })
-      //   .then(res => {
-      //     if (res.code === Api.CODES.SUCCESS) {
-      //       this.distributionTimeRange = this.timeRangeMapper(res.data)
-      //       this.selfHelpTimeRange = this.timeRangeMapper(res.data, false)
-      //     }
-      //   })
-      // },
+  
+
 
       findStoreByStoreId (storeList,storeId) {
         console.log('findStoreByStoreId',storeList)
@@ -688,7 +671,6 @@
             return storeList[i]
           }
         }
-       
       },
 
         /**
@@ -708,7 +690,7 @@
       },
 
       /**
-       * @description 
+       * @description 获取门店信息
        */
       _setDefaultAddress() {
         wx.showLoading()
@@ -742,15 +724,7 @@
     },
 
      onLoad(e) {
-       console.log('dadadadad',this.$store.state.runingtime)
-      // let teamOrder = wx.getStorageSync('teamOrder') || ''
-      // if(teamOrder) {
-      //   this.teamOrder = teamOrder
-      //   this.deliveryStatus = this.teamOrder.deliveryStatus
-      //   this.deliveryType = this.teamOrder.deliveryType
-      //   this.activityGoodsIdOftimes = this.teamOrder.activityGoodsIdOftimes
-      //   wx.removeStorageSync('teamOrder')
-      // }
+
       this.cartIds = e.cartIds
       this.getCheckoutData()
           if(e.storeId) {
@@ -761,7 +735,7 @@
           }
       this._setDefaultAddress()  //设置默认第一个门店地址
     },
-
+    
     onUnload() {
       this.$store.commit('clearTempOrder')
       this.order = null
@@ -776,6 +750,7 @@
   page {
     background-color: #F3F3F3;
     padding-bottom: 120rpx;
+    padding-left:24rpx;
   }
   .address-top {
     margin-top: 40rpx;
@@ -783,11 +758,24 @@
 </style>
 
 <style lang="scss" scoped>
-
+  
   .time{
-    // margin-right:20rpx;
-    float: right;
+    float: left;
+    font-size:30rpx;
+    font-weight:bold;
+    margin-left:14rpx;
+
   }
+  .xian{
+    width: 702rpx;
+    height: 1rpx;
+    background:rgba(204,204,204,1);
+    opacity:0.4;
+    position: absolute;
+    top:85rpx;
+    left:0rpx;
+  }
+
 
   .tabs {
     margin-top: 40rpx;
@@ -812,9 +800,12 @@
     }
   }
 
+
   .address-area {
-    padding-top: 30rpx;
     background-color: #fff;
+    width: 702rpx;
+    margin-top:24rpx;
+    border-radius: 14rpx;
     &__border {
       display: block;
       width: 100%;
@@ -837,9 +828,13 @@
       padding-bottom: 30rpx;
       &__bd {
         font-size: 34rpx;
+        .collect{
+          font-weight:bold;
+        }
         > .desc {
           font-size: 30rpx;
           color: $text-gray;
+          line-height: 40rpx;
         }
       }
       &__ft {
@@ -856,16 +851,21 @@
   /** TODO: 通用化考虑 */
   .goods-list-panel {
     .weui-panel {
+      width: 702rpx;
+      border-radius: 14rpx;
       &__hd {
+        position: relative;
         padding: 28rpx 30rpx 20rpx 60rpx;
         padding-top: 20rpx;
         font-size: 28rpx;
         color: $text-black;
+        height: 28rpx;
+        width: 100%;
         > img {
           margin-right: 8rpx;
           vertical-align: middle;
-          width: 24rpx;
-          height: 24rpx;
+          width: 36rpx;
+          height: 36rpx;
           position: absolute;
           top:35%;
           left:22rpx;
@@ -918,6 +918,8 @@
   }
 
   .form-cells {
+    width: 702rpx;
+    border-radius:14rpx; 
     margin-top: 20rpx;
     &:before,
     &:after {
@@ -927,6 +929,7 @@
       &__hd {
         color: $text-black;
         font-size: 28rpx;
+       
       }
       &__bd input {
         font-size: 28rpx;
@@ -935,29 +938,34 @@
   }
 
   .footer-bar {
-    padding: 15rpx 30rpx;
+    width: 100%;
+    height: 105rpx;
     background-color: #fff;
-    text-align: right;
+    text-align: left;
     z-index: 10;
-    
+    padding-left:23rpx;
+    line-height: 93rpx;
     span {
-      font-size: 34rpx;
+      font-size: 36rpx;
       font-weight: 700;
       color: $text-black;
       vertical-align: middle;
       line-height: 80rpx;
       &.price {
         color: $text-red;
+        margin-top:35rpx;
       }
     }
 
     button {
       margin-left: 40rpx;
       display: inline-block;
-      line-height: 80rpx;
-      border-radius: 40rpx;
-      width: 220rpx;
+      line-height: 105rpx;
+      width: 251rpx;
+      height: 105rpx;
       vertical-align: middle;
+      float: right;
+      font-size:32rpx;
     }
   }
 
@@ -966,8 +974,8 @@
     width: 100%;
   
   }
-
   .timerange-picker {
+    
     position: fixed;
     z-index: 11;
     bottom: 0;

@@ -44,6 +44,10 @@
   </div>
 </template>
 
+
+
+
+
 <script>
   import wxbarcode from 'wxbarcode'
   import { Api } from '@/http/api'
@@ -68,12 +72,13 @@
             // this.result = res.data
             console.log('判断',res )
             wx.showToast({
-                title: '核销成功',
-                icon: 'success',
-                duration: 1000
+                title: res.message,
+                icon: 'success'
+
             })
-            return  false
+
             clearInterval(this.timer) 
+            wx.navigateTo({ url: '/pages/order/index/main' })
           } 
        
         })
