@@ -82,17 +82,11 @@
 
       <div class="weui-panel goods-list-panel">
         <!-- <div class="weui-panel__hd" @click="selfHelpTimeRangePickerShowed = true"> -->
-          <div class="weui-panel__hd">
+          <!-- <div class="weui-panel__hd">
           <img src="/static/images/details_icon_clock@2x.png">
-          提货时间
+           提货时间
           <div class="time">{{showPickUpTime}}</div>
-          <!-- <div class="weui-cell__ft weui-cell__ft_in-access">
-            <template v-if="selfHelpSelected.startTime && selfHelpSelected.endTime">
-             {{ selfHelpSelected.dataTime }} {{ selfHelpSelected.startTime }}-{{ selfHelpSelected.endTime }}
-            </template>
-            <template v-else>选择提货时间</template>
-          </div> -->
-        </div>
+        </div> -->
         <div class="weui-panel__bd">
           <div class="weui-media-box weui-media-box_appmsg" v-for="item in result.cartOrderVoList"
             :key="item.goodsId">
