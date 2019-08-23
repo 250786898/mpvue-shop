@@ -37,6 +37,7 @@ export default {
     .catch(e => wx.hideLoading())
   },
 
+
   updateCartNum({ commit, dispatch }) {
     Api.cart.count().then(res => {
       if (res.code == Api.CODES.SUCCESS) {

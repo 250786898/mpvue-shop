@@ -1,162 +1,43 @@
 <template>
   <div>
-    <div class="goods-list" v-if="(result.cartItemResultList && result.cartItemResultList.length) || (result.failureGoodsList && result.failureGoodsList.length)">
-      <!-- <template v-if="result.globalActivityId">
-        <div class="top-tip">
-          <div class="weui-cell weui-cell_access">
-            <div class="weui-cell__hd">
-              <div class="top-tip__tag">包邮</div>
-            </div>
-            <rich-text :nodes="result.globalActivityDescribe" class="weui-cell__bd"></rich-text>
-            <navigator url="/pages/index/main" open-type="switchTab" class="weui-cell__ft weui-cell__ft_in-access" v-if="!result.matchState">去凑单</navigator>
-          </div>
-        </div>
-        <div class="top-tip__placeholder"></div>
-      </template> -->
-      
-      <div class="group" v-for="(list, activityId) in groupedCartList" :key="index">
-        <!-- <div class="group-tip" v-if="activityId && list[0].activityDesc"> -->
-        <div class="group-tip" v-if="false">
-          <div class="weui-cell weui-cell_access">
-            <div class="weui-cell__bd">{{ list[0].activityDesc }}</div>
-            <!-- <div class="weui-cell__bd">还差<span>10.00</span>元 满50减10元</div> -->
-            <!-- 会员 -->
-            <!--
-            <navigator v-if="list[0].activityType == 50"
-              class="weui-cell__ft weui-cell__ft_in-access"
-              :url="'/pages/activity/main?id=' + activityId + '&activityType=' + list[0].activityType + '&activitySubType=' + (list[0].activitySubType || 0)">
-              去凑单
-            </navigator>
-            -->
-          </div>
-        </div>
-        <div v-for="(item,index) in list" :key="item.goodsId">
-          <movable-area class="slider-left-item" style="width: 930rpx; margin-left:-180rpx;">
-            <movable-view class="slider-left-content"
-              damping="0"
-              :x="item.x"
-              direction="horizontal"
-              @touchstart="handleTouchestart(item, $event)"
-              @touchend="handleTouchend(item, $event)"
-              @change="handleChange(item, $event)">
-              <div class="weui-panel goods-list-panel" >
-                <div class="weui-panel__bd">
-                  <div class="weui-media-box weui-media-box_appmsg">
-                    <label class="checkbox">
-                      <switch type="checkbox" class="weui-check" :checked="item.checked" @change="onGoodsCBChange($event, item,index)"/>
-                      <div class="weui-cell__hd weui-check__hd_in-checkbox">
-                        <icon v-if="item.checked" class="weui-icon-checkbox_success" type="success" size="23" color="#12D6BE" ></icon>
-                        <icon v-else class="weui-icon-checkbox_circle" type="circle" size="23"></icon>
-                      </div>
-                    </label>
-                    <div class="weui-media-box__hd weui-media-box__hd_in-appmsg">
-                      <image class="weui-media-box__thumb" :src="item.goodsImage" />
-                    </div>
-                    <div class="weui-media-box__bd weui-media-box__bd_in-appmsg">
-                      <div class="weui-media-box__title">
-                        <span class="ddd" v-if="item.activityEnable && item.activityType == 20 && item.activityName">{{item.activityName}}</span>
-                        {{ item.goodsName }}
-                        </div>
-                      <div class="goods-row-item__tb">
-                        <goods-price :item="item" :showNormalTag="false"></goods-price>
-                        <div class="goods-count">
-                          <counter v-model="item.itemTotalNum" :max="item.maxNum" @change="onGoodsNumChange(item)"></counter>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </movable-view>
-            <view class='slider-left-handle'>
-              <view @click="del(item)" class="slider-left-handle__button red">
-                删除
-              </view>
-            </view>
-          </movable-area>
-        </div>
-      </div>
-      
-      <div class="group" v-if="result.failureGoodsList && result.failureGoodsList.length">
-        <div class="group__title">失效商品</div>
-        <div v-for="item in result.failureGoodsList" :key="item.goodsId">
-          <movable-area class="slider-left-item" style="width: 930rpx; margin-left:-180rpx;">
-            <movable-view class="slider-left-content"
-              damping="0"
-              direction="horizontal"
-              :x="item.x"
-              @touchstart="handleTouchestart(item, $event)"
-              @touchend="handleTouchend(item, $event)"
-              @change="handleChange(item, $event)"
-              >
-              <div class="weui-panel goods-list-panel">
-                <div class="weui-panel__bd">
-                  <div class="weui-media-box weui-media-box_appmsg disabled">
-                    <div class="checkbox"></div>
-                    <div class="weui-media-box__hd weui-media-box__hd_in-appmsg">
-                      <image class="weui-media-box__thumb" :src="item.goodsImage" />
-                    </div>
-                    <div class="weui-media-box__bd weui-media-box__bd_in-appmsg">
-                      <div class="weui-media-box__title">{{ item.goodsName }}</div>
-                      <div class="weui-media-box__desc">
-                       
-                        <span class="goods-price">￥{{ item.onlinePrice }}</span>
-                        <div class="goods-count" @touchstart.stop>
-                          <counter :disabled="true" v-model="item.goodsNum"></counter>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </movable-view>
-            <view class='slider-left-handle'>
-              <view @click="del(item, true)" class="slider-left-handle__button red">
-                删除
-              </view>
-            </view>
-          </movable-area>
-        </div>
-      </div>
-    </div>
+    <template  v-if="(cartItemResultList && cartItemResultList.length) || (failureGoodsList && failureGoodsList.length)">
+       
+       <!-- 正常商品列表 -->
+      <base-cart 
+        :cartItemResultList="cartItemResultList" 
+        @updateActivityStatus="updateActivityStatus" 
+        @updateCartNum="updateCartNum"
+        @del="del"
+        v-if="cartItemResultList && cartItemResultList.length"
+      /> 
 
-    <div class="empty-tip" v-else>
-      <img src="/static/images/shopcart_icon_bg.png@2x.png">
-      <div class="empty-tip__text empty-tip__text_main">购物车为空~</div>
-      <div class="empty-tip__text">赶紧去慰劳一下自己吧~</div>
-      <button type="primary" class="radius" @click="toIndex">
-        快去逛一逛吧~
-      </button>
-    </div>
+      <!-- 失效商品列表 -->
+      <failure-cart 
+        :failureGoodsList="failureGoodsList" 
+        @updateActivityStatus="updateActivityStatus" 
+        v-if="failureGoodsList && failureGoodsList.length"
+      /> 
 
-    <!-- <goods-recommend :type="1"></goods-recommend> -->
+       <!-- 占位符 -->
+      <div style="height: 120rpx;"></div> 
 
-    <div style="height: 120rpx;"></div>
-    <div class="footer-bar">
-      <div class="weui-flex">
-        <label class="weui-cell weui-check__label">
-          <switch type="checkbox" class="weui-check" :checked="allChecked" @change="onAllCheckedChange"></switch>
-          <div class="weui-check__hd_in-checkbox">
-            <icon class="weui-icon-checkbox_circle" type="circle" size="23" v-if="!allChecked"></icon>
-            <icon class="weui-icon-checkbox_success" type="success" color="#0EDABC" size="23" v-if="allChecked"></icon>
-          </div>
-          <div>全选</div>
-        </label>
-        <div class="weui-flex__item">
-          <div class="all-count">
-            <h4>
-              <span class="all-count__desc"></span>
-              <span class="all-count__total">合计:</span>
-              <span class="all-count__price">￥{{ result.totalAmount }}</span>
-            </h4>
-            <p>已优惠:-￥{{ result.promisAmount || 0 }}</p>
-          </div>
-        </div>
-        <div>
-          <button type="primary" class="radius bg-gradient"  @click="checkout" :disabled="!hasSelectedGoods">结算</button>
-        </div>
-      </div>
-    </div>
+      <!-- 悬浮区域 -->
+      <Suspension 
+        :totalAmount="totalAmount" 
+        :promisAmount="promisAmount" 
+        :cartItemResultList="cartItemResultList" 
+        @updateActivityStatus="updateActivityStatus" 
+        v-if="cartItemResultList && cartItemResultList.length"
+      />
+
+    </template>
+
+    <template v-else >
+      <!-- 购物车为空的时候显示 -->
+      <empty-cart />
+    </template>
+
+   
   </div>
 </template>
 
@@ -164,213 +45,100 @@
   import { Api } from '@/http/api'
   import { mapState } from 'vuex'
   import GoodsRecommend from '@/components/GoodsRecommend'
-  import Counter from '@/components/Counter'
-  import GoodsPrice from '@/components/GoodsPrice'
-  
-  const OPEN_WIDTH = 200
-  const MOVE_THRESHOLD = 30
+  import FailureCart from './components/FailureCart/index'
+  import BaseCart from './components/BaseCart/index'
+  import EmptyCart from './components/EmptyCart/index'
+  import Suspension from './components/Suspension/index'
+
   const SLIDE_PARAMS = {
-    x: OPEN_WIDTH,
-    open: false,
-    moveInstance: 0,
-    currentX: OPEN_WIDTH,
     checked: true
   }
 
   export default {
     components: {
       GoodsRecommend,
-      Counter,
-      GoodsPrice
+      FailureCart,
+      BaseCart,
+      EmptyCart,
+      Suspension
     },
 
     data () {
       return {
-        result: {}
+        result: {}, //购物车相关信息
+        cartItemResultList: [], //正常商品购物车列表
+        failureGoodsList: [], //失效商品购物车列表
+        totalAmount: 0, //合计购物车价格
+        promisAmount: 0 //已优惠价格
       }
     },
 
     computed: {
-      ...mapState(['storeId']),
-      // 分组购物车
-      groupedCartList() {
-        let result = {}
-
-        if (this.result && this.result.cartItemResultList) {
-          this.result.cartItemResultList.forEach(item => {
-            // if (item.activityEnable && item.activityId) {
-            // if (item.activityId) {
-            //   result[item.activityId] = result[item.activityId] || []
-            //   result[item.activityId].push(item)
-            // } else {
-            //   result[''] = result[''] || []
-            //   result[''].push(item)
-            // }
-              result[''] = result[''] || []
-              result[''].push(item)
-          })
-        }
-        console.log('result',result)
-        return result
-      },
-
-      allChecked: {
-        get() {
-          return this.result.cartItemResultList && this.result.cartItemResultList.every(item => item.checked)
-        },
-
-        set(checked) {
-          if (this.result.cartItemResultList) {
-            this.result.cartItemResultList.forEach(item => item.checked = checked)
-          }
-        }
-      },
-
-      totalAmount() {
-        let result = 0
-
-        if (this.result.cartItemResultList) {
-          result = this.result.cartItemResultList.reduce((base, item) => {
-            if (!item.checked) return base
-            // HACK: 处理浮点失准
-            return base + (item.goodsPayPrice * item.goodsNum)
-          }, 0)
-        }
-
-        return result.toFixed(2)
-      },
-
-      hasSelectedGoods() {
-        return this.result.cartItemResultList &&
-          this.result.cartItemResultList.some(item => item.checked)
-      }
+      ...mapState(['storeId'])
     },
 
     methods: {
-      findSubListByItem(item) {
-        let list
 
-        for(let key in this.groupedCartList) {
-          if (this.groupedCartList[key].indexOf(item) !== -1) {
-            list = this.groupedCartList[key]
-          }
-        }
-
-        return list
-      },
-
-      handleChange(item, e) {
-        item.moveInstance = OPEN_WIDTH - e.x
-        item.currentX = e.x
-      },
-
-      handleTouchend(item) {
-        item.x = 0
-        // 如果松开手指的时候，已经被拖拽到最左边或者最右边，则不处理
-        if (item.currentX === 0) {
-          return this.slideOpenItem(item)
-        }
-        if (item.currentX === OPEN_WIDTH) {
-          return this.slideCloseItem(item)
-        }
-        // 如果当前菜单是打开的，只要往右移动的距离大于0就马上关闭菜单
-        if (item.open && item.currentX > 0) {
-          return this.slideCloseItem(item)
-        }
-
-        // 如果当前菜单是关着的，只要往左移动超过阀值就马上打开菜单
-        if (item.moveInstance < MOVE_THRESHOLD) {
-          this.slideCloseItem(item)
-        } else {
-          this.slideOpenItem(item)
-        }
-      },
-
-      // 开始左滑时触发（轻触摸的时候也会触发），主要用于显示当前删除按钮前先 隐藏掉其它项的删除按钮
-      handleTouchestart(item) {
-        if (!item.open) {
-          let list = this.findSubListByItem(item)
-
-          if (list) {
-            list.forEach(_item => {
-              if (item !== _item) {
-                this.slideCloseItem(_item)
-              }
-            })
-          }
-        }
-      },
-
-      slideOpenItem(item) {
-        item.open = true
-        item.x = 0
-      },
-
-      slideCloseItem(item) {
-        item.open = false
-        item.x = OPEN_WIDTH
-      },
-
-      onGoodsCBChange({ mp: { detail } }, item,index) {
-        item.checked = detail.value
-        this.updateActivityStatus(detail.value,index)  
-      },
-
-      onAllCheckedChange(e) {
-        this.allChecked = e.mp.detail.value
-        this.updateActivityStatus(e.mp.detail.value)
-      },
-
+      /**
+       * @description 获取购物车id集合
+       */
       getCheckedCartIds() {
-        if (!this.result || !this.result.cartItemResultList) return ''
+        if (!this.cartItemResultList) return ''
 
-        return this.result.cartItemResultList
+        return this.cartItemResultList
           .filter(item => item.checked)
           .map(item => item.cartId)
           .join(',')
       },
 
+      /**
+       * @description 获取选择或则取消选择后的购物车列表
+       */
+      getUpdateCartResultList (cartItemResultList,checked,index) {
+        let list = cartItemResultList.map( (item,currentIndex) => {      
+          let checkedValue = currentIndex == index ? checked : ''
+          return {
+          ...item,
+          checked: checkedValue? checkedValue : this.cartItemResultList[currentIndex].checked
+          }
+        })
+        return list
+      },
+
+      /**
+       * @param {boolean} 当前购物车商品是否选中
+       * @param {index} 购物车商品所在索引
+       * @description 更新购物车列表数据
+       */
       updateActivityStatus(checked,index) {
+        console.log('updateActivityStatus',checked,index)
         wx.showLoading({})
-        console.log(this.getCheckedCartIds())
         Api.cart.cartList({
           storeId: this.storeId,
           carts: this.getCheckedCartIds()
         }).then(res => {
           if (res.code === Api.CODES.SUCCESS) {
-            const UPDATE_PARAMS = {
-              x: OPEN_WIDTH,
-              open: false,
-              moveInstance: 0,
-              currentX: OPEN_WIDTH       
-            }
-           res.data.cartItemResultList = res.data.cartItemResultList.map( (item,currentIndex) => {      
-              let checkedValue = currentIndex == index ? checked : ''
-             return {
-              ...item,
-              ...UPDATE_PARAMS,
-              checked: checkedValue? checkedValue : this.result.cartItemResultList[currentIndex].checked
-            }
-           })
-           console.log(res.data.cartItemResultList)
-           console.log(checked,index)
-            this.result.cartItemResultList = res.data.cartItemResultList
-            this.result.totalAmount  =  res.data.totalAmount
-            this.result.globalActivityDescribe = res.data.globalActivityDescribe
-            this.result.globalActivityType = res.data.globalActivityType
-            this.result.globalActivityId = res.data.globalActivityId
-            this.result.matchState = res.data.matchState
-            this.result.promisAmount = res.data.promisAmount     
-            // this.result.cartItemResultList = res.data.cartItemResultList
+
+            //选择或则取消了购物车重新更新订单
+            this.cartItemResultList = this.getUpdateCartResultList(res.data.cartItemResultList,checked,index) 
+            this.failureGoodsList = res.data.failureGoodsList
+            this.totalAmount  =  res.data.totalAmount
+            this.promisAmount = res.data.promisAmount 
+        
             wx.hideLoading({})
           }
         })
       },
 
-      onGoodsNumChange(item) {
-        Api.cart.update({
+      /**
+       * @param {object} item 该购物车商品对象
+       * @param {number} num 自定义更新购物车数量
+       * @description 更新购物车数量
+       */
+      updateCartNum (item,num) {
+         Api.cart.update({
           cartId: item.cartId,
-          num: item.itemTotalNum,
+          num: num || item.itemTotalNum,
           storeId: this.storeId
         }).then(res => {
           if (res.code === Api.CODES.SUCCESS) {
@@ -387,7 +155,14 @@
         })
       },
 
-      del(item, isFailureGoods) {
+
+      
+      /**
+       * @param {Object} item 购物车商品对象
+       * @param {boolean} isFailureGoods 是否是失效商品
+       * @description 删除购物车的商品
+       */
+      del(item, isFailureGoods = false) {
         wx.showLoading({
           title: '移除商品中',
           mask: true
@@ -398,11 +173,11 @@
         .then(res => {
           if (res.code === Api.CODES.SUCCESS) {
             if (isFailureGoods) {
-              let index = this.result.failureGoodsList.indexOf(item)
-              this.result.failureGoodsList.splice(index, 1)
+              let index = this.failureGoodsList.indexOf(item)
+              this.failureGoodsList.splice(index, 1)
             } else {
-              let index = this.result.cartItemResultList.indexOf(item)
-              this.result.cartItemResultList.splice(index, 1)
+              let index = this.cartItemResultList.indexOf(item)
+              this.cartItemResultList.splice(index, 1)
             }
             this.$store.dispatch('updateCartNum')
             this.updateActivityStatus()
@@ -417,21 +192,10 @@
         .then(() => wx.hideLoading())        
       },
 
-      checkout() {
-        if (this.result.cartItemResultList) {
-          let cartIds = this.result.cartItemResultList
-            .filter(item => item.checked)
-            .map(item => item.cartId)
-            .join(',')
-
-          if (cartIds) {
-            wx.navigateTo({
-              url: `/pages/order/preview/main?cartIds=${ cartIds }`
-            })
-          }
-        }
-      },
-
+  
+      /**
+       * @description 初始化，加载购物车列表
+       */
       getCartList() {
         wx.showLoading({
           mask: true,
@@ -450,7 +214,10 @@
               ...item,
               ...SLIDE_PARAMS 
             }))
-            this.result = res.data
+            this.cartItemResultList = res.data.cartItemResultList 
+            this.failureGoodsList = res.data.failureGoodsList
+            this.totalAmount = res.data.totalAmount //合计购物车价格
+            this.promisAmount = res.data.promisAmount //已优惠价格
           }
         })
         .catch(e => console.log(e))
@@ -458,14 +225,8 @@
           wx.hideLoading()
           wx.stopPullDownRefresh()
         })
-        this.$store.dispatch('syncCartTabbarBadge')
+        this.$store.dispatch('syncCartTabbarBadge') //设置tab徽章
       },
-
-      toIndex() {
-        wx.switchTab({
-          url: '/pages/index/main'
-        })
-      }
     },
 
     onLoad() {
@@ -477,28 +238,34 @@
     },
 
     onShow() {
-      this.getCartList()
-      // wx.startPullDownRefresh()
+      this.getCartList() //获取购物车列表
     },
 
+    
     onPullDownRefresh() {
-      this.getCartList()
+      this.getCartList()  //下拉更新购物车列表
     }
   }
 </script>
 
 <style>
-  page { background-color: #F5F5F5; }
+  page { background-color: #F5F5F5;padding: 24rpx 0; }
 </style>
 
 <style lang="scss" scoped>
   .empty-tip {
-    padding-top: 220rpx;
+    padding-top: 100rpx;
     padding-bottom: 220rpx;
     border-bottom: 1rpx solid #F4F4F4;
+    font-size:24rpx;
     button {
       margin-top: 50rpx;
       width: 428rpx;
+    }
+    img{
+      width: 380rpx;
+      height: 264rpx;
+      margin-bottom:0rpx;
     }
   }
 
@@ -538,6 +305,15 @@
   }
 
   .group {
+    width: 708rpx;
+    margin: auto;
+    overflow: hidden;
+    border-radius:14rpx;
+    background: $white-color;
+    &-item{
+      border-radius:14rpx;
+      background: $white-color;
+    }
     + .group {
       margin-top: 20rpx;
     }
@@ -565,141 +341,50 @@
       }
     }
     &__title {
-      background-color: #fff;
-      padding: 30rpx 0 10rpx;
+      background-color: $white-color;
+      font-weight:800;
       text-align: center;
       font-size: 32rpx;
-      color: $text-black;
-    }
-  }
-  
-  .goods-list-panel {
-    width: 100%;
-    .weui-media-box {
-      padding-top: 20rpx;
-      padding-bottom: 20rpx;
-      &__title {
-        height: 100rpx;
-        margin-bottom: 0;
-      }
-      .ddd {
-        min-width:88px;
-        text-align: center;
-        padding: 0 10px;
-        height:14px;
-        line-height:14px;
-        color: #E50F0F;
-        font-size: 12px;
-        border:1px solid rgba(229,15,15,1);
-        border-radius:9px;
-      }
-      + .weui-media-box:before {
-        display: block;
-        left: 0;
-        border-color: #F4F4F4;
-      }
-      &.disabled {
-        .weui-media-box__title,
-        .goods-price {
-          color: $text-gray;
-        }
-      }
-    }
-    
-    .member-only {
-      line-height: 56rpx;
-      font-size: 32rpx;
-      color: #FFA442;
-      font-weight: 700;
-      &__tag {
-        font-weight: 400;
-        display: inline-block;
-        margin-left: 10rpx;
-        padding-left: 16rpx;
-        padding-right: 16rpx;
-        height: 36rpx;
-        line-height: 36rpx;
-        border-radius: 20rpx;
-        background-color: #FFA442;
-        font-size: 20rpx;
-        color: #fff;
-        vertical-align: middle;
-      }
-    }
-
-
-
-
-
-
-    .goods-row-item__tb {
-      height: 60rpx;
-  // .goods-price{
-  // .goods-row-item__price{
-  //      position: absolute;
-  //      top:0;
-  //      left:0;
-  //      .primary{
-  //         position: absolute;
-  //        top:-115rpx;
-  //      }
-
-
-
-  //    }
-  // }
-      
-   
-      .primary { font-size: 28rpx; }
-      .secondary { font-size: 22rpx; }
-      .goods-count {
-        top: auto!important;
-        bottom: 0!important;
-      }
-    }
-  }
-
-  .footer-bar {
-    z-index: 101;
-    padding: 15rpx 30rpx;
-    background-color: #fff;
-    .weui-check__label {
-      padding-left: 0;
-      padding-top: 0;
-      padding-bottom: 0;
-      font-size: 26rpx;
       color: $text-gray;
-    }
-
-    .all-count {
-      margin-bottom: 4rpx;
-      padding-right: 20rpx;
-      text-align: right;
-      line-height: 32rpx;
-      font-size: 24rpx;
-      color: $text-black;
-      h4 {
-        font-size: 26rpx;
-        .all-count__desc {
-          font-size: 20rpx;
-          color: #999;
-        }
-        .all-count__total {
-          font-size: 32rpx;
-        }
-        .all-count__price {
-          font-weight: 700;
-          color: #F03E3E;
-          font-size: 32rpx;
-        }
-      }
-    }
-
-    button[type=primary] {
-      margin-top: 4rpx;
-      width: 188rpx;
-      line-height: 70rpx;
-      border-radius: 35rpx;
+      height: 90rpx;
+      line-height: 90rpx;
+      border-bottom: 1rpx solid #F4F4F4;
     }
   }
+
+  /*正常商品样式*/
+  .group-header{
+    display: flex;
+    height: 90rpx;
+    padding: 0 20rpx;
+    box-sizing: border-box;
+    justify-content: space-between;
+    border-bottom: 1rpx solid #F4F4F4;
+    align-items: center;
+    &-left{
+      display: flex;
+      font-size: 30rpx;
+      font-weight:800;
+    }
+    &-right{
+      color: #666666;
+      font-size: 28rpx;
+      font-weight: 800;
+    }
+  }
+  .group-footer{
+    height: 74rpx;
+    line-height: 74rpx;
+    padding-left: 307rpx;
+    color: $text-gray-deep;
+    font-size: 24rpx;
+  }
+  .goods-item-checkbox {
+    margin-left: 48rpx;
+  }
+  .goods-list-item{
+    border-bottom: 1px solid #F4F4F4;
+  }
+  /*正常商品样式*/
+  
 </style>

@@ -45,6 +45,10 @@
   </div>
 </template>
 
+
+
+
+
 <script>
   import wxbarcode from 'wxbarcode'
   import { Api } from '@/http/api'
@@ -91,6 +95,7 @@
             //     }
             //   })
             clearInterval(this.timer) 
+            wx.navigateTo({ url: '/pages/order/index/main' })
           } 
         })
         .catch(e => console.log(e))

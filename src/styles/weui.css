@@ -884,10 +884,12 @@ icon {
   margin-top: 10px;
   position: relative;
   overflow: hidden;
+  width: 702rpx;
+  border-radius: 14rpx;
 }
 
 .weui-panel:first-child {
-  margin-top: 0;
+  margin-top: 25rpx;
 }
 
 .weui-panel:before {

@@ -10,7 +10,6 @@
     "pages/address/list/main",
     "pages/address/form/main",
     "pages/activity/main",
-    
     "pages/newcomepacks/main",
     "pages/goodstheme/main",
     "pages/coupon/index/main",
@@ -21,12 +20,7 @@
     "pages/scan/cart/main",
     "pages/goods/index/main",
     "pages/goods/detail/main",
-  
     "pages/member/theme/main",
-    "pages/theme/manjian/main",
-    "pages/theme/maisong/main",
-    "pages/theme/miaosha/main",
-    "pages/timelimit/index/main",
     "pages/order/preview/main",
     "pages/order/index/main",
     "pages/order/comment/main",
@@ -39,8 +33,6 @@
     "pages/order/returngoods/main",
     "pages/order/returnapply/main",
     "pages/order/progress/main",
-    "pages/order/teamlist/main",
-    "pages/order/teamdetail/main",
     "pages/order/selectshop/main",
     "pages/mine/auth/main",
     "pages/mine/bind/main",
@@ -55,7 +47,6 @@
     "pages/pickup/detail/main",
     "pages/pickup/instruction/main",
     "pages/rider/detail/main",
-    "pages/scanorder/returnapply/main",
     
     "pages/portal/main",
     "pages/free-order/free-order/main",

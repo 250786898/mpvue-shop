@@ -52,33 +52,6 @@
             </div>
           </div>
 
-          <!-- <div class="weui-cell">
-            <div class="weui-cell__hd">
-              学历
-            </div>
-            <div class="weui-cell__bd">
-              <picker @change="onEduChange" :value="profile.education" :range="eduArray">
-                <view class="picker picker_triangle" :class="{ 'valid-error': educationError }">
-                  <template v-if="profile.education">{{ profile.education }}</template>
-                  <div v-else class="picker__placeholder">请选择学历</div>
-                </view>
-              </picker>
-            </div>
-          </div> -->
-
-          <!-- <div class="weui-cell">
-            <div class="weui-cell__hd">
-              婚姻状况
-            </div>
-            <div class="weui-cell__bd">
-              <picker @change="onMarryChange" :value="profile.maritalStatus" :range="marryArray">
-                <view class="picker picker_triangle" :class="{ 'valid-error': maritalStatusError }">
-                  <template v-if="profile.maritalStatus">{{ profile.maritalStatus }}</template>
-                  <div v-else class="picker__placeholder">请选择婚姻状况</div>
-                </view>
-              </picker>
-            </div>
-          </div> -->
         </div>
 
         <div class="lj-form__ft">
@@ -99,8 +72,6 @@
           { label: '女士', value: 1 },
           { label: '先生', value: 0 }
         ],
-        // eduArray: ['', '小学', '初中', '高中', '大专', '本科', '研究生', '博士'],
-        // marryArray: ['', '未婚', '已婚'],
 
         truenameError: false,
         birthdayError: false,
@@ -124,14 +95,6 @@
       onBirthChange(e) {
         this.profile.birthday = e.mp.detail.value
       },
-
-      // onEduChange(e) {
-      //   this.profile.education = this.eduArray[e.mp.detail.value]
-      // },
-
-      // onMarryChange(e) {
-      //   this.profile.maritalStatus = this.marryArray[e.mp.detail.value]
-      // },
 
       submit() {
         
