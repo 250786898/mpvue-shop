@@ -120,7 +120,6 @@
       </div>
 
     </div>
-
     <div class="empty-tip" v-else>
      <EmptyCart></EmptyCart>
     </div>

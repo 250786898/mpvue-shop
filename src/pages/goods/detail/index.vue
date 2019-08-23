@@ -185,26 +185,7 @@
     <!-- 商品详情 -->
     <div class="goods-detail">
       <div class="goods-detail__title">商品详情</div>
-      <!-- <div class="weui-form-preview">
-        <div class="weui-form-preview__bd">
-          <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">产地</label>
-            <span class="weui-form-preview__value">广州棠安路</span>
-          </div>
-          <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">储存方式</label>
-            <span class="weui-form-preview__value">冷藏</span>
-          </div>
-          <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">规格</label>
-            <span class="weui-form-preview__value">450g</span>
-          </div>
-          <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">保质期</label>
-            <span class="weui-form-preview__value">35天</span>
-          </div>
-        </div>
-      </div> -->
+    
       <rich-text :nodes="goodsDetailInfo.mobileBody"></rich-text>
     </div>
 

@@ -18,11 +18,9 @@
           indicator-color="#B3B3B3"
           indicator-active-color="#FFFFFF"
         >
-        <!-- 轮播图跳转 :url="item.activitySubType ?  navigateToUrl[item.activityType][item.activitySubType] + item.activityId : navigateToUrl[item.activityType] + item.activityId " -->
           <navigator
             v-for="item in storeData.bannerList"
             :key="item.activityId"
-  
           >
             <swiper-item>
               <img :src="item.bannerUrl" class="slide-image" mode="aspectFit" />
@@ -31,7 +29,6 @@
         </swiper>
       </div>
     
-
       <!-- GoodsRecommend -->
       <goods-recommend></goods-recommend>
       <!-- Fixed -->
@@ -347,7 +344,6 @@ export default {
         this._cacheLocation &&
         (this._cacheLocation.longitude !== this.location.longitude ||
           this._cacheLocation.latitude !== this.location.latitude)
-
       )
         return true;
 

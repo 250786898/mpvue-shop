@@ -59,10 +59,8 @@
           <div class="weui-media-box weui-media-box_text" >
             <img src="/static/images/common_icon_dangqian@2x.png">
             <div class="relocation" @click="relocation">
-              <!-- <img src="/static/images/common_icon_refresh.png@2x.png"> -->
               <span style="color:#ccc;">重新定位</span>
             </div>
-            <!-- weui-media-box__title_in-text -->
             <div class="weui-media-box__title">
               {{ relocationing ? '定位中...' : location.address +location.name }}
             </div>
@@ -89,15 +87,12 @@
           <h3 style="color:#999;">团长：{{ storeLid.franchiseeName }}</h3> 
           <h4><span>电话：</span>{{  storeLid.franchiseeTel}}</h4>
           <p style="margin-bottom:20rpx">提货时间: 9：00 - 20：00</p>
-          <div class="box">
-            <img style="right:0rpx;" src="/static/images/rectangle.png" alt="">
-            <p class="recommend" >推荐</p>
-          </div>
+          <!-- <div class="box">
+            <img src="/static/images/rectangle.png" alt="">
+            <p >推荐</p>
+          </div> -->
         </div>
-        <!-- <div class="weui-cell__ft"> -->
-          <!-- <div class="weui-cell__ft">距离{{  storeLid.storeDistance }}km</div> -->
            <img src="/static/images/arrows.png">
-        <!-- </div> -->
       </div>
     </div>
  <div class="weui-cells__title"></div>
@@ -108,12 +103,11 @@
         附近门店
       </div>
       <div class="weui-cells_xian"></div>
-      
       <div class="weui-cell" v-for=" item  in storeList" :key="item.storeId" @click="select(item)">
-        <div class="tuijian" v-if="index <= 2">
-          <P class="tuijian_pp" >推荐</P>
+        <!-- <div class="tuijian" v-if="index <= 2">
+          <P >推荐</P>
           <img style="right:0rpx;" src="/static/images/rectangle.png" alt="">
-          </div>
+          </div> -->
         <div  class="weui-cell__bd">
           <div class="head">
             <image  :src= "item.storeLogoImg"  alt=""></image>
@@ -124,10 +118,8 @@
           <h4><span>电话：</span>{{ item.franchiseeTel }}</h4>
           <p style="margin-bottom:20rpx">提货时间: 9：00 - 20：00</p>
         </div>
-        <!-- <div class="weui-cell__ft"> -->
           <div class="weui-cell__ft">距离{{ item.storeDistance }}km</div>
            <img src="/static/images/arrows.png">
-        <!-- </div> -->
         <div class="xian"></div>
       </div>
     </div>
@@ -159,7 +151,6 @@
           <h2 style="font-weight:bold;margin-bottom:20rpx">{{ item.storeName }}</h2>
           <p style="color:#333;">{{ item.storeAddress }}</p>
           <h3 style="color:#999;">团长：{{ item.shopIsName }}</h3> 
-          <!-- <p>{{item[0]}}</p> -->
           <h4><span>电话：</span>{{ item.franchiseeTel }}</h4>
           <p style="margin-bottom:20rpx">提货时间: 9：00 - 20：00</p>
         </div>
@@ -175,7 +166,7 @@
             <div class="weui-media-box__title weui-media-box__title_in-text">{{ item.name }}</div>
             <div class="weui-media-box__desc">{{ item.address }}</div>
           </div> -->
-          <empty text="暂无搜索结果" v-if="!searching && !recommends.length"></empty>
+          <empty text="暂无搜索结果" v-if="!searching && !queryByRegin.length"></empty>
           <empty text="正在搜索中..." v-if="searching && !inputShowed"></empty>
         </div>
       </div>
@@ -201,20 +192,19 @@
 
     data () {
       return {
-        inputVal: '',
-        inputShowed: false,
-        addressList: [],
-        markers: [],
-        relocationing: false,
-        recommends: [],
-        searching: false,
-        checkRegin: [],
-        cityModalShowed: false,
+        inputVal: '',  //输入框内容
+        inputShowed: false, //门店输入弹窗
+        addressList: [],   //配送距离
+        markers: [],   //当前门店列表
+        relocationing: false,  //当前定位
+        recommends: [],     //搜索门店结果集
+        searching: false,   //搜索门店结果弹窗
+        cityModalShowed: false,  //城市列表
         storeList: [],
-        storeLid:{},
-        cityname:'广州市',
-        that:[],
-        queryByRegin:[]
+        storeLid:{},   //当前门店列表
+        cityname:'广州市',  //定位城市
+        that:[],   
+        queryByRegin:[]  //搜索门店列表
         
       }
     },
@@ -233,17 +223,8 @@
         this.$store.commit('setItem', item )
         let storeId = this.$store.state.shopDetail.storeId;
         this.$store.commit('setStoreId', storeId)
-        // Api.index.storeGoodsListByshopId({ 
-        //   storeId: storeId 
-        // })
-        // .then(res => {
-        //   if (res.code === Api.CODES.SUCCESS) {
-        //     console.log("商品信息", res.data.shopStoreGoods);
-        //   }
-        // })
-
-          this.$bus.$emit('shopChange', item)
-          wx.navigateBack()
+        this.$bus.$emit('shopChange', item)
+        wx.navigateBack()
       },
  
      /*
@@ -264,7 +245,6 @@
       showInput() {
         this.inputShowed = true
       },
-
       /**
        * @description 隐藏输入框
        */
@@ -283,26 +263,6 @@
           let storeNameLike = detail.value
      
           if ( storeNameLike != '' ) {   
-            // this.amap.getInputtips({ //高德地图获取关键字APi
-              // keywords: detail.value,
-              
-              // type: '120201|120302|141400|141200|170100|060101|050101|110101|150500',
-              // city: '020',
-              // citylimit: true,
-              // location: `${ this.location.longitude },${ this.location.latitude }`,
-              // success: res => {
-                // wx.hideLoading({})
-              
-                // let regin = res.tips.map(item => { //过滤所需的关键字
-                //   if(item.location) {
-                //     let [lng, lat] = typeof item.location === 'string' ?
-                //         item.location.split(',') : [] 
-                //     return {
-                //       longitude: lng,
-                //       latitude: lat
-                //     }
-                //   }
-                // }) 
   // 搜索门店    
                 console.log('输入内容', storeNameLike)
                 // regin = JSON.stringify(storeNameLike)
@@ -310,41 +270,14 @@
                   latitude: this.location.latitude,
                   longitude: this.location.longitude,
                   storeNameLike: storeNameLike
-
                 }).then(res => {
                   if (res.code === Api.CODES.SUCCESS) {
                     console.log('门店信息',res)
                     this.queryByRegin = res.data.queryByRegin || res.data.cityStore
-                    // res.data.forEach(item => {
-                    //   this.checkRegin.push(item.storeId)
-                    // });
                   }
                 })
-
                   .catch(e => console.log(e))
                   .then(() => wx.hideLoading())
-                // if (this.storeInfo.storeId) {
-                //   this.recommends = res.tips.map((item,index) => {
-                //     let [lng, lat] = typeof item.location === 'string' ?
-                //       item.location.split(',') :
-                //       [] 
-                //       console.log('a',this.checkRegin)
-                //     return {
-                //       ...item,
-                //       disable: this.checkRegin[index] || this.storeInfo.scope * 1000 < getFlatternDistance(
-                //         this.storeInfo.storeLat,
-                //         this.storeInfo.storelng,
-                //         +lat,
-                //         +lng
-                //       )
-                //     }
-                //   })
-                // } else {
-                //   this.recommends = res.tips
-                // }
-              // },
-              // fail: () => this.searching = false
-            // })
           } else {
             this.searching = false
             this.recommends.length = 0
@@ -355,7 +288,9 @@
       clearInput() {
         this.inputVal = ''
       },
-
+    /**
+     @description 判断配送距离
+     */
       getAddressList() {
         Api.address.addressList().then(res => {
           if (res.code === Api.CODES.SUCCESS) {
@@ -382,7 +317,6 @@
       //     showCancel: false
       //   })
       // },
-
 
       /**
        * @description 选择我的地址
@@ -420,8 +354,6 @@
           latitude
         })
         this.hideInput()
-        
-        // wx.navigateBack()
       },
 
       /**
@@ -508,7 +440,9 @@
           .then(() => wx.hideLoading())
       },
 
-
+      /**
+       * @description  判断配送距离
+       */
       chooseLocation() {
         wx.chooseLocation({
           success: res => {
@@ -522,7 +456,6 @@
                 // return this.showUnselectableTip()
               }
             } 
-
             this.$store.commit('setLocationInfo', res)
             wx.navigateBack()
           }
@@ -534,41 +467,38 @@
         url: "/pages/index/main"
       });
       }
-
     },
 
     onLoad (e) {
-      
-  // 1.0
       this.StoreLid()
       this.getStoreList(e)
-      this.amap = new AMapWX({ key: config.AMAP_KEY })
-      this.amap.getPoiAround({
-        location: `${ this.location.longitude },${ this.location.latitude }`,
-        success: res => {
-          let markers
-          // 如果已选择了门店
-          if (this.storeInfo.storeId) {
-            markers = res.markers.slice(0, 5).map(item => {
-              let distance = getFlatternDistance(
-                this.storeInfo.storeLat,
-                this.storeInfo.storelng,
-                item.latitude,
-                item.longitude
-              )
-              return {
-                ...item,
-                disable: this.storeInfo.scope * 1000 < distance
-              }
-            })
-          } else {
-            markers = res.markers.slice(0, 5)
-          }
+      // this.amap = new AMapWX({ key: config.AMAP_KEY })
+      // this.amap.getPoiAround({
+      //   location: `${ this.location.longitude },${ this.location.latitude }`,
+      //   success: res => {
+      //     let markers
+      //     // 如果已选择了门店
+      //     if (this.storeInfo.storeId) {
+      //       markers = res.markers.slice(0, 5).map(item => {
+      //         let distance = getFlatternDistance(
+      //           this.storeInfo.storeLat,
+      //           this.storeInfo.storelng,
+      //           item.latitude,
+      //           item.longitude
+      //         )
+      //         return {
+      //           ...item,
+      //           disable: this.storeInfo.scope * 1000 < distance
+      //         }
+      //       })
+      //     } else {
+      //       markers = res.markers.slice(0, 5)
+      //     }
 
-          this.markers = markers
-        },
-        fail: e => console.log(e)
-      })
+      //     this.markers = markers
+      //   },
+      //   fail: e => console.log(e)
+      // })
       this.hideInput()
       this.getAddressList()
     }
@@ -576,15 +506,10 @@
 </script>
 
 <style>
-  page { background-color: #F4F4F4; padding-bottom: 88rpx; }
+  page { background-color: #F4F4F4; padding-bottom: 88rpx;}
 </style>
 
 <style  lang="scss" scoped>
-
-.weui-cell:nth-child(1){
-  // background-color: #000;
-
-}
 
   .weui-search-bar {
     position: fixed;
@@ -682,6 +607,7 @@
       position: relative;
       margin-top: 0;
       height: 185rpx;
+      width: 100%;
 
       .weui-panel_caption{
           font-size: 24rpx;
@@ -729,7 +655,7 @@
       }
       img{
         position: absolute;
-        top: 32rpx;
+        top: 44rpx;
         left: 33rpx;
         width: 72rpx;
         height: 72rpx;
@@ -744,7 +670,7 @@
 
     .relocation {
       position: absolute;
-      top: 60rpx;
+      top: 58rpx;
       margin-top: -10rpx;
       right: 30rpx;
       font-size: 24rpx;
@@ -806,6 +732,48 @@
 
   .weui-cells {
     position: relative;
+      .box{
+        width: 110rpx;
+        height: 50rpx;
+        position: absolute;
+        top:191rpx;
+        right:0rpx;
+        img{
+          position: absolute;
+          top:0%;
+          right:0%;
+          width: 95rpx;
+          height: 38rpx;
+        }
+        p{
+          position: absolute;
+          top:-15%;
+          left:32%;
+          color: #fff;
+          z-index: 1;
+        }
+      }
+
+    .tuijian{
+      width: 110%;
+      height: 50%;
+      position:absolute;
+      top:23%;
+      right:0%;
+       img{
+          width: 95rpx;
+          height: 38rpx;
+        }
+        p{
+          position: absolute;
+          top:83%;
+          right:18rpx;
+          font-size: 28rpx;
+          color: #fff;
+          z-index: 1;
+        }
+      }
+   
     .weui-cells_xian{
           position:absolute;
           width: 703rpx;
@@ -849,53 +817,12 @@
         border-radius: 50rpx;
         }
       }
-      .tuijian{
-        position:absolute;
-        // position: relative;
-        top:95rpx;
-        right:0rpx;
-        &_pp{
-            font-size: 28rpx;
-            color:#fff;
-            position:absolute;
-            top:127rpx;
-            right:-2rpx;
-            width:79rpx;
-            z-index:1;
-        }
-        img{
-          width: 95rpx;
-          height: 38rpx;
-        }
-      }
-
-
+  
     &:before {
       display: none;
     }
     &__bd {
-      .box{
-        width: 110rpx;
-        height: 50rpx;
-        position: absolute;
-        top:33%;
-        right:0rpx;
-      .recommend{
-          position: absolute;
-          top:117rpx;
-          right:-480rpx;
-          color:#fff;
-          font-size:28rpx;
-      }
-        img{
-          width: 95rpx;
-          height: 38rpx;
-          // position: absolute;
-          // top:132rpx;
-          // right:0rpx;
-        }
-
-      }
+    
       h2 {
         font-size: 32rpx;
         color: $text-black;
@@ -917,7 +844,6 @@
         height:35rpx;
         font-size:28rpx;
         color: #999;
-        margin-bottom:4rpx;
       }
       h4{
         width:355rpx;

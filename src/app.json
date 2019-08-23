@@ -40,7 +40,7 @@
     "pages/order/returnapply/main",
     "pages/order/progress/main",
     "pages/order/teamlist/main",
-    "pages/order/teamdetail/main",
+
     "pages/order/selectshop/main",
     "pages/mine/auth/main",
     "pages/mine/bind/main",

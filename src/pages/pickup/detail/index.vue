@@ -44,6 +44,10 @@
   </div>
 </template>
 
+
+
+
+
 <script>
   import wxbarcode from 'wxbarcode'
   import { Api } from '@/http/api'

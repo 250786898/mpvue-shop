@@ -87,12 +87,7 @@
         
           <div class="time">预计 {{showPickUpTime}} 可提货</div>
           <div class="xian"></div>
-          <!-- <div class="weui-cell__ft weui-cell__ft_in-access">
-            <template v-if="selfHelpSelected.startTime && selfHelpSelected.endTime">
-             {{ selfHelpSelected.dataTime }} {{ selfHelpSelected.startTime }}-{{ selfHelpSelected.endTime }}
-            </template>
-            <template v-else>选择提货时间</template>
-          </div> -->
+        
         </div>
         <div class="weui-panel__bd">
           <div class="weui-media-box weui-media-box_appmsg" v-for="item in result.cartOrderVoList"
@@ -138,15 +133,6 @@
         <button  type="primary" class="radius bg-gradient" form-type="submit" @click="submit">提交订单</button>
       </form>
     </div>
-
-    <!-- 送货上门时间选择 -->
-    <!-- <time-range-picker
-      title="选择送达时间"
-      :shown.sync="distributionTimeRangePickerShowed"
-      :data="distributionTimeRange"
-      empty-tip="不在配送时间范围内"
-      v-model="distributionSelected">
-    </time-range-picker> -->
 
     <!-- 门店自取时间选择 -->
     <time-range-picker
@@ -285,9 +271,9 @@
          this.list = []
          this.couponId= ''
          this.activityType= 1
-        this.deliveryStatus= 0
-         this.teamOrder= ''
-         this.storeList= []
+         this.deliveryStatus= 0   
+         this.teamOrder= ''   //订单信息
+         this.storeList= []   //门店信息
          this.activityGoodsIdOftimes= '' //时间接口。单独购买调用
       },
 
@@ -325,9 +311,10 @@
           }
         })
       },
-
+    /**
+     * @description  获取订单信息
+     */
       getCheckoutData(storeId) {
-        // 获取订单信息
         wx.showLoading({ mask: true })
         if(this.cartIds == 0 ) {
           this.$store.dispatch('addToActivity', {
@@ -488,7 +475,9 @@
         })
         .catch(() => wx.hideLoading())
       },
-
+    /**
+     * @description  支付方式
+     */
       submit() {
         new Promise((_resolve, _reject) => {
           if (this.paymentCode === 'balancePaymentPlugin') {
@@ -531,6 +520,7 @@
                   icon: 'none'
                 })
               }
+              
             })
           } else {
             _resolve()
@@ -671,15 +661,8 @@
         }))
       },
 
-      // getTimeRange(storeId) {
-      //   Api.cart.times({ storeId: storeId || this.storeId , activityGoodsId: this.result.cartOrderVoList[0].activityGoodsId || this.activityGoodsIdOftimes })
-      //   .then(res => {
-      //     if (res.code === Api.CODES.SUCCESS) {
-      //       this.distributionTimeRange = this.timeRangeMapper(res.data)
-      //       this.selfHelpTimeRange = this.timeRangeMapper(res.data, false)
-      //     }
-      //   })
-      // },
+  
+
 
       findStoreByStoreId (storeList,storeId) {
         console.log('findStoreByStoreId',storeList)
@@ -688,7 +671,6 @@
             return storeList[i]
           }
         }
-       
       },
 
         /**
@@ -708,7 +690,7 @@
       },
 
       /**
-       * @description 
+       * @description 获取门店信息
        */
       _setDefaultAddress() {
         wx.showLoading()
@@ -742,15 +724,7 @@
     },
 
      onLoad(e) {
-       console.log('dadadadad',this.$store.state.runingtime)
-      // let teamOrder = wx.getStorageSync('teamOrder') || ''
-      // if(teamOrder) {
-      //   this.teamOrder = teamOrder
-      //   this.deliveryStatus = this.teamOrder.deliveryStatus
-      //   this.deliveryType = this.teamOrder.deliveryType
-      //   this.activityGoodsIdOftimes = this.teamOrder.activityGoodsIdOftimes
-      //   wx.removeStorageSync('teamOrder')
-      // }
+
       this.cartIds = e.cartIds
       this.getCheckoutData()
           if(e.storeId) {
@@ -761,7 +735,7 @@
           }
       this._setDefaultAddress()  //设置默认第一个门店地址
     },
-
+    
     onUnload() {
       this.$store.commit('clearTempOrder')
       this.order = null
@@ -860,6 +834,7 @@
         > .desc {
           font-size: 30rpx;
           color: $text-gray;
+          line-height: 40rpx;
         }
       }
       &__ft {

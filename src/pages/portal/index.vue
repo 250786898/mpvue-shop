@@ -61,16 +61,6 @@
             <button type="primary">快来乐家购物吧&gt;</button>
           </navigator>
         </div>
-        <div class="weui-flex__item">
-          <navigator url="/pages/membercard/charge/main" class="entry-block entry-block_r">
-            <img src="">
-            <h4>乐享卡储值</h4>
-          </navigator>
-          <navigator url="/pages/scan/index/main" class="entry-block entry-block_r" style="margin-top: 16rpx">
-            <img src="">
-            <h4>扫码购</h4>
-          </navigator>
-        </div>
       </div>
     </div>
 
