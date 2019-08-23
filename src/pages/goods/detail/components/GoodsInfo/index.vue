@@ -1,5 +1,6 @@
 <template>
   <div class="good-buy-bar">
+      <img src="/static/images/goods-detail-bar__bg.png" alt="" class="good-buy-bar__bg">
      <div class="price-box">
        <span class="current-price"  v-if="currentPrice">￥{{currentPrice}}</span>
        <span class="original-price" v-if="originalPrice">￥{{originalPrice}}</span>
@@ -34,13 +35,20 @@ export default {
   .good-buy-bar{
     width:100vw;
     height:120rpx;
-    background:linear-gradient(90deg,rgba(18,205,207,1),rgba(12,225,179,1));
     color: #fff;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 25rpx;
     box-sizing: border-box;
+    position: relative;
+    &__bg{
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+    }
     .current-price{    
       font-weight:bold;
       font-size: 72rpx;
@@ -50,8 +58,13 @@ export default {
       text-decoration: line-through;
       margin-left: 8rpx;
     }
+    .price-box{
+      z-index: 2;
+    }
     .end-time-box{
+      z-index: 2;
       color: #0C524D;
+      text-align: center;
       font-size: 24rpx;
       &__title{
         padding-bottom: 15rpx;

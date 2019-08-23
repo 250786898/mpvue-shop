@@ -31,7 +31,7 @@ export default {
 <style lang="scss" scoped>
   .goods-hd-info {
     padding-top: 30rpx;
-    padding-bottom: 10rpx;
+    padding-bottom: 30rpx;
     background-color: #fff;
     align-items: flex-start;
     &:before {

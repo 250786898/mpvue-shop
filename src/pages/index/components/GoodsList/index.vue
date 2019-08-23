@@ -118,7 +118,7 @@
      */
     onPullDownRefresh () {
       console.log('onPullDownRefresh')
-      this.getGoodsClassList(this.storeId , this.pcId , 1 , showPageSize)
+      // this.getGoodsClassList(this.storeId , this.pcId , 1 , showPageSize)
     }
   }
 </script>

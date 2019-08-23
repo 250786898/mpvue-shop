@@ -64,7 +64,6 @@ import { Api } from "@/http/api";
 import { AMapWX } from "@/utils/amap-wx";
 import config from "@/config.js";
 import GoodsSearchBar from "@/components/GoodsSearchBar";
-import GoodsRows from "@/components/GoodsRows";
 import GoodsList from "./components/GoodsList/index";
 import IndexSwiper from "./components/IndexSwiper/index"
 
@@ -76,7 +75,6 @@ const DEFAULT_CLASS_NUM = 9;
 export default {
   components: {
     GoodsSearchBar,
-    GoodsRows,
     GoodsList,
     IndexSwiper
   },

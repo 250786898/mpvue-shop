@@ -1,18 +1,7 @@
 <template>
   <div>
     <!-- Swiper -->
-    <div class="swiper-wrap">
-      <swiper class="swiper" @change="onSwiperChange" autoplay="true">
-        <div v-for="item in goodsDetailInfo.goodsBanner" :key="item" @click="previewImage(item)">
-          <swiper-item>
-           <img :src="item" class="slide-image" mode="aspectFit"/>
-         </swiper-item>
-        </div>
-      </swiper>
-      <div class="indicator">
-        <span>{{ current + 1 }}/</span>{{ goodsDetailInfo.bannerNum || 0 }}
-      </div>
-    </div>
+    <DetailSwiper :bannerList="goodsDetailInfo.goodsBanner" />
 
     <!-- 商品信息bar -->
     <goods-info :current-price="goodsDetailInfo.onlinePrice" :original-price="goodsDetailInfo.onlineScribingPrice" />
@@ -27,30 +16,15 @@
     <pickup-timer />
 
     <!-- Type end; -->
+
+     <!-- 商品推荐 -->
+    <GoodsRecommend :commendGoodsList="commendGoodsList" />
     
 
-    <!-- 商品推荐 -->
-    <div class="goods-recommend" v-if="commendGoodsList.length">
-      <div class="goods-recommend__title" v-if="activityInfo.groupNum">大家都在拼</div>
-      <div class="goods-recommend__title" v-else>商品推荐</div>
-      <div>
-        <template v-if="activityInfo.activityType == 30">
-          <assemble-goods-rows :goods="assembleCommendGoodsList" :goodsId="activityInfo.activityGoodsId"></assemble-goods-rows>
-        </template>
-        <template v-else>
-           <goods-rows :goods="commendGoodsList"></goods-rows>
-        </template>
-        
-       
-      </div>
-    </div>
+   
 
     <!-- 商品详情 -->
-    <div class="goods-detail">
-      <div class="goods-detail__title">商品详情</div>
-      <rich-text :nodes="goodsDetailInfo.mobileBody"></rich-text>
-    </div>
-
+    <goods-detail :detail-info="goodsDetailInfo.mobileBody" /> 
 
 
 
@@ -66,23 +40,27 @@
   import { mapState } from 'vuex'
   import { serialize } from '@/utils/'
   import AssembleGoodsRows from '@/components/AssembleGoodsRows'
-  import GoodsRows from '@/components/GoodsRows'
   import GoodsInfo from './components/GoodsInfo/index'
   import GoodsDesc from './components/GoodsDesc/index'
   import PickupTimer from './components/PickupTimer/index'
+  import GoodsRecommend from './components/GoodsRecommend/index'
+  import GoodsDetail from './components/GoodsDetail/index'
+  import DetailSwiper from './components/DetailSwiper/index'
 
   export default {
     components: {
       AssembleGoodsRows,
-      GoodsRows,
       GoodsInfo,
       GoodsDesc,
-      PickupTimer
+      PickupTimer,
+      GoodsRecommend,
+      GoodsDetail,
+      DetailSwiper
     },
 
     data() {
       return {
-        current: 0,
+        
         groupDialogShowed: false,
         countModifyDialogShowed: false,
         backToTopButtonShowed: false,
@@ -121,12 +99,7 @@
     },
 
     methods: {
-      /**
-       * @description 切换swiper
-       */
-      onSwiperChange(e) {
-        this.current = e.target.current
-      },
+      
 
       /**
        * @description 回到顶部
@@ -137,15 +110,7 @@
         }
       },
 
-      /**
-       * @description 放大全屏预览图片
-       */
-      previewImage(current) {
-        wx.previewImage({
-          urls: this.goodsDetailInfo.goodsBanner,
-          current
-        })
-      },
+
 
       /**
        * @description 添加到购物车
@@ -480,110 +445,6 @@
 </style>
 
 <style scoped lang="scss">
-  .swiper-wrap {
-    position: relative;
-    background-color: #fff;
-    .indicator {
-      position: absolute;
-      bottom: 20rpx;
-      right: 30rpx;
-      line-height: 32rpx;
-      width: 70rpx;
-      text-align: center;
-      border: 1rpx solid #7A7A7A;
-      border-radius: 17rpx;
-      font-size: 24rpx;
-      color: $text-gray;
-      span {
-        color: $text-black;
-      }
-    }
-  }
-  .swiper {
-    height: 527rpx;
-    swiper-item {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      img {
-        width: 100%;
-        height: 100%;
-      }
-    }
-  }
-  .goods-detail {
-    background-color: #fff;
-    margin-top: 20rpx;
-    padding: 0 30rpx;
-    &__title {
-      padding-top: 24rpx;
-      padding-bottom: 24rpx;
-      text-align: center;
-      font-size: 28rpx;
-      color: $text-black;
-      &:before,
-      &:after {
-        content: '';
-        display: inline-block;
-        margin: 0 20rpx;
-        width: 10rpx;
-        height: 10rpx;
-        border-radius: 6rpx;
-        background-color: $text-black;
-        vertical-align: 4rpx;
-      }
-    }
-    .weui-form-preview {
-      &:before,
-      &:after {
-        display: none;
-      }
-      &__bd {
-        padding-top: 0;
-        padding-bottom: 30rpx;
-      }
-      &__item {
-        padding-top: 14rpx;
-        padding-bottom: 14rpx;
-        border-bottom: 1rpx dashed rgba(153, 153, 153, .6);
-        &:last-child {
-          border-bottom: 0;
-        }
-      }
-      &__label {
-        font-size: 24rpx;
-        text-align: left;
-        text-align-last: left;
-        color: $text-gray;
-        margin-right: 2em;
-      }
-      &__value {
-        text-align: left;
-        font-size: 24rpx;
-        color: $text-black;
-      }
-    }
-    > img {
-      width: 100%;
-      vertical-align: middle;
-    }
-  }
-  .goods-recommend {
-    margin-top: 20rpx;
-    background-color: #fff;
-    padding: 20rpx 0;
-    &__title {
-      padding: 0 30rpx;
-      margin-bottom: 10rpx;
-      font-size: 30rpx;
-      color: $text-black;
-    }
-    /deep/ .goods-item {
-      &:first-child { padding-left: 30rpx; }
-      &:last-child { padding-right: 30rpx; }
-    }
-  }
-
   .footer-bar.bp-footer-bar {
     padding: 10rpx 30rpx;
     background-color: #fff;

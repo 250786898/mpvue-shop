@@ -2,7 +2,7 @@
   <div class="flashsale">
     <div class="weui-cells">
       <div class="weui-cell" >
-        <img src="/static/images/details_icon_clock@2x.png">
+        <img src="/static/images/details_icon_clock@2x.png" class="clock-icon">
         <span class="take-goods-time">现在下单,</span><span class="take-goods-time-color">&nbsp;&nbsp;{{showPickUpTime}}&nbsp;&nbsp;</span> 可提货
       </div>
     </div>
@@ -58,8 +58,8 @@ export default {
   img {
     margin-right: 12rpx;
     vertical-align: middle;
-    width: 24rpx;
-    height: 24rpx;
+    width: 42rpx;
+    height: 42rpx;
   }
 }
 .take-goods-time {

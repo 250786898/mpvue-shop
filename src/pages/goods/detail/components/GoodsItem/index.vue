@@ -48,10 +48,19 @@
 
 <style scoped lang="scss">
   .goods-item {
-    width: 220rpx;
-    padding: 10rpx;
+    padding: 10rpx 10rpx 20rpx;
     display: inline-block;
     vertical-align: top;
+    width:250rpx;
+    min-height:360rpx;
+    background:rgba(255,255,255,1);
+    border:1px solid rgba(233,232,232,1);
+    border-radius:10rpx;
+    box-sizing: border-box;
+    margin-right: 25rpx;
+    &:first-child{
+      padding-left: 10rpx !important;
+    }
     > img {
       vertical-align: top;
       width: 220rpx;
@@ -59,8 +68,8 @@
     }
     &__title {
       margin-top: 10rpx;
-      font-size: 24rpx;
-      color: #413D3C;
+      font-size: 30rpx;
+      color: #101010;
       @include ellipsis;
     }
     &__bd {

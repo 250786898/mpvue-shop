@@ -11,9 +11,9 @@
      
     </div>
     <!-- 加载更多 -->
-    <div class="goods-tabs__loading" v-if="!isAllLoaded && loading">
+    <!-- <div class="goods-tabs__loading" v-if="!isAllLoaded && loading">
       <img src="/static/images/Spin-1s-60px.gif">
-    </div>
+    </div> -->
 
     <div class="goods-tabs__tip" v-if="isAllLoaded && goodsList.length">亲,已经看到最后啦！</div>
 

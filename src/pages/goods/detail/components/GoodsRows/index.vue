@@ -12,7 +12,7 @@
 </template>
 
 <script>
-  import GoodsItem from '@/components/GoodsItem'
+  import GoodsItem from '../GoodsItem/index'
   
   export default {
     components: {

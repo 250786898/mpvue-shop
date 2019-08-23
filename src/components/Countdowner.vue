@@ -5,6 +5,8 @@
     <span class="num">{{ hms.m }}</span>
     <span>:</span>
     <span class="num">{{ hms.s }}</span>
+    <span>:</span>
+    <span class="microsecond">{{ '0' }}</span>
   </div>
 </template>
 
@@ -46,19 +48,32 @@
     span {
       vertical-align: top;
       display: inline-block;
-      font-size: 22rpx;
+      font-size: 26rpx;
+      color: #0C524D;
       &.num {
-        width: 34rpx;
-        height: 34rpx;
         text-align: center;
-        line-height: 34rpx;
-        background-color: #333;
         color: #fff;
-        border-radius: 4rpx;
+        width:40rpx;
+        height:36rpx;
+        line-height: 36rpx;
+        background:rgba(25,111,105,1);
+        border-radius:6rpx;
+        font-weight:800;
       }
       + span {
-        margin-left: 4rpx;
+        margin-left: 6rpx;
       }
+    }
+    .microsecond{
+      width:24rpx;
+      height:36rpx;
+      line-height: 36rpx;
+      background:rgba(255,255,255,1);
+      border-radius:6rpx;
+      color: #F9AB36;
+      font-size: 28rpx;
+      font-weight: 800;
+      text-align: center;
     }
   }
 </style>
