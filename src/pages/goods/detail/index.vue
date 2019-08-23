@@ -14,157 +14,20 @@
       </div>
     </div>
 
-    <!-- Type start: 团购商品、限时购、秒杀 -->
-    <div class="group-buy-bar" :class="{'group-buy-bar-team': activityInfo.activityType === 30}" v-if="activityInfo.activityType === 10 || activityInfo.activityType === 30">
-      <div class="weui-flex">
-        <div class="weui-flex__item">
-          <div class="group-buy-bar__ib group-buy-bar__price">
-            <span>￥</span>{{ goodsDetailInfo.activityPrice }}
-          </div>
-          <div class="group-buy-bar__ib">
-            <div class="group-buy-bar__price_old">￥{{ goodsDetailInfo.onlinePrice }}</div>
-            <div class="group-buy-bar__tag" v-if="activityInfo.activityType === 30">{{activityInfo.groupNum}}人团</div>
-          </div>
-        </div>
-        <div class="group-buy-bar__ft">
-          <div class="group-buy-bar__ft-tip">距离结束时间</div>
-          <div>
-            <countdowner :countdown="countdown"></countdowner>
-          </div>
-        </div>
-      </div>
-      <img class="xiangqing_bg" v-if="activityInfo.activityType === 30" src="/static/images/xiangqing_bg.png" alt="">
-    </div>
+    <!-- 商品信息bar -->
+    <goods-info :current-price="goodsDetailInfo.onlinePrice" :original-price="goodsDetailInfo.onlineScribingPrice" />
 
-    <!-- Type end; -->
+  
+    <!-- 商品相关描述（名称） -->
+    <goods-desc :goods-name="goodsDetailInfo.goodsName" :goods-desc="goodsDetailInfo.shareDescription" />
 
-    
-    <!-- 商品名 -->
-    <div class="weui-cell goods-hd-info">
-      <div class="weui-cell__bd">
-        <div class="goods-hd-info__title">{{ goodsDetailInfo.goodsName }}</div>
-        <div class="goods-hd-info__desc">{{ goodsDetailInfo.shareDescription }}</div>
-        <!-- Type start: 限时抢购 -->
-        <div class="goods-hd-info__bd goods-hd-info__bd_member-only"
-          v-if="activityInfo && activityInfo.activityType == 10">
-          <div class="member-only">
-            ￥{{ goodsDetailInfo.activityPrice }}
-            <span class="activity-tag">限时抢购</span>
-          </div>
-          <!-- <span class="goods-hd-info__price">￥{{ goodsDetailInfo.onlinePrice }}</span> -->
-        </div>
-        <!-- Type end; -->
 
-        <!-- Type start: 会员价 -->
-        <div class="goods-hd-info__bd goods-hd-info__bd_member-only"
-          v-else-if="activityInfo && activityInfo.activityType == 50">
-          <div class="member-only">
-            ￥{{ goodsDetailInfo.activityPrice }}
-            <span class="activity-tag activity-tag_member">会员价</span>
-          </div>
-          <span class="goods-hd-info__price">￥{{ goodsDetailInfo.onlinePrice }}</span>
-        </div>
-        <!-- Type end; -->
 
-        <!-- Type start: 积分商品(二期) -->
-        <div class="goods-hd-info__bd" v-else-if="activityInfo && activityInfo.activityType == 80">
-          <span class="goods-hd-info__price">￥{{ goodsDetailInfo.activityPrice }}</span>
-          <span class="goods-hd-info__bp">+{{ goodsDetailInfo.points }}</span>
-          <img src="/static/images/details_icon_integral@2x.png" class="goods-hd-info__bp-icon">
-        </div>
-        <!-- Type end; -->
-        <div class="goods-hd-info__bd goods-hd-info__bd_member-only"
-          v-else-if="activityInfo && activityInfo.activityType == 30">
-        </div>
-        <!-- Type start: 常规商品 -->
-        <div class="goods-hd-info__bd" v-else>
-          <span class="goods-hd-info__price">￥{{ goodsDetailInfo.onlinePrice }}</span>
-          <span class="goods-hd-info__price-old" v-if="goodsDetailInfo.onlineScribingPrice">
-            ￥{{ goodsDetailInfo.onlineScribingPrice }}
-          </span>
-        </div>
-        <!-- Type end; -->
-      </div>
-      <div class="weui-cell__ft">
-        <button open-type="share">
-          <img src="/static/images/share.png">
-          <div>分享</div>
-        </button>
-      </div>
-    </div>
+    <!-- Type start: 提货时间 -->
+    <pickup-timer />
 
-    <!-- Type start: 团购商品（二期） -->
-
-    <!-- Type start: 自提 -->
-    <div class="flashsale" v-if="activityInfo.bespeakStartTime">
-      <div class="weui-cells">
-        <div class="weui-cell" v-if="activityInfo.bespeakStartTime && activityInfo.bespeakEndTime && activityInfo.bespeakStartTime == activityInfo.bespeakEndTime">
-          <img src="/static/images/details_icon_clock@2x.png">
-          <span class="take-goods-time">提货时间:</span><span class="take-goods-time-color">{{activityInfo.bespeakStartTime}}</span>
-        </div>
-        <div class="weui-cell" v-else>
-          <img src="/static/images/details_icon_clock@2x.png">
-          <span class="take-goods-time">提货时间:</span><span class="take-goods-time-color">{{activityInfo.bespeakStartTime}} ~ {{activityInfo.bespeakEndTime}}</span>
-        </div>
-      </div>
-    </div>
     <!-- Type end; -->
     
-    <!-- 这里最多只显示两条数据 -->
-    <div class="group-member-list" v-if="activityInfo.activityType == 30 && groupList.length">
-      <div class="weui-cells__title">
-        <span v-if="activityInfo.groupNum == 1">{{activityInfo.nowGroupNum}}已拼团成功</span>
-        <span v-else>{{activityInfo.nowGroupNum}}人在拼单,可直接参与</span>
-        <div  v-if="activityInfo.groupNum > 1" class="weui-cell__ft_in-access" @click="groupDialogShowed = true">查看更多</div>
-      </div>
-      <div class="weui-cells weui-cells_after-title">
-        <swiper :autoplay="activityInfo.nowGroupNum%2 == 0" :circular="true" :vertical="true" :style="{height: groupList[0].length == 2 ? '244rpx' : '122rpx'}">
-          <div v-for="(item, index) in groupList" :key="index">
-            <swiper-item>
-              <div class="weui-cell group-member-item" v-for="(item1, itemIndex) in item" :key="itemIndex" @touchmove.prevent.stop>
-                <div class="weui-cell__hd">
-                  <img :src="item1.headImgsUrl"/>
-                </div>
-                <div class="weui-cell__bd">{{item1.nickName}}</div>
-                <div class="weui-cell__ft">
-                  <div class="group-member-item__wait">
-                    <template v-if="item1.updateTime && activityInfo.groupNum == 1">
-                      <span class="assemble-text">拼团成功</span>
-                    </template>
-                    <template v-else>
-                      还差<span>{{item1.diffNum}}人</span>拼成
-                    </template>
-                  </div>
-                  <div class="group-member-item__cd list-time">
-                    <template v-if="item1.updateTime && activityInfo.groupNum == 1">
-                      {{item1.updateTime}}
-                    </template>
-                    <template v-if="activityInfo.groupNum > 1">
-                      <span>剩余</span><countdowner :countdown="item1.times"></countdowner>
-                    </template>
-                  </div>
-                </div>
-                <div class="weui-cell__ft" v-if="item1.updateTime && activityInfo.groupNum > 1">
-                  <button type="primary" style="font-size:13px;" class="bg-orange radius" @click="goTeam(item1.groupOrderId)">去拼单</button>
-                </div>
-              </div>
-            </swiper-item>
-          </div>
-        </swiper>
-      </div>
-    </div>
-    <!-- Type end; -->
-
-    <!-- Type start: 买赠（二期） -->
-    <div class="present" v-if="activityInfo && activityInfo.activityType == 20">
-      <div class="weui-cells">
-        <div class="weui-cell">
-          <span class="present__tag">{{activityInfo.activityName}}</span>
-          {{activityInfo.activityTitle}}
-        </div>
-      </div>
-    </div>
-    <!-- Type end; -->
 
     <!-- 商品推荐 -->
     <div class="goods-recommend" v-if="commendGoodsList.length">
@@ -185,143 +48,16 @@
     <!-- 商品详情 -->
     <div class="goods-detail">
       <div class="goods-detail__title">商品详情</div>
-      <!-- <div class="weui-form-preview">
-        <div class="weui-form-preview__bd">
-          <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">产地</label>
-            <span class="weui-form-preview__value">广州棠安路</span>
-          </div>
-          <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">储存方式</label>
-            <span class="weui-form-preview__value">冷藏</span>
-          </div>
-          <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">规格</label>
-            <span class="weui-form-preview__value">450g</span>
-          </div>
-          <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">保质期</label>
-            <span class="weui-form-preview__value">35天</span>
-          </div>
-        </div>
-      </div> -->
       <rich-text :nodes="goodsDetailInfo.mobileBody"></rich-text>
     </div>
 
 
-    <!-- 底部栏 -->
-    <!-- Type start: 积分商品 -->
-    <div style="height: 200rpx;"></div>
-    <div class="footer-bar bp-footer-bar" >
-      <navigator open-type="switchTab" url="/pages/cart/main" class="cart-icon">
-        <img src="/static/images/common_tab_icon_shopcart_n@2x.png">
-        <span class="weui-badge">{{ cartNum }}</span>
-      </navigator>
-      <button type="primary" class="radius bg-gradient" @click="confirmAdd">加入购物车</button>
-    </div>
-    <!-- Type end; -->
 
-    <!-- Type start: 团购商品 -->
-    <!-- TODO: 加动画 -->
-    <div style="height: 200rpx;"></div>
-    <div class="footer-bar group-footer-bar" v-if="activityInfo.activityType === 30">
-      <!-- <div class="weui-cell" v-if="groupList.length">
-        <div class="weui-cell__hd">
-          <img :src="groupList1[0].headImgsUrl"/>
-        </div>
-        <div class="weui-cell__bd list-time1">剩余<countdowner :countdown="groupList1[0].times"></countdowner>,还差{{groupList1[0].diffNum}}人拼团</div>
-        <div class="weui-cell__ft">
-          <button type="primary" class="bg-orange radius" @click="goTeam(groupList1[0].groupOrderId)">去拼单</button>
-        </div>
-      </div> -->
-      <div class="weui-flex" v-if="groupOrderId">
-        <div class="weui-flex__item">
-          <button type="primary" hover-class="none" class="radius bg-gradient" @click="goTeam(groupOrderId)">￥{{goodsDetailInfo.activityPrice}}一键参团</button>
-        </div>
-      </div>
-      <template v-else>
-        <div class="weui-flex" v-if="activityInfo.groupNum > 1">
-          <div class="weui-flex__item">
-            <button type="primary"  hover-class="none" class="radius bg-gradient" @click="goTeam('two')">￥{{goodsDetailInfo.onlinePrice}}单独购买</button>
-          </div>
-          <div class="weui-flex__item">
-            <button type="primary"  hover-class="none" class="radius bg-gradient_orange" @click="goTeam('one')">￥{{goodsDetailInfo.activityPrice}}发起拼团</button>
-          </div>
-        </div>
-        <div class="weui-flex" v-else>
-          <!-- <div class="weui-flex__item">
-            <button type="primary" class="radius bg-gradient" @click="goTeam('two')">￥{{goodsDetailInfo.onlinePrice}}单独购买</button>
-          </div> -->
-          <div class="weui-flex__item">
-            <button type="primary" hover-class="none" class="radius bg-gradient" @click="goTeam('one')">￥{{goodsDetailInfo.activityPrice}}一键拼团</button>
-          </div>
-        </div>
-      </template>  
-      </div>
-     
-    <!-- Type end; -->
+
 
     <!-- 返回顶部 -->
     <img src="/static/images/details_btn_top@2x.png" v-if="backToTopButtonShowed" class="returntop" @click="returnTop">
 
-    <!-- 拼团列表弹窗（二期） -->
-    <!-- TODO: 加动画 -->
-    <div v-if="groupDialogShowed">
-      <div class="backdrop" @click="groupDialogShowed = false"></div>
-      <div class="group-dialog">
-        <div class="group-dialog__hd">
-          正在拼单
-          <icon type="cancel" color="#333333" size="22" @click="groupDialogShowed = false"></icon>
-        </div>
-        <div class="group-dialog__bd">
-          <div class="weui-cells">
-            <div class="weui-cell" v-for="item in groupList1" :key="item">
-              <div class="weui-cell__hd">
-                <img :src="item.headImgsUrl"/>
-              </div>
-              <div class="weui-cell__bd">
-                <div>还差{{item.diffNum}}人</div>
-                <div class="list-time1"><span class="shengyu">剩余</span><countdowner :countdown="item.times"></countdowner></div>
-              </div>
-              <div class="weui-cell__ft">
-                <button type="primary" class="bg-orange" @click="goTeam(item.groupOrderId)">去拼团</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="group-dialog__ft">仅显示10个正在拼团的人</div>
-      </div>
-    </div>
-    <!-- 数量修改弹窗 -->
-    <div v-if="countModifyDialogShowed">
-      <div class="backdrop" @click="cancelAdd"></div>
-      <div class="count-modify-dialog">
-        <div class="weui-media-box weui-media-box_appmsg">
-          <div class="weui-media-box__hd weui-media-box__hd_in-appmsg">
-            <image class="weui-media-box__thumb" :src="goodsDetailInfo.goodsImage" />
-          </div>
-          <div class="weui-media-box__bd weui-media-box__bd_in-appmsg">
-            <div class="weui-media-box__title">{{ goodsDetailInfo.goodsName }}</div>
-            <div class="weui-media-box__desc">
-              <template v-if="goodsDetailInfo.activityType == 80">
-                <span class="goods-price">￥{{ goodsDetailInfo.activityPrice }}</span>
-                <span class="goods-price" style="color:#333">+{{ goodsDetailInfo.points }}</span>
-                <img src="/static/images/details_icon_integral@2x.png" class="goods-hd-info__bp-icon">
-              </template>
-              <template v-else>
-                <span class="goods-price" v-if="groupOrderId == 'two'">￥{{ goodsDetailInfo.onlinePrice }}</span>
-                <span class="goods-price" v-else>￥{{ groupOrderId ? goodsDetailInfo.activityPrice : goodsDetailInfo.onlinePrice }}</span>
-              </template>
-              <div class="goods-count">
-                <!-- activityInfo.maxNum -->
-                <counter v-model="currentGoodsCartNum" :noSetMax="isNoHasMaxValue" :max="activityInfo.maxNum"></counter>
-              </div>
-            </div>
-          </div>
-        </div>
-        <button type="primary" class="bg-gradient"  hover-class="none" @click="confirmAdd">确 定</button>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -331,15 +67,17 @@
   import { serialize } from '@/utils/'
   import AssembleGoodsRows from '@/components/AssembleGoodsRows'
   import GoodsRows from '@/components/GoodsRows'
-  import Countdowner from '@/components/Countdowner'
-  import Counter from '@/components/Counter'
+  import GoodsInfo from './components/GoodsInfo/index'
+  import GoodsDesc from './components/GoodsDesc/index'
+  import PickupTimer from './components/PickupTimer/index'
 
   export default {
     components: {
       AssembleGoodsRows,
       GoodsRows,
-      Countdowner,
-      Counter
+      GoodsInfo,
+      GoodsDesc,
+      PickupTimer
     },
 
     data() {
@@ -762,7 +500,7 @@
     }
   }
   .swiper {
-    height: 750rpx;
+    height: 527rpx;
     swiper-item {
       display: flex;
       align-items: center;
@@ -770,75 +508,6 @@
       img {
         width: 100%;
         height: 100%;
-      }
-    }
-  }
-  .goods-hd-info {
-    padding-top: 30rpx;
-    padding-bottom: 10rpx;
-    background-color: #fff;
-    align-items: flex-start;
-    &:before {
-      left: 0;
-      border-color: #EAEAEA;
-    }
-    &__title {
-      font-weight:bold;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      display:  -webkit-box;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 2;
-      font-size: 32rpx;
-      color: $text-black;
-      line-height: 40rpx;
-      margin-bottom: 10rpx;
-    }
-    &__desc {
-      font-size: 24rpx;
-    }
-    &__price {
-      font-weight:bold;
-      color: $text-red;
-      font-size: 46rpx;
-      &-old {
-        padding-left: 10rpx;
-        font-size: 24rpx;
-        color: $text-gray;
-        text-decoration: line-through;
-      }
-    }
-    &__bp {
-      color: $text-black;
-      font-size: 46rpx;
-      &-icon {
-        vertical-align: -4rpx;
-        margin-left: 10rpx;
-        width: 52rpx;
-        height: 50rpx;
-      }
-    }
-
-    .weui-cell__bd {
-      padding-right: 80rpx;
-    }
-    .weui-cell__ft {
-      button {
-        &:after {
-          border: 0 none;
-        }
-        padding-left: 6rpx;
-        padding-right: 6rpx;
-        background-color: transparent;
-        border: 0 none;
-        font-size: 24rpx;
-        color: $text-gray;
-        line-height: 40rpx;
-        img {
-          margin-top: 10rpx;
-          width: 46rpx;
-          height: 46rpx;
-        }
       }
     }
   }
@@ -1305,23 +974,6 @@
     }
   }
 
-  .flashsale {
-    .weui-cells {
-      &:before,
-      &:after {
-        display: none;
-      }
-      margin-top: 20rpx;
-      font-size: 24rpx;
-      color: $text-black;
-    }
-    img {
-      margin-right: 12rpx;
-      vertical-align: middle;
-      width: 24rpx;
-      height: 24rpx;
-    }
-  }
 
   .member-only {
     font-size: 46rpx;
@@ -1381,13 +1033,7 @@
       }
     }
   }
-  .take-goods-time {
-    font-size: 14px;
-    &-color{
-      color: #F7B032;
-      font-size: 14px;
-    }
-  }
+
   .assemble-text{
     color: #00d7cc;
   }

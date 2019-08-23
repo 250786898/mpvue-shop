@@ -17,9 +17,9 @@
 
     <div class="goods-tabs__tip" v-if="isAllLoaded && goodsList.length">亲,已经看到最后啦！</div>
 
-    <div v-if="isAllLoaded && !goodsList.length" class="empty-tip">
+    <!-- <div v-if="isAllLoaded && !goodsList.length" class="empty-tip">
       <div class="empty-tip__text">目前没有相关商品</div>
-    </div>
+    </div> -->
 
   </div>
 </template>

@@ -3,7 +3,7 @@
     <img  src="/static/images/common_icon_reduce_s.png@2x.png" @click.stop="minus">
     <span>{{ count || '1' }}</span>
     <img v-if="plusDisabled" src="/static/images/common_icon_addto_n.png@2x.png">
-    <img v-else src="/static/images/common_icon_reduce_p.png@2x.png" @click.stop="plus">
+    <img v-else src="/static/images/common_icon_addto.png@2x.png" @click.stop="plus">
   </div>
 </template>
 

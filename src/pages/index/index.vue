@@ -1,39 +1,19 @@
 <template>
   <div class="container" v-if="located">
     <div class="headline">乐家生鲜</div>
-<!-- 测试倒计时 -->
-    <!-- <div class='timeLeft'>还有：<text style='color:red'>{{timeLeft}}</text></div> -->
     <!-- 搜索栏 -->
     <goods-search-bar :location="location" :showtip="tipShown" > </goods-search-bar>
     <!-- if 配送范围内 -->
     <template v-if="storeId">
       <!-- Swiper -->
-      <div class="swiper-wrap">
-        <swiper
-          :indicator-dots="true"
-          :autoplay="true"
-          :circular="true"
-          class="swiper"
-          :style="swiperHeightStyle"
-          indicator-color="#B3B3B3"
-          indicator-active-color="#FFFFFF"
-        >
-        <!-- 轮播图跳转 :url="item.activitySubType ?  navigateToUrl[item.activityType][item.activitySubType] + item.activityId : navigateToUrl[item.activityType] + item.activityId " -->
-          <navigator
-            v-for="item in storeData.bannerList"
-            :key="item.activityId"
-  
-          >
-            <swiper-item>
-              <img :src="item.bannerUrl" class="slide-image" mode="aspectFit" />
-            </swiper-item>
-          </navigator>
-        </swiper>
-      </div>
-    
+      <index-swiper :bannerList="storeData.bannerList" />
 
-      <!-- GoodsRecommend -->
-      <goods-recommend></goods-recommend>
+
+      <!-- 商品列表 -->
+      <goods-list />
+
+      
+
       <!-- Fixed -->
       <!-- <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/home_img_Redenvelopes@2x.png" class="fixed-redpack" @click="navigateToRedpack"> -->
       <img
@@ -85,9 +65,9 @@ import { AMapWX } from "@/utils/amap-wx";
 import config from "@/config.js";
 import GoodsSearchBar from "@/components/GoodsSearchBar";
 import GoodsRows from "@/components/GoodsRows";
-import GoodsRecommend from "@/components/GoodsRecommend";
-import WelcomeDialog from "@/components/WelcomeDialog";
-import GoodsThemeDialog from "@/components/GoodsThemeDialog";
+import GoodsList from "./components/GoodsList/index";
+import IndexSwiper from "./components/IndexSwiper/index"
+
 import { serialize } from '@/utils/';
 
 var mta = require("../../utils/mta_analysis.js");
@@ -97,9 +77,8 @@ export default {
   components: {
     GoodsSearchBar,
     GoodsRows,
-    GoodsRecommend,
-    WelcomeDialog,
-    GoodsThemeDialog
+    GoodsList,
+    IndexSwiper
   },
 
   data() {
@@ -217,29 +196,12 @@ export default {
       Api.index.getIndexData({ storeId }).then(res => {
         if (res.code === Api.CODES.SUCCESS) {
           this.storeData = res.data;
-          console.log("storeData", this.storeData);
-          if (this.storeData.prizeCouponActivityId != 0) {
-            this.getCouponsFresh();
-          }
         }
         wx.stopPullDownRefresh();
       });
    
     },
-    //优惠券加载
-    getCouponsFresh() {
-      Api.activity
-        .fresh({
-          activityId: this.storeData.prizeCouponActivityId,
-          storeId: this.storeId
-        })
-        .then(res => {
-          if (res.code == Api.CODES.SUCCESS) {
-            this.newcomeActivityInfo = res.data.activity;
-            this.welcomeDialogShowed = true;
-          }
-        });
-    },
+   
 
     // 获取配送外时的首页数据
     getDataOutScope() {
@@ -454,12 +416,8 @@ export default {
     }
     
     this.r = e.r;
-<<<<<<< HEAD
-    mta.Page.init(); //第三方统计数据
-=======
-  
 
->>>>>>> db9e2f19a3879e3bf906e39b10aec6ceb3177115
+    mta.Page.init(); //第三方统计数据
   },
 
   /**
@@ -502,7 +460,7 @@ page {
     rgba(12, 225, 179, 1)
   );
   text-align: center;
-  line-height: 200rpx;
+  line-height: 170rpx;
   color: #fff;
   z-index: 10;
 }

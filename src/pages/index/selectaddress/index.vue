@@ -14,7 +14,7 @@
         </div>
         <label class="weui-search-bar__label" :hidden="inputShowed" @click="showInput">
           <icon class="weui-icon-search" type="search" size="14"></icon>
-          <div class="weui-search-bar__text">输入地址</div>
+          <div class="weui-search-bar__text">请输入小区名字</div>
         </label>
       </div>
       <div class="weui-search-bar__cancel-btn" :hidden="!inputShowed" @click="hideInput">取消</div>
@@ -24,7 +24,7 @@
     <!-- <mp-searchbar placeholder="请输入关键字搜索" bindselectresult="selectResult" search="{{search}}"></mp-searchbar> -->
 
     <!-- 垫片 -->
-    <div style="height: 96rpx;"></div>
+    <div style="height: 120rpx;"></div>
     <div class="quick-tip" v-if="!storeId">
       <img src="/static/images/warning_icon@2x.png">
       <span>当前位置不在配送范围之内，请输入您的收货地址</span>
@@ -147,6 +147,7 @@
     </navigator> -->
     <!-- 城市选择模态窗 -->
     <select-city-modal v-if="cityModalShowed" @select="cityModalShowHide "></select-city-modal>
+
     <!-- 搜索结果模态窗 -->
     <div class="search-result-modal" v-if="inputShowed && inputVal">
       <div class="weui-panel weui-panel_access address-panel address-panel_compact">
@@ -176,8 +177,8 @@
             <div class="weui-media-box__title weui-media-box__title_in-text">{{ item.name }}</div>
             <div class="weui-media-box__desc">{{ item.address }}</div>
           </div> -->
-          <empty text="暂无搜索结果" v-if="!searching && !recommends.length"></empty>
-          <empty text="正在搜索中..." v-if="searching && !inputShowed"></empty>
+          <empty-search v-if="!queryByRegin.length"></empty-search>
+          <!-- <empty text="正在搜索中..." v-if="searching && !inputShowed"></empty> -->
         </div>
       </div>
     </div>
@@ -191,13 +192,13 @@
   import { getFlatternDistance } from '@/utils/'
   import config from '@/config'
   import SelectCityModal from '@/components/SelectCityModal'
-  import Empty from '@/components/Empty'
+  import EmptySearch from './components/EmptySearch/index'
   import { join } from 'path';
 
   export default {
     components: {
       SelectCityModal,
-      Empty
+      EmptySearch
     },
 
     data () {
@@ -600,11 +601,13 @@
       border: 0 none;
       background-color: #f3f3f3;
       border-radius: 28rpx;
+      height: 72rpx;
     }
     &__label {
       background-color: #f3f3f3;
       border-radius: 28rpx;
       text-align: left;
+      line-height: 72rpx;
       .weui-icon-search {
         position: absolute;
         left: 28rpx;
@@ -612,12 +615,17 @@
         font-size: 0;
       }
     }
+    &__box{
+      line-height: 72rpx;
+    }
     &__text {
       margin-left: 66rpx;
       vertical-align: top;
     }
     &__input {
       margin-left: 10rpx;
+      height: 72rpx;
+      line-height: 72rpx;
     }
     &__cancel-btn {
       padding-left: 8rpx;
@@ -643,7 +651,7 @@
     font-size: 28rpx;
     position: relative;
     padding: 0 30rpx 0 10rpx;
-    line-height: 56rpx;
+    line-height: 72rpx;
     &:after {
       content: '';
       display: inline-block;
