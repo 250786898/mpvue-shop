@@ -143,7 +143,7 @@
 
             <!-- else 赠品 -->
             <div class="weui-media-box__desc" v-if="!item.isPresentation || item.isPresentation == 2">
-              <span>单价:￥{{ item.onlinePrice }}</span>
+              <span >单价:￥{{ item.onlinePrice }}</span>
               <div class="goods-count goods-count_ih">数量: x{{ item.goodsNum }}</div>
             </div>
           </div>
@@ -180,13 +180,16 @@
 
             <!-- else 赠品 -->
             <div class="weui-media-box__desc" v-if="!item.isPresentation || item.isPresentation == 2">
-              <span>单价:￥{{ item.onlinePrice }}</span>
+              <span >单价:￥{{ item.onlinePrice }}</span>
               <div class="goods-count goods-count_ih">数量: x{{ item.goodsNum }}</div>
             </div>
           </div>
         </navigator>
       </div>
     </div>
+
+
+
 
 
     <!-- 订单信息 -->
@@ -889,6 +892,7 @@
     word-break: break-all;
     .desc {
       font-size: 28rpx;
+     
     }
   }
 

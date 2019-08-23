@@ -90,10 +90,10 @@
           <p>{{item}}</p>
           <h4><span>电话：</span>{{  storeLid.franchiseeTel}}</h4>
           <p style="margin-bottom:20rpx">提货时间: 9：00 - 20：00</p>
-          <div class="box">
+          <!-- <div class="box">
             <img style="right:0rpx;" src="/static/images/rectangle.png" alt="">
             <p style="position: absolute;top:116rpx;right:-476rpx;color:#fff;font-size:28rpx;">推荐</p>
-          </div>
+          </div> -->
         </div>
            <img src="/static/images/arrows.png">
       </div>
@@ -107,10 +107,10 @@
       </div>
       <div class="weui-cells_xian"></div>
       <div class="weui-cell" v-for=" item  in storeList" :key="item.storeId" @click="select(item)">
-        <div class="tuijian" v-if="index <= 2">
+        <!-- <div class="tuijian" v-if="index <= 2">
           <P style="font-size: 28rpx;color:#fff;position:absolute;top:127rpx;right:-10rpx;width:79rpx;z-index:1;">推荐</P>
           <img style="right:0rpx;" src="/static/images/rectangle.png" alt="">
-        </div>
+        </div> -->
         <div  class="weui-cell__bd">
           <div class="head">
             <image  :src= "item.storeLogoImg"  alt=""></image>
