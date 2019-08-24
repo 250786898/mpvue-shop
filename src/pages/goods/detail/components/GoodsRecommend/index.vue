@@ -26,6 +26,7 @@ export default {
 .goods-recommend {
   margin-top: 20rpx;
   background-color: #fff;
+  padding-bottom: 39rpx;
   &__title {
     padding: 39rpx 30rpx;
     font-size: 30rpx;

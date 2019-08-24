@@ -1,60 +1,21 @@
 <template>
   <div class="container" v-if="located">
-    <div class="headline">乐家生鲜</div>
+
+    <!-- 自定义导航栏 -->
+    <nav-bar />
+
     <!-- 搜索栏 -->
     <goods-search-bar :location="location" :showtip="tipShown" > </goods-search-bar>
-    <!-- if 配送范围内 -->
-    <template v-if="storeId">
-      <!-- Swiper -->
-      <index-swiper :bannerList="storeData.bannerList" />
 
+    <!-- Swiper -->
+    <index-swiper :bannerList="storeData.bannerList" />
 
-      <!-- 商品列表 -->
-      <goods-list />
+    <!-- 商品列表 -->
+    <goods-list />
 
-      
+    <!-- Fixed -->
+    <to-top/>
 
-      <!-- Fixed -->
-      <!-- <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/home_img_Redenvelopes@2x.png" class="fixed-redpack" @click="navigateToRedpack"> -->
-      <img
-        src="/static/images/home_btn_top@2x.png"
-        class="fixed-backtop"
-        @click="backToTop"
-        v-show="backToTopButtonShowed"
-      />
-    </template>
-
-    <!-- else -->
-    <template v-else>
-      <navigator url="/pages/index/selectaddress/main" class="quick-tip quick-tip_follow">
-        <div class="weui-cell" style="padding: 0;">
-          <div class="weui-cell__hd">
-            <img src="/static/images/warning_icon@2x.png" />
-          </div>
-          <div class="weui-cell__bd" style="color: #333; line-height: 36rpx;">当前位置不在配送范围之内，请搜索其他收货地址</div>
-          <div class="weui-cell__ft weui-cell__ft_in-access"></div>
-        </div>
-      </navigator>
-      <div class="out-swiper-wrap">
-        <swiper
-          :indicator-dots="true"
-          :autoplay="true"
-          class="swiper"
-          indicator-color="#B3B3B3"
-          indicator-active-color="#FFFFFF"
-        >
-          <navigator
-            v-for="item in outScopeData.articleList"
-            :key="item.acId"
-            url="/pages/topnews/list/main"
-          >
-            <swiper-item>
-              <img :src="item.image" class="slide-image" mode="aspectFill" />
-            </swiper-item>
-          </navigator>
-        </swiper>
-      </div>
-    </template>
   </div>
 </template>
 
@@ -66,6 +27,8 @@ import config from "@/config.js";
 import GoodsSearchBar from "@/components/GoodsSearchBar";
 import GoodsList from "./components/GoodsList/index";
 import IndexSwiper from "./components/IndexSwiper/index"
+import ToTop from "./components/ToTop/index"
+import NavBar from "./components/NavBar/index"
 
 import { serialize } from '@/utils/';
 
@@ -76,7 +39,9 @@ export default {
   components: {
     GoodsSearchBar,
     GoodsList,
-    IndexSwiper
+    IndexSwiper,
+    ToTop,
+    NavBar
   },
 
   data() {
@@ -445,23 +410,6 @@ page {
 </style>
 
 <style scoped lang="scss">
-.headline {
-  position: fixed;
-  top: 0rpx;
-  left: 0rpx;
-  width: 750rpx;
-  height: 137rpx;
-  background: linear-gradient(
-    -90deg,
-    rgba(18, 205, 207, 1),
-    rgba(12, 225, 179, 1)
-  );
-  text-align: center;
-  line-height: 170rpx;
-  color: #fff;
-  z-index: 10;
-}
-
 .container {
   padding-top: 100rpx;
 }
@@ -622,20 +570,6 @@ page {
   }
 }
 
-.fixed-redpack {
-  position: fixed;
-  right: 6rpx;
-  bottom: 350rpx;
-  width: 150rpx;
-  height: 150rpx;
-}
-.fixed-backtop {
-  position: fixed;
-  right: 8rpx;
-  bottom: 0;
-  width: 120rpx;
-  height: 120rpx;
-}
 
 .divider-title {
   padding-top: 40rpx;

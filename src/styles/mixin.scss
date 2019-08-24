@@ -6,8 +6,8 @@
 
 @mixin bgGradient($direction:left, $reverse:false) {
   @if $reverse {
-    background-image: -webkit-linear-gradient($direction,  #0CE1B3, #12CDCF);
-    background-image: linear-gradient($direction,  #0CE1B3, #12CDCF);
+    background-image: -webkit-linear-gradient($direction,   #12CDCF,#0CE1B3);
+    background-image: linear-gradient($direction,   #12CDCF,#0CE1B3);
   } @else {
     background-image: -webkit-linear-gradient($direction,  #12CDCF, #0CE1B3);
     background-image: linear-gradient($direction,  #12CDCF, #0CE1B3);
