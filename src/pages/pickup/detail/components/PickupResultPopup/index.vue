@@ -1,5 +1,5 @@
 <template>
-<div v-if="shown">
+<div v-if="shown" class="popup">
   <div class="mask"></div>
    <div class="popnp">
     <img src="/static/images/popnp.png">
@@ -35,6 +35,9 @@
   }
 </script>
 <style scoped lang="scss">
+  .popup{
+    z-index: 99999;
+  }
   .confirm{
       width:338rpx;
       height:86rpx;
@@ -47,13 +50,13 @@
       position: absolute;
       bottom:11%;
       left:18%;
-      z-index: 999;
+      z-index: 999999;
      }
     .mask{
       background-color: #000;
       width: 100%;
       height: 100%;
-      z-index: 2;
+      z-index: 99999;
       position: fixed;
       top:0rpx;
       left:0rpx;
@@ -66,7 +69,7 @@
     padding-top: 20rpx;
     padding-bottom: 20rpx;
     text-align: center;
-    z-index: 999;
+    z-index: 999999;
     // background: red;
     img {
       vertical-align: middle;

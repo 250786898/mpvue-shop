@@ -4,9 +4,9 @@
       <img src="/static/images/deliverycode_card_bg@2x.png" class="card__bg">
       <div class="card__bd">
         <!-- 条形码 -->
-        <canvas canvas-id="barcode" class="card__barcode"></canvas>
+        <canvas canvas-id="barcode" class="card__barcode" v-if="!popupShowed"></canvas>
         <div class="card__barcode-text">{{ result.pickUpCode }}</div>
-        <canvas canvas-id="qrcode" class="card__qrcode"></canvas>
+        <canvas canvas-id="qrcode" class="card__qrcode" v-if="!popupShowed"></canvas>
 
         <!-- <img src="/static/images/membershipcode_qrcode@2x.png" class="card__qrcode"> -->
         <div class="card__qrcode-tip">自提订单提货凭证 请勿告诉陌生人</div>
@@ -41,18 +41,18 @@
       </div>
     </div>
     <img src="http://bucketlejia.oss-cn-shenzhen.aliyuncs.com/deliverycode_bg@2x.png" class="footer__bg" mode="widthFix">
-    <cancel-popup :shown="popupShowed" ></cancel-popup>
+    <pickup-result-popup :shown="popupShowed" ></pickup-result-popup>
   </div>
 </template>
 
 <script>
   import wxbarcode from 'wxbarcode'
   import { Api } from '@/http/api'
-  import CancelPopup from './components/CancelPopup/index'
+  import PickupResultPopup from './components/PickupResultPopup/index'
   
   export default {
       components: {
-       CancelPopup
+       PickupResultPopup
     },
     data () {
       return {
@@ -238,6 +238,7 @@
       display: block;
       width: 620rpx;
       height: 160rpx;
+      z-index: 99;
       &-text {
         font-size: 30rpx;
         line-height: 60rpx;
@@ -251,6 +252,7 @@
       display: block;
       width: 360rpx;
       height: 360rpx;
+      z-index: 99;
       &-tip {
         font-size: 30rpx;
         line-height: 80rpx;

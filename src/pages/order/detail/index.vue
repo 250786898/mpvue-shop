@@ -727,14 +727,6 @@
       },
 
       applyReturns() {
-        var curHours = new Date().getHours()
-        if(curHours >= 20) {
-          return wx.showToast({
-            title: '请在20:00前退款',
-            icon: 'none'
-          })
-          return false
-        }
         wx.navigateTo({
           url: `/pages/order/returngoods/main?id=${ this.order.orderId }`
         })
