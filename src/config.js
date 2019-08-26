@@ -8,10 +8,10 @@ export default {
   OSS_URL: '/static/images',
 
   
-  apiURL: 'http://192.168.2.167:10002/api/',
+  // apiURL: 'http://192.168.2.167:10002/api/',
   // apiURL: 'http://192.168.2.150:8092/api/',
   // apiURL: 'https://shop.freshlejia.com/apitest/api/',
-  // apiURL: 'https://shop.freshlejia.com/api/api/',
+  apiURL: 'https://shop.freshlejia.com/api/api/',
   AMAP_KEY: '0928a875c2752ff132e36cfabb315fb0',
   // 允许访客身份返回的页面
   ALL_GUEST_PAGES: [
