@@ -69,35 +69,6 @@ export default {
   methods: { 
 
     /**
-     * @description 设置初始化门店相关信息，如果是分享小程序进来的，设置分享门店的信息，否则显示定位门店信息
-     */
-    setInitStoreInfo (storeList) {
-      if(this.shareStoreId) {
-        //有分享情况
-        console.log('有分享情况')
-        const storeItem = this.findStoreByStoreId(storeList,this.shareStoreId)
-        this.$store.commit('setItem', this.shareStoreId )
-        this.$store.commit('setItem', storeItem)
-        this.getStoreData(this.shareStoreId)
-      }else{
-        console.log('NO情况',storeList[0].storeId)
-        this.$store.commit("setStoreId", storeList[0].storeId); 
-        this.$store.commit('setItem',{storeName:storeList[0].storeName,storeId:storeList[0].storeId})
-        this.getStoreData(storeList[0].storeId)
-      }
-    },
-
-    findStoreByStoreId (storeList,storeId) {
-        console.log('findStoreByStoreId',storeList)
-        for (let i=0; i<storeList.length; i++) {
-           if(storeList[i].storeId == storeId) {
-            return storeList[i]
-          }
-        }
-       
-    },
-
-    /**
      * @description 设置用户相关定位信息(经纬度，所在地详情等)
      */
     setUserLocationInfo () {
