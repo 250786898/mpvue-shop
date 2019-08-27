@@ -7,7 +7,7 @@
      </div>  
       <div class="end-time-box">
         <div class="end-time-box__title">距离结束时间</div>
-        <countdowner :countdown="100"></countdowner>
+        <countdowner :countdown="10"></countdowner>
       </div>  
   </div>
 </template>

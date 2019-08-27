@@ -14,7 +14,7 @@
       </goods-tabs>
     </div> 
     <!-- 商品空的时候显示空组件 -->
-     <EmptyGoods v-else/>
+     <EmptyGoods v-if="goodsList.length == 0 && !loading"/>
   </div>
 </template>
 

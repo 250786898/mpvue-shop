@@ -6,7 +6,7 @@
       :circular="true"
       class="swiper"
       :style="swiperHeightStyle"
-      indicator-color="#B3B3B3"
+      indicator-color="rgba(255, 255, 255, .6)"
       indicator-active-color="#FFFFFF">
         <swiper-item 
           v-for="item in bannerList"
