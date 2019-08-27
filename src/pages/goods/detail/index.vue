@@ -138,7 +138,6 @@
       return {
         title: this.goodsDetailInfo.goodsName,
         path: `/pages/goods/detail/main?${options}`,
-        imageUrl: this.goodsDetailInfo.goodsImage
       }    
       
 
