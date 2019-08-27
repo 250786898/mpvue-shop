@@ -1,6 +1,5 @@
 {
   "pages": [
-    
     "pages/index/main",
     "pages/index/selectaddress/main",
     "pages/index/searchgoods/main",
@@ -47,7 +46,6 @@
     "pages/pickup/detail/main",
     "pages/pickup/instruction/main",
     "pages/rider/detail/main",
-    
     "pages/portal/main",
     "pages/free-order/free-order/main",
     "pages/free-order/share-free-order/main"

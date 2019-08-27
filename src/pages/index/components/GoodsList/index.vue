@@ -30,16 +30,25 @@
 
   export default {
     props: {
-      
+      goodsList: {//商品列表
+        type: Array,
+        default: () => ([])
+      },
+       isAllLoaded: {
+        type: Boolean,
+        default: false
+      },
+       //是否向上触发更新
+      loading: {
+        type: Boolean,
+        default: false
+      },
     },
 
     data () {
       return {
         "currentPage": 1, //当前页数
-        "goodsList": [], //商品数据
         "tab": [], //分类栏
-        "isAllLoaded": false, //是否全部加载数据,
-        "loading": false, //是否向上更新
         "pcId": null //当前分类编码
       }
     },
@@ -97,20 +106,20 @@
     },
 
     onShow() { 
-      this.initData()
-      this.getGoodsClassList(this.storeId , this.pcId , this.currentPage , showPageSize)
+      // this.initData()
+      // this.getGoodsClassList(this.storeId , this.pcId , this.currentPage , showPageSize)
     },
     
     mounted() {
-      this.getGoodsClassList(this.storeId , this.pcId , this.currentPage , showPageSize)
+      // this.getGoodsClassList(this.storeId , this.pcId , this.currentPage , showPageSize)
     },
 
     //上触发加载分页数据
     onReachBottom: function(){
-      if (this.isAllLoaded || this.loading) return
-      //还有数据，加载数据
-      this.currentPage++
-      this.getGoodsClassList(this.storeId, this.pcId, this.currentPage , showPageSize)
+      // if (this.isAllLoaded || this.loading) return
+      // //还有数据，加载数据
+      // this.currentPage++
+      // this.getGoodsClassList(this.storeId, this.pcId, this.currentPage , showPageSize)
     },
 
     /**

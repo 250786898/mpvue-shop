@@ -30,8 +30,8 @@
 import { mapState } from "vuex";
 export default {
   props: {
-    location: {
-      type: "",
+    storeName: {
+      type: String,
       default: ""
     },
 
@@ -47,8 +47,18 @@ export default {
       storeName: ''
     };
   },
+
+
+
+
+
   created() {
  
+  },
+  
+  onShow() {
+    // this.storeName = this.$store.state.shopDetail.storeName;
+    // console.log('kkk',this.storeName)
   },
 
   methods: {
@@ -63,20 +73,8 @@ export default {
         url: "/pages/index/searchgoods/main"
       });
     }
-  },
- created(){
-    this.storeName = this.$store.state.shopDetail.storeName;
-    console.log('created',this.storeName)
-  
- },
-
-
-  onShow() {
-   
-    this.storeName = this.$store.state.shopDetail.storeName;
-    console.log('kkk',this.storeName)
   }
-};
+}
 </script>
 
 <style scoped lang="scss">

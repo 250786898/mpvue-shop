@@ -36,10 +36,10 @@ export default {
 .returntop {
   position: fixed;
   right: 6rpx;
-  bottom: 350rpx;
+  bottom: 35rpx;
   img{
-   width: 150rpx;
-    height: 150rpx;
+   width: 100rpx;
+    height: 100rpx;
   }
 }
 </style>

@@ -117,10 +117,10 @@
       }
     }
     .icon-cart {
-      margin-top: 8rpx;
+      margin-top: 25rpx;
       vertical-align: top;
-      width: 62rpx;
-      height: 62rpx;
+      width: 50rpx;
+      height: 50rpx;
     }
   }
 </style>

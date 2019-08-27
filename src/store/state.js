@@ -7,7 +7,7 @@ export default {
   wxUserInfo: {},
   wxPhoneNumber: '',
 
-  storeId: '1', // 当前门店 ID
+  storeId: null, // 当前门店 ID
   storeInfo: {},
   // addressList: [],
 // 购物车数量

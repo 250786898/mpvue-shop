@@ -51,9 +51,10 @@ export default {
   background-color: #fff;
   width:750rpx;
   height:105rpx;
-  box-shadow:rgb(243, 243, 243)gba(240,241,243,0.45);
+  box-shadow: 1rpx 8rpx 8rpx 1px #000;
   box-sizing: border-box;
   display: flex;
+  align-items: center;
   .cart-box{
     height: 100%;
     width: 137rpx;
@@ -78,10 +79,12 @@ export default {
   button {
     display: inline-block;
     vertical-align: middle;
-    width: 100%;
-    height: 100%;
+    width: 75%;
+    height: 90rpx;
+    line-height: 90rpx;
     background:linear-gradient(270deg,rgba(18,205,207,1),rgba(12,225,179,1));
     font-size:32rpx;
+    border-radius: 6rpx;
   }
 }
 </style>

@@ -26,7 +26,7 @@
             <counter  v-model="currentGoodsCartNum" :max="item.inventoryAmount" @change="onGoodsNumChange($event,item)"></counter>
           </div>
           <form report-submit="true" @submit="uploadFormId" v-else> 
-            <button form-type="submit" class="hiddenBtn" @click.stop="addToCart(item.id)">
+            <button hover-class="none" form-type="submit" class="hiddenBtn" @click.stop="addToCart(item.id)">
               <img src="/static/images/common_btn_shopcart_small.png@2x.png" class="icon-cart" @click.stop="addToCart(item.id)">
             </button>
           </form> 
@@ -188,9 +188,9 @@ onLoad(){
   .icon-cart{
     position: absolute;
     right: 6rpx;
-    bottom: 0rpx;
-    width: 66rpx;
-    height: 66rpx;
+    bottom: 10rpx;
+    width: 50rpx;
+    height: 50rpx;
 
   }
 }

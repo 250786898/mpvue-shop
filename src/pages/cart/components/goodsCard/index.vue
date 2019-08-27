@@ -21,7 +21,7 @@
 
     </div>
     <div class="card-right">
-      <div class="good-name">
+      <div class="good-name" :class="{ 'failure-good-name' : isFailure }">
         {{ item.goodsName }}
       </div>
       <div class="good-main" v-if="isFailure">
@@ -103,7 +103,7 @@ export default {
     padding-right: 72rpx;
     padding-bottom: 21rpx;
   }
-  .failure-text{
+  .failure-text,.failure-good-name{
     color: #999999;
   }
   .failure-img{

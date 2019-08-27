@@ -3,7 +3,6 @@
     <img src="/static/images/login_icon_location@2x.png">
     <!-- <i class="icon-location"></i> -->
     <h4>您未开通定位权限，部分功能无法正常使用</h4>
-    <p>若您已开通定位权限仍然无法正常使用，请尝试打开【微信】定位</p>
     <button type="primary" open-type="openSetting" @opensetting="onOpenSetting" class="radius">开通权限</button>
   </div>
 </template>
@@ -13,7 +12,9 @@
     methods: {
       onOpenSetting(e) {
         if (e && e.target && e.target.authSetting['scope.userLocation']) {
-          wx.switchTab({ url: '/pages/index/main' })
+          wx.reLaunch({
+            url: '/pages/index/main'
+          })
         } else {
           // wx.showModal({
           //   title: '关闭权限',
