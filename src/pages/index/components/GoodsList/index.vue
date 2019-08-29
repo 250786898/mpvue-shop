@@ -145,6 +145,7 @@
   }
 
  .goods-recommend {
+    margin-top: 20rpx;
     &__title {
       margin: 0 auto;
       line-height: 101rpx;

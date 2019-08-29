@@ -50,7 +50,6 @@ export default {
       if (!this.failureGoodsList) return ''
 
       return this.failureGoodsList
-        .filter(item => item.checked)
         .map(item => item.cartId)
         .join(',')
     },

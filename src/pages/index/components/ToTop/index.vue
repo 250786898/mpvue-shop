@@ -35,7 +35,7 @@ export default {
 <style lang="scss" scoped>
 .returntop {
   position: fixed;
-  right: 6rpx;
+  right: 20rpx;
   bottom: 35rpx;
   img{
    width: 100rpx;

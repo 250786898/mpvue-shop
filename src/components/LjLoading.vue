@@ -1,30 +1,19 @@
 <template>
   <div class="loading">
     <!-- <img src="/static/images/Spin-1s-60px.gif" v-if="isNeedRefresh && !isLoadedAll"> -->
-    <div class="spinner" v-if="isNeedRefresh && !isLoadedAll">
+    <div class="spinner">
       <div class="double-bounce1"></div>
       <div class="double-bounce2"></div>
     </div>
-    <p class="text" v-if="isLoadedAll">亲，已经加载到底啦 ~</p>
   </div>
 </template>
 
 <script>
   export default {
     props: {
-      isNeedRefresh: {  //是否已经触发更新数据
-        type: Boolean,
-        default: false
-      },
-      isLoadedAll: {  //是否已经加载完全部数据
-        type: Boolean,
-        default: false
-      }
     },
 
     onReachBottom () {
-      console.log('loading')
-      this.$emit('refreshData')
     }
   }
 </script>

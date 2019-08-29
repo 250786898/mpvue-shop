@@ -119,8 +119,8 @@
     .icon-cart {
       margin-top: 25rpx;
       vertical-align: top;
-      width: 50rpx;
-      height: 50rpx;
+      width: 56rpx;
+      height: 56rpx;
     }
   }
 </style>

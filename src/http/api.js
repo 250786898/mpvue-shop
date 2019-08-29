@@ -286,7 +286,7 @@ export const Api = {
     },
 
     // 6.0  当前门店信息
-    storeLid({ storeId }) {
+    findNowStore({ storeId }) {
       return post({
         url: '/index/findNowStore',
         data: { storeId }

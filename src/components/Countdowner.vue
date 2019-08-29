@@ -67,6 +67,7 @@
        * @description开始倒计时
        */
       startCountdown() {
+        if(this.countdown <= 0) return false
         clearInterval(this.countdownTimer)
         this.countdownTimer = setInterval(() => {
           this.countdown--
@@ -80,11 +81,12 @@
        * @description 毫秒倒计时
        */
       startMsecDown () {
+        if(this.countdown <= 0) return false
         this.msec = 9
         clearInterval(this.mescDownTimer)
         this.mescDownTimer = setInterval(() => {
           this.msec--
-          if (this.msec == 0) {
+          if (this.msec <= 0) {
            this.msec = 9
           }
           if(this.countdown === 0) {

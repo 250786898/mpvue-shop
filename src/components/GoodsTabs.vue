@@ -3,17 +3,21 @@
     <!-- <lj-tabs :tabs="this.tabs" v-model="activeIndex"></lj-tabs> -->
 
     <div class="goods-list" v-if="goodsList.length" >
-      <goods-row-item v-for="item in goodsList"
+
+
+        <goods-row-item v-for="item in goodsList"
         :is-hot="true"
         :key="item.goodsId"
-        :item="item">
-      </goods-row-item>
-     
+        :item="item" 
+        >
+        </goods-row-item>
+
+      
+        <!-- 加载更多 -->
+        <lj-loading v-if="!isAllLoaded && loading"/>
     </div>
-    <!-- 加载更多 -->
-    <div class="goods-tabs__loading" v-if="!isAllLoaded && loading">
-      <img src="/static/images/Spin-1s-60px.gif">
-    </div>
+  
+
 
     <div class="goods-tabs__tip" v-if="isAllLoaded && goodsList.length">亲,已经看到最后啦！</div>
 
@@ -26,12 +30,14 @@
 
 <script>
   import GoodsRowItem from './GoodsRowItem'
+  import LjLoading from '@/components/LjLoading'
   import LjTabs from './LjTabs'
 
   export default {
     components: {
       GoodsRowItem,
-      LjTabs
+      LjTabs,
+      LjLoading
     },
     props: {
       isAllLoaded: {

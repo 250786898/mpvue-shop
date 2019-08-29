@@ -1,7 +1,7 @@
 <template>
   <div class="weui-search-bar">
     <!-- 位置 -->
-    <navigator url="/pages/index/selectaddress/main" class="location">
+    <navigator url="/pages/store/select/main" class="location">
       <img src="/static/images/scancodepurchase_icon_location.png@2x.png" />
       <div class="location__text" v-if="showtip">
         <div class="location__text__content">{{storeName}}</div>

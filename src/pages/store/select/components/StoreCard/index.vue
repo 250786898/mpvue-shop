@@ -1,0 +1,81 @@
+<template>
+  <div class="card">
+    <img :src="item.storeLogoImg" class="store-logo" alt="">
+    <div class="card-main">
+      <div class="card-main-top">
+        <h3 class="store-name">{{item.storeName}} </h3>
+        <span class="distance" v-if="item.storeDistance">距离{{item.storeDistance}}km</span>
+      </div>
+      <div class="card-main-content">
+        <p class="detail-address">{{item.storeAddress}}</p>
+        <p class="shop-manager">团长：{{item.franchiseeName}}</p>
+        <div class="phone-box">
+          <span class="phone">电话：{{item.franchiseeTel}}</span>
+          <img src="/static/images/arrows.png" class="arrows" alt="">
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    item: {
+      type: Object,
+      default: () => ({})
+    }
+  },
+}
+</script>
+
+<style lang="scss" scoped>
+.card{
+  display: flex;
+  padding: 50rpx 0;
+  border-bottom:1px solid rgba(239,239,239,1);
+  .store-logo{
+    width:80rpx;
+    height:80rpx;
+    border-radius:50%;
+    margin:0 21rpx 0 18rpx;
+  }
+  &-main{
+    display: flex;
+    flex-direction: column;
+    &-top{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 452rpx;
+      .store-name{
+        font-size: 32rpx;
+        font-weight:bold;
+      }
+      .distance{
+        font-size: 28rpx;
+        color: #FF6600;
+      }
+    }
+    .card-main-content{
+      width: 452rpx;
+      font-size: 28rpx;
+      color: #7F7F7F;
+      margin-top: 25rpx;
+      line-height: 38rpx;
+      .phone-box{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+    .arrows{
+      width: 30rpx;
+      height: 30rpx;
+      position: relative;
+      right: -80rpx;
+    }
+  }
+}
+</style>

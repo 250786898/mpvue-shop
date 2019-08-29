@@ -122,19 +122,46 @@ export default {
     },
 
     /**
+     * @description 获取购车商品id集合，以逗号隔开(1,2,3...)
+     * @returns {string} cartIds id集合
+     */
+    fetchCartIds(){
+      const cartIds = this.cartItemResultList
+          .filter(item => item.checked)
+          .map(item => item.cartId)
+          .join(',')
+      return  cartIds 
+    },
+
+    /**
      * @description 清除全部正常商品购物车
      */
     clearAllCart () {
-      wx.showModal({
-        title: '提示',
-        content: '您是否要删除已勾选的商品？',
-        success: (result) => {
-          if (result.confirm) {
-          const cartIds =  this.getAllCartIds()
-          this.del(cartIds)
+      console.log('this.cartItemResultList',this.cartItemResultList)
+      const cartIds = this.fetchCartIds()
+      if(!cartIds) {
+        //没有勾选商品提示
+         wx.showToast({
+          title: '您尚未选中商品', //提示的内容,
+          icon: 'none', //图标,
+        })
+        return false
+      }
+
+      if(this.cartItemResultList) {
+        //已经存在有勾选
+        wx.showModal({
+          title: '提示',
+          content: '您是否要删除已勾选的商品？',
+          success: (result) => {
+            if (result.confirm) {
+            const cartIds =  this.getAllCartIds()
+            this.del(cartIds)
+            }
           }
-        }
-      }) 
+        })
+      }
+       
       
     },
 

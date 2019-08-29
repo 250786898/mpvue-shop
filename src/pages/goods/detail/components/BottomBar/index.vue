@@ -84,7 +84,7 @@ export default {
     line-height: 90rpx;
     background:linear-gradient(270deg,rgba(18,205,207,1),rgba(12,225,179,1));
     font-size:32rpx;
-    border-radius: 6rpx;
+    border-radius: 10rpx;
   }
 }
 </style>

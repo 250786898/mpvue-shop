@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App'
 import store from './store/index'
+import mixin from './utils/mixin'
 
 require('./styles/weui.css')
 require('./styles/common.scss')
@@ -10,7 +11,8 @@ require('./styles/mixin.scss')
 var mta= require('./utils/mta_analysis')
 
 
-
+//引入mixin
+Vue.mixin(mixin)
 
 
 Vue.config.productionTip = false

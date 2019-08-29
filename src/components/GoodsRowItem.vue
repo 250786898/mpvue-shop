@@ -189,8 +189,8 @@ onLoad(){
     position: absolute;
     right: 6rpx;
     bottom: 10rpx;
-    width: 50rpx;
-    height: 50rpx;
+    width: 56rpx;
+    height: 56rpx;
 
   }
 }

@@ -382,6 +382,7 @@
         .catch(e => console.log(e))
         .then(() => wx.hideLoading())
       },
+
       relocation() {
         this.relocationing = true
         this.amap.getPoiAround({
@@ -395,6 +396,7 @@
         })
         // console.log(this.location)
       },
+      
       /**
        * @description 获取开通服务的城市列表
        */

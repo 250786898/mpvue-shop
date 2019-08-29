@@ -5,9 +5,9 @@
        <span class="current-price"  v-if="currentPrice">￥{{currentPrice}}</span>
        <span class="original-price" v-if="originalPrice">￥{{originalPrice}}</span>
      </div>  
-      <div class="end-time-box">
+      <div class="end-time-box" v-if="endTime">
         <div class="end-time-box__title">距离结束时间</div>
-        <countdowner :countdown="10"></countdowner>
+        <countdowner :countdown="endTime"></countdowner>
       </div>  
   </div>
 </template>
@@ -23,7 +23,12 @@ export default {
     originalPrice:{
       type: String,
       default: ''
+    },
+    endTime: {
+      type: Number,
+      default: 0
     }
+
   },
   components: {
     Countdowner

@@ -4,7 +4,7 @@
     <DetailSwiper :bannerList="goodsDetailInfo.goodsBanner" />
 
     <!-- 商品信息bar -->
-    <goods-info :current-price="goodsDetailInfo.onlinePrice" :original-price="goodsDetailInfo.onlineScribingPrice" />
+    <goods-info :current-price="goodsDetailInfo.onlinePrice" :original-price="goodsDetailInfo.onlineScribingPrice" :end-time="endTime" />
 
   
     <!-- 商品相关描述（名称） -->
@@ -29,6 +29,8 @@
 
     <!-- 底部栏 -->
     <bottom-bar :goods-id="goodsDetailInfo.goodsId" /> 
+    
+    <popup :show="popupShow"/> 
 
   </div>
 </template>
@@ -46,6 +48,7 @@
   import DetailSwiper from './components/DetailSwiper/index'
   import ToTop from './components/ToTop/index'
   import BottomBar from './components/BottomBar/index'
+  import Popup from './components/Popup/index'
 
   export default {
     components: {
@@ -57,24 +60,39 @@
       GoodsDetail,
       DetailSwiper,
       ToTop,
-      BottomBar
+      BottomBar,
+      Popup,
     },
 
     data() {
       return {       
         goodsDetailInfo: {},
         commendGoodsList: [],
+        popupShow: false //popup是否显示
       }
     },
 
     onLoad(e) {
+      this.popupShow = false //初始化显示
       this.storeId=this.$store.state.shopDetail.storeId
       this.storeId = this.$mp.page.options.storeId
 
     },
 
     computed: {
-      ...mapState(['storeId', 'cartNum'])
+      ...mapState(['storeId', 'cartNum']),
+      endTime () {
+        let endTime = 0
+        if(this.goodsDetailInfo.time) { 
+          const currentTimestamp = Date.parse(new Date()) / 1000
+          const endTimestamp = Date.parse(this.goodsDetailInfo.time) / 1000
+          endTime = endTimestamp - currentTimestamp
+          console.log('currentTimestamp',currentTimestamp)
+          console.log('endTimestamp',endTimestamp)
+        }
+        console.log('endTime',endTime)
+        return endTime >= 0 ? endTime : 0
+      }
     },
 
     methods: {
@@ -105,14 +123,7 @@
             this.goodsDetailInfo = res.data.goodsDetailInfo
             this.commendGoodsList = res.data.commendGoodsList     
           } else {
-            wx.showModal({
-              title: '温馨提示',
-              content: res.message,
-              showCancel: false,
-              success: () => {
-                wx.navigateBack()
-              }
-            })
+            this.popupShow = true //库存不足或则下架显示
           }
         })
         .catch(e => console.log(e))

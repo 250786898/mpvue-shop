@@ -1,22 +1,29 @@
 <template>
-  <div class="container" v-if="located">
+    <div class="container">
 
-    <!-- 自定义导航栏 -->
-    <nav-bar />
+      <!-- 自定义导航栏 -->
+      <nav-bar />
 
-    <!-- 搜索栏 -->
-    <goods-search-bar :location="location" :showtip="tipShown" :storeName="storeName" v-if="storeName"> </goods-search-bar>
+      <template v-if="!showPageLoading">
+        <!-- 搜索栏 -->
+        <goods-search-bar :location="location" :showtip="tipShown" :storeName="storeName" v-if="storeName"> </goods-search-bar>
 
-    <!-- Swiper -->
-    <index-swiper :bannerList="storeData.bannerList" />
+        <!-- Swiper -->
+        <index-swiper :bannerList="storeData.bannerList" />
+        
+        <!-- 商品列表 -->
+        <goods-list :goodsList="goodsList" :isAllLoaded="isAllLoaded" :loading="loading" />
 
-    <!-- 商品列表 -->
-    <goods-list :goodsList="goodsList" :isAllLoaded="isAllLoaded" :loading="loading" />
+      </template>
 
-    <!-- Fixed -->
-    <to-top />
+      <page-loading  :show="showPageLoading"/> 
 
+      <!-- Fixed -->
+      <to-top />
+     
   </div>
+
+  
 </template>
 
 <script>
@@ -25,6 +32,7 @@ import { Api } from "@/http/api";
 import { AMapWX } from "@/utils/amap-wx";
 import config from "@/config.js";
 import GoodsSearchBar from "@/components/GoodsSearchBar";
+import PageLoading from "@/components/PageLoading";
 import GoodsList from "./components/GoodsList/index";
 import IndexSwiper from "./components/IndexSwiper/index"
 import ToTop from "./components/ToTop/index"
@@ -38,6 +46,7 @@ const PAGE_SIZE = 10 //一页商品的显示数量
 export default {
   components: {
     GoodsSearchBar,
+    PageLoading,
     GoodsList,
     IndexSwiper,
     ToTop,
@@ -46,7 +55,7 @@ export default {
 
   data() {
     return {
-      located: false, //是否已经定位，默认false
+      showPageLoading: true, //页面数据师傅显示
       storeData: {}, //门店相关数据，banner，分类等
       storeName: '', //门店名称
       tipShown: true, //搜索栏是否显示
@@ -55,7 +64,7 @@ export default {
       shareStoreId: 0, //分享的门店id
       goodsList: [], //商品列表
       isAllLoaded: false, //商品的数据是否全部加载完成,
-      loading: true, //加载商品是否处于更新的状态
+      loading: false, //加载商品是否处于更新的状态
       currentPage: 1 //当前商品页数
     };
   },
@@ -69,20 +78,24 @@ export default {
   methods: { 
 
     /**
+     * @description 隐藏页面加载loading
+     */
+    hidePageLoading () {
+       this.showPageLoading = false //关闭页面加载Loading
+    },
+
+    /**
      * @description 设置用户相关定位信息(经纬度，所在地详情等)
      */
     setUserLocationInfo () {
-      wx.showLoading({ title: "定位中", mask: true }); 
        let amap = new AMapWX({ key: config.AMAP_KEY });
        return new Promise ((resolve, reject) => {
          amap.getPoiAround({
           success: res => { //用户成功授权
-            wx.hideLoading() //关闭定位加载Loading
-            this.located = true  //已经定位，开启开关
             const locationInfo = res.markers[0] //当前用户定位定位相关信息
             this.longitude =locationInfo.longitude
             this.latitude = locationInfo.latitude
-
+            console.log('locationInfo',locationInfo)
             this.$store.commit("setLocationInfo",locationInfo)  //用户定位相关信息存到vuex
             resolve(locationInfo)
           },
@@ -90,7 +103,7 @@ export default {
           fail: e => { //用户授权取消
             reject(e)
             if ( e.errMsg === "getLocation:fail auth deny" || "getLocation:fail:auth denied") {
-              wx.hideLoading() //关闭定位加载Loading
+              this.hidePageLoading()
               wx.redirectTo({ url: "/pages/location/main" }) //重定向到定位授权页面
             }
           }
@@ -195,7 +208,9 @@ export default {
 
         promise
         .catch(e => e)
-        .then(() => this.loading = false)
+        .then(() => { //延迟一定时间关闭加载分类动画
+          this.loading = false
+        } )
     },
 
     /**
@@ -221,7 +236,7 @@ export default {
   },
 
   onShow() {
-    console.log('getCurrentPages',getCurrentPages())
+    console.log('getCurrentPages',getCurrentPages()[0].__displayReporter.showReferpagepath) //__displayReporter.showReferpagepath
     if(this.shopDetail.storeName) {
       //切换了门店，重新渲染门店相关数据
       this.initIndexData() //先清空原门店数据
@@ -242,6 +257,7 @@ export default {
         //门店设置成功后获取首页相对应门店数据
         this.setStoreData(storeId)
         this.setGoodsClassList(shareStoreId ||storeId, '', this.currentPage, PAGE_SIZE)
+        this.hidePageLoading() //隐藏页面加载
         })
       })
     }
