@@ -1,5 +1,6 @@
 {
   "pages": [
+    
     "pages/index/main",
     "pages/index/selectaddress/main",
     "pages/index/searchgoods/main",

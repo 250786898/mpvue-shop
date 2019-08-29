@@ -35,8 +35,8 @@
         <div class="weui-panel__ft">
           <div class="weui-cell order-panel__total">
             <div class="weui-cell__bd"></div>
-            <div class="weui-cell__ft">
-              共{{ order.goodsImage.length }}件 合计：
+            <div style=" font-weight:bold;" class="weui-cell__ft">
+               合计：
               <span class="text-red">￥{{ order.refundAmount }}</span>
             </div>
           </div>
@@ -167,7 +167,7 @@
 </script>
 
 <style>
-  page { background-color: #F4F4F4; }
+  page { background-color: #F4F4F4; padding-left:24rpx;}
 </style>
 
 <style lang="scss" scoped>
@@ -206,6 +206,8 @@
           &__ft {
             font-size: 28rpx;
             color: $text-black;
+             font-weight:bold;
+             padding-right:39rpx;
           }
         }
       }
