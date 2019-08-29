@@ -196,7 +196,7 @@ button {
 }
 
 .bg-gradient {
-  @include bgGradient;
+  // @include bgGradient;
   &_hover {
     @include bgGradientHover;
   }

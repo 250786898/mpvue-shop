@@ -1,5 +1,6 @@
 {
   "pages": [
+    
     "pages/index/main",
     "pages/store/select/main",
     "pages/index/selectaddress/main",

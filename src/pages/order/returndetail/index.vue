@@ -2,7 +2,7 @@
   <div>
     <!-- 
           1为待审核,2服务端审核确认,3拣货员已验货上传图片,4为服务端同意退款,5(对应2)为服务端审核拒绝, 6(对应4)服务端拒绝退款,7为退款完成 8-已取消 100已关闭 默认为 -->
-    <div class="order-status bg-gradient">
+    <div  style="position: relative; margin-bottom:24rpx;" class="order-status bg-gradient">
       <!-- 待审核、审核确认 -->
       <template v-if="detail.state === 1">您已成功申请退款,请等待商家处理</template>
       <template v-else-if="detail.state === 2">审核确认</template>
@@ -13,21 +13,27 @@
       <!-- 不同意 -->
       <template v-else-if="detail.state === 6">商家已拒绝退款</template>
       <!-- 退款成功 -->
-      <div v-else-if="detail.state === 7">
-        退款成功
+      <div style="z-index:1;" v-else-if="detail.state === 7">
+        
+        <p style="margin-left:24rpx;">退款成功</p>
+        
         <!-- <div class="desc">2018年8月3日 10:10:20</div> -->
       </div>
       <!-- 已取消 -->
       <template v-else-if="detail.state === 8">已取消退款申请</template>
       <template v-else-if="detail.state === 100">已关闭退款申请</template>
+
+      <img class="BackImg" src="/static/images/background_icon.png" alt="">
+
     </div>
     
     <!-- 退款成功 -->
-    <div class="weui-cells weui-cells_no-border order-cells return-info" style="margin-top: 0">
+    <div class="weui-cells weui-cells_no-border order-cells return-info" style="margin-top: 0;position: relative;" >
       <!-- TODO: 后端返回字段不完整 -->
       <template v-if="detail.state === 7">
         <div class="weui-cell return-info__hd">
           <div class="weui-cell__bd">退款总金额</div>
+          <div class="xian"></div>
           <div class="weui-cell__ft">￥{{ detail.refundAmount }}</div>
         </div>
         <!-- <div class="weui-cell return-info__sep">
@@ -146,12 +152,12 @@
         撤销售后
       </button>
       <!-- 退款成功、已拒绝、已取消 -->
-      <button v-else-if="detail.state === 7 || detail.state === 8 || detail.state === 100"
+      <!-- <button v-else-if="detail.state === 7 || detail.state === 8 || detail.state === 100"
         @click="del"
         :plain="true"
         type="default">
         删除订单
-      </button>
+      </button> -->
     </div>
   </div>
 </template>
@@ -249,19 +255,38 @@
 </script>
 
 <style>
-  page { background-color: #F5F5F5; padding-bottom: 120rpx; }
+  page { background-color: #F5F5F5; padding-left:24rpx;  }
 </style>
 
 <style lang="scss" scoped>
-  .order-status {
+  .xian{
+      width:702rpx;
+      height:1rpx;
+      background:rgba(204,204,204,1);
+      opacity:0.4;
+      position: absolute;
+      top:95rpx;
+      left:0rpx;
+  }
+ .BackImg{
+    width: 702rpx;
     height: 196rpx;
-    padding: 0 30rpx;
+    position: absolute;
+    top:0rpx;
+    left:0rpx;
+  }
+  .order-status {
+
+    height: 196rpx;
+    // padding: 0 30rpx;
     display: -webkit-flex;
     display: flex;
     align-items: center;
     font-size: 36rpx;
     color: #fff;
     word-break: break-all;
+    margin-top:24rpx;
+    width: 702rpx;
     .desc {
       font-size: 28rpx;
     }
@@ -295,7 +320,9 @@
 
   .weui-form-preview {
     margin-top: 20rpx;
-    // padding-bottom: 100rpx;
+    margin-bottom: 40rpx;
+    width: 702rpx;
+    border-radius: 14rpx;
     &:before, &:after {
       display: none;
     }
@@ -337,9 +364,11 @@
 
   .order-cells {
     margin-top: 20rpx;
+    width: 702rpx;
+    border-radius: 14rpx;
     .weui-cell {
       &__bd {
-        font-size: 34rpx;
+        font-size: 30rpx;
         color: $text-black;
       }
     }
@@ -468,6 +497,7 @@
       color: $text-black;
     }
     &__hd {
+      margin-bottom:24rpx;
       .weui-cell {
         &__bd,
         &__ft {
