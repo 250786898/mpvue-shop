@@ -12,7 +12,9 @@
         <index-swiper :bannerList="storeData.bannerList" />
         
         <!-- 商品列表 -->
-        <goods-list :goodsList="goodsList" :isAllLoaded="isAllLoaded" :loading="loading" />
+        <div class="goods-list-container">      
+          <goods-list :goodsList="goodsList" :isAllLoaded="isAllLoaded" :loading="loading" />
+        </div>
 
       </template>
 
@@ -310,5 +312,9 @@ page {
 <style scoped lang="scss">
 .container {
   padding-top: 100rpx;
+}
+.goods-list-container{
+  display: flex;
+  justify-content: center;
 }
 </style>

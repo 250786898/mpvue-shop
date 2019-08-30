@@ -146,14 +146,23 @@
 
  .goods-recommend {
     margin-top: 20rpx;
+    width: 702rpx;
+    background: #fff;
+    box-sizing: border-box;
+    border-radius:14rpx;
     &__title {
       margin: 0 auto;
-      line-height: 101rpx;
+      height: 82rpx;
+      line-height: 82rpx;
       text-align: left;
       font-size: 36rpx;
       color: #272727;
-      padding-left: 25rpx;
-      font-weight:800;  
+      background: #fff;
+      font-weight:800;
+      padding-left: 29rpx;
+      border-radius:14rpx;
+      border-bottom: #F0F0F0 1rpx solid;
+      box-sizing: border-box;
       &::before,
       &::after {
         // content: '';

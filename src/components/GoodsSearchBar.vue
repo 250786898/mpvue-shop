@@ -4,7 +4,7 @@
     <navigator url="/pages/store/select/main" class="location">
       <img src="/static/images/scancodepurchase_icon_location.png@2x.png" />
       <div class="location__text" v-if="showtip">
-        <div class="location__text__content">{{storeName}}</div>
+        <div class="location__text__content">当前：{{storeName}}</div>
       </div>
     </navigator>
     <div class="weui-search-bar__form" @click="toSearch">
@@ -131,10 +131,10 @@ export default {
   }
   &__text {
     position: absolute;
-    bottom: -86rpx;
+    bottom: -72rpx;
     left: 0;
     z-index: 11;
-    padding: 10rpx 60rpx;
+    padding: 10rpx 5rpx;
     border-radius: 10rpx;
     background-color: rgba(0, 0, 0, 0.5);
     color: #fff;

@@ -4,7 +4,7 @@
     <search-store :city-name="cityName" />
     <current-store :item="currentStoreInfo" />
     <current-location />
-    <nearby-stores :store-list="nearbyStoreList" />
+    <nearby-stores :store-list="nearbyStoreList" v-if="nearbyStoreList && nearbyStoreList.length" />
     <page-loading  :show="showPageLoading"/> 
   </div>
 </template>
@@ -31,13 +31,12 @@ export default {
   data () {
     return {
       showPageLoading: true, //页面数据师傅显示
-      cityName: '', //定位的城市名
       currentStoreInfo: {}, //当前门店相关信息
       nearbyStoreList: [] //附近门店
     }
   },
   computed : {
-    ...mapState(['storeId','location'])
+    ...mapState(['storeId','location','cityName'])
   },
 
 
@@ -73,7 +72,9 @@ export default {
       * @description 设置城市名字
       *  */ 
      setCityName (cityName) {
-       this.cityName = cityName
+       if(!this.cityName) {
+         this.$store.commit('setcityname',cityName) //第一次获取当前定位城市
+       }
      },
     
      /**
@@ -109,8 +110,8 @@ export default {
       Promise.all([this.getCurrentStorePromise(),this.getStoreListPromise()]).then(res => {
         if(res[0].code == Api.CODES.SUCCESS && res[0].code == Api.CODES.SUCCESS ) { //两个都请求成功
           const currentStoreInfo =  res[0].data.shopStore //当前门店信息
-          const nearbyStoreList =  res[1].data.storeList //当前门店信息
-          console.log('nearbyStoreList',nearbyStoreList)
+          const nearbyStoreList =  res[1].data.storeList || res[1].data.cityStore //当前门店信息
+          console.log('currentStoreInfo',currentStoreInfo)
           this.setCityName(currentStoreInfo.city) //设置城市名字
           this.setCurrentStoreInfo(currentStoreInfo) //设置当前门店相关信息
           this.setNearbyStoreList(nearbyStoreList)
@@ -125,9 +126,15 @@ export default {
 </script>
 
 <style lang="scss">
+page{
+  width: 750rpx;
+  box-sizing: border-box;
+}
 .container{
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 750rpx;
+  box-sizing: border-box;
 }
 </style>

@@ -15,7 +15,7 @@ export default {
 
   tempOrder: {},
   gradePrivilegeExplain: '',
-  cityName:'广州市',
+  cityName:'',
   shopDetail:{},
   runingtime:0,
   pickup:''

@@ -1,8 +1,9 @@
 {
   "pages": [
-    
     "pages/index/main",
     "pages/store/select/main",
+    "pages/store/search/main",
+    "pages/city/select/main",
     "pages/index/selectaddress/main",
     "pages/index/searchgoods/main",
     "pages/cart/main",
@@ -57,7 +58,7 @@
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "乐家生鲜",
     "navigationBarTextStyle": "black",
-    "backgroundColor": "#00dec7"
+    "backgroundColor": "#0FD7C0"
   },
   "tabBar": {
     "color": "#797979",

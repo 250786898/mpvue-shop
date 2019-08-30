@@ -92,7 +92,6 @@
 
 <style lang="scss" scoped>
   .goods-list {
-    padding: 0 24rpx;
     // background-color:rgb(190, 29, 29);
     // margin-bottom: 16rpx;
   }

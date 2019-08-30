@@ -1,13 +1,14 @@
 <template>
   <div class="search-bar">
-    <div class="search-city" >{{cityName}}</div>
-    <div class="search-main">
-      <label class="search-label">     
-        <icon class="icon-search" type="search" size="14"></icon>
-        <div class="search-bar__text">请输入小区名字</div>
-      </label>
+    <div class="search-item">
+      <div class="search-city" @click="navToSelectCity">{{cityName}}</div>
+      <div class="search-main">
+        <label class="search-label" @click="navToSearch">     
+          <icon class="icon-search" type="search" size="14"></icon>
+          <div class="search-bar__text">请输入小区名字</div>
+        </label>
+      </div>
     </div>
-
   </div>
 </template>
 
@@ -15,6 +16,25 @@
 export default {
   props: {
     cityName: ''
+  },
+  methods: {
+    /**
+     * @description 跳转到搜索组件
+     */
+    navToSearch () {
+      wx.navigateTo({
+        url: '/pages/store/search/main',
+      })
+    },
+
+    /**
+     * @description 跳转至选择城市组件
+     */
+    navToSelectCity () {
+       wx.navigateTo({
+        url: '/pages/city/select/main',
+      })
+    }
   }
 }
 </script>
@@ -26,9 +46,18 @@ export default {
   background:rgba(255,255,255,1);
   border-radius:36rpx;
   z-index: 9;
+  font-size:28rpx;
+  line-height: 28rpx;
+}
+.search-item {
   display: flex;
   align-items: center;
-  font-size:28rpx;
+  width: 100%;
+  height: 100%;
+}
+.search-main{
+  display: flex;
+  align-items: center;
 }
 .search-city{
   color: #7F7F7F;
@@ -52,6 +81,8 @@ export default {
   padding-left: 26rpx;
   .icon-search{
     margin-right: 14rpx;
+    width: 28rpx;
+    height: 28rpx;
   }
 }
 </style>

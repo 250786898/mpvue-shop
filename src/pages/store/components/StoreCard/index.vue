@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card" :class="{ 'bottom-line' : showLine }" @click="select">
     <img :src="item.storeLogoImg" class="store-logo" alt="">
     <div class="card-main">
       <div class="card-main-top">
@@ -25,16 +25,36 @@ export default {
     item: {
       type: Object,
       default: () => ({})
+    },
+    showLine: {
+      type: Boolean,
+      default: true
     }
   },
+  methods: {
+    /**
+     * @description 选择门店
+     */
+    select() {
+      this.$store.commit('setItem', this.item )
+      this.$store.commit('setStoreId', this.item.storeId)
+      wx.switchTab({
+        url: '/pages/index/main',
+      })
+        
+    },
+  }
 }
 </script>
 
 <style lang="scss" scoped>
+.bottom-line{
+  border-bottom:1px solid rgba(239,239,239,1);
+}
 .card{
   display: flex;
   padding: 50rpx 0;
-  border-bottom:1px solid rgba(239,239,239,1);
+  background: #ffffff;
   .store-logo{
     width:80rpx;
     height:80rpx;

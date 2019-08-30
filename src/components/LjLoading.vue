@@ -46,7 +46,7 @@
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    background-color: #3063b2;
+    background-color: #0FD7C0;
     opacity: 0.6;
     position: absolute;
     top: 0;

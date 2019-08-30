@@ -115,7 +115,7 @@
             setTimeout(()=>{
               wxbarcode.barcode('barcode', this.result.pickUpCode, 620, 160)
               wxbarcode.qrcode('qrcode', this.result.pickUpCode, 360, 360)
-            },200);
+            },1000);
           } else {
             wx.showToast({
               title: res.message,

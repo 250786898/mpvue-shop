@@ -1,12 +1,12 @@
 <template>
   <div class="select-store-card">
     <div class="select-store-card__title">当前门店</div>
-    <store-card :item="item" />
+    <store-card :item="item" :showLine="false"/>
   </div>
 </template>
 
 <script>
-import StoreCard from '../StoreCard/index'
+import StoreCard from '../../../components/StoreCard/index'
 export default {
   props: {
     item: {
