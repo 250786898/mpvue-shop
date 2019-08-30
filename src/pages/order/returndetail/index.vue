@@ -2,9 +2,10 @@
   <div>
     <!-- 
           1为待审核,2服务端审核确认,3拣货员已验货上传图片,4为服务端同意退款,5(对应2)为服务端审核拒绝, 6(对应4)服务端拒绝退款,7为退款完成 8-已取消 100已关闭 默认为 -->
-    <div  style="position: relative; margin-bottom:24rpx;" class="order-status bg-gradient">
+    <div  style="position: relative; margin-bottom:24rpx;z-index:10" class="order-status bg-gradient">
       <!-- 待审核、审核确认 -->
       <template v-if="detail.state === 1">您已成功申请退款,请等待商家处理</template>
+      
       <template v-else-if="detail.state === 2">审核确认</template>
       <template v-else-if="detail.state === 3">已验货</template>
       <!-- 同意 -->
@@ -13,11 +14,8 @@
       <!-- 不同意 -->
       <template v-else-if="detail.state === 6">商家已拒绝退款</template>
       <!-- 退款成功 -->
-      <div style="z-index:1;" v-else-if="detail.state === 7">
-        
+      <div style="z-index:10;" v-else-if="detail.state === 7">
         <p style="margin-left:24rpx;">退款成功</p>
-        
-        <!-- <div class="desc">2018年8月3日 10:10:20</div> -->
       </div>
       <!-- 已取消 -->
       <template v-else-if="detail.state === 8">已取消退款申请</template>
@@ -53,16 +51,18 @@
               <div class="return-info__progress__title">商家受理</div>
               <!-- <div class="return-info__progress__desc">2018-11-22 09:58:20</div> -->
             </div>
-            <div class="weui-flex__item active">
+            <div style="z-index:10;" class="weui-flex__item active">
               <div class="return-info__progress__route"></div>
               <div class="return-info__progress__icon return-info__progress__icon_checked">
                 <icon type="success_no_circle" color="#FFF" size="14"></icon>
               </div>
-              <div class="return-info__progress__title">退款成功</div>
+              <div  class="return-info__progress__title">退款成功</div>
               <!-- <div class="return-info__progress__desc">2018-11-22 09:58:20</div> -->
             </div>
           </div>
         </div>
+        
+
         
         <div class="weui-cell return-info__sep return-info__combine">
           <div class="weui-cell__bd">退回优惠券</div>

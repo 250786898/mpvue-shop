@@ -14,7 +14,7 @@
       <div class="weui-panel order-panel" v-for="order in list" :key="order.orderId">
         <div class="weui-panel__hd">
           {{ order.orderTime }}
-          <span v-if="order.state === 50">订单关闭</span>
+          <span style="margin-left:16rpx;" v-if="order.state === 50">订单关闭</span>
           <span v-else-if="order.state === 0">订单已取消</span>
           <span v-else-if="order.state === 10">待付款</span>
           <span v-else-if="order.state === 20 || order.state === 21">

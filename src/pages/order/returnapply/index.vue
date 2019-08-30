@@ -20,7 +20,7 @@
               <div class="goods-total">￥{{ item.onlinePrice * item.goodsNum }}</div>
             </div>
             <!-- else 赠品 -->
-            <div class="weui-media-box__desc" v-if="!item.isPresentation">
+            <div style="color:#999;font-size:28rpx;" class="weui-media-box__desc" v-if="!item.isPresentation">
               <span>单价:￥{{ item.onlinePrice }}</span>
               <div class="goods-count goods-count_ih">数量: x{{ item.goodsNum }}</div>
             </div>
@@ -29,11 +29,14 @@
       </div>
     </div>
 
+  <div class="weui-cells weui-cells_no-border detail-form">
     <div class="lj-form">
-      <div class="weui-cells weui-cells_no-border">
+     
         <div class="weui-cell">
-          <div class="weui-cell__hd">
-            退货原因
+          <img src="/static/images/icon_arrow.png" alt="">
+          <div  style="font-size:30rpx; width:300rpx;" class="weui-cell__hd">
+           <p style="float:left;">退货原因： </p> <span style="color:#999;"> 请选填</span>
+            
           </div>
           <div class="weui-cell__bd">
             <picker @change="onReasonChange" :value="reason" :range="reasonArray" range-key="reasonInfo">
@@ -46,14 +49,11 @@
             </picker>
           </div>
         </div>
-      </div>
     </div>
-
-    <div class="weui-cells weui-cells_no-border detail-form">
       <div class="weui-cell">
         <div class="weui-cell__hd">退货说明：</div>
         <div class="weui-cell__bd">
-          <input type="text" placeholder="选填" v-model="refundReason">
+          <input type="text" style="color:#999;" placeholder="选填" v-model="refundReason">
         </div>
       </div>
       <div class="weui-cell">
@@ -122,12 +122,6 @@
           url: '/pages/address/list/main?mode=select&title=选择提货地址'
         })
       },
-
-
-
-
-
-
 
       submit() {
         var curHours = new Date().getHours()
@@ -208,16 +202,21 @@
 </script>
 
 <style>
-  page { background-color: #F5F5F5; padding-bottom: 120rpx; }
+  page { background-color: #F5F5F5; padding-bottom: 120rpx;padding-left:24rpx; }
 </style>
 
 <style lang="scss" scoped>
+  .picker{
+    color:#999;
+  }
   .lj-form {
     .weui-cells {
       margin-top: 20rpx;
+      border-radius: 14rpx;
+      
     }
     .picker {
-      padding-right: 80rpx;
+      padding-right: 43rpx;
       border: 0 none;
       text-align: right;
     }
@@ -225,8 +224,21 @@
 
   .detail-form {
     margin-top: 20rpx;
+    width: 702rpx;
+    border-radius: 14rpx;
     .weui-cell {
       font-size: 30rpx;
+      position: relative;
+      img{
+        width: 42rpx;
+        height: 42rpx;
+        position: absolute;
+        top:33rpx;
+        right:21rpx;
+      }
+      p{
+        float: left;
+      }
       &:before {
         display: block;
         left: 0;
