@@ -29,9 +29,9 @@
                 <div class="goods-total">￥{{ item.onlinePrice * item.goodsNum }}</div>
               </div>
               <!-- else 赠品 -->
-              <div class="weui-media-box__desc" v-if="!item.isPresentation">
-                <span>单价:￥{{ item.onlinePrice }}</span>
-                <div class="goods-count goods-count_ih">数量: x{{ item.goodsNum }}</div>
+              <div style="color:#999;font-size:28rpx;" class="weui-media-box__desc" v-if="!item.isPresentation">
+                <span > 单价:￥{{ item.onlinePrice }}</span>
+                <div  class="goods-count goods-count_ih">数量: x{{ item.goodsNum }}</div>
               </div>
             </div>
           </div>
@@ -107,7 +107,9 @@
     }
   }
 </script>
-
+<style>
+  page { background-color: #F4F4F4; padding-left:24rpx;}
+</style>
 <style scoped lang="scss">
   .main-button {
     margin: 80rpx;

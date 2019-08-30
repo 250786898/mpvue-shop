@@ -64,7 +64,8 @@
         <!-- 订单已关闭 -->
         <template v-else-if="order.state === 50">
            <img src="/static/images/close_icon.png" alt="">
-          订单已关闭
+            <p style="margin-left:32rpx;">订单已关闭</p>
+          
         </template>
         <template v-else-if="order.state === 0 && !isAssemble">
            <img src="/static/images/close_icon.png" alt="">
@@ -116,9 +117,10 @@
                 <div class="store">提货店铺 </div>
                 <div class="xian"></div>
                 <div class="store_name">{{ order.receiverName }}</div>
+                <div class="order-shop__desc">{{ order.receiverAddress }}</div>
               </div>
             </div>
-            <div class="order-shop__desc">{{ order.receiverAddress }}</div>
+            
           </div>
           <!-- <div class="weui-cell__ft weui-cell__ft_in-access"></div> -->
         </div>
@@ -838,14 +840,14 @@
           font-size:30rpx;
           font-weight:bold;
           color:rgba(51,51,51,1);
-          line-height:40rpx;
+          line-height:52rpx;
           float:left;
         }
   .store_name{
     float:left;
     position: absolute;
-    top:102rpx;
-    left:31rpx;
+    top:110rpx;
+    left:27rpx;
     color:#333;
   }
   .BackImg{
@@ -927,11 +929,11 @@
     &__desc {
       position: absolute;
       left:0rpx;
-      bottom:-144rpx;
+      top:150rpx;
       text-align:left;
       font-size: 28rpx;
       color: #999;
-      margin-left:31rpx;
+      margin-left:27rpx;
       line-height: 32rpx;
       width: 636rpx;
     }
