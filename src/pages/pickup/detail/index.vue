@@ -1,47 +1,51 @@
 <template>
   <div>
-    <div class="card">
-      <img src="/static/images/deliverycode_card_bg@2x.png" class="card__bg">
-      <div class="card__bd">
-        <!-- 条形码 -->
-        <canvas canvas-id="barcode" class="card__barcode"></canvas>
-        <div class="card__barcode-text">{{ result.pickUpCode }}</div>
-        <canvas canvas-id="qrcode" class="card__qrcode"></canvas>
+    <template v-if="!pageLoading">
+      <div class="card">
+        <img src="/static/images/deliverycode_card_bg@2x.png" class="card__bg">
+        <div class="card__bd">
+          <!-- 条形码 -->
+          <canvas canvas-id="barcode" class="card__barcode"></canvas>
+          <div class="card__barcode-text">{{ result.pickUpCode }}</div>
+          <canvas canvas-id="qrcode" class="card__qrcode"></canvas>
 
-        <!-- <img src="/static/images/membershipcode_qrcode@2x.png" class="card__qrcode"> -->
-        <div class="card__qrcode-tip">自提订单提货凭证 请勿告诉陌生人</div>
-        <!-- 门店 -->
-        <div class="card__shop-item">
-          <div class="weui-cell weui-cell_access" hover-class="navigator-hover" @click="openLocation">
-            <div class="weui-cell__hd">
-              <img src="/static/images/deliverycode_img_logo@2x.png">
+          <!-- <img src="/static/images/membershipcode_qrcode@2x.png" class="card__qrcode"> -->
+          <div class="card__qrcode-tip">自提订单提货凭证 请勿告诉陌生人</div>
+          <!-- 门店 -->
+          <div class="card__shop-item">
+            <div class="weui-cell weui-cell_access" hover-class="navigator-hover" @click="openLocation">
+              <div class="weui-cell__hd">
+                <img src="/static/images/deliverycode_img_logo@2x.png">
+              </div>
+              <div class="weui-cell__bd">
+                <div class="primary">提货门店{{ result.stroreName }}</div>
+                <div class="second">{{ result.storeAddress }}</div>
+              </div>
+              <div class="weui-cell__ft weui-cell__ft_in-access"></div>
             </div>
-            <div class="weui-cell__bd">
-              <div class="primary">提货门店{{ result.stroreName }}</div>
-              <div class="second">{{ result.storeAddress }}</div>
-            </div>
-            <div class="weui-cell__ft weui-cell__ft_in-access"></div>
           </div>
-        </div>
-        <div class="card__dt">
-          <navigator url="/pages/pickup/instruction/main" class="weui-cell weui-cell_access">
-            <div class="weui-cell__hd">
-              <img src="/static/images/deliverycode_icon_gifrbag@2x.png">
+          <div class="card__dt">
+            <navigator url="/pages/pickup/instruction/main" class="weui-cell weui-cell_access">
+              <div class="weui-cell__hd">
+                <img src="/static/images/deliverycode_icon_gifrbag@2x.png">
+              </div>
+              <div class="weui-cell__bd">提货须知</div>
+              <div class="weui-cell__ft weui-cell__ft_in-access"></div>
+            </navigator>
+            <div class="weui-cell">
+              <div class="weui-cell__hd">
+                <img src="/static/images/deliverycode_icon_gifrbag@2x(1).png">
+              </div>
+              <div class="weui-cell__bd">提货时间：{{result.shippingTime }}</div>
             </div>
-            <div class="weui-cell__bd">提货须知</div>
-            <div class="weui-cell__ft weui-cell__ft_in-access"></div>
-          </navigator>
-          <div class="weui-cell">
-            <div class="weui-cell__hd">
-              <img src="/static/images/deliverycode_icon_gifrbag@2x(1).png">
-            </div>
-            <div class="weui-cell__bd">提货时间：{{result.shippingTime }}</div>
           </div>
         </div>
       </div>
-    </div>
-    <img src="http://bucketlejia.oss-cn-shenzhen.aliyuncs.com/deliverycode_bg@2x.png" class="footer__bg" mode="widthFix">
-    <cancel-popup :shown="popupShowed" ></cancel-popup>
+      <img src="http://bucketlejia.oss-cn-shenzhen.aliyuncs.com/deliverycode_bg@2x.png" class="footer__bg" mode="widthFix">
+      <cancel-popup :shown="popupShowed" ></cancel-popup>
+    </template>
+    
+    <page-loading :show="pageLoading" />
   </div>
 </template>
 
@@ -51,12 +55,14 @@
 
 <script>
   import wxbarcode from 'wxbarcode'
+  import PageLoading from '@/components/PageLoading'
   import { Api } from '@/http/api'
   import CancelPopup from './components/CancelPopup/index'
   
   export default {
       components: {
-       CancelPopup
+       CancelPopup,
+       PageLoading
     },
     data () {
       return {
@@ -64,7 +70,8 @@
         result: {},  //提货订单信息
         currentBrightness: 0, //屏幕亮度
         timer: null, // 扫码提示定时
-        popupShowed:false  //核销成功提示
+        popupShowed:false,  //核销成功提示
+        pageLoading: true //页面加载状态
       }
     },
 
@@ -73,7 +80,6 @@
       * @description 核销后提示信息
       */
       findOrderStat() {
-        // wx.showLoading()
         Api.order.findOrderStat({ orderId: this.orderId })
         .then(res => {
           if (res.code === Api.CODES.SUCCESS) {
@@ -99,26 +105,26 @@
           } 
         })
         .catch(e => console.log(e))
-        .then(() => wx.hideLoading())
+        .then(() => {})
       },
 
      /**
       * @description 条形码接口
       */
       getOrderPickUpCodeDetail() {
-        wx.showLoading({})
         Api.order.orderPickUpCode({ orderId: this.orderId })
         .then(res => {
           if (res.code === Api.CODES.SUCCESS) {
             this.result = res.data
             console.log('条形码',this.result )
             setTimeout(() => {
-              wx.hideLoading()
+              this.pageLoading = false
               wxbarcode.barcode('barcode', this.result.pickUpCode, 620, 160)
               wxbarcode.qrcode('qrcode', this.result.pickUpCode, 360, 360)
             },1000)    
               
           } else {
+            this.pageLoading = false
             wx.showToast({
               title: res.message,
               icon: 'none'
@@ -126,7 +132,7 @@
           }
         })
         .catch(e => console.log(e))
-        .then(() => wx.hideLoading())
+        .then(() => {})
       },
 
       openLocation() {
@@ -177,12 +183,12 @@
     },
   computed: {
 
-      pickup(){
-         let pickup=this.$store.state.pickup;
-         return pickup
-      },
+    pickup(){
+        let pickup=this.$store.state.pickup;
+        return pickup
+    },
 
-   showPickUpTime () { //显示的提货时间
+    showPickUpTime () { //显示的提货时间
         const hours = new Date().getHours()
         let showPickUpTime = ''
         if(hours > 20) {
@@ -193,32 +199,20 @@
         }
         return showPickUpTime
       },
-     },
-
-    onShow: function () {
-      wx.showLoading({ title: '加载中', mask: true })
+    },
+    mounted () {
+      this.orderId = this.$mp.page.options.id
+      clearInterval(this.timer) 
       this.getOrderPickUpCodeDetail()
       this.timer = setInterval(() => { 
-      this.findOrderStat()
+        this.findOrderStat()
       }, 3000)
-      this.getScreenBright()
     },
     onUnload () {
       // this.recoverScreen()
        clearInterval(this.timer) 
     },
-    onLoad(e) {
-      console.log('提货',this.$store.state.pickup)
-      wx.showLoading({ title: '加载中', mask: true })
-  
-      clearInterval(this.timer) 
-      this.orderId = e.id
-      this.getOrderPickUpCodeDetail()
-      this.timer = setInterval(() => { 
-      this.findOrderStat()
-      }, 3000)
-    
-    }
+
   }
 </script>
 

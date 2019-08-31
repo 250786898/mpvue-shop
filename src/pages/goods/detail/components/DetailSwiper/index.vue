@@ -32,6 +32,7 @@ export default {
      */
     onSwiperChange(e) {
       this.current = e.target.current
+      console.log('e',e)
     },
 
     /**
@@ -39,7 +40,7 @@ export default {
      */
     previewImage(current) {
       wx.previewImage({
-        urls: this.goodsDetailInfo.goodsBanner,
+        urls: this.bannerList,
         current
       })
     }
