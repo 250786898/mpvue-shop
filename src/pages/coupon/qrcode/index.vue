@@ -99,7 +99,6 @@
       this.getCouponLimitQrcode()
     },
     onUnload () {
-      this.recoverScreen()
     }
   }
 </script>

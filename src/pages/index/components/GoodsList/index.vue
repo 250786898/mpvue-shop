@@ -160,7 +160,8 @@
       background: #fff;
       font-weight:800;
       padding-left: 29rpx;
-      border-radius:14rpx;
+      border-top-left-radius: 14rpx;
+      border-top-right-radius: 14rpx;
       border-bottom: #F0F0F0 1rpx solid;
       box-sizing: border-box;
       &::before,

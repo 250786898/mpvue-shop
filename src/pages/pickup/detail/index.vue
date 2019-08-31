@@ -112,10 +112,12 @@
           if (res.code === Api.CODES.SUCCESS) {
             this.result = res.data
             console.log('条形码',this.result )
-            setTimeout(()=>{
+            setTimeout(() => {
+              wx.hideLoading()
               wxbarcode.barcode('barcode', this.result.pickUpCode, 620, 160)
               wxbarcode.qrcode('qrcode', this.result.pickUpCode, 360, 360)
-            },1000);
+            },1000)    
+              
           } else {
             wx.showToast({
               title: res.message,
@@ -194,15 +196,22 @@
      },
 
     onShow: function () {
+      wx.showLoading({ title: '加载中', mask: true })
+      this.getOrderPickUpCodeDetail()
+      this.timer = setInterval(() => { 
+      this.findOrderStat()
+      }, 3000)
       this.getScreenBright()
     },
     onUnload () {
-      this.recoverScreen()
+      // this.recoverScreen()
        clearInterval(this.timer) 
     },
     onLoad(e) {
       console.log('提货',this.$store.state.pickup)
-       clearInterval(this.timer) 
+      wx.showLoading({ title: '加载中', mask: true })
+  
+      clearInterval(this.timer) 
       this.orderId = e.id
       this.getOrderPickUpCodeDetail()
       this.timer = setInterval(() => { 
