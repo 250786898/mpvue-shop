@@ -152,8 +152,8 @@
     border-radius:14rpx;
     &__title {
       margin: 0 auto;
-      height: 82rpx;
-      line-height: 82rpx;
+      height: 90rpx;
+      line-height: 90rpx;
       text-align: left;
       font-size: 36rpx;
       color: #272727;
