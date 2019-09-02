@@ -14,17 +14,24 @@
         <div class="weui-media-box__title">{{ item.goodsName }}</div>
         <div class="weui-media-box__desc" v-if="item.shareDescription">{{ item.shareDescription || '' }}</div>
         <div class="goods-row-item__tb" v-if="item">
-  <!-- 替换组件 -->
-    <div class="goods-row-item__price"  >
-      <div class="primary">￥{{ item.onlinePrice }}</div>
-      <div class="secondary" v-if="item.onlineScribingPrice">￥{{ item.onlineScribingPrice }}</div>
-    </div>
+
+        <!-- 替换组件 -->
+        <div class="goods-row-item__price"  >
+          <div class="primary">￥{{ item.onlinePrice }}</div>
+          <div class="secondary" v-if="item.onlineScribingPrice">￥{{ item.onlineScribingPrice }}</div>
+        </div>
           <!-- <goods-price :item="item"></goods-price> -->
-          <form report-submit="true" @submit="uploadFormId"> 
-            <button form-type="submit" class="hiddenBtn" @click.stop="addToCart(item.id)">
+
+          <div class="counter" v-if="currentGoodsCartNum > 0">
+            <counter  v-model="currentGoodsCartNum" :max="item.inventoryAmount" @change="onGoodsNumChange($event,item)"></counter>
+          </div>
+          <form report-submit="true" @submit="uploadFormId" v-else> 
+            <button hover-class="none" form-type="submit" class="hiddenBtn" @click.stop="addToCart(item.id)">
               <img src="/static/images/common_btn_shopcart_small.png@2x.png" class="icon-cart" @click.stop="addToCart(item.id)">
             </button>
           </form> 
+          
+           
         </div>
       </div>
       <div class="xian"></div>
@@ -36,10 +43,12 @@
 <script>
   import {Api} from '@/http/api'
   import GoodsPrice from '@/components/GoodsPrice'
+  import Counter from '@/components/Counter'
 
   export default {
     components: {
-      GoodsPrice
+      GoodsPrice,
+      Counter
     },
     props: {
       item: {
@@ -53,6 +62,11 @@
         default: false
       }
     },
+    data () {
+      return {
+        currentGoodsCartNum: 0, //当前购物车数量
+      }
+    },
 
     computed: {
     },
@@ -61,31 +75,34 @@
 // 接收后台返回的商品信息
 
     methods: {
-        attached(){
-       console.log('333333',this.$store.state.shopDetail.storeId)
-      //   Api.index.storeGoodsListByshopId({
-      //   storeId: this.storeId
-      // })
-      // .then(res => {
-      //   if (res.code === Api.CODES.SUCCESS) {
-      //     console.log('9999',res)
-      //     this.storeList = res.data.storeList
-      //   }
-      // })
-
-    },
+      /**
+       * @param {object} e count:增加或则减少的数量 type:类型(增加或则减少)
+       * @description 增加或则减少购买的数量
+       */
+      onGoodsNumChange ({ count,type },item) {
+        // console.log('count',count)
+        // switch(type){
+        //   case 'add':
+        //   //添加购物车数量
+        //   this.addToCart()
+        //   break
+        // }
+        this.addToCart()
+      },
 
       uploadFormId (e) {
         this.formId = e.target.formId
-          Api.user.addFormId({
-            formId: this.formId
-          }).then((res) =>{
-            if(res.code == Api.CODES.SUCCESS) {
-              console.log('777',res)
-            }
-          })
+        Api.user.addFormId({
+          formId: this.formId
+        }).then((res) =>{
+          if(res.code == Api.CODES.SUCCESS) {
+            console.log('777',res)
+          }
+        })
       },
-      addToCart(activityGoodsId) {
+
+      addToCart(activityGoodsId = '') {
+        console.log('currentGoodsCartNum',this.currentGoodsCartNum)
         this.$store.dispatch('addToCart', {
           goodsId: this.item.goodsId || this.item.id,
           activityId: this.item.activityId,
@@ -95,13 +112,17 @@
     },
 
 onLoad(){
-  this.attached()
 }
 
   }
 </script>
 
 <style lang="scss" scoped>
+  .counter{
+    position: absolute;
+    top:160rpx;
+    right: 0;
+  }
   .weui-media-box__bd_in-appmsg{
     float:right;
     width: 428rpx;
@@ -167,9 +188,9 @@ onLoad(){
   .icon-cart{
     position: absolute;
     right: 6rpx;
-    bottom: 0rpx;
-    width: 66rpx;
-    height: 66rpx;
+    bottom: 10rpx;
+    width: 56rpx;
+    height: 56rpx;
 
   }
 }

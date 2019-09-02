@@ -1,7 +1,9 @@
 {
   "pages": [
-    
     "pages/index/main",
+    "pages/store/select/main",
+    "pages/store/search/main",
+    "pages/city/select/main",
     "pages/index/selectaddress/main",
     "pages/index/searchgoods/main",
     "pages/cart/main",
@@ -10,7 +12,6 @@
     "pages/address/list/main",
     "pages/address/form/main",
     "pages/activity/main",
-    
     "pages/newcomepacks/main",
     "pages/goodstheme/main",
     "pages/coupon/index/main",
@@ -21,12 +22,7 @@
     "pages/scan/cart/main",
     "pages/goods/index/main",
     "pages/goods/detail/main",
-  
     "pages/member/theme/main",
-    "pages/theme/manjian/main",
-    "pages/theme/maisong/main",
-    "pages/theme/miaosha/main",
-    "pages/timelimit/index/main",
     "pages/order/preview/main",
     "pages/order/index/main",
     "pages/order/comment/main",
@@ -39,8 +35,6 @@
     "pages/order/returngoods/main",
     "pages/order/returnapply/main",
     "pages/order/progress/main",
-    "pages/order/teamlist/main",
-    "pages/order/teamdetail/main",
     "pages/order/selectshop/main",
     "pages/mine/auth/main",
     "pages/mine/bind/main",
@@ -55,8 +49,6 @@
     "pages/pickup/detail/main",
     "pages/pickup/instruction/main",
     "pages/rider/detail/main",
-    "pages/scanorder/returnapply/main",
-    
     "pages/portal/main",
     "pages/free-order/free-order/main",
     "pages/free-order/share-free-order/main"
@@ -66,7 +58,7 @@
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "乐家生鲜",
     "navigationBarTextStyle": "black",
-    "backgroundColor": "#00dec7"
+    "backgroundColor": "#0FD7C0"
   },
   "tabBar": {
     "color": "#797979",

@@ -21,17 +21,7 @@
       <div class="weui-cell__bd">会员基本信息</div>
       <div class="weui-cell__ft weui-cell__ft_in-access"></div>
     </navigator>
-    <!--
-    <div class="weui-cell">
-      <div class="weui-cell__hd">
-        <img src="/static/images/setting_icon_membercard@2x.png">
-      </div>
-      <div class="weui-cell__bd">会员连续包月</div>
-      <div class="weui-cell__ft">
-        <switch :checked="autoRenew" @change="onAutoRenewChange" color="#11D0CB"/>
-      </div>
-    </div>
-    -->
+ 
     <div class="footer-bar">
       <button type="primary" hover-class="button-hover" @click="logout">退出登录</button>
     </div>

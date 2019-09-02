@@ -1,5 +1,6 @@
 <template>
-  <div class="payways">
+  <div class="payways" >
+    <div class="xian"></div>
     <div class="weui-cells__title" v-if="title">{{ title }}</div>
     <div class="weui-cells weui-cells_after-title">
       <radio-group @change="radioChange">
@@ -104,7 +105,20 @@
 
 <style lang="scss" scoped>
   .payways {
+    position: relative;
     margin-top: 20rpx;
+    width: 702rpx;
+    border-radius: 14rpx;
+    .xian{
+       width: 702rpx;
+        height: 1rpx;
+        background:rgba(204,204,204,1);
+        opacity:0.4;
+        position: absolute;
+        top:85rpx;
+        left:0rpx;
+        z-index: 1;
+    }
     .weui-cells {
       &:before,
       &:after {

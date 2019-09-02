@@ -32,7 +32,7 @@
               @touchstart="handleTouchestart(item, $event)"
               @touchend="handleTouchend(item, $event)"
               @change="handleChange(item, $event)">
-              <coupon-card :status="1":item="item"></coupon-card>
+              <coupon-card :status="1" :item="item"></coupon-card>
             </movable-view>
             <view class='slider-left-handle'>
               <view @click="del(item,index)" class="slider-left-handle__button red">

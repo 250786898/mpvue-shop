@@ -5,6 +5,8 @@
     <span class="num">{{ hms.m }}</span>
     <span>:</span>
     <span class="num">{{ hms.s }}</span>
+    <span>:</span>
+    <span class="microsecond">{{ msec }}</span>
   </div>
 </template>
 
@@ -15,6 +17,12 @@
       countdown: {
         type: Number,
         default: 0
+      }
+    },
+
+    data () {
+      return {
+        msec: 9 //倒计时毫秒
       }
     },
 
@@ -36,6 +44,56 @@
         }
         return { h, m, s }
       }
+    },
+
+    created () {
+     console.log('created')
+     this.startCountdown()
+     this.startMsecDown()
+    },
+
+    mounted () {
+      console.log('mounted')
+    },
+
+    onShow () { //mpvue框架第一次不会执行，第二次访问开始会一直执行
+      console.log('onShow')
+      this.startCountdown()
+      this.startMsecDown()
+    },
+
+    methods: {
+      /**
+       * @description开始倒计时
+       */
+      startCountdown() {
+        if(this.countdown <= 0) return false
+        clearInterval(this.countdownTimer)
+        this.countdownTimer = setInterval(() => {
+          this.countdown--
+          if (this.countdown === 0) {
+            clearInterval(this.countdownTimer)
+          }
+        }, 1000)
+      },
+
+      /**
+       * @description 毫秒倒计时
+       */
+      startMsecDown () {
+        if(this.countdown <= 0) return false
+        this.msec = 9
+        clearInterval(this.mescDownTimer)
+        this.mescDownTimer = setInterval(() => {
+          this.msec--
+          if (this.msec <= 0) {
+           this.msec = 9
+          }
+          if(this.countdown === 0) {
+            this.msec = 0
+          }
+        }, 100)
+      }
     }
   }
 </script>
@@ -46,19 +104,34 @@
     span {
       vertical-align: top;
       display: inline-block;
-      font-size: 22rpx;
+      font-size: 26rpx;
+      color: #0C524D;
       &.num {
-        width: 34rpx;
-        height: 34rpx;
         text-align: center;
-        line-height: 34rpx;
-        background-color: #333;
         color: #fff;
-        border-radius: 4rpx;
+        width:40rpx;
+        height:36rpx;
+        line-height: 36rpx;
+        background:rgba(25,111,105,1);
+        border-radius:6rpx;
+        font-weight:800;
       }
       + span {
-        margin-left: 4rpx;
+        margin-left: 6rpx;
       }
+    }
+    .microsecond{
+      width:34rpx;
+      padding: 0 5rpx;
+      box-sizing: border-box;
+      height:36rpx;
+      line-height: 36rpx;
+      background:rgba(255,255,255,1);
+      border-radius:6rpx;
+      color: #F9AB36;
+      font-size: 28rpx;
+      font-weight: 800;
+      text-align: center;
     }
   }
 </style>

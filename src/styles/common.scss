@@ -66,6 +66,13 @@ button {
   }
 }
 
+/*隐藏滚动条*/
+::-webkit-scrollbar{
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+
 .textarea {
   padding: 15rpx 20rpx;
   height: 170rpx;
@@ -189,7 +196,7 @@ button {
 }
 
 .bg-gradient {
-  @include bgGradient;
+  // @include bgGradient;
   &_hover {
     @include bgGradientHover;
   }
@@ -426,5 +433,6 @@ button {
 @import './lj-form-preview';
 @import './pwd-form';
 @import './vip';
+@import './store';
 @import './store-item';
 @import './goods-row-item';

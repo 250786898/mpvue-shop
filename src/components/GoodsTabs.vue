@@ -3,35 +3,41 @@
     <!-- <lj-tabs :tabs="this.tabs" v-model="activeIndex"></lj-tabs> -->
 
     <div class="goods-list" v-if="goodsList.length" >
-      <goods-row-item v-for="item in goodsList"
+
+
+        <goods-row-item v-for="item in goodsList"
         :is-hot="true"
         :key="item.goodsId"
-        :item="item">
-      </goods-row-item>
-     
+        :item="item" 
+        >
+        </goods-row-item>
+
+      
+        <!-- 加载更多 -->
+        <lj-loading v-if="!isAllLoaded && loading"/>
     </div>
-    <!-- 加载更多 -->
-    <div class="goods-tabs__loading" v-if="!isAllLoaded && loading">
-      <img src="/static/images/Spin-1s-60px.gif">
-    </div>
+  
+
 
     <div class="goods-tabs__tip" v-if="isAllLoaded && goodsList.length">亲,已经看到最后啦！</div>
 
-    <div v-if="isAllLoaded && !goodsList.length" class="empty-tip">
+    <!-- <div v-if="isAllLoaded && !goodsList.length" class="empty-tip">
       <div class="empty-tip__text">目前没有相关商品</div>
-    </div>
+    </div> -->
 
   </div>
 </template>
 
 <script>
   import GoodsRowItem from './GoodsRowItem'
+  import LjLoading from '@/components/LjLoading'
   import LjTabs from './LjTabs'
 
   export default {
     components: {
       GoodsRowItem,
-      LjTabs
+      LjTabs,
+      LjLoading
     },
     props: {
       isAllLoaded: {
@@ -86,7 +92,6 @@
 
 <style lang="scss" scoped>
   .goods-list {
-    padding: 0 24rpx;
     // background-color:rgb(190, 29, 29);
     // margin-bottom: 16rpx;
   }

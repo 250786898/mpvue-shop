@@ -9,7 +9,7 @@
       <div class="mine-card__user">
         <div class="weui-cell" @click="toSmessage">
           <!-- 箭头 -->
-           <navigator  > <img src="/static/images/icon_blackarrow.png" alt="" class="arrows" style="width:60rpx;height:60rpx;"> </navigator>
+           <navigator hover-class="none"  > <img src="/static/images/icon_blackarrow.png" alt="" class="arrows" style="width:60rpx;height:60rpx;"> </navigator>
 
           <!-- 头像 -->
           <div class="weui-cell__hd">
@@ -31,31 +31,31 @@
               </div>
             </template>
             <!-- else -->
-            <navigator url="/pages/mine/auth/main" v-else class="mine-card__login">
+            <navigator hover-class="none" url="/pages/mine/auth/main" v-else class="mine-card__login">
               注册/登录
               <!-- <img src="/static/images/me_icon_blackarrow@2x.png"> -->
             </navigator>
           </div>
-          <!-- <navigator url="/pages/qrcode/index/main" class="weui-cell__ft">
+          <!-- <navigator hover-class="none" url="/pages/qrcode/index/main" class="weui-cell__ft">
             <img src="/static/images/me_icon_qrcode@2x.png">
             <div>会员码</div>
           </navigator> -->
         </div>
       </div>
       <!-- <div class="weui-flex"> -->
-        <!-- <navigator url="/pages/membercard/charge/main" class="weui-flex__item">
+        <!-- <navigator hover-class="none" url="/pages/membercard/charge/main" class="weui-flex__item">
           <div class="primary" v-if="sessionId">{{ personCenter.balance }}</div>
           <div class="primary" v-else="sessionId">***</div>
           <div>余额</div>
         </navigator>
-        <navigator url="/pages/bonuspoint/index/main" class="weui-flex__item">
+        <navigator hover-class="none" url="/pages/bonuspoint/index/main" class="weui-flex__item">
           <div class="primary" v-if="sessionId">{{ personCenter.points }}</div>
           <div class="primary" v-else="sessionId">***</div>
           <div>积分</div>
         </navigator> -->
        
       <!-- </div> -->
-      <!-- <navigator url="/pages/vip/index/main" class="mine-card__ft">
+      <!-- <navigator hover-class="none" url="/pages/vip/index/main" class="mine-card__ft">
         <div class="weui-cell weui-cell_access">
           <div class="weui-cell__hd">
             <img src="/static/images/me_icon_ancrown@2x.png">
@@ -68,7 +68,7 @@
       </navigator> -->
     </div>
 
-    <!-- <navigator v-if="completedTipShown" url="/pages/mine/info/main" class="complete-tip">
+    <!-- <navigator hover-class="none" v-if="completedTipShown" url="/pages/mine/info/main" class="complete-tip">
       <div class="weui-cell">
         <div class="weui-cell__bd">完善会员信息.我们能为您提供更好会员服务,另好礼大放送! </div>
         <div class="weui-cell__ft weui-cell__ft_in-access"></div>
@@ -80,32 +80,32 @@
       <div class="xian"></div>
       <div class="weui-panel__hd">
         我的订单
-        <navigator url="/pages/order/index/main" class="weui-cell__ft weui-cell__ft_in-access"
+        <navigator hover-class="none" url="/pages/order/index/main" class="weui-cell__ft weui-cell__ft_in-access"
           style="font-size: 24rpx; line-height: 40rpx;">查看全部订单</navigator>
       </div>
       <div class="weui-panel__bd">
         <div class="weui-flex">
-          <navigator :url="'/pages/order/index/main?status=' + ORDER_STATE.UNPAID" class="weui-flex__item" style="position:relative">
+          <navigator hover-class="none"  :url="'/pages/order/index/main?status=' + ORDER_STATE.UNPAID" class="weui-flex__item" style="position:relative">
             <img src="/static/images/payment_icon.png">
             <div>待付款</div>
             <span class="weui-badge" style="position: absolute;top: -.4em;right: 1em;" v-if="personCenter.notPayCount">{{ personCenter.notPayCount }}</span>
           </navigator>
-          <navigator :url="'/pages/order/index/main?status=' + ORDER_STATE.POHYD" class="weui-flex__item" style="position:relative">
+          <navigator hover-class="none" :url="'/pages/order/index/main?status=' + ORDER_STATE.POHYD" class="weui-flex__item" style="position:relative">
             <img src="/static/images/mention_icon.png">
             <div>待提货</div>
             <span class="weui-badge" style="position: absolute;top: -.4em;right: 1em;" v-if="personCenter.notVeriCount">{{ personCenter.notVeriCount }}</span>
           </navigator>
-          <!-- <navigator :url="'/pages/order/index/main?status=' + ORDER_STATE.UNRECEIVED" class="weui-flex__item" style="position:relative">
+          <!-- <navigator hover-class="none" :url="'/pages/order/index/main?status=' + ORDER_STATE.UNRECEIVED" class="weui-flex__item" style="position:relative">
             <img src="/static/images/me_icon_deliveried@2x.png">
             <div>待收货</div>
             <span class="weui-badge" style="position: absolute;top: -.4em;right: 1em;" v-if="personCenter.notReceivingCount">{{ personCenter.notReceivingCount }}</span>
           </navigator> -->
-          <navigator :url="'/pages/order/index/main?status=' + ORDER_STATE.FINISHED" class="weui-flex__item" style="position:relative">
+          <navigator hover-class="none" :url="'/pages/order/index/main?status=' + ORDER_STATE.FINISHED" class="weui-flex__item" style="position:relative">
             <img src="/static/images/evaluate_icon.png">
             <div>待评价</div>
             <span class="weui-badge" style="position: absolute;top: -.4em;right: 1em;" v-if="personCenter.notEvaluationCount">{{ personCenter.notEvaluationCount }}</span>
           </navigator>
-          <navigator :url="'/pages/order/returns/main'" class="weui-flex__item" style="position:relative">
+          <navigator hover-class="none" :url="'/pages/order/returns/main'" class="weui-flex__item" style="position:relative">
             <img src="/static/images/after_icon.png">
             <div>退货/售后</div>
           </navigator>
@@ -121,23 +121,23 @@
       <div class="weui-panel__bd">
         <div class="weui-flex">
           <!-- 二期
-          <navigator url="/pages/scanorder/index/main" class="weui-flex__item">
+          <navigator hover-class="none" url="/pages/scanorder/index/main" class="weui-flex__item">
             <img src="/static/images/me_icon_sweeporder@2x.png">
             <div>扫码购订单</div>
           </navigator>
           -->
-          <!-- <navigator url="/pages/pickup/index/main" class="weui-flex__item">
+          <!-- <navigator hover-class="none" url="/pages/pickup/index/main" class="weui-flex__item">
             <img src="/static/images/me_icon_deliverycode@2x.png">
             <div>提货码</div>
           </navigator> -->
           <!-- 1.0 -->
-          <navigator @click="discount" class="weui-flex__item">
+          <navigator hover-class="none" @click="discount" class="weui-flex__item">
           <img src="/static/images/coupon_icon.png">
             <!-- <div class="primary" v-if="sessionId">{{ personCenter.couponNum }}</div> -->
             <!-- <div class="primary" v-else="sessionId">***</div> -->
             <div>优惠券</div>
           </navigator>
-          <!-- <navigator url="/pages/order/teamlist/main" class="weui-flex__item">
+          <!-- <navigator hover-class="none" url="/pages/order/teamlist/main" class="weui-flex__item">
             <img src="/static/images/me_icon_tuan@2x.png">
             <div>我的团购</div>
           </navigator> -->
@@ -160,19 +160,7 @@
         </div>
       </div>
     </div>
-    <!-- <div>
-      <div class="weui-mask" id="iosMask" style="opacity: 1;"></div>
-      <div class="weui-actionsheet weui-actionsheet_toggle" id="iosActionsheet">
-        <div class="weui-actionsheet__menu">
-          <div class="weui-actionsheet__cell">示例菜单</div>
-          <div class="weui-actionsheet__cell">示例菜单</div>
-          <div class="weui-actionsheet__cell">示例菜单</div>
-          <div class="weui-actionsheet__cell">示例菜单</div>
-        </div>
-        <div class="weui-actionsheet__action">
-          <div class="weui-actionsheet__cell" id="iosActionsheetCancel">取消</div>
-        </div>
-      </div> -->
+
     </div>
 </template>
 <script>

@@ -1,10 +1,10 @@
 <template>
   <div class="weui-search-bar">
     <!-- 位置 -->
-    <navigator url="/pages/index/selectaddress/main" class="location">
+    <navigator url="/pages/store/select/main" class="location">
       <img src="/static/images/scancodepurchase_icon_location.png@2x.png" />
       <div class="location__text" v-if="showtip">
-        <div class="location__text__content">{{storeName}}</div>
+        <div class="location__text__content">当前：{{storeName}}</div>
       </div>
     </navigator>
     <div class="weui-search-bar__form" @click="toSearch">
@@ -30,8 +30,8 @@
 import { mapState } from "vuex";
 export default {
   props: {
-    location: {
-      type: "",
+    storeName: {
+      type: String,
       default: ""
     },
 
@@ -47,8 +47,18 @@ export default {
       storeName: ''
     };
   },
+
+
+
+
+
   created() {
  
+  },
+  
+  onShow() {
+    // this.storeName = this.$store.state.shopDetail.storeName;
+    // console.log('kkk',this.storeName)
   },
 
   methods: {
@@ -63,20 +73,8 @@ export default {
         url: "/pages/index/searchgoods/main"
       });
     }
-  },
- created(){
-    this.storeName = this.$store.state.shopDetail.storeName;
-    console.log('created',this.storeName)
-  
- },
-
-
-  onShow() {
-   
-    this.storeName = this.$store.state.shopDetail.storeName;
-    console.log('kkk',this.storeName)
   }
-};
+}
 </script>
 
 <style scoped lang="scss">
@@ -133,10 +131,10 @@ export default {
   }
   &__text {
     position: absolute;
-    bottom: -86rpx;
+    bottom: -72rpx;
     left: 0;
     z-index: 11;
-    padding: 10rpx 60rpx;
+    padding: 10rpx 14rpx;
     border-radius: 10rpx;
     background-color: rgba(0, 0, 0, 0.5);
     color: #fff;

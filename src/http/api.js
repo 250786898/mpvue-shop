@@ -286,7 +286,7 @@ export const Api = {
     },
 
     // 6.0  当前门店信息
-    storeLid({ storeId }) {
+    findNowStore({ storeId }) {
       return post({
         url: '/index/findNowStore',
         data: { storeId }
@@ -650,7 +650,11 @@ export const Api = {
       })
     },
 
-    // 11.2. 删除购物车
+    /** 
+     * 11.2.
+     * @param cartIds 购物车id，多个以逗号拼接
+     * @description 删除购物车
+     */
     remove({ cartIds }) {
       return post({
         url: '/cart/remove',

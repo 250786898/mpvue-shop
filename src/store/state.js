@@ -7,7 +7,7 @@ export default {
   wxUserInfo: {},
   wxPhoneNumber: '',
 
-  storeId: '1', // 当前门店 ID
+  storeId: null, // 当前门店 ID
   storeInfo: {},
   // addressList: [],
 // 购物车数量
@@ -15,7 +15,7 @@ export default {
 
   tempOrder: {},
   gradePrivilegeExplain: '',
-  cityName:'广州市',
+  cityName:'',
   shopDetail:{},
   runingtime:0,
   pickup:''

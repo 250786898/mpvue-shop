@@ -2,7 +2,8 @@
 
 export default {
   created () {
-  }
+  },
+
 
 }
 </script>
