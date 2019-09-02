@@ -134,7 +134,7 @@ export default {
     bottom: -72rpx;
     left: 0;
     z-index: 11;
-    padding: 10rpx 5rpx;
+    padding: 10rpx 14rpx;
     border-radius: 10rpx;
     background-color: rgba(0, 0, 0, 0.5);
     color: #fff;
