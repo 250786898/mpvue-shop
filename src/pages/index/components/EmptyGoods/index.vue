@@ -14,7 +14,7 @@ export default {
 
 <style lang="scss" scoped>
 .empty-container{
-  width:100vw;
+  width:702rpx;
   height:607rpx;
   background:rgba(255,255,255,1);
   box-shadow:0px 3rpx 36rpx 4rpx rgba(0, 0, 0, 0.04);

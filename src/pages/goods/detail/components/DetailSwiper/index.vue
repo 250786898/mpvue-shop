@@ -51,7 +51,6 @@ export default {
 <style lang="scss" scoped>
 .swiper-wrap {
   position: relative;
-  background-color: #fff;
   .indicator {
     position: absolute;
     bottom: 20rpx;

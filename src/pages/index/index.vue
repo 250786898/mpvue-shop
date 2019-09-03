@@ -57,7 +57,7 @@ export default {
 
   data() {
     return {
-      showPageLoading: true, //页面数据师傅显示
+      showPageLoading: false, //页面数据师傅显示
       storeData: {}, //门店相关数据，banner，分类等
       storeName: '', //门店名称
       tipShown: true, //搜索栏是否显示
@@ -84,6 +84,13 @@ export default {
      */
     hidePageLoading () {
        this.showPageLoading = false //关闭页面加载Loading
+    },
+
+    /**
+     * @description 显示页面加载loading
+     */
+    showPageLoading () {
+       this.showPageLoading = true //显示页面加载Loading
     },
 
     /**
@@ -241,10 +248,12 @@ export default {
     console.log('getCurrentPages',getCurrentPages()[0].__displayReporter.showReferpagepath) //__displayReporter.showReferpagepath
     if(this.shopDetail.storeName) {
       //切换了门店，重新渲染门店相关数据
+      this.showPageLoading = true
       this.initIndexData() //先清空原门店数据
       this.storeName = this.shopDetail.storeName //更新门店名称
       this.setStoreData(this.storeId)//更新门店数据
       this.setGoodsClassList(this.storeId, '', this.currentPage, PAGE_SIZE) //更新商品数据
+      this.hidePageLoading()
     }
     
   },
@@ -253,6 +262,7 @@ export default {
   onLoad(e) {
     const shareStoreId = this.$mp.page.options.storeId  //通过点击分享进来,覆盖初始化定位设置门店
     if (!this.location.longitude) { //不存在经纬度，首次定位，初始化数据
+      this.showPageLoading = true
       this.setUserLocationInfo().then(res => {
         //设置用户定位成功后，获取相对应门店id来获取门店数据
         this.setStoreId(shareStoreId).then(storeId=> {

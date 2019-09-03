@@ -1,11 +1,10 @@
 <template>
   <div class="search-bar">
     <div class="search-city" @click="navToSelectCity" >{{cityName}}</div>
-    <div class="search-main">
+    <div class="search-main" @input="searchStore">
       <label class="search-label">
         <icon class="icon-search" type="search" size="14"></icon>  
-        <input type="text" class="search-bar__text" v-model="inputVal" placeholder="搜索地址" @input="searchStore"/>
-
+        <input type="text" class="search-bar__text" v-model="inputVal" placeholder="搜索地址" />
       </label>
 
     </div>

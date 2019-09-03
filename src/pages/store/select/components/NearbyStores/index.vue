@@ -3,7 +3,7 @@
     <div class="select-store-card">
       <div class="select-store-card__title">附近门店</div>
       <template v-for="(item,index) in storeList">
-        <store-card :key="index" :item="item" :showLine="isShowLine(index)" />
+        <store-card :key="index" :item="item" :showLine="isShowLine(index)" :showDistance="isCurrentLocateCity" />
       </template>
     </div>
     <div class="no-store-tip">抱歉，您附近没有更多门店</div>
@@ -19,6 +19,10 @@ export default {
     storeList: {
       type: Array,
       default: () => ([])
+    },
+    isCurrentLocateCity: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {

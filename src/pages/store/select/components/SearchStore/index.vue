@@ -62,6 +62,9 @@ export default {
 .search-city{
   color: #7F7F7F;
   padding-left: 28rpx;
+  height: 100%;
+  display: flex;
+  align-items: center;
    &:after {
     content: '';
     display: inline-block;

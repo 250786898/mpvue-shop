@@ -4,7 +4,7 @@
     <search-store :city-name="cityName" />
     <current-store :item="currentStoreInfo" />
     <current-location />
-    <nearby-stores :store-list="nearbyStoreList" v-if="nearbyStoreList && nearbyStoreList.length" />
+    <nearby-stores :store-list="nearbyStoreList" v-if="nearbyStoreList && nearbyStoreList.length" :isCurrentLocateCity="isCurrentLocateCity" />
     <page-loading  :show="showPageLoading"/> 
   </div>
 </template>
@@ -30,6 +30,7 @@ export default {
   },
   data () {
     return {
+      isCurrentLocateCity: false, //是否处于当前定位城市
       showPageLoading: true, //页面数据师傅显示
       currentStoreInfo: {}, //当前门店相关信息
       nearbyStoreList: [] //附近门店
@@ -89,8 +90,37 @@ export default {
       * @param {array} nearbyStoreList 附近门店列表
       * @description 设置附近门店
       *  */
-     setNearbyStoreList (nearbyStoreList) {
-       this.nearbyStoreList = nearbyStoreList
+     setNearbyStoreList (nearbyStoreList) { 
+       console.log('2',nearbyStoreList)
+       console.log('isCurrentLocateCity',this.isCurrentLocateCity)
+       switch(this.isCurrentLocateCity) {
+         case true:
+          //处于定位城市
+          this.setNearbyStoreOfLocateCity(nearbyStoreList)
+         break
+         case false:
+          this.nearbyStoreList = nearbyStoreList
+         break
+       }
+     },
+    
+    /**
+     * @description 处于定位当前城市，两种情况
+     */
+     setNearbyStoreOfLocateCity (nearbyStoreList) {
+
+       let storeList = [] //过滤后返回的附近门店列表
+       storeList = nearbyStoreList.filter(item => {
+         return item.storeDistance <= 3 
+       })
+       console.log('setNearbyStoreOfLocateCity',storeList)
+
+       //判断是否存在3KM内的门店，存在显示3KM内的门店，3KM内没有门店显示全部门店
+       if(storeList && storeList.length > 0) {
+         this.nearbyStoreList = storeList
+       }else{
+         this.nearbyStoreList = nearbyStoreList
+       }
      },
 
       /**
@@ -103,19 +133,35 @@ export default {
        }, 600);  
      },
 
+      /**
+       * @param {string} 当前定位的城市名
+       * @description 设置定位城市状态
+       */
+     setLocateCityStatus (currentLocateCity) {
+       console.log('currentLocateCity',currentLocateCity)
+       console.log('this.cityName',this.cityName)
+       if(currentLocateCity == this.cityName) { //判断当前选择的城市是定位城市
+         this.isCurrentLocateCity = true
+       }else{
+         this.isCurrentLocateCity = false
+       }
+     },
+
     /**
      * @description 初始化加载门店相关数据
      */
     initLoadStoreData () {
       Promise.all([this.getCurrentStorePromise(),this.getStoreListPromise()]).then(res => {
         if(res[0].code == Api.CODES.SUCCESS && res[0].code == Api.CODES.SUCCESS ) { //两个都请求成功
+          this.hidePageLoading()
           const currentStoreInfo =  res[0].data.shopStore //当前门店信息
           const nearbyStoreList =  res[1].data.storeList || res[1].data.cityStore //当前门店信息
           console.log('currentStoreInfo',currentStoreInfo)
           this.setCityName(currentStoreInfo.city) //设置城市名字
           this.setCurrentStoreInfo(currentStoreInfo) //设置当前门店相关信息
-          this.setNearbyStoreList(nearbyStoreList)
-          this.hidePageLoading()
+          this.setLocateCityStatus(currentStoreInfo.city) //设置定位城市状态
+          console.log('1')
+          this.setNearbyStoreList(nearbyStoreList) //设置附近门店     
         }     
       })
   

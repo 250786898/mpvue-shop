@@ -7,7 +7,7 @@
      </div>  
       <div class="end-time-box" v-if="endTime">
         <div class="end-time-box__title">距离结束时间</div>
-        <countdowner :countdown="endTime"></countdowner>
+        <countdowner :countdown="countDown"></countdowner>
       </div>  
   </div>
 </template>
@@ -29,6 +29,11 @@ export default {
       default: 0
     }
 
+  },
+  computed: {
+    countDown () {
+      return Math.floor(this.endTime / 1000) //毫秒转成秒
+   }
   },
   components: {
     Countdowner
