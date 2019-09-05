@@ -46,7 +46,7 @@ export default {
     select() {
       if(this.isClick) {
         this.$store.commit('setItem', this.item )
-        this.$store.commit('setStoreId', this.item.storeId)
+        this.$store.commit('setStoreId', this.item.storeId || this.item.storeNumErp) //当前门店接口返回的是storeNumErp
         wx.switchTab({
           url: '/pages/index/main',
         })

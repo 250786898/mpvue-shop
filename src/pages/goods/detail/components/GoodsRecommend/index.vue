@@ -38,7 +38,6 @@ export default {
   }
   /deep/ .goods-item {
     &:first-child { padding-left: 30rpx; }
-    &:last-child { padding-right: 30rpx; }
   }
 }
 </style>

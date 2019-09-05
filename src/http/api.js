@@ -305,11 +305,15 @@ export const Api = {
     },
 
 
-
-    queryByRegin({ latitude,longitude,storeNameLike }) {
+    /**
+     * @param {string} city 分类的城市
+     * @param {string} storeNameLike 搜索关键字
+     * @description 搜索门店
+     */
+    queryByRegin({ city, storeNameLike }) {
       return post({
         url: '/index/queryByRegin',
-        data: { latitude,longitude,storeNameLike }
+        data: { city, storeNameLike }
       })
     }
   },

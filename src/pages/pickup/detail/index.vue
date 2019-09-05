@@ -36,12 +36,12 @@
             <div class="weui-cell__bd">提货须知</div>
             <div class="weui-cell__ft weui-cell__ft_in-access"></div>
           </navigator>
-          <!-- <div class="weui-cell">
+          <div class="weui-cell">
             <div class="weui-cell__hd">
               <img src="/static/images/deliverycode_icon_gifrbag@2x(1).png">
             </div>
             <div class="weui-cell__bd">提货时间：{{result.shippingTime }}</div>
-          </div> -->
+          </div>
         </div>
 
     </div>

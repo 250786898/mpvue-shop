@@ -45,7 +45,7 @@
              <img src="/static/images/orderdetail.png" alt="">
             <div style="margin-left:31rpx;">
               待提货
-              <!-- <div class="desc">提货时间 ：{{  order.pickTime }}</div> -->
+              <div class="desc">提货时间 ：{{  order.pickTime }}</div>
              
             </div>
           </template>

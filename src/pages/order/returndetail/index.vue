@@ -4,22 +4,24 @@
           1为待审核,2服务端审核确认,3拣货员已验货上传图片,4为服务端同意退款,5(对应2)为服务端审核拒绝, 6(对应4)服务端拒绝退款,7为退款完成 8-已取消 100已关闭 默认为 -->
     <div  style="position: relative; margin-bottom:24rpx;z-index:10" class="order-status bg-gradient">
       <!-- 待审核、审核确认 -->
-      <template v-if="detail.state === 1">您已成功申请退款,请等待商家处理</template>
-      
-      <template v-else-if="detail.state === 2">审核确认</template>
-      <template v-else-if="detail.state === 3">已验货</template>
-      <!-- 同意 -->
-      <template v-else-if="detail.state === 4">商家已同意退款</template>
-      <template v-else-if="detail.state === 5">审核拒绝</template>
-      <!-- 不同意 -->
-      <template v-else-if="detail.state === 6">商家已拒绝退款</template>
-      <!-- 退款成功 -->
-      <div style="z-index:10;" v-else-if="detail.state === 7">
-        <p style="margin-left:24rpx;">退款成功</p>
+      <div class="order-status-desc">
+        <template v-if="detail.state === 1">您已成功申请退款,请等待商家处理</template>
+        
+        <template v-else-if="detail.state === 2">审核确认</template>
+        <template v-else-if="detail.state === 3">已验货</template>
+        <!-- 同意 -->
+        <template v-else-if="detail.state === 4">商家已同意退款</template>
+        <template v-else-if="detail.state === 5">审核拒绝</template>
+        <!-- 不同意 -->
+        <template v-else-if="detail.state === 6">商家已拒绝退款</template>
+        <!-- 退款成功 -->
+        <div style="z-index:10;" v-else-if="detail.state === 7">
+          <p style="margin-left:24rpx;">退款成功</p>
+        </div>
+        <!-- 已取消 -->
+        <template v-else-if="detail.state === 8">已取消退款申请</template>
+        <template v-else-if="detail.state === 100">已关闭退款申请</template>
       </div>
-      <!-- 已取消 -->
-      <template v-else-if="detail.state === 8">已取消退款申请</template>
-      <template v-else-if="detail.state === 100">已关闭退款申请</template>
 
       <img class="BackImg" src="/static/images/background_icon.png" alt="">
 
@@ -276,7 +278,6 @@
     left:0rpx;
   }
   .order-status {
-
     height: 196rpx;
     // padding: 0 30rpx;
     display: -webkit-flex;
@@ -289,6 +290,10 @@
     width: 702rpx;
     .desc {
       font-size: 28rpx;
+    }
+    &-desc{
+      z-index: 9;
+      padding-left: 31rpx;
     }
   }
 
