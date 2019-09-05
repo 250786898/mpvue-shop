@@ -72,11 +72,9 @@
       }
     },
 
-    onLoad(e) {
-      this.popupShow = false //初始化显示
-      this.storeId=this.$store.state.shopDetail.storeId
-      this.storeId = this.$mp.page.options.storeId
-
+    onLoad(e) { 
+      this.hidePopup()
+      this.setStoreId()
     },
 
     computed: {
@@ -87,7 +85,22 @@
     },
 
     methods: {
-          
+      
+      /**
+       * @description 初始化显示
+       */
+      hidePopup() {
+        this.popupShow = false 
+      },
+
+      /**
+       * @description 设置门店id
+       */
+      setStoreId() {
+        this.storeId  = this.$store.state.shopDetail.storeId
+        this.storeId = this.$mp.page.options.storeId
+        this.$store.commit('setStoreId',this.storeId)
+      },
 
       /**
        * @description 获取详情页面具体的数据
