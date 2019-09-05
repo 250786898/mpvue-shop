@@ -43,7 +43,7 @@ import { serialize } from '@/utils/';
 
 var mta = require("../../utils/mta_analysis.js");
 
-const PAGE_SIZE = 10 //一页商品的显示数量
+const PAGE_SIZE = 2 //一页商品的显示数量
 
 export default {
   components: {

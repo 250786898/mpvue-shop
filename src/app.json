@@ -9,20 +9,9 @@
     "pages/cart/main",
     "pages/mine/main",
     "pages/location/main",
-    "pages/address/list/main",
-    "pages/address/form/main",
-    "pages/activity/main",
-    "pages/newcomepacks/main",
-    "pages/goodstheme/main",
-    "pages/coupon/index/main",
-    "pages/coupon/shop/main",
-    "pages/coupon/goods/main",
-    "pages/coupon/qrcode/main",
-    "pages/bonuspoint/index/main",
     "pages/scan/cart/main",
     "pages/goods/index/main",
     "pages/goods/detail/main",
-    "pages/member/theme/main",
     "pages/order/preview/main",
     "pages/order/index/main",
     "pages/order/comment/main",
@@ -47,11 +36,7 @@
     "pages/password/find/main",
     "pages/pickup/index/main",
     "pages/pickup/detail/main",
-    "pages/pickup/instruction/main",
-    "pages/rider/detail/main",
-    "pages/portal/main",
-    "pages/free-order/free-order/main",
-    "pages/free-order/share-free-order/main"
+    "pages/pickup/instruction/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -84,6 +69,10 @@
         "selectedIconPath": "/static/images/mine_icon.png"
       }
     ]
+  },
+  "usingComponents": {
+    "van-tab": "/static/vant/tab/index",
+    "van-tabs": "/static/vant/tabs/index"
   },
   "permission": {
     "scope.userLocation": {

@@ -1,20 +1,27 @@
 <template>
 	<div class="goods-recommend">
-    <div class="goods-recommend__title">
-       今日秒杀
-    </div>
-   
-    <div class="goods-recommend__bd" v-if="goodsList && goodsList.length > 0">
-      <goods-tabs
-        :goodsList="this.goodsList"
-        :classList="this.tab"
-        :loading="loading"
-        :isAllLoaded="isAllLoaded"
-        @tabChange="tabChange($event)">
-      </goods-tabs>
-    </div> 
-    <!-- 商品空的时候显示空组件 -->
+
+   <van-tabs :active="active" :color="tabColor" tab-active-class="tab-active-class" tab-class="tab-class" @click="click">
+    <van-tab title="今日爆款">
+      <div class="goods-recommend__bd" v-if="goodsList && goodsList.length > 0">
+        <goods-tabs
+          :goodsList="this.goodsList"
+          :classList="this.tab"
+          :loading="loading"
+          :isAllLoaded="isAllLoaded"
+          @tabChange="tabChange($event)">
+        </goods-tabs>
+      </div> 
+       <!-- 商品空的时候显示空组件 -->
      <EmptyGoods v-if="goodsList.length == 0 && !loading"/>
+    </van-tab>
+    <van-tab title="即将开抢">内容 2</van-tab>
+    <van-tab title="内容 3">内容 3</van-tab>
+    <van-tab title="内容 4">内容 4</van-tab>
+    <van-tab title="内容 5">内容 5</van-tab>
+    <van-tab title="内容 6">内容 6</van-tab>
+  </van-tabs>
+
   </div>
 </template>
 
@@ -24,6 +31,7 @@
   import GoodsTabs from '@/components/GoodsTabs'
   import GoodsRowItem from '@/components/GoodsRowItem'
   import EmptyGoods from "../EmptyGoods/index"
+  import GoodsListTab from "../GoodsListTab/index"
 
   //显示商品的数量
   const showPageSize = 10
@@ -49,18 +57,26 @@
       return {
         "currentPage": 1, //当前页数
         "tab": [], //分类栏
-        "pcId": null //当前分类编码
+        "pcId": null, //当前分类编码
+        active: 0 , //当前分类索引
+        tabColor: '#11D2C8' //tab颜色值
       }
     },
     components: {
       GoodsTabs,
       GoodsRowItem,
-      EmptyGoods
+      EmptyGoods,
+      GoodsListTab
     },
     computed: {
       ...mapState(['storeId']),
     },
     methods: {
+      
+      click () {
+        console.log('aaa')
+      },
+
       /**
        * @param
        * @description 获取商品数据
@@ -132,6 +148,20 @@
   }
 </script>
 
+<style lang="scss">
+//tab栏样式
+.tab-class {
+  color:#717171 !important;
+  font-size: 26rpx !important;
+  font-weight:800 !important;
+}
+// 标签激活态样式类
+.tab-active-class{
+  color:#11D2C8 !important;
+  font-size: 30rpx !important;
+  font-weight:800 !important;
+}
+</style>
 
 <style scoped lang="scss">
   .goods-row-item{
