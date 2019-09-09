@@ -30,12 +30,12 @@ const phoneNumber = wx.getStorageSync('PHONE_NUMBER')
 
 
 // Do something initial when launch.
-mta.App.init({
-  "appID":"500683449",
-  "autoReport": true,
-  "statParam": true,
-  "ignoreParams": [],
-});
+// mta.App.init({
+//   "appID":"500683449",
+//   "autoReport": true,
+//   "statParam": true,
+//   "ignoreParams": [],
+// });
 
 
 

@@ -33,10 +33,7 @@ export default {
 
 <style lang="scss" scoped>
 .swiper-wrap {
-
-  background-color: #fff;
   width: 100%;
-  margin-top: 124rpx;
 }
 
 .swiper img {

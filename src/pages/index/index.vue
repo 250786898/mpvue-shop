@@ -2,19 +2,20 @@
     <div class="container">
 
       <!-- 自定义导航栏 -->
-      <nav-bar />
-
+      <!-- <nav-bar /> -->
+      <goods-search-bar :location="location" :showtip="tipShown && !isCeiling" :storeName="storeName" v-if="storeName"> </goods-search-bar>
       <template v-if="!showPageLoading">
         <!-- 搜索栏 -->
-        <goods-search-bar :location="location" :showtip="tipShown" :storeName="storeName" v-if="storeName"> </goods-search-bar>
+  
 
         <!-- Swiper -->
         <index-swiper :bannerList="storeData.bannerList" />
         
         <!-- 商品列表 -->
         <div class="goods-list-container">      
-          <goods-list :goodsList="goodsList" :isAllLoaded="isAllLoaded" :loading="loading" />
+          <goods-list :goodsList="goodsList" :isAllLoaded="isAllLoaded" :loading="loading" :isCeiling="isCeiling" />
         </div>
+
 
       </template>
 
@@ -32,7 +33,7 @@
 import { mapState } from "vuex";
 import { Api } from "@/http/api";
 import { AMapWX } from "@/utils/amap-wx";
-import config from "@/config.js";
+import config from "@/config";
 import GoodsSearchBar from "@/components/GoodsSearchBar";
 import PageLoading from "@/components/PageLoading";
 import GoodsList from "./components/GoodsList/index";
@@ -43,7 +44,7 @@ import { serialize } from '@/utils/';
 
 var mta = require("../../utils/mta_analysis.js");
 
-const PAGE_SIZE = 2 //一页商品的显示数量
+const PAGE_SIZE = 10 //一页商品的显示数量
 
 export default {
   components: {
@@ -61,6 +62,7 @@ export default {
       storeData: {}, //门店相关数据，banner，分类等
       storeName: '', //门店名称
       tipShown: true, //搜索栏是否显示
+      isCeiling: false, //商品列表组件是否吸顶
       longitude:'', //经度
       latitude:'', //维度
       shareStoreId: 0, //分享的门店id
@@ -90,7 +92,9 @@ export default {
      * @description 设置用户相关定位信息(经纬度，所在地详情等)
      */
     setUserLocationInfo () {
-       let amap = new AMapWX({ key: config.AMAP_KEY });
+       console.log('config',config)
+       let amap = new AMapWX({ key: config.AMAP_KEY })
+       console.log('amap',amap)
        return new Promise ((resolve, reject) => {
          amap.getPoiAround({
           success: res => { //用户成功授权
@@ -233,6 +237,17 @@ export default {
       this.loading = true, //加载商品是否处于更新的状态
       this.currentPage = 1 //当前商品页数
       this.goodsList = []
+    },
+
+    /**
+     * @description 监听商品列表组件是否要吸顶
+     */
+    checkCeiling (scrollTop) {
+      if(scrollTop >= 150) {
+        this.isCeiling = true  //滚动距离顶部150吸顶
+      }else{
+        this.isCeiling = false
+      }
     }
 
   },
@@ -275,10 +290,14 @@ export default {
     this.loadMoreGoodsList()
   },
 
+
+
   /**
    * @description  鉴定滚动事件，从而是否显示回到顶部按钮和当前定位显示
    * */
   onPageScroll(e) {
+    console.log(e)
+    this.checkCeiling(e.scrollTop)
     this.backToTopButtonShowed = e.scrollTop >= 200;
     this.tipShown = e.scrollTop < 100;
   },
@@ -311,10 +330,19 @@ page {
 
 <style scoped lang="scss">
 .container {
-  padding-top: 100rpx;
+  height: 2000rpx;
 }
 .goods-list-container{
   display: flex;
   justify-content: center;
+}
+.fixed-goods-list {
+  position: fixed;
+  top: 208rpx;
+  display: flex;
+  align-items: center;
+  width: 100vw;
+  z-index: 99;
+
 }
 </style>

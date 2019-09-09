@@ -1,26 +1,28 @@
 <template>
 	<div class="goods-recommend">
+      <goods-list-tab />
 
-   <van-tabs :active="active" :color="tabColor" tab-active-class="tab-active-class" tab-class="tab-class" @click="click">
-    <van-tab title="今日爆款">
-      <div class="goods-recommend__bd" v-if="goodsList && goodsList.length > 0">
-        <goods-tabs
-          :goodsList="this.goodsList"
-          :classList="this.tab"
-          :loading="loading"
-          :isAllLoaded="isAllLoaded"
-          @tabChange="tabChange($event)">
-        </goods-tabs>
-      </div> 
-       <!-- 商品空的时候显示空组件 -->
-     <EmptyGoods v-if="goodsList.length == 0 && !loading"/>
-    </van-tab>
-    <van-tab title="即将开抢">内容 2</van-tab>
-    <van-tab title="内容 3">内容 3</van-tab>
-    <van-tab title="内容 4">内容 4</van-tab>
-    <van-tab title="内容 5">内容 5</van-tab>
-    <van-tab title="内容 6">内容 6</van-tab>
-  </van-tabs>
+      <div class="goods-recommend__bd">
+        <template v-for="item in goodsList">
+          <base-goods-card :item="item" :key="item.id" />
+        </template>
+      </div>
+
+
+
+  
+
+  
+       <!-- <goods-tabs
+            :goodsList="this.goodsList"
+            :classList="this.tab"
+            :loading="loading"
+            :isAllLoaded="isAllLoaded"
+            @tabChange="tabChange($event)">
+          </goods-tabs> -->
+
+         <!-- 商品空的时候显示空组件 -->
+     <!-- <EmptyGoods v-if="goodsList.length == 0 && !loading"/> -->
 
   </div>
 </template>
@@ -32,6 +34,8 @@
   import GoodsRowItem from '@/components/GoodsRowItem'
   import EmptyGoods from "../EmptyGoods/index"
   import GoodsListTab from "../GoodsListTab/index"
+  import BaseGoodsCard from "../BaseGoodsCard/index"
+  import BeginGoodsCard from "../BeginGoodsCard/index"
 
   //显示商品的数量
   const showPageSize = 10
@@ -51,6 +55,10 @@
         type: Boolean,
         default: false
       },
+      isCeiling: { //是否吸顶
+        type: Boolean,
+        default: false
+      }
     },
 
     data () {
@@ -58,7 +66,7 @@
         "currentPage": 1, //当前页数
         "tab": [], //分类栏
         "pcId": null, //当前分类编码
-        active: 0 , //当前分类索引
+        activeIndex: 0, //当前分类索引
         tabColor: '#11D2C8' //tab颜色值
       }
     },
@@ -66,15 +74,17 @@
       GoodsTabs,
       GoodsRowItem,
       EmptyGoods,
-      GoodsListTab
+      GoodsListTab,
+      BaseGoodsCard,
+      BeginGoodsCard
     },
     computed: {
       ...mapState(['storeId']),
     },
     methods: {
       
-      click () {
-        console.log('aaa')
+      clickTab (event) {
+        console.log('clickTab',event)
       },
 
       /**
@@ -138,6 +148,8 @@
       // this.getGoodsClassList(this.storeId, this.pcId, this.currentPage , showPageSize)
     },
 
+    
+
     /**
      * @description 向上更新商品数据
      */
@@ -150,11 +162,31 @@
 
 <style lang="scss">
 //tab栏样式
+.hei{
+  height: 1000px;
+  background: red;
+}
+.fixed-tab{
+  z-index: 99;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  top: 100rpx;
+}
+.fixed-goods-list{
+  z-index: 99;
+  width: 100vw;
+  position: fixed;
+  left: 0;
+  top: 188rpx;
+}
 .tab-class {
   color:#717171 !important;
   font-size: 26rpx !important;
   font-weight:800 !important;
 }
+
 // 标签激活态样式类
 .tab-active-class{
   color:#11D2C8 !important;
@@ -165,9 +197,9 @@
 
 <style scoped lang="scss">
   .goods-row-item{
-        // background-color:rgb(190, 29, 29);
-        margin-bottom: 6rpx;
-      }
+    // background-color:rgb(190, 29, 29);
+    margin-bottom: 6rpx;
+  }
 
   .goods-row-item__price{
     position:absolute;
