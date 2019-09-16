@@ -22,17 +22,18 @@ export default {
   data () {
     return {
       relocationing: false,  //当前处于定位中
-      amap: null //高德地图对象句柄
+      amap: Object //高德地图对象句柄
     }
   },
-  mounted () {
-    this.amap = new AMapWX({ key: config.AMAP_KEY }) //初始化高德地图对象
+  onLoad () {
+     this.amap = new AMapWX({ key: config.AMAP_KEY }) //初始化高德地图对象
   },
   methods: {
     /**
      * @description 重新定位 
      */
     relocation() {
+      console.log('amap',this.amap)
       this.relocationing = true //定位中
       this.amap.getPoiAround({
         success: res => {

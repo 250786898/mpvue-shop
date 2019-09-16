@@ -1,7 +1,7 @@
 <template>
   <div class="select-store-card">
     <div class="select-store-card__title">当前门店</div>
-    <store-card :item="item" :showLine="false"/>
+    <store-card :item="item" :showLine="false" :is-click="true" />
   </div>
 </template>
 

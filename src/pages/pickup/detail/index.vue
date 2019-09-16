@@ -1,13 +1,14 @@
 <template>
   <div>
-    <template v-if="!pageLoading">
-      <div class="card">
-        <img src="/static/images/deliverycode_card_bg@2x.png" class="card__bg">
-        <div class="card__bd">
-          <!-- 条形码 -->
-          <canvas canvas-id="barcode" class="card__barcode"></canvas>
-          <div class="card__barcode-text">{{ result.pickUpCode }}</div>
-          <canvas canvas-id="qrcode" class="card__qrcode"></canvas>
+
+    <div class="card">
+      <img src="/static/images/deliverycode_card_bg@2x.png" class="card__bg">
+
+      <div class="card__bd">
+        <!-- 条形码 -->
+        <canvas canvas-id="barcode" class="card__barcode" v-if="!popupShowed"></canvas>
+        <div class="card__barcode-text">{{ result.pickUpCode }}</div>
+        <canvas canvas-id="qrcode" class="card__qrcode" v-if="!popupShowed"></canvas>
 
           <!-- <img src="/static/images/membershipcode_qrcode@2x.png" class="card__qrcode"> -->
           <div class="card__qrcode-tip">自提订单提货凭证 请勿告诉陌生人</div>
@@ -24,28 +25,29 @@
               <div class="weui-cell__ft weui-cell__ft_in-access"></div>
             </div>
           </div>
-          <div class="card__dt">
-            <navigator url="/pages/pickup/instruction/main" class="weui-cell weui-cell_access">
-              <div class="weui-cell__hd">
-                <img src="/static/images/deliverycode_icon_gifrbag@2x.png">
-              </div>
-              <div class="weui-cell__bd">提货须知</div>
-              <div class="weui-cell__ft weui-cell__ft_in-access"></div>
-            </navigator>
-            <div class="weui-cell">
-              <div class="weui-cell__hd">
-                <img src="/static/images/deliverycode_icon_gifrbag@2x(1).png">
-              </div>
-              <div class="weui-cell__bd">提货时间：{{result.shippingTime }}</div>
+
+        </div>
+
+        <div class="card__dt">
+          <navigator url="/pages/pickup/instruction/main" class="weui-cell weui-cell_access">
+            <div class="weui-cell__hd">
+              <img src="/static/images/deliverycode_icon_gifrbag@2x.png">
             </div>
+            <div class="weui-cell__bd">提货须知</div>
+            <div class="weui-cell__ft weui-cell__ft_in-access"></div>
+          </navigator>
+          <div class="weui-cell">
+            <div class="weui-cell__hd">
+              <img src="/static/images/deliverycode_icon_gifrbag@2x(1).png">
+            </div>
+            <div class="weui-cell__bd">提货时间：{{result.shippingTime }}</div>
           </div>
         </div>
-      </div>
-      <img src="http://bucketlejia.oss-cn-shenzhen.aliyuncs.com/deliverycode_bg@2x.png" class="footer__bg" mode="widthFix">
-      <cancel-popup :shown="popupShowed" ></cancel-popup>
-    </template>
-    
-    <page-loading :show="pageLoading" />
+
+    </div>
+
+    <img src="http://bucketlejia.oss-cn-shenzhen.aliyuncs.com/deliverycode_bg@2x.png" class="footer__bg" mode="widthFix">
+    <pickup-result-popup :shown="popupShowed" ></pickup-result-popup>
   </div>
 </template>
 
@@ -57,12 +59,11 @@
   import wxbarcode from 'wxbarcode'
   import PageLoading from '@/components/PageLoading'
   import { Api } from '@/http/api'
-  import CancelPopup from './components/CancelPopup/index'
+  import PickupResultPopup from './components/PickupResultPopup/index'
   
   export default {
       components: {
-       CancelPopup,
-       PageLoading
+       PickupResultPopup
     },
     data () {
       return {
@@ -121,18 +122,18 @@
               this.pageLoading = false
               wxbarcode.barcode('barcode', this.result.pickUpCode, 620, 160)
               wxbarcode.qrcode('qrcode', this.result.pickUpCode, 360, 360)
-            },1000)    
-              
+              wx.hideLoading()
+            },1000);
           } else {
             this.pageLoading = false
             wx.showToast({
               title: res.message,
               icon: 'none'
             })
+            wx.hideLoading()
           }
         })
         .catch(e => console.log(e))
-        .then(() => {})
       },
 
       openLocation() {
@@ -246,6 +247,7 @@
       display: block;
       width: 620rpx;
       height: 160rpx;
+      z-index: 99;
       &-text {
         font-size: 30rpx;
         line-height: 60rpx;
@@ -259,6 +261,7 @@
       display: block;
       width: 360rpx;
       height: 360rpx;
+      z-index: 99;
       &-tip {
         font-size: 30rpx;
         line-height: 80rpx;

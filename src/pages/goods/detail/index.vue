@@ -72,31 +72,35 @@
       }
     },
 
-    onLoad(e) {
-      this.popupShow = false //初始化显示
-      this.storeId=this.$store.state.shopDetail.storeId
-      this.storeId = this.$mp.page.options.storeId
-
+    onLoad(e) { 
+      this.hidePopup()
+      this.setStoreId()
     },
 
     computed: {
       ...mapState(['storeId', 'cartNum']),
       endTime () {
-        let endTime = 0
-        if(this.goodsDetailInfo.time) { 
-          const currentTimestamp = Date.parse(new Date()) / 1000
-          const endTimestamp = Date.parse(this.goodsDetailInfo.time) / 1000
-          endTime = endTimestamp - currentTimestamp
-          console.log('currentTimestamp',currentTimestamp)
-          console.log('endTimestamp',endTimestamp)
-        }
-        console.log('endTime',endTime)
-        return endTime >= 0 ? endTime : 0
+        return  this.goodsDetailInfo.time >= 0 ? this.goodsDetailInfo.time : 0
       }
     },
 
     methods: {
-          
+      
+      /**
+       * @description 初始化显示
+       */
+      hidePopup() {
+        this.popupShow = false 
+      },
+
+      /**
+       * @description 设置门店id
+       */
+      setStoreId() {
+        this.storeId  = this.$store.state.shopDetail.storeId
+        this.storeId = this.$mp.page.options.storeId
+        this.$store.commit('setStoreId',this.storeId)
+      },
 
       /**
        * @description 获取详情页面具体的数据

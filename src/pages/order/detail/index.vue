@@ -46,7 +46,7 @@
             <div style="margin-left:31rpx;">
               待提货
               <div class="desc">提货时间 ：{{  order.pickTime }}</div>
-
+             
             </div>
           </template>
         </template>
@@ -57,7 +57,7 @@
           <template v-else>
             <div>
               待核销
-              <div class="desc">提货时间:{{ deliveryRange }}<template v-if="order.orderType !=1 && order.orderType !=6">(期间未提货自动退款)</template></div>
+              <!-- <div class="desc">提货时间:{{ deliveryRange }}<template v-if="order.orderType !=1 && order.orderType !=6">(期间未提货自动退款)</template></div> -->
             </div>
           </template>
         </template>
@@ -721,14 +721,6 @@
  * des
  */
       applyReturns() {
-        var curHours = new Date().getHours()
-        if(curHours >= 20) {
-          return wx.showToast({
-            title: '请在20:00前退款',
-            icon: 'none'
-          })
-          return false
-        }
         wx.navigateTo({
           url: `/pages/order/returngoods/main?id=${ this.order.orderId }`
         })

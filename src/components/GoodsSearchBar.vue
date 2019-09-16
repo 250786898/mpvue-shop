@@ -1,24 +1,30 @@
 <template>
-  <div>
-    <div class="weui-search-bar">
-      <!-- 位置 -->
-      <navigator url="/pages/store/select/main" class="location">
-        <img src="/static/images/scancodepurchase_icon_location.png@2x.png" />
-        <div class="location__text">
-          <div class="location__text__content">{{storeName}}</div>
-        </div>
-      </navigator>
-      <div class="search-bar__form" @click="toSearch">
-        <div class="search-bar__box">
-          <img src="/static/images/common_nav_icon_serve.n@2x.png" />
-          <span class="weui-search-bar__input">搜索商品</span>
-        </div>
+  <div class="weui-search-bar">
+    <!-- 位置 -->
+    <navigator url="/pages/store/select/main" class="location">
+      <img src="/static/images/scancodepurchase_icon_location.png@2x.png" />
+      <div class="location__text" v-if="showtip">
+        <div class="location__text__content">当前：{{shopDetail.storeName}}</div>
+      </div>
+    </navigator>
+    <div class="weui-search-bar__form" @click="toSearch">
+      <div class="weui-search-bar__box">
+        <img src="/static/images/common_nav_icon_serve.n@2x.png" />
+        <input
+          type="text"
+          class="weui-search-bar__input"
+          placeholder="请搜索附近商家商品"
+          placeholder-style="color: #ACACAC"
+          readonly
+          disabled
+        />
+      </div>
     </div>
     <!-- 首页会员码 -->
     <!-- <navigator url="/pages/qrcode/index/main" class="weui-search-bar__cancel-btn">
       <img src="/static/images/home_img_qrcode.png@2x.png">
     </navigator>-->
-  </div>
+
   <!-- //占位符 -->
   <div class="occupation"></div> 
   </div>
@@ -32,14 +38,15 @@ export default {
       type: String,
       default: ""
     },
-
     showtip: {
       type: Boolean,
       default: true
     },
     
   },
-
+  computed: {
+    ...mapState(['shopDetail'])
+  },
   data() {
     return {
       storeName: ''

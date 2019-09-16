@@ -4,8 +4,7 @@
     <div class="search-main">
       <label class="search-label">
         <icon class="icon-search" type="search" size="14"></icon>  
-        <input type="text" class="search-bar__text" v-model="inputVal" placeholder="搜索地址" @input="searchStore"/>
-
+        <input type="text" class="search-bar__text" v-model="inputVal" placeholder="搜索地址" @input="searchStore" />
       </label>
 
     </div>

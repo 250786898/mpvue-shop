@@ -1,20 +1,20 @@
 <template>
   <div class="card" :class="{ 'bottom-line' : showLine }" @click="select">
-    <img :src="item.storeLogoImg" class="store-logo" alt="">
+    <image :src="item.storeLogoImg" class="store-logo" mode="aspectFit"></image>
     <div class="card-main">
       <div class="card-main-top">
         <h3 class="store-name">{{item.storeName}} </h3>
-        <span class="distance" v-if="item.storeDistance">距离{{item.storeDistance}}km</span>
+        <span class="distance" v-if="showDistance && item.storeDistance">距离{{item.storeDistance}}km</span>
       </div>
       <div class="card-main-content">
         <p class="detail-address">{{item.storeAddress}}</p>
-        <p class="shop-manager">团长：{{item.franchiseeName}}</p>
+        <p class="shop-manager">团长：{{item.franchiseeName || item.shopIsName}}</p>
         <div class="phone-box">
           <span class="phone">电话：{{item.franchiseeTel}}</span>
-          <img src="/static/images/arrows.png" class="arrows" alt="">
         </div>
         
       </div>
+      <img src="/static/images/arrows.png" class="arrows" alt="">
     </div>
   </div>
 </template>
@@ -29,6 +29,14 @@ export default {
     showLine: {
       type: Boolean,
       default: true
+    },
+    showDistance: {
+      type: Boolean,
+      default: true
+    },
+    isClick: {
+      type: Boolean,
+      default: true
     }
   },
   methods: {
@@ -36,12 +44,13 @@ export default {
      * @description 选择门店
      */
     select() {
-      this.$store.commit('setItem', this.item )
-      this.$store.commit('setStoreId', this.item.storeId)
-      wx.switchTab({
-        url: '/pages/index/main',
-      })
-        
+      if(this.isClick) {
+        this.$store.commit('setItem', this.item )
+        this.$store.commit('setStoreId', this.item.storeId || this.item.storeNumErp) //当前门店接口返回的是storeNumErp
+        wx.switchTab({
+          url: '/pages/index/main',
+        })
+      }   
     },
   }
 }
@@ -55,6 +64,7 @@ export default {
   display: flex;
   padding: 50rpx 0;
   background: #ffffff;
+  position: relative;
   .store-logo{
     width:80rpx;
     height:80rpx;
@@ -64,11 +74,11 @@ export default {
   &-main{
     display: flex;
     flex-direction: column;
+    width: 452rpx;
     &-top{
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      width: 452rpx;
+      width: 100%;
       .store-name{
         font-size: 32rpx;
         font-weight:bold;
@@ -76,10 +86,12 @@ export default {
       .distance{
         font-size: 28rpx;
         color: #FF6600;
+        white-space: nowrap;
+        position: relative;
+        top: 6rpx;
       }
     }
     .card-main-content{
-      width: 452rpx;
       font-size: 28rpx;
       color: #7F7F7F;
       margin-top: 25rpx;
@@ -93,8 +105,9 @@ export default {
     .arrows{
       width: 30rpx;
       height: 30rpx;
-      position: relative;
-      right: -80rpx;
+      position: absolute;
+      bottom: 58rpx;
+      right: 0rpx;
     }
   }
 }

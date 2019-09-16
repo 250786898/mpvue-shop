@@ -82,13 +82,11 @@
 
       <div class="weui-panel goods-list-panel">
         <!-- <div class="weui-panel__hd" @click="selfHelpTimeRangePickerShowed = true"> -->
-          <div class="weui-panel__hd">
+          <!-- <div class="weui-panel__hd">
           <img src="/static/images/details_icon_clock@2x.png">
-        
-          <div class="time">预计 {{showPickUpTime}} 可提货</div>
-          <div class="xian"></div>
-        
-        </div>
+           提货时间
+          <div class="time">{{showPickUpTime}}</div>
+        </div> -->
         <div class="weui-panel__bd">
           <div class="weui-media-box weui-media-box_appmsg" v-for="item in result.cartOrderVoList"
             :key="item.goodsId">

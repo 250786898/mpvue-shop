@@ -1,8 +1,8 @@
 <template>
   <div class="cart">
     <img src="/static/images/carticon.png" class="empty-icon">
-      <div class="empty-tip__text_main">购物车为空~</div>
-      <div class="empty-tip__text">赶紧去慰劳一下自己吧~</div>
+      <div class="empty-tip__text_main">购物车为空</div>
+      <div class="empty-tip__text">赶紧去慰劳一下自己吧</div>
       <button type="primary" class="radius" @click="toIndex">
         去逛逛
       </button>
@@ -38,12 +38,12 @@ export default {
   }
   .empty-tip__text{
     color: #CCCCCC;
-    font-size: 20rpx;
-    line-height: 20rpx;
+    font-size: 26rpx;
+    line-height: 48rpx;
   }
   .empty-tip__text_main{
     color: #666666;
-    font-size: 24rpx;
+    font-size: 32rpx;
     line-height: 48rpx;
   }
   button {

@@ -58,10 +58,16 @@ export default {
 .search-main{
   display: flex;
   align-items: center;
+  height: 100%;
+  width: 100%;
 }
 .search-city{
   color: #7F7F7F;
   padding-left: 28rpx;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
    &:after {
     content: '';
     display: inline-block;
@@ -79,6 +85,8 @@ export default {
   align-items: center;
   color: #7F7F7F;
   padding-left: 26rpx;
+  height: 100%;
+  width: 100%;
   .icon-search{
     margin-right: 14rpx;
     width: 28rpx;

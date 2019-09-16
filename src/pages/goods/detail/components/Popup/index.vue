@@ -24,9 +24,12 @@ export default {
      * @description 返回首页
      */
     toIndex() {
-      wx.switchTab({
+      wx.reLaunch({
         url: '/pages/index/main'
       })
+      // wx.switchTab({
+      //   url: '/pages/index/main'
+      // })
     }
   }
 }

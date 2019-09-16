@@ -4,7 +4,6 @@
     "pages/store/select/main",
     "pages/store/search/main",
     "pages/city/select/main",
-    "pages/index/selectaddress/main",
     "pages/index/searchgoods/main",
     "pages/cart/main",
     "pages/mine/main",

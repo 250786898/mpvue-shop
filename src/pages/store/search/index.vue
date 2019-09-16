@@ -46,7 +46,7 @@ export default {
     }
   },
   computed : {
-    ...mapState(['location'])
+    ...mapState(['location','cityName'])
   },
 
   methods: {
@@ -74,10 +74,7 @@ export default {
      */
     queryByRegin (searchVal) {
       Api.index.queryByRegin({ 
-        // latitude: this.location.latitude,23.124619
-        // longitude: this.location.longitude,
-        latitude: 23.124619,
-        longitude: 113.361954,
+        city: this.cityName,
         storeNameLike: searchVal
       }).then(res => {
         if (res.code === Api.CODES.SUCCESS) {
@@ -110,6 +107,7 @@ export default {
      * @description 初始化搜索状态
      */
     initSearchStatus () {
+      this.clearStoreList()
       this.clearSearchEmptyStatus() 
     },
 
@@ -176,6 +174,7 @@ page{
     padding: 30rpx;
     background: #fff;
     display: flex;
+    flex-direction: column;
   }
   .loading{
     margin-top: 200rpx;
