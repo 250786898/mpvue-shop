@@ -4,7 +4,7 @@
     <navigator url="/pages/store/select/main" class="location">
       <img src="/static/images/scancodepurchase_icon_location.png@2x.png" />
       <div class="location__text" v-if="showtip">
-        <div class="location__text__content">当前：{{storeName}}</div>
+        <div class="location__text__content">当前：{{shopDetail.storeName}}</div>
       </div>
     </navigator>
     <div class="weui-search-bar__form" @click="toSearch">
@@ -34,14 +34,15 @@ export default {
       type: String,
       default: ""
     },
-
     showtip: {
       type: Boolean,
       default: true
     },
     
   },
-
+  computed: {
+    ...mapState(['shopDetail'])
+  },
   data() {
     return {
       storeName: ''

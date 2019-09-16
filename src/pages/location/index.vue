@@ -8,13 +8,13 @@
 </template>
 
 <script>
+  import { AMapWX } from "@/utils/amap-wx"
   export default {
     methods: {
       onOpenSetting(e) {
         if (e && e.target && e.target.authSetting['scope.userLocation']) {
-          wx.reLaunch({
-            url: '/pages/index/main'
-          })
+          //同意授权
+         this.getPoiAround()
         } else {
           // wx.showModal({
           //   title: '关闭权限',
@@ -22,7 +22,30 @@
           //   confirmText: '关闭授权'
           // })
         }
+      },
+
+      getPoiAround () {
+          let amap = new AMapWX({ key: '0928a875c2752ff132e36cfabb315fb0' })
+          console.log('AMapWX')
+          amap.getPoiAround({
+            success: res => { //用户成功授权
+              const locationInfo = res.markers[0] //当前用户定位定位相关信息
+              console.log('locationInfo',locationInfo)
+              this.$store.commit("setLocationInfo",locationInfo)  //用户定位相关信息存到vuex
+               wx.reLaunch({
+                  url: '/pages/store/select/main'
+               })
+            },
+            // 引导用户设置定位权限
+            fail: e => { //用户授权取消
+              if ( e.errMsg === "getLocation:fail auth deny" || "getLocation:fail:auth denied") {
+                wx.redirectTo({ url: "/pages/location/main" }) //重定向到定位授权页面
+              }
+            }
+          })
       }
+    
+
     }
   }
 </script>

@@ -24,13 +24,39 @@ export default {
     wx.setStorageSync('SESSION_ID', payload)
   },
 
+  /**
+   * @description 设置门店Id
+   */
   setStoreId(state, payload) {
     state.storeId = payload
+  },
+
+  /**
+   * @description 设置分享的门店ID
+   */
+  setShareStoreId(state, payload) {
+    state.shareStoreId = payload
+  },
+
+  /**
+   * @description 设置分享门店相关信息
+   */
+  setShareStoreInfo(state, payload) {
+    state.shareStoreInfo = payload
+  },
+
+  /**
+   * @description 设置经常访问门店相关信息
+   */
+  setUsuallyStoreInfo(state, payload) {
+    state.usuallyStoreInfo = payload
   },
 
   setStoreInfo(state, payload) {
     state.storeInfo = payload
   },
+
+  
 
   setPersonCenter(state, payload) {
     console.log('payload',payload)
@@ -67,9 +93,14 @@ export default {
   setcityname(state,payload){
     state.cityName=payload
   },
+
+  /**
+   * @description 设置门店相关信息
+   */
   setItem(state,payload){
-    state.shopDetail=payload
+    state.shopDetail = payload
   },
+
   setRunTime(state,payload){
     state.runingtime = payload
   },

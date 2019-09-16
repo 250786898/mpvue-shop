@@ -2,7 +2,7 @@
   <div class="container">
     <top-bg/>
     <search-store :city-name="cityName" />
-    <current-store :item="currentStoreInfo" />
+    <current-store :item="currentStoreInfo" v-if="storeId" />
     <current-location />
     <nearby-stores :store-list="nearbyStoreList" v-if="nearbyStoreList && nearbyStoreList.length" :isCurrentLocateCity="isCurrentLocateCity" />
     <page-loading  :show="showPageLoading"/> 
@@ -42,7 +42,7 @@ export default {
 
 
   mounted (e) {
-    console.log('a')
+    console.log('smounted')
     this.initLoadStoreData()
   },
 
@@ -127,10 +127,7 @@ export default {
        * @description 隐藏页面加载状态
        */
      hidePageLoading() {
-       setTimeout(() => {
-         console.log('hidePageLoading')
          this.showPageLoading = false
-       }, 600);  
      },
 
       /**
@@ -154,13 +151,17 @@ export default {
       Promise.all([this.getCurrentStorePromise(),this.getStoreListPromise()]).then(res => {
         if(res[0].code == Api.CODES.SUCCESS && res[0].code == Api.CODES.SUCCESS ) { //两个都请求成功
           this.hidePageLoading()
+          console.log('initLoadStoreData',res[1].data.storeList)
           const currentStoreInfo =  res[0].data.shopStore //当前门店信息
           const nearbyStoreList =  res[1].data.storeList || res[1].data.cityStore //当前门店信息
-          console.log('currentStoreInfo',currentStoreInfo)
-          this.setCityName(currentStoreInfo.city) //设置城市名字
-          this.setCurrentStoreInfo(currentStoreInfo) //设置当前门店相关信息
-          this.setLocateCityStatus(currentStoreInfo.city) //设置定位城市状态
-          console.log('1')
+          
+          if(currentStoreInfo) {
+            this.setCityName(currentStoreInfo.city) //设置城市名字
+            this.setCurrentStoreInfo(currentStoreInfo) //设置当前门店相关信息
+            this.setLocateCityStatus(currentStoreInfo.city) //设置定位城市状态
+          }
+         
+
           this.setNearbyStoreList(nearbyStoreList) //设置附近门店     
         }     
       })
