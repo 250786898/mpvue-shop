@@ -114,9 +114,7 @@
        * @description 切换其他门店
        */
       checkoutStore () {
-        wx.redirectTo({
-          url: '/pages/store/select/main',
-        })
+        wx.navigateTo({ url: '/pages/store/select/main' })
       }
     }
   }

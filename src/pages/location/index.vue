@@ -8,6 +8,7 @@
 </template>
 
 <script>
+  import config from "@/config"
   import { AMapWX } from "@/utils/amap-wx"
   export default {
     methods: {
@@ -25,12 +26,15 @@
       },
 
       getPoiAround () {
-          let amap = new AMapWX({ key: '0928a875c2752ff132e36cfabb315fb0' })
+          let amap = new AMapWX({ key: config.AMAP_KEY })
           console.log('AMapWX')
           amap.getPoiAround({
             success: res => { //用户成功授权
               const locationInfo = res.markers[0] //当前用户定位定位相关信息
+              const cityName = res.poisData[0].cityname //用户定位当前城市
               console.log('locationInfo',locationInfo)
+              this.$store.commit("setcityname",cityName)
+              this.$store.commit("setLocateCity",cityName)
               this.$store.commit("setLocationInfo",locationInfo)  //用户定位相关信息存到vuex
                wx.reLaunch({
                   url: '/pages/store/select/main'

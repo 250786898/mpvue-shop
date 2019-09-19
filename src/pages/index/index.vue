@@ -3,7 +3,7 @@
 
       <!-- 自定义导航栏 -->
       <!-- <nav-bar /> -->
-      <goods-search-bar :location="location" :showtip="tipShown && !isCeiling" :storeName="storeName" v-if="storeName"> </goods-search-bar>
+      <goods-search-bar :location="location" :showtip="tipShown && !isCeiling" :storeName="storeName"> </goods-search-bar>
       <template v-if="!showPageLoading">
         <!-- 搜索栏 -->
   
@@ -13,13 +13,18 @@
         
         <!-- 商品列表 -->
         <div class="goods-list-container">      
-          <goods-list :goodsList="goodsList" :isAllLoaded="isAllLoaded" :loading="loading" :isCeiling="isCeiling" />
+          <!-- <goods-list :goodsList="goodsList" :isAllLoaded="isAllLoaded" :loading="loading" :isCeiling="isCeiling" /> -->
+           <goods-list  :isCeiling="isCeiling" />
         </div>
 
 
       </template>
 
       <page-loading  :show="showPageLoading"/> 
+
+      <SelectStoreDialog :show="showSelectStoreDialog" @comfirmStore="comfirmStore"/>
+
+      <ComfirmStoreDialog :show="showComfirmStoreDialog"  @comfirmStore="comfirmStore" />
 
       <!-- Fixed -->
       <to-top />
@@ -43,7 +48,9 @@ import IndexSwiper from "./components/IndexSwiper/index"
 import ToTop from "./components/ToTop/index"
 import NavBar from "./components/NavBar/index"
 import { serialize } from '@/utils/';
+import StoreModel from '@/model/store'
 
+const storeModel = new StoreModel()
 var mta = require("../../utils/mta_analysis.js");
 
 const PAGE_SIZE = 10 //一页商品的显示数量
@@ -63,11 +70,10 @@ export default {
   data() {
     return {
       showPageLoading: false, //页面数据师傅显示
+      showSelectStoreDialog: false, //选择门店弹窗显示
+      showComfirmStoreDialog: false, //确认门店弹窗显示
       tipShown: true, //搜索栏是否显示
       isCeiling: false, //商品列表组件是否吸顶
-      longitude:'', //经度
-      latitude:'', //维度
-      shareStoreId: 0, //分享的门店id
       goodsList: [], //商品列表
       isAllLoaded: false, //商品的数据是否全部加载完成,
       loading: false, //加载商品是否处于更新的状态
@@ -87,13 +93,19 @@ export default {
       console.log('storeId修改了')
       this.updateStoreInfo() //更新门店相关信息
       this.updateStoreData() //更新新的门店数据
+      this.hideComfirmStoreDialog()
+      this.hideSelectStoreDialog()
     },
   },
 
 
   async mounted () {
     const isAuthLocate = await this.isAuthorizedLocation() //获取定位授权情况
-    console.log('mounted',isAuthLocate)
+    const shareStoreId = this.$mp.page.options.shareStoreId
+    if(shareStoreId) {
+      this.setShareStoreId(shareStoreId)
+    }
+    console.log('mounted',shareStoreId)
     if(isAuthLocate) {
       //已授权确认门店
       this.authedComfirmStore() 
@@ -116,6 +128,7 @@ export default {
   onPageScroll(e) {
     this.backToTopButtonShowed = e.scrollTop >= 200;
     this.tipShown = e.scrollTop < 100;
+    this.checkCeiling(e.scrollTop)
   },
 
    //向上刷新数据
@@ -144,8 +157,11 @@ export default {
      * @description 更新门店信息
      */
     updateStoreInfo () {
-      const storeItemInfo =  this.findStoreItemByStoreId(this.storeList,this.storeId)
-      this.setStoreItemInfo(storeItemInfo)
+      if(this.storeList.length > 0) {
+        console.log('updateStoreInfo')
+        const storeItemInfo =  this.findStoreItemByStoreId(this.storeList,this.storeId)
+        this.setStoreItemInfo(storeItemInfo)
+      } 
     },
 
     /**
@@ -220,7 +236,16 @@ export default {
      */
     async authedComfirmStore () {
       console.log('authedComfirmStore')
-        this.$store.commit('setLocationInfo',wx.getStorageSync('location'))  //已经授权从缓存中存定位信息到vuex，方便其他组件使用
+        let location = wx.getStorageSync('location')
+        if(wx.getStorageSync('location')) {
+          //判断缓存中是否存在定位，避免丢失，没有需要重新定位
+          this.$store.commit('setLocationInfo',location)  //已经授权从缓存中存定位信息到vuex，方便其他组件使用
+        }else{
+            location = await this.setUserLocationInfo() //设置用户相关定位信息：经纬度，详情地址
+            this.$store.commit('setLocationInfo',location)  //已经授权从缓存中存定位信息到vuex，方便其他组件使用
+        }
+      
+      
         const shareStoreId = this.$mp.page.options.shareStoreId  //通过点击分享进来
 
        const storeList = await this.getStoreListOfAuthedLocate() //获取门店列表才能设置当前门店和经常访问门店
@@ -229,7 +254,8 @@ export default {
       if(shareStoreId) { 
         //是从分享进来
         console.log('是从分享进来shareStoreId',shareStoreId)
-        if(shareStoreId == this.getUsuallyStoreId()) { //当前门店和经常访问门店是否一致？
+        const usuallyStoreId = await this.getUsuallyStoreId()
+        if(shareStoreId == usuallyStoreId) { //当前门店和经常访问门店是否一致？
           //一致：直接设置分享门店id为当前门店
           console.log('一致：直接设置分享门店id为当前门店')
           this.setStoreId(shareStoreId)
@@ -247,7 +273,8 @@ export default {
       }else{
         //直接加载首页，确定进入程序的门店 
         console.log('直接加载首页，确定进入程序的门店')
-        this.setStoreId(this.getUsuallyStoreId())
+        const usuallyStoreId = await this.getUsuallyStoreId()
+        this.setStoreId(usuallyStoreId)       
       }
     },
 
@@ -258,9 +285,14 @@ export default {
      */
     async authLocateAndcomfirmStore () {
       const locationInfo = await this.setUserLocationInfo() //设置用户相关定位信息：经纬度，详情地址
-      const recommendStoreInfo = await this.getRecommendStoreByLocation() //获取根据定位推荐门店
-      console.log('recommendStoreInfo',recommendStoreInfo)
-      this.setStoreItemInfo(recommendStoreInfo) //设置当前门店
+      if(this.shareStoreId) {
+        const storeInfo = await this.getShareStoreInfo() //获取根据定位推荐门店
+      }else{
+        const storeInfo = await this.getRecommendStoreByLocation() //获取根据定位推荐门店
+      }
+      
+      console.log('storeInfo',storeInfo)
+      this.setStoreItemInfo(storeInfo) //设置当前门店
       console.log('确认门店弹窗显示')
       this.shownComfirmStoreDialog()//确认门店弹窗显示
 
@@ -298,9 +330,13 @@ export default {
          amap.getPoiAround({
           success: res => { //用户成功授权
             const locationInfo = res.markers[0] //当前用户定位定位相关信息
+            const cityName = res.poisData[0].cityname //用户定位当前城市
+            console.log('AMapWX',res)
             this.longitude =locationInfo.longitude
             this.latitude = locationInfo.latitude
             this.$store.commit("setLocationInfo",locationInfo)  //用户定位相关信息存到vuex
+            this.$store.commit("setcityname",cityName)
+            this.$store.commit("setLocateCity",cityName)
             this.saveLocationToStorage(locationInfo)
             resolve(locationInfo)
           },
@@ -332,6 +368,20 @@ export default {
     },
 
     /**
+     * @description 获取分享门店信息
+     */
+    getShareStoreInfo () {
+      return new Promise ((resolve, reject) => {
+        Api.index.storeList({ longitude:this.longitude, latitude:this.latitude}).then(res => {
+          const storeList = res.data.storeList
+          const storeInfo =  storeList[0]
+          this.setStoreList(storeList)
+          resolve(storeInfo)
+        })
+      })
+    },
+
+    /**
      * @description 保存当前门店相关信息（名称，id等）
      */
     setStoreItemInfo (storeInfo) {
@@ -341,18 +391,34 @@ export default {
     /**
      * @description 设置经常访问相关信息
      */
-    setUsuallyStoreInfo () {
+    async setUsuallyStoreInfo () {
       console.log('setUsuallyStoreInfo',this.storeList)
       console.log('setUsuallyStoreInfo2',this.getUsuallyStoreId())
-      const usuallyStoreItem =  this.findStoreItemByStoreId(this.storeList,this.getUsuallyStoreId())
+      const usuallyStoreId = await this.getUsuallyStoreId()
+      const usuallyStoreItem =  this.findStoreItemByStoreId(this.storeList,usuallyStoreId)
       this.$store.commit('setUsuallyStoreInfo',usuallyStoreItem)
     },
 
     /**
      * @@description 获取经常访问门店Id
      */
-    getUsuallyStoreId() {
-      return 210023
+    async getUsuallyStoreId() {
+      //判断是否存在登录状态，已登录从api获取经常访问门店，未登录从缓存中读取
+      if(this.$store.state.sessionId) {
+        const res = await Api.index.queryStoreByLastest()
+        console.log('getUsuallyStoreId',res)
+
+        if(res.code === Api.CODES.SUCCESS) {
+          return res.data.storeId
+        }else{
+          return ''
+        }
+      }else{
+        //未登录
+       console.log('未登录',storeModel.getLatestStoreOFNoLogin())
+       return storeModel.getLatestStoreOFNoLogin()
+      }
+      
     },
 
     /**
@@ -463,6 +529,9 @@ export default {
       this.hideComfirmStoreDialog()
       this.hideSelectStoreDialog()
       this.$store.commit("setStoreId",storeId) //设置确认门店Id
+      this.$store.dispatch('confirmOrSwitchStore', {
+        storeId
+      })
     },
 
     /**

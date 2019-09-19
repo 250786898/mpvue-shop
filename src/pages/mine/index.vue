@@ -102,8 +102,8 @@
           </navigator> -->
           <navigator hover-class="none" :url="'/pages/order/index/main?status=' + ORDER_STATE.FINISHED" class="weui-flex__item" style="position:relative">
             <img src="/static/images/evaluate_icon.png">
-            <div>待评价</div>
-            <span class="weui-badge" style="position: absolute;top: -.4em;right: 1em;" v-if="personCenter.notEvaluationCount">{{ personCenter.notEvaluationCount }}</span>
+            <div>已提货</div>
+            <!-- <span class="weui-badge" style="position: absolute;top: -.4em;right: 1em;" v-if="personCenter.notEvaluationCount">{{ personCenter.notEvaluationCount }}</span> -->
           </navigator>
           <navigator hover-class="none" :url="'/pages/order/returns/main'" class="weui-flex__item" style="position:relative">
             <img src="/static/images/after_icon.png">

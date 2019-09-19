@@ -17,7 +17,8 @@ export default {
   cartNum: 0,
   tempOrder: {},
   gradePrivilegeExplain: '',
-  cityName:'',
+  cityName:'', //选择的城市
+  locateCity: '', //用户定位城市
   runingtime:0,
   pickup:''
 }

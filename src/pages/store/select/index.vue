@@ -37,7 +37,7 @@ export default {
     }
   },
   computed : {
-    ...mapState(['storeId','location','cityName'])
+    ...mapState(['storeId','location','cityName','locateCity'])
   },
 
 
@@ -111,7 +111,7 @@ export default {
 
        let storeList = [] //过滤后返回的附近门店列表
        storeList = nearbyStoreList.filter(item => {
-         return item.storeDistance <= 3 
+         return item.storeDistance <= 10 
        })
        console.log('setNearbyStoreOfLocateCity',storeList)
 
@@ -131,13 +131,12 @@ export default {
      },
 
       /**
-       * @param {string} 当前定位的城市名
        * @description 设置定位城市状态
        */
-     setLocateCityStatus (currentLocateCity) {
-       console.log('currentLocateCity',currentLocateCity)
+     setLocateCityStatus () {
+       console.log('currentLocateCity',this.locateCity)
        console.log('this.cityName',this.cityName)
-       if(currentLocateCity == this.cityName) { //判断当前选择的城市是定位城市
+       if(this.locateCity == this.cityName) { //判断当前选择的城市是定位城市
          this.isCurrentLocateCity = true
        }else{
          this.isCurrentLocateCity = false
@@ -152,14 +151,15 @@ export default {
         if(res[0].code == Api.CODES.SUCCESS && res[0].code == Api.CODES.SUCCESS ) { //两个都请求成功
           this.hidePageLoading()
           console.log('initLoadStoreData',res[1].data.storeList)
+          
           const currentStoreInfo =  res[0].data.shopStore //当前门店信息
+          console.log('currentStoreInfo',currentStoreInfo)
           const nearbyStoreList =  res[1].data.storeList || res[1].data.cityStore //当前门店信息
           
           if(currentStoreInfo) {
-            this.setCityName(currentStoreInfo.city) //设置城市名字
-            this.setCurrentStoreInfo(currentStoreInfo) //设置当前门店相关信息
-            this.setLocateCityStatus(currentStoreInfo.city) //设置定位城市状态
+            this.setCurrentStoreInfo(currentStoreInfo) //设置当前门店相关信息  
           }
+          this.setLocateCityStatus() //设置定位城市状态
          
 
           this.setNearbyStoreList(nearbyStoreList) //设置附近门店     

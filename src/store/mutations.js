@@ -90,8 +90,19 @@ export default {
   setGradePrivilegeExplain(state, payload) {
     state.gradePrivilegeExplain = payload
   },
+
+  /**
+   * @description 设置当前选择城市
+   */
   setcityname(state,payload){
     state.cityName=payload
+  },
+
+  /**
+   * @description 设置当前用户定位城市
+   */
+  setLocateCity(state,payload){
+    state.locateCity=payload
   },
 
   /**

@@ -1,5 +1,8 @@
 import Vue from 'vue'
 import { Api } from '../http/api'
+import StoreModel from '@/model/store'
+
+const storeModel = new StoreModel()
 
 export default {
   login({ commit, dispatch }, payload) {
@@ -35,6 +38,23 @@ export default {
       }
     })
     .catch(e => wx.hideLoading())
+  },
+
+  /**
+   * @param {object} store 实例对象
+   * @param {object} payload 门店对象相关信息对象
+   * @description 确定或则切换门店
+   */
+  confirmOrSwitchStore({ commit },payload) {
+    const storeId = payload.storeId
+    storeModel.saveLatestStoreOFNoLogin(storeId)
+    return Api.index.saveSwitchHistory({
+      storeId
+    }).then(res => {
+      if (res.code === Api.CODES.SUCCESS) {
+        commit('setStoreId',storeId)    
+      }
+    })
   },
 
 

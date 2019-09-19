@@ -45,11 +45,18 @@ export default {
      */
     select() {
       if(this.isClick) {
-        this.$store.commit('setItem', this.item )
-        this.$store.commit('setStoreId', this.item.storeId || this.item.storeNumErp) //当前门店接口返回的是storeNumErp
-        wx.switchTab({
-          url: '/pages/index/main',
-        })
+        const storeId =  this.item.storeId || this.item.storeNumErp
+        console.log('select门店',this.item)
+        this.$store.commit('setItem', this.item)
+        this.$store.commit('setStoreId',storeId) //当前门店接口返回的是storeNumErp
+        this.$store.dispatch('confirmOrSwitchStore', {
+          storeId
+        }).then(() => {
+          console.log('选择门店后跳转首页')
+          wx.switchTab({
+            url: '/pages/index/main',
+          })
+        })     
       }   
     },
   }

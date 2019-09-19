@@ -80,19 +80,19 @@
               <!-- 交易成功，未评价 -->
               <template v-else-if="order.state === 40">
                 <button :plain="true" type="default" @click="del(order)">删除订单</button>
-                <button :plain="true" type="primary" v-if="order.evaluateState == 1" @click="commentHistory(order)">
+                <!-- <button :plain="true" type="primary" v-if="order.evaluateState == 1" @click="commentHistory(order)">
                   历史评价
                   <span class="weui-badge weui-badge_dot"></span>
-                </button>
-                <button :plain="true" type="primary" v-else @click="comment(order)">评价</button>
+                </button> -->
+                <!-- <button :plain="true" type="primary" v-else @click="comment(order)">评价</button> -->
               </template>
               <!-- 交易成功，已评价 -->
               <template v-else-if="order.state === 49">
                 <button :plain="true" type="default" @click="del(order)">删除订单</button>
-                <button :plain="true" type="primary" @click="commentHistory(order)">
+                <!-- <button :plain="true" type="primary" @click="commentHistory(order)">
                   历史评价
                   <span class="weui-badge weui-badge_dot"></span>
-                </button>
+                </button> -->
               </template>
               <!-- 待发货 -->
               <template v-else-if="order.state === 20 || order.state === 21">
@@ -180,7 +180,7 @@
           },
           {
             status: 40,
-            title: '待评价'
+            title: '已提货'
           },
           // {
           //   status: 31,

@@ -359,13 +359,13 @@
     <div class="footer-bar" v-else-if="order.state === 40">
       <button :plain="true" type="default" @click="del">删除订单</button>
       <button :plain="true" type="default" @click="applyReturns">申请售后</button>
-      <button :plain="true" type="primary" v-if="order.evaluateState == 1" @click="commentHistory">历史评价</button>
-      <button :plain="true" type="primary" v-else  @click="comment">评价</button>
+      <!-- <button :plain="true" type="primary" v-if="order.evaluateState == 1" @click="commentHistory">历史评价</button> -->
+      <!-- <button :plain="true" type="primary" v-else  @click="comment">评价</button> -->
     </div>
     <div class="footer-bar" v-else-if="order.state === 49">
       <button :plain="true" type="default" @click="del">删除订单</button>
       <button :plain="true" type="default" @click="applyReturns">申请售后</button>
-      <button :plain="true" type="primary" @click="commentHistory">历史评价</button>
+      <!-- <button :plain="true" type="primary" @click="commentHistory">历史评价</button> -->
     </div>
 
     <template v-if="order.deliveryType === 1">

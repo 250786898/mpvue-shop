@@ -138,6 +138,12 @@
             icon: 'none'
           })
         }
+         if (!this.goodsImageMore) {
+          return wx.showToast({
+            title: '请上传退货图片',
+            icon: 'none'
+          })
+        }
         // if (!this.addressInfo.addressId) {
         //   return wx.showToast({
         //     title: '请选择提货地址',

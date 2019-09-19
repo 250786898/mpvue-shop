@@ -35,7 +35,8 @@
     "pages/password/find/main",
     "pages/pickup/index/main",
     "pages/pickup/detail/main",
-    "pages/pickup/instruction/main"
+    "pages/pickup/instruction/main",
+    "pages/network/exceptions/main"
   ],
   "window": {
     "backgroundTextStyle": "light",

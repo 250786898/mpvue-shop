@@ -1,33 +1,37 @@
 <template>
-  <div class="weui-search-bar">
-    <!-- 位置 -->
-    <navigator url="/pages/store/select/main" class="location">
-      <img src="/static/images/scancodepurchase_icon_location.png@2x.png" />
-      <div class="location__text" v-if="showtip">
-        <div class="location__text__content">当前：{{shopDetail.storeName}}</div>
+  <div>
+     <div class="weui-search-bar">
+      <!-- 位置 -->
+      <navigator url="/pages/store/select/main" class="location">
+        <img src="/static/images/scancodepurchase_icon_location.png@2x.png" />
+        <div class="location__text">
+          <div class="location__text__content" v-if="shopDetail">{{shopDetail.storeName}}</div>
+        </div>
+      </navigator>
+      <div class="search-bar__form" @click="toSearch">
+        <div class="search-bar__box">
+          <img src="/static/images/common_nav_icon_serve.n@2x.png" />
+          <input
+            type="text"
+            class="weui-search-bar__input"
+            placeholder="搜索商品"
+            placeholder-style="color: #ACACAC"
+            readonly
+            disabled
+          />
+        </div>
       </div>
-    </navigator>
-    <div class="weui-search-bar__form" @click="toSearch">
-      <div class="weui-search-bar__box">
-        <img src="/static/images/common_nav_icon_serve.n@2x.png" />
-        <input
-          type="text"
-          class="weui-search-bar__input"
-          placeholder="请搜索附近商家商品"
-          placeholder-style="color: #ACACAC"
-          readonly
-          disabled
-        />
-      </div>
-    </div>
-    <!-- 首页会员码 -->
-    <!-- <navigator url="/pages/qrcode/index/main" class="weui-search-bar__cancel-btn">
-      <img src="/static/images/home_img_qrcode.png@2x.png">
-    </navigator>-->
+      <!-- 首页会员码 -->
+      <!-- <navigator url="/pages/qrcode/index/main" class="weui-search-bar__cancel-btn">
+        <img src="/static/images/home_img_qrcode.png@2x.png">
+      </navigator>-->
 
-  <!-- //占位符 -->
-  <div class="occupation"></div> 
+    <!-- //占位符 -->
+    
+    </div>
+    <div class="occupation"></div> 
   </div>
+ 
   
 </template>
 <script>
@@ -118,6 +122,7 @@ export default {
   &__input {
     height: 64rpx;
     line-height: 64rpx;
+    font-size: 24rpx;
     color: #acacac;
   }
   &__cancel-btn img {

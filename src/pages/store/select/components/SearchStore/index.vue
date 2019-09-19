@@ -13,10 +13,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
-  props: {
-    cityName: ''
-  },
   methods: {
     /**
      * @description 跳转到搜索组件
@@ -35,6 +33,9 @@ export default {
         url: '/pages/city/select/main',
       })
     }
+  },
+  computed: {
+    ...mapState(['cityName'])
   }
 }
 </script>

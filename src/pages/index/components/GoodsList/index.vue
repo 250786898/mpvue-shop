@@ -1,11 +1,28 @@
 <template>
 	<div class="goods-recommend">
-      <goods-list-tab />
+      <!-- <goods-list-tab /> -->
+      <van-tabs sticky @change="tabChange" :active="activeIndex" tab-active-class="tab-active-class" tab-class="tab-class" color="#11D2C8" class="fixed-tab" v-if="isCeiling">
+
+        <van-tab  v-for="item in tab" :title="item.title" :key="item.pcId"></van-tab>
+
+        
+      </van-tabs>
+
+      <van-tabs sticky @change="tabChange" :active="activeIndex" tab-active-class="tab-active-class" tab-class="tab-class" color="#11D2C8" v-if="!isCeiling">
+
+        <van-tab  v-for="item in tab" :title="item.title" :key="item.pcId"></van-tab>
+
+        
+      </van-tabs>
 
       <div class="goods-recommend__bd">
         <template v-for="item in goodsList">
           <base-goods-card :item="item" :key="item.id" />
         </template>
+         <EmptyGoods v-if="goodsList.length == 0 && !loading"/>
+         <!-- 加载更多 -->
+        <lj-loading v-if="!isAllLoaded && loading"/>
+        <div class="goods-tabs__tip" v-if="isAllLoaded && goodsList.length">亲,已经看到最后啦！</div>
       </div>
 
 
@@ -22,7 +39,7 @@
           </goods-tabs> -->
 
          <!-- 商品空的时候显示空组件 -->
-     <!-- <EmptyGoods v-if="goodsList.length == 0 && !loading"/> -->
+    
 
   </div>
 </template>
@@ -36,25 +53,13 @@
   import GoodsListTab from "../GoodsListTab/index"
   import BaseGoodsCard from "../BaseGoodsCard/index"
   import BeginGoodsCard from "../BeginGoodsCard/index"
+  import LjLoading from '@/components/LjLoading'
 
   //显示商品的数量
   const showPageSize = 10
 
   export default {
     props: {
-      goodsList: {//商品列表
-        type: Array,
-        default: () => ([])
-      },
-       isAllLoaded: {
-        type: Boolean,
-        default: false
-      },
-       //是否向上触发更新
-      loading: {
-        type: Boolean,
-        default: false
-      },
       isCeiling: { //是否吸顶
         type: Boolean,
         default: false
@@ -63,11 +68,34 @@
 
     data () {
       return {
-        "currentPage": 1, //当前页数
-        "tab": [], //分类栏
-        "pcId": null, //当前分类编码
+        currentPage: 1, //当前页数
+        tab: [
+          {
+            pcId: 1,
+            title: '今日爆款'
+          },
+          {
+            pcId: 10,
+            title: '即将开抢 '
+          },
+
+          {
+            pcId: 31,
+            title: '待提货',
+            deliveryType: 1
+          },
+          {
+            pcId: 31,
+            title: '待核销',
+            deliveryType: 2
+          }
+        ], //分类栏
+        pcId: 1, //当前分类编码
         activeIndex: 0, //当前分类索引
-        tabColor: '#11D2C8' //tab颜色值
+        tabColor: '#11D2C8', //tab颜色值
+        goodsList: [],  //商品列表
+        isAllLoaded: false,   
+        loading: false, //是否向上触发更新
       }
     },
     components: {
@@ -76,7 +104,8 @@
       EmptyGoods,
       GoodsListTab,
       BaseGoodsCard,
-      BeginGoodsCard
+      BeginGoodsCard,
+      LjLoading
     },
     computed: {
       ...mapState(['storeId']),
@@ -98,8 +127,7 @@
 
           promise = Api.index.topGoods({ storeId, pcId, pageNumber, pageSize }).then(res => {
             if(res.code == Api.CODES.SUCCESS){
-              var data = res.data
-              this.tab = data.classList        
+              var data = res.data     
               if(data.shopGoodsList.length > 0) {
                 this.goodsList = this.goodsList.concat(data.shopGoodsList)          
               } else {
@@ -115,8 +143,11 @@
       },
 
       //切换分类
-      tabChange (val) {
-        this.pcId = this.tab[val].pcId
+      tabChange ({ mp: { detail: { index } } }) {
+        wx.pageScrollTo({ scrollTop: 0 })
+        this.activeIndex = index
+        console.log('tabChange',index)
+        this.pcId = this.tab[index].pcId
         this.goodsList = []
         this.currentPage = 1
         this.isAllLoaded = false
@@ -131,21 +162,18 @@
       }
     },
 
-    onShow() { 
-      // this.initData()
-      // this.getGoodsClassList(this.storeId , this.pcId , this.currentPage , showPageSize)
-    },
     
     mounted() {
-      // this.getGoodsClassList(this.storeId , this.pcId , this.currentPage , showPageSize)
+      this.getGoodsClassList(this.storeId , this.pcId , this.currentPage , showPageSize)
+      console.log('goodMounted')
     },
 
     //上触发加载分页数据
     onReachBottom: function(){
-      // if (this.isAllLoaded || this.loading) return
-      // //还有数据，加载数据
-      // this.currentPage++
-      // this.getGoodsClassList(this.storeId, this.pcId, this.currentPage , showPageSize)
+      if (this.isAllLoaded || this.loading) return
+      //还有数据，加载数据
+      this.currentPage++
+      this.getGoodsClassList(this.storeId, this.pcId, this.currentPage , showPageSize)
     },
 
     
@@ -162,13 +190,9 @@
 
 <style lang="scss">
 //tab栏样式
-.hei{
-  height: 1000px;
-  background: red;
-}
 .fixed-tab{
   z-index: 99;
-  width: 100vw;
+  width: 100%;
   position: fixed;
   top: 0;
   left: 0;
@@ -204,6 +228,15 @@
   .goods-row-item__price{
     position:absolute;
     margin-top:36rpx;
+  }
+
+  .goods-tabs__tip {
+    height: 116rpx;
+    padding: 20rpx;
+    font-size: 26rpx;
+    line-height: 124rpx;
+    color: $text-gray;
+    text-align: center;
   }
 
  .goods-recommend {

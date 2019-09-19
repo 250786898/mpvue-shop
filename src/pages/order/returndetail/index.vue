@@ -5,15 +5,15 @@
     <div  style="position: relative; margin-bottom:24rpx;z-index:10" class="order-status bg-gradient">
       <!-- 待审核、审核确认 -->
       <div class="order-status-desc">
-        <template v-if="detail.state === 1">您已成功申请退款,请等待商家处理</template>
+        <template v-if="detail.state === 1">您已成功申请退款,请等待商家处理</template>  
         
-        <template v-else-if="detail.state === 2">审核确认</template>
-        <template v-else-if="detail.state === 3">已验货</template>
+        <template v-else-if="detail.state === 2">请将退货商品退还给门店</template>     
+        <template v-else-if="detail.state === 3">请等待商家处理</template>           
         <!-- 同意 -->
-        <template v-else-if="detail.state === 4">商家已同意退款</template>
-        <template v-else-if="detail.state === 5">审核拒绝</template>
+        <template v-else-if="detail.state === 4">商家已同意退款</template>           
+        <template v-else-if="detail.state === 5">审核拒绝</template>                
         <!-- 不同意 -->
-        <template v-else-if="detail.state === 6">商家已拒绝退款</template>
+        <template v-else-if="detail.state === 6">商家已拒绝退款</template>           
         <!-- 退款成功 -->
         <div style="z-index:10;" v-else-if="detail.state === 7">
           <p style="margin-left:24rpx;">退款成功</p>
@@ -76,8 +76,9 @@
         </div>
         
       </template>
-      <navigator :url="'/pages/order/consult/main?id=' + detail.refundId" class="weui-cell weui-cell_access">
+      <navigator :url="'/pages/order/consult/main?id=' + detail.refundId" class="weui-cell weui-cell_access consult-box">
         <div class="weui-cell__bd">协商历史</div>
+        <div class="red-dot"></div>
         <div class="weui-cell__ft weui-cell__ft_in-access"></div>
       </navigator>
     </div>
@@ -269,6 +270,15 @@
       position: absolute;
       top:95rpx;
       left:0rpx;
+  }
+  .red-dot{
+    background: red;
+    left: 140rpx;
+    top: 20rpx;
+    width: 20rpx;
+    height: 20rpx;
+    position: absolute;
+    border-radius: 50%;
   }
  .BackImg{
     width: 702rpx;

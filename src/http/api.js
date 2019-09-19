@@ -60,15 +60,15 @@ fly.interceptors.response.use(res => {
           success: function(res) {
             console.log('netword',res)
             if(res.networkType == 'none'){
-              wx.showToast({
-                title: '网络异常',
-                icon: 'none'
+              wx.redirectTo({
+                url: '/pages/network/exceptions/main'
               })
             }else{
-              wx.showToast({
-                title: '我们出现了个错误',
-                icon: 'none'
-              })
+              //一般为服务器API出现出错情况
+              // wx.showToast({
+              //   title: '我们出现了个错误',
+              //   icon: 'none'
+              // })
             }
 
           }
@@ -204,6 +204,7 @@ export const Api = {
   },
 
   index: {
+
     // 5.1. 判断是否在配送范围内
     isDeliveryScope({ longitude, latitude, city }) {
       return post({
@@ -315,7 +316,29 @@ export const Api = {
         url: '/index/queryByRegin',
         data: { city, storeNameLike }
       })
+    },
+
+    /**
+     * @param {number} storeId 门店id
+     * @description 门店切换历史新增和更新
+     */
+    saveSwitchHistory({ storeId }) {
+      return post({
+        url: '/index/saveSwitchHistory',
+        data: { storeId }
+      })
+    },
+
+     /**
+     * @description 门店切换历史门店
+     */
+    queryStoreByLastest() {
+      return post({
+        url: '/index/queryStoreByLastest',
+        data: {}
+      })
     }
+
   },
 
   goods: {
