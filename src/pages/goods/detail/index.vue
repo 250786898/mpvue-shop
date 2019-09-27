@@ -32,13 +32,21 @@
     
     <popup :show="popupShow"/> 
 
+    <SelectStoreDialog :show="showSelectStoreDialog" @comfirmStore="comfirmStore"/>
+
+    <ComfirmStoreDialog :show="showComfirmStoreDialog"  @comfirmStore="comfirmStore" />
+
+    <canvas canvas-id="shareCanvas" style="width:200px;height:180px;position:fixed;top:30%;left:0%;opacity:0;position:fixed;top:999999999999999999999rpx;"></canvas>
+
+
   </div>
 </template>
 
 <script>
-  import { Api } from '@/http/api'
+  import { Api, UPLOAD_URL } from '@/http/api'
   import { mapState } from 'vuex'
   import { serialize } from '@/utils/'
+  import { AMapWX } from "@/utils/amap-wx"
   import AssembleGoodsRows from '@/components/AssembleGoodsRows'
   import GoodsInfo from './components/GoodsInfo/index'
   import GoodsDesc from './components/GoodsDesc/index'
@@ -49,7 +57,12 @@
   import ToTop from './components/ToTop/index'
   import BottomBar from './components/BottomBar/index'
   import Popup from './components/Popup/index'
+  import ComfirmStoreDialog from "@/components/ComfirmStoreDialog"
+  import SelectStoreDialog from "@/components/SelectStoreDialog"
+  import StoreModel from '@/model/store'
+  import config from "@/config"
 
+  const storeModel = new StoreModel()
   export default {
     components: {
       AssembleGoodsRows,
@@ -62,29 +75,149 @@
       ToTop,
       BottomBar,
       Popup,
+      ComfirmStoreDialog,
+      SelectStoreDialog
     },
 
     data() {
       return {       
         goodsDetailInfo: {},
         commendGoodsList: [],
-        popupShow: false //popup是否显示
+        popupShow: false, //popup是否显示
+        showSelectStoreDialog: false, //选择门店弹窗显示
+        showComfirmStoreDialog: false, //确认门店弹窗显示
+        shareImg: '' //分享图片路径
       }
     },
 
     onLoad(e) { 
-      this.hidePopup()
-      this.setStoreId()
+      // this.hidePopup()
+      // this.setStoreId()
+    },
+
+    onShow () {
+      // this.setStore()
+      // this.goodsDetailInfo = {}
+      // this.commendGoodsList = []
+      // this.getDetail()
+    },
+
+    async mounted () {
+      console.log('mounted',this.$mp.page.options.shareStoreId)
+       this.hidePopup()
+       this.saveGoodsDetailOptions()
+       const shareStoreId = this.$mp.page.options.shareStoreId
+       
+        if(shareStoreId) {
+          //从分享商品进来
+          console.log('从分享商品进来')
+          this.setShareStoreId(shareStoreId)
+          this.loadDataByIsAuthLocate()
+        }else{
+          this.getDetail()
+        }
+    },
+
+    watch: {
+      storeId: function () {
+        console.log('监听到门店Id修改')
+        if(this.getCurrentPageUrl() != 'pages/index/main'){  //只有当前页面发生才触发
+          this.hideComfirmStoreDialog()
+          this.hideSelectStoreDialog()
+          this.getDetail()
+        }       
+      },
+    },
+
+     /*
+     * @description 页面分享
+    */
+    onShareAppMessage() {
+      let options = `id=${this.$mp.page.options.id}&shareStoreId=${this.storeId}`
+      return {
+        title: this.goodsDetailInfo.goodsName,
+        path: `/pages/goods/detail/main?${options}`,
+        imageUrl: this.shareImg
+      }    
     },
 
     computed: {
-      ...mapState(['storeId', 'cartNum']),
+      ...mapState(['storeId', 'cartNum','shareStoreId','location','locateCity']),
       endTime () {
         return  this.goodsDetailInfo.time >= 0 ? this.goodsDetailInfo.time : 0
       }
     },
 
     methods: {
+    
+    /**
+     * @description 生成分享图片
+     */
+    async createShareImg () {
+      var that = this
+      var ctx = wx.createCanvasContext('shareCanvas')
+      const goodsImgUrl = this.getHtppsImgUrl(this.goodsDetailInfo.goodsImage)
+      const path = await this.getLocationImg(goodsImgUrl)
+      console.log('path',path)     
+      ctx.drawImage( path , 20 , 0, 140, 140)
+      ctx.drawImage( '/static/images/goods-detail-bar__bg.png' , 0, 140, 200, 40)
+      ctx.setFillStyle('white')
+      ctx.setFontSize(20)
+      ctx.fillText( `￥${this.goodsDetailInfo.onlinePrice}`, 30 , 160, 100, 100)
+      ctx.draw(true,() => {
+        wx.canvasToTempFilePath({
+          x: 0,
+          y: 0,
+          width: 250,
+          height: 220,
+          destWidth: 250,             // 输出的图片的宽度
+          destHeight: 220,            // 输出的图片的高度
+          canvasId: 'shareCanvas',    // 指定canvas的id
+          success(res) {    //  res.tempFilePath :  生成文件的临时路径
+              console.log('canvasToTempFilePath',res.tempFilePath)  
+              that.uploadImages(res.tempFilePath)
+          }
+        })
+      })
+      
+    },
+
+    getHtppsImgUrl (url) {
+      let subUrl = url.substring(4)
+      return `https${subUrl}`
+    },
+
+     getLocationImg (imgPath)  {
+        return new Promise(function (resolve, reject) {   // 异步处理返回数据
+            // 将网络图片缓存至本地
+            wx.getImageInfo({
+                src: imgPath,
+                success: function (res) {
+                  console.log('getLocationImg',res)
+                    resolve(res.path);
+                }
+            })
+        })
+    },
+
+     uploadImages(tempFilePaths) {
+       var that = this 
+       console.log('uploadImages1',tempFilePaths) 
+        if (tempFilePaths) {
+          wx.uploadFile({
+            url: UPLOAD_URL, // 仅为示例，非真实的接口地址
+            filePath: tempFilePaths,
+            name: 'files',
+            formData: {},
+            success: res => {
+               const data =  JSON.parse(res.data)
+              console.log('成功后返回得图片',data.data.result) 
+              that.shareImg = data.data.result
+              // res.data =         
+            }
+          })
+        }
+      },
       
       /**
        * @description 初始化显示
@@ -93,39 +226,332 @@
         this.popupShow = false 
       },
 
+        /**
+       * @description 显示确认门店弹窗
+       */
+      shownComfirmStoreDialog () {
+        this.showComfirmStoreDialog = true
+      },
+
+      
+      /*获取当前页url*/
+      getCurrentPageUrl(){
+        var pages = getCurrentPages()    //获取加载的页面
+        var currentPage = pages[pages.length-1]    //获取当前页面的对象
+        var url = currentPage.route    //当前页面url
+        return url
+      },
+
+
       /**
+       * @description 隐藏确认门店弹窗
+       */
+      hideComfirmStoreDialog () {
+        this.showComfirmStoreDialog = false
+      },
+
+      /**
+       * @description 显示选择门店弹窗
+       */
+      shownSelectStoreDialog () {
+        this.showSelectStoreDialog = true
+      },
+
+      /**
+       * @description 隐藏选择门店弹窗
+       */
+      hideSelectStoreDialog () {
+        this.showSelectStoreDialog = false
+      },
+
+      /**
+       *  @param {string} storeId 门店id
+       *  设置门店Id，存储到全局vuex
+       */
+      setStoreId(storeId) {
+        this.$store.commit('setStoreId',storeId)
+      },
+
+      /**
+       * @param {number} storeId 确认门店id
+       * @description 确认门店，加载门店相关数据
+       */
+      async comfirmStore (storeId) {
+        this.hideComfirmStoreDialog()
+        this.hideSelectStoreDialog()
+        this.$store.commit("setStoreId",storeId) //设置确认门店Id
+        const shareStoreItem = await this.getOneStoreInfoByStoreId(storeId)
+        console.log('storeId',shareStoreItem)
+        this.$store.commit('setCurrentStoreInfo',shareStoreItem)
+        this.$store.dispatch('confirmOrSwitchStore', {
+          storeId
+        })
+      },
+      
+      /**
+       * @description 根据是否授权定位加载相对应数据
+       */
+      async loadDataByIsAuthLocate () {
+        const isAuthLocate = await this.isAuthorizedLocation() //获取定位授权情况
+        if(isAuthLocate) {
+            //已经授权定位
+             console.log('已经授权定位')
+             let location = wx.getStorageSync('location')
+              if(location) {
+                //判断缓存中是否存在定位，避免丢失，没有需要重新定位
+                this.$store.commit('setLocationInfo',location)  //已经授权从缓存中存定位信息到vuex，方便其他组件使用
+              }else{
+                  location = await this.setUserLocationInfo() //设置用户相关定位信息：经纬度，详情地址
+                  this.$store.commit('setLocationInfo',location)  //已经授权从缓存中存定位信息到vuex，方便其他组件使用
+              }
+
+              console.log('location',location)
+
+
+              const usuallyStoreId = await this.getUsuallyStoreId()
+              console.log('usuallyStoreId',usuallyStoreId)
+              console.log('shareStoreId',this.shareStoreId)
+              if(this.shareStoreId == usuallyStoreId) { //判断用户当前所在门店是否跟分享商品门店一致
+                //一致：直接设置分享门店id为当前门店
+                console.log('一致：直接设置分享门店id为当前门店')
+                if(this.storeId == usuallyStoreId){
+                   //已经设置过门店Id，第二次访问相同门店不会触发watch，应该直接获取详情数据
+                   this.getDetail()
+                }else{
+                  this.setStoreId(usuallyStoreId)
+                }
+
+                
+              }else{
+                //不一致：选择门店弹窗
+                //设置当前门店和经常访问门店相关信息
+                console.log('不一致2：选择门店弹窗')
+                this.setCurrentStoreInfo(this.shareStoreId)      
+                this.setUsuallyStoreInfo()
+                this.shownSelectStoreDialog()
+              }
+
+        }else{
+          //未授权定位
+          console.log('未授权定位')
+          const locationInfo = await this.setUserLocationInfo() //显示定位授权弹窗设置用户相关定位信息：经纬度，详情地址
+          console.log('locationInfo',locationInfo)
+          if(locationInfo) {
+            //同意授权
+            console.log('同意授权')
+            const storeInfo =  await this.getOneStoreInfoByStoreId(this.shareStoreId) 
+            console.log('未授权定位2',storeInfo)
+            this.setStoreItemInfo(storeInfo) //设置当前门店
+            this.shownComfirmStoreDialog()//确认门店弹窗显示
+          }else{
+            //拒绝授权
+            console.log('拒绝授权')
+            const storeInfo =  await this.getOneStoreInfoByStoreId(this.shareStoreId) 
+            console.log('未授权定位2',storeInfo)
+            this.setStoreItemInfo(storeInfo) //设置当前门店
+            this.shownComfirmStoreDialog()//确认门店弹窗显示
+          }
+        
+        }
+      },
+
+
+      /**
+     * @param {number} currentStoreId 当前门店id，即分享的门店id
+     * @description 设置当前门店相关信息： 当前门店即分享门店
+     */
+    async setCurrentStoreInfo (currentStoreId) {    
+      console.log('setCurrentStoreInfo',currentStoreId)
+      const shareStoreItem = await this.findStoreItemByStoreId(currentStoreId)
+      console.log('setCurrentStoreInfo2',shareStoreItem)
+      this.$store.commit('setShareStoreInfo',shareStoreItem)
+      this.$store.commit('setShareStoreId',currentStoreId) //存储分享分店Id到全局vuex
+    },
+
+    /**
+     * @description 设置经常访问相关信息
+     */
+    async setUsuallyStoreInfo () {
+      
+      const usuallyStoreId = await this.getUsuallyStoreId()
+      console.log('getUsuallyStoreId',usuallyStoreId)
+      const usuallyStoreItem = await this.findStoreItemByStoreId(usuallyStoreId)
+      this.$store.commit('setUsuallyStoreInfo',usuallyStoreItem)
+    },
+
+    async findStoreItemByStoreId (storeId) {
+      const res = await storeModel.getOneStoreInfoByStoreId({
+        storeId: storeId,
+        longitude: this.location.longitude,
+        latitude: this.location.latitude
+      })
+      return res.data
+    },
+
+    /**
+     * @@description 获取经常访问门店Id
+     */
+    async getUsuallyStoreId() {
+      //判断是否存在登录状态，已登录从api获取经常访问门店，未登录从缓存中读取
+      if(this.$store.state.sessionId) {
+        const res = await Api.index.queryStoreByLastest()
+        console.log('getUsuallyStoreId',res)
+
+        if(res.code === Api.CODES.SUCCESS) {
+          return res.data.storeId
+        }else{
+          return ''
+        }
+      }else{
+        //未登录
+       console.log('未登录',storeModel.getLatestStoreOFNoLogin())
+       return storeModel.getLatestStoreOFNoLogin()
+      }
+      
+    },
+
+      /**
+     * @description 设置用户相关定位信息(经纬度，所在地详情等)
+     */
+    setUserLocationInfo () {
+       console.log('config',config)
+       let amap = new AMapWX({ key: config.AMAP_KEY })
+       console.log('amap',amap)
+       return new Promise ((resolve, reject) => {
+         amap.getPoiAround({
+          success: res => { //用户成功授权
+            const locationInfo = res.markers[0] //当前用户定位定位相关信息
+            const cityName = res.poisData[0].cityname || res.pois[0].cityname //用户定位当前城市
+            console.log('AMapWX',res)
+            console.log('cityname',cityName)
+            this.longitude =locationInfo.longitude
+            this.latitude = locationInfo.latitude
+            this.$store.commit("setLocationInfo",locationInfo)  //用户定位相关信息存到vuex
+            this.$store.commit("setcityname",cityName)
+            this.$store.commit("setLocateCity",cityName)
+            console.log('cityname',this.locateCity)
+            this.saveLocationToStorage(locationInfo)
+            resolve(locationInfo)
+          },
+          // 引导用户设置定位权限
+          fail: e => { //用户授权取消       
+            if ( e.errMsg === "getLocation:fail auth deny" || "getLocation:fail:auth denied") {
+              console.log('拒绝授权定位')
+              resolve(false)
+            }else{
+              reject(e)
+            }
+          }
+        })
+       })
+       
+    },
+
+    /**
+     * @description 保存用户位置相关信息到缓存
+     */
+    saveLocationToStorage(location) {
+      wx.setStorageSync('location', location)
+    },
+    
+
+      /**
+       * @description 保存当前门店相关信息（名称，id等）
+       */
+      setStoreItemInfo (storeInfo) {
+        this.$store.commit('setCurrentStoreInfo',storeInfo) //保存门店id和名称到vuex
+      },
+
+      /**
+       * @description 获取分享门店信息
+       */
+      async getOneStoreInfoByStoreId (shareStoreId) {
+        const storeInfo = await storeModel.getOneStoreInfoByStoreId({
+          storeId: this.shareStoreId,
+          longitude: this.location.longitude, 
+          latitude: this.location.latitude, 
+        })
+        return storeInfo.data
+      },
+
+      /**
+       * @param {string} shareStoreId 分享门店id
+       * @description 设置分享门店id
+       */
+      setShareStoreId (shareStoreId) {
+        this.$store.commit('setShareStoreId',shareStoreId)
+      },
+
+
+      /**
+         * @description 是否授权定位
+         */
+        isAuthorizedLocation () {
+          return new Promise((resolve,reject) =>{
+            wx.getSetting({
+              success: (res) => {
+                if (res.authSetting["scope.userLocation"] == true) {
+                  resolve(true)
+                } else {
+                  resolve(false)
+                }
+              }
+            })
+          })  
+        },
+
+      /**
+       * @param {string} storeId 门店Id
        * @description 设置门店id
        */
-      setStoreId() {
-        this.storeId  = this.$store.state.shopDetail.storeId
-        this.storeId = this.$mp.page.options.storeId
-        this.$store.commit('setStoreId',this.storeId)
+      setStoreId(storeId) {
+        this.$store.commit('setStoreId', storeId)
+      },
+
+      /**
+       * @description 保存商品详情页面相关请求商品id参数
+       */
+      saveGoodsDetailOptions() {
+        wx.setStorage({
+          key: 'gooodsDetailOptions',
+          data: this.$mp.page.options
+        });
+      },
+
+      /**
+       * @description 获取详情页面相关请求商品id参数
+       */
+      getGoodsDetailOptions() {
+        return wx.getStorageSync('gooodsDetailOptions')
       },
 
       /**
        * @description 获取详情页面具体的数据
        */
       getDetail() {
-        let options = this.$mp.page.options //获取商品相关参数
-
-        if (!options.id) {
-          return wx.showToast({
-            title: '参数错误',
-            icon: 'none'
-          })
-        }
+        console.log('option',this.$mp.page)
+        console.log('getGoodsDetailOptions',this.getGoodsDetailOptions())
+        let options = this.$mp.page == null ?this.getGoodsDetailOptions() : this.$mp.page.options  //获取商品相关参数,如果是从切换门店页面返回则从缓存中读取
+        console.log('获取详情页面具体的数据',options)
+        // if (!options.id) {
+        //   return wx.showToast({
+        //     title: '参数错误',
+        //     icon: 'none'
+        //   })
+        // }
 
         wx.showLoading()
         let params = {
           goodsId: options.id,
-          storeId: options.shareStoreId || this.storeId
+          storeId: this.storeId
         }
 
         Api.goods.goodsDetail(params)
         .then(res => {
           if (res.code == Api.CODES.SUCCESS) {
             this.goodsDetailInfo = res.data.goodsDetailInfo
-            this.commendGoodsList = res.data.commendGoodsList     
+            this.commendGoodsList = res.data.commendGoodsList
+            this.createShareImg()
           } else {
             this.popupShow = true //库存不足或则下架显示
           }
@@ -142,29 +568,9 @@
         }
       }
 
-    },
-
-
-    /*
-     * @description 页面分享
-    */
-    onShareAppMessage() {
-      let options = `id=${this.$mp.page.options.id}&shareStoreId=${this.storeId}`
-      return {
-        title: this.goodsDetailInfo.goodsName,
-        path: `/pages/goods/detail/main?${options}`,
-      }    
-      
-
-    },
-
-    
-    onShow () {
-      this.setStore()
-      this.goodsDetailInfo = {}
-      this.commendGoodsList = []
-      this.getDetail()
     }
+
+
 
   }
 </script>

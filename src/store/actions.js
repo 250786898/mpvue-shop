@@ -5,8 +5,10 @@ import StoreModel from '@/model/store'
 const storeModel = new StoreModel()
 
 export default {
+
   login({ commit, dispatch }, payload) {
     commit('setSessionId', payload)
+    // dispatch('setUsuallyStoreId')
     dispatch('updateCartNum')
   },
 
@@ -53,6 +55,21 @@ export default {
     }).then(res => {
       if (res.code === Api.CODES.SUCCESS) {
         commit('setStoreId',storeId)    
+      }
+    })
+  },
+
+  /**
+   * @description 确定经常访问门店
+   */
+   setUsuallyStoreId({ commit },payload) {
+    storeModel.getLastestUsuallyStoreId().then(res => {
+      if (res.code === Api.CODES.SUCCESS) {
+        console.log('vuex登录Action设置',res)
+        const storeId = res.data.storeId
+        if(storeId) {
+          commit('setStoreId',res.data.storeId) 
+        }       
       }
     })
   },

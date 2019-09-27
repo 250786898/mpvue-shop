@@ -132,7 +132,7 @@ export const ORDER_STATE_TEXT = {
   [ORDER_STATE.POHYD]: '待提货',
 }
 
-export const UPLOAD_URL = `${ apiURL }/common/upload` 
+export const UPLOAD_URL = `${ apiURL }common/upload` 
 
 export const Api = {
   CODES: {

@@ -23,6 +23,9 @@
 <script>
   import { mapState } from 'vuex'
   import { Api } from '@/http/api'
+  import StoreModel from '@/model/store'
+
+  const storeModel = new StoreModel()
 
   export default {
     data () {
@@ -41,6 +44,21 @@
       this.formId = e.target.formId
       console.log( this.formId )
       },
+
+       /**
+         * @description 确定经常访问门店
+         */
+        setUsuallyStoreId() {
+          storeModel.getLastestUsuallyStoreId().then(res => {
+            if (res.code === Api.CODES.SUCCESS) {
+              console.log('vuex登录Action设置',res)
+              const storeId = res.data.storeId
+              if(storeId) {
+                this.$store.commit('setStoreId',res.data.storeId) 
+              }       
+            }
+          })
+        },
 
       getPhoneNumber({ mp: { detail } }) {
         console.log('getPhoneNumber', detail)
@@ -110,6 +128,7 @@
             console.log('per')
             if (res.code === Api.CODES.SUCCESS) {
               this.$store.commit('setPersonCenter', res.data)
+              this.setUsuallyStoreId()
               wx.navigateBack({
                 delta: 2 //返回的页面数，如果 delta 大于现有页面数，则返回到首页,
               });

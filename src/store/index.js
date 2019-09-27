@@ -15,7 +15,7 @@ export default new Vuex.Store({
   //   createPersistedState({
   //     storage: {
   //       getItem: key => wx.getStorageSync(key),
-  //       setItem: (key, value) => wx.setStorageSync(key, value),
+  //       setCurrentStoreInfo: (key, value) => wx.setStorageSync(key, value),
   //       removeItem: key => {}
   //     }
   //   })

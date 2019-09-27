@@ -144,7 +144,7 @@
 
       //切换分类
       tabChange ({ mp: { detail: { index } } }) {
-        wx.pageScrollTo({ scrollTop: 0 })
+        // wx.pageScrollTo({ scrollTop: 0 })
         this.activeIndex = index
         console.log('tabChange',index)
         this.pcId = this.tab[index].pcId
@@ -191,7 +191,7 @@
 <style lang="scss">
 //tab栏样式
 .fixed-tab{
-  z-index: 99;
+  z-index: 10;
   width: 100%;
   position: fixed;
   top: 0;

@@ -2,10 +2,12 @@
   <div class="select-store-card">
     <div class="select-store-card__title">当前位置</div>
     <div class="location">
-      <span class="address">{{ relocationing ? '定位中...' : location.address}}</span>
-      <div class="reposition" @click="relocation">
+      <span class="address" v-if="location.address">{{ relocationing ? '定位中...' : location.address}}</span>
+      <span class="address" v-else>未获取到微信信息</span>
+      <div class="reposition">
         <img src="/static/images/common_icon_dangqian@2x.png" class="reposition-icon" alt="">
-        <span>重新定位</span>
+        <span  v-if="location.address" @click="relocation">重新定位</span>
+        <button type="primary" open-type="openSetting" @opensetting="onOpenSetting" class="grant-permission" v-else>重新定位</button>
       </div>
     </div>
   </div>
@@ -32,7 +34,25 @@ export default {
     /**
      * @description 重新定位 
      */
-    relocation() {
+    relocation(e) {
+
+      //已经授权定位
+      this.resetLocate() //直接重新定位
+      
+    },
+
+    /**
+     * @description 授权定位
+     */
+    onOpenSetting (e) {
+      this.authAndResetLocate()
+    },
+
+    /**
+     * @description 重新定位当前位置
+     */
+    resetLocate () {
+      console.log('resetLocate')
       console.log('amap',this.amap)
       this.relocationing = true //定位中
       this.amap.getPoiAround({
@@ -43,11 +63,41 @@ export default {
         fail: e => this.relocationing = false
       })
     },
+
+    /**
+     * @description 授权并重新定位
+     */
+    authAndResetLocate () {
+      console.log('authAndResetLocate')
+      let amap = new AMapWX({ key: config.AMAP_KEY })
+      console.log('AMapWX')
+      amap.getPoiAround({
+        success: res => { //用户成功授权
+          const locationInfo = res.markers[0] //当前用户定位定位相关信息
+          const cityName = res.poisData[0].cityname || res.pois[0].cityname //用户定位当前城市
+          console.log('locationInfo',locationInfo)
+          this.$store.commit("setcityname",cityName)
+          this.$store.commit("setLocateCity",cityName)
+          this.$store.commit("setLocationInfo",locationInfo)  //用户定位相关信息存到vuex
+        },
+        // 引导用户设置定位权限
+        fail: e => { //用户授权取消
+          if ( e.errMsg === "getLocation:fail auth deny" || "getLocation:fail:auth denied") {
+            wx.redirectTo({ url: "/pages/location/main" }) //重定向到定位授权页面
+          }
+        }
+      })
+    },
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.grant-permission{
+  background: none;
+  color: #ccc;
+  padding: 0;
+}
 .location{
   display: flex;
   justify-content: space-between;

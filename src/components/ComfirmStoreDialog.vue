@@ -9,7 +9,7 @@
       <div class="store-info">
           <div class="store-info-header">
             <span class="store-name" >自提门店:{{shopDetail.storeName}}</span>
-            <div class="distance">
+            <div class="distance" v-if="shopDetail.storeDistance">
               <img src="/static/images/common_icon_greenlocation@2x.png" alt="">
               <span>{{shopDetail.storeDistance}}km</span>
             </div>
@@ -62,9 +62,10 @@
        * @description 切换其他门店
        */
       checkoutStore () {
-        wx.redirectTo({
+        wx.navigateTo({
           url: '/pages/store/select/main',
         })
+        
       }
     }
   }
@@ -75,7 +76,7 @@
     width: 646rpx;
     min-height: 500rpx;
     background: #ffffff;
-    z-index: 999;;
+    z-index: 99999;
     position: fixed;
     top: 30%;
     left: 0%;
@@ -140,6 +141,7 @@
       margin-top: 32rpx;
     }
   }
+  
   .close-icon{
       position: fixed;
       z-index: 99;

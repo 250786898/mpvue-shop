@@ -1,3 +1,4 @@
+import { post } from '@/http/api'
 class StoreModel {
   
   constructor () {
@@ -21,6 +22,31 @@ class StoreModel {
       data: latestStoreId
     })
   }
+
+  /**
+   * @param {stirng} storeId 门店Id
+   * @param {stirng} longitude 经度
+   * @param {stirng} latitude 纬度
+   * @description 根据门店id获取一个门店信息
+   */
+  getOneStoreInfoByStoreId({ storeId, longitude, latitude }) {
+    return post({
+      url: '/store/data/findOneStore',
+      data: { storeId, longitude, latitude }
+    })
+  }
+
+  /**
+   * @description 获取最新的经常访问门店Id
+   */
+  getLastestUsuallyStoreId() {
+    return post({
+      url: '/index/queryStoreByLastest',
+      data: {}
+    })
+  }
+
+
 }
 
 export default StoreModel

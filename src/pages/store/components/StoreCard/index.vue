@@ -37,25 +37,39 @@ export default {
     isClick: {
       type: Boolean,
       default: true
+    },
+    lastRouter:{ //上一个路由名称
+      type: String,
+      default: '123'
     }
+
   },
   methods: {
     /**
      * @description 选择门店
      */
     select() {
+      console.log('从哪个页面进来',this.lastRouter)
       if(this.isClick) {
         const storeId =  this.item.storeId || this.item.storeNumErp
         console.log('select门店',this.item)
-        this.$store.commit('setItem', this.item)
+        this.$store.commit('setCurrentStoreInfo', this.item)
         this.$store.commit('setStoreId',storeId) //当前门店接口返回的是storeNumErp
         this.$store.dispatch('confirmOrSwitchStore', {
           storeId
         }).then(() => {
           console.log('选择门店后跳转首页')
-          wx.switchTab({
-            url: '/pages/index/main',
-          })
+          if(this.lastRouter == 'location') {
+            //如果从定位页面过来，则直接回首页
+            wx.reLaunch({
+              url: '/pages/index/main'
+            })
+          }else{
+             wx.navigateBack({
+              delta: 1
+             })
+          }
+         
         })     
       }   
     },

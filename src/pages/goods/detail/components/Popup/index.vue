@@ -24,9 +24,10 @@ export default {
      * @description 返回首页
      */
     toIndex() {
+      this.$store.commit('setStoreId','')  //返回首页先情况vuex门店，首页才能监听到门店ID的变化
       wx.reLaunch({
         url: '/pages/index/main'
-      })
+      })   
       // wx.switchTab({
       //   url: '/pages/index/main'
       // })
@@ -38,7 +39,7 @@ export default {
 <style lang="scss" scoped>
 .weui-mask {
     position: fixed;
-    z-index: 1000;
+    z-index: 99;
     top: 0;
     right: 0;
     left: 0;
@@ -47,7 +48,7 @@ export default {
 }
 .weui-dialog {
     position: fixed;
-    z-index: 5000;
+    z-index: 100;
     top: 50%;
     left: 100rpx;
     right: 100rpx;

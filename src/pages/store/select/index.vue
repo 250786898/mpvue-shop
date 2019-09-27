@@ -2,9 +2,9 @@
   <div class="container">
     <top-bg/>
     <search-store :city-name="cityName" />
-    <current-store :item="currentStoreInfo" v-if="storeId" />
+    <current-store :item="currentStoreInfo" v-if="storeId || shareStoreId" />
     <current-location />
-    <nearby-stores :store-list="nearbyStoreList" v-if="nearbyStoreList && nearbyStoreList.length" :isCurrentLocateCity="isCurrentLocateCity" />
+    <nearby-stores :store-list="nearbyStoreList" :last-router="lastRouter" v-if="nearbyStoreList && nearbyStoreList.length" :isCurrentLocateCity="isCurrentLocateCity" />
     <page-loading  :show="showPageLoading"/> 
   </div>
 </template>
@@ -33,26 +33,42 @@ export default {
       isCurrentLocateCity: false, //是否处于当前定位城市
       showPageLoading: true, //页面数据师傅显示
       currentStoreInfo: {}, //当前门店相关信息
-      nearbyStoreList: [] //附近门店
+      nearbyStoreList: [], //附近门店
+      lastRouter: '' //上一个访问的路由名称
     }
   },
   computed : {
-    ...mapState(['storeId','location','cityName','locateCity'])
+    ...mapState(['storeId','location','cityName','locateCity','shareStoreId'])
   },
-
-
+  watch: {
+    location: function () {
+      console.log('监听到重新定位')
+      this.initLoadStoreData()
+    },
+  },
   mounted (e) {
     console.log('smounted')
+    const routerName = this.$mp.page ? this.$mp.page.options.router : ''
+    this.setLastRouter(routerName)
     this.initLoadStoreData()
   },
 
   methods: {
+
+    /**
+     * @description 设置上一个访问的路由
+     */
+    setLastRouter (routerName) {
+      this.lastRouter = routerName
+    },
+
     /**
      * @description 获取当前门店信息Promise
      */
      getCurrentStorePromise() {
+       const storeId =  this.storeId ? this.storeId : this.shareStoreId
        return Api.index.findNowStore({
-         storeId:this.storeId
+         storeId
        })
     },
 
@@ -134,9 +150,12 @@ export default {
        * @description 设置定位城市状态
        */
      setLocateCityStatus () {
-       console.log('currentLocateCity',this.locateCity)
+       
        console.log('this.cityName',this.cityName)
-       if(this.locateCity == this.cityName) { //判断当前选择的城市是定位城市
+       const locateCity = this.locateCity ? this.locateCity : wx.getStorageSync('locateCity') //vuex中不存在从缓存中读取
+       console.log('currentLocateCity',locateCity)
+         
+       if(locateCity == this.cityName) { //判断当前选择的城市是定位城市
          this.isCurrentLocateCity = true
        }else{
          this.isCurrentLocateCity = false
@@ -147,22 +166,30 @@ export default {
      * @description 初始化加载门店相关数据
      */
     initLoadStoreData () {
+      console.log('initLoadStoreData',this.locateCity)
       Promise.all([this.getCurrentStorePromise(),this.getStoreListPromise()]).then(res => {
         if(res[0].code == Api.CODES.SUCCESS && res[0].code == Api.CODES.SUCCESS ) { //两个都请求成功
           this.hidePageLoading()
-          console.log('initLoadStoreData',res[1].data.storeList)
+
           
           const currentStoreInfo =  res[0].data.shopStore //当前门店信息
           console.log('currentStoreInfo',currentStoreInfo)
-          const nearbyStoreList =  res[1].data.storeList || res[1].data.cityStore //当前门店信息
+
+          
           
           if(currentStoreInfo) {
             this.setCurrentStoreInfo(currentStoreInfo) //设置当前门店相关信息  
           }
-          this.setLocateCityStatus() //设置定位城市状态
-         
 
-          this.setNearbyStoreList(nearbyStoreList) //设置附近门店     
+          this.setLocateCityStatus() //设置定位城市状态
+
+          const nearbyStoreList =  res[1].data.storeList || res[1].data.cityStore //当前门店信息
+         
+         
+          if(nearbyStoreList) {
+            this.setNearbyStoreList(nearbyStoreList) //设置附近门店    
+          }
+           
         }     
       })
   

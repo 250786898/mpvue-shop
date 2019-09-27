@@ -52,8 +52,12 @@ export default {
     state.usuallyStoreInfo = payload
   },
 
-  setStoreInfo(state, payload) {
-    state.storeInfo = payload
+
+  /**
+   * @description 设置门店相关信息
+   */
+  setCurrentStoreInfo(state,payload){
+    state.shopDetail = payload
   },
 
   
@@ -103,14 +107,10 @@ export default {
    */
   setLocateCity(state,payload){
     state.locateCity=payload
+    wx.setStorageSync('locateCity', payload)
   },
 
-  /**
-   * @description 设置门店相关信息
-   */
-  setItem(state,payload){
-    state.shopDetail = payload
-  },
+  
 
   setRunTime(state,payload){
     state.runingtime = payload

@@ -24,7 +24,7 @@
               当前访问门店
             </div>
 
-            <div class="distance">
+            <div class="distance" v-if="shareStoreInfo.storeDistance">
               <img src="/static/images/common_icon_greenlocation@2x.png" alt="">
               <span>距离您{{shareStoreInfo.storeDistance}}km</span>
             </div>
@@ -49,7 +49,7 @@
               经常访问门店
             </div>
 
-            <div class="distance">
+            <div class="distance" v-if="usuallyStoreInfo.storeDistance">
               <img src="/static/images/common_icon_greenlocation@2x.png" alt="">
               <span>距离您{{usuallyStoreInfo.storeDistance}}km</span>
             </div>
@@ -124,7 +124,7 @@
   .dialog-main{
     width: 100vw;
     background: #ffffff;
-    z-index: 999;;
+    z-index: 99999;
     position: fixed;
     bottom: 0;
     left: 0%;
