@@ -1,8 +1,12 @@
 <template>
   <div class="container">
-    <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/signin_bg_logo_big@2x.png">
-    <div>您暂未授权乐家生鲜Fresh小程序获取你的信息，将无法正常使用小程序的功能，如需要正常使用，请点击授权按钮，获取昵称，头像等信息的授权。</div>
-    <button type="primary" open-type="getUserInfo" @getuserinfo="getUserInfo" hover-class="button-hover">授权登录</button>
+    <img src="/static/images/signin_bg_logo_big@2x.png">
+    <div class="auth-desc">乐家生鲜</div>
+
+    <div class="button-bar">
+      <button type="primary" open-type="getUserInfo" @getuserinfo="getUserInfo" hover-class="button-hover">授权登录</button>
+    </div>
+    
   </div>
 </template>
 
@@ -44,23 +48,42 @@
 
 <style lang="scss" scoped>
   .container {
-    padding: 84rpx 48rpx 0;
+    padding: 140rpx 48rpx 0;
     line-height: 48rpx;
     font-size: 28rpx;
     color: $text-black;
+
+    .auth-desc {
+      text-align: center;
+      font-size:36rpx;
+      font-weight:bold;
+      color:#666666;
+    }
+
+    .button-bar {
+      margin-top: 300rpx;
+      button[type=primary] {
+        margin-top: 30rpx;
+        background-color: #45C844;
+        &.button-hover {
+          @include buttonHover;
+        }
+        &[plain] {
+          background-color: transparent;
+          border-color: #45C844;
+          color: #45C844;;
+        }
+      }
+    }
     
     img {
       display: block;
-      width: 200rpx;
-      height: 200rpx;
-      margin: 0 auto 128rpx;
+      width: 150rpx;
+      height: 150rpx;
+      margin: 0 auto 36rpx;
+      border-radius: 50%;
+      box-shadow: 0px 0px 8rpx #B5A8A8;
     }
-    button[type=primary] {
-      margin-top: 168rpx;
-      background-color: #45C844;
-      &.button-hover {
-        @include buttonHover;
-      }
-    }
+
   }
 </style>

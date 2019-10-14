@@ -59,14 +59,14 @@
     padding-top: 174rpx;
     text-align: center;
     img {
-      width: 187rpx;
-      height: 187rpx;
+      width: 308rpx;
+      height: 285rpx;
       vertical-align: middle;
     }
     h4 {
-      margin: 40rpx 92rpx 0 92rpx;
+      margin: 40rpx 0rpx 0 0rpx;
       font-size: 30rpx;
-      color: #333;
+      color: #666666;
     }
     p {
       margin: 16rpx 100rpx 0 100rpx;

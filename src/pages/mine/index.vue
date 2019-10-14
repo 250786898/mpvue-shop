@@ -5,7 +5,7 @@
     <div class="headline"> 我的 </div>
     <div class="dise"></div>
     <div class="mine-card">
-     
+
       <div class="mine-card__user">
         <div class="weui-cell" @click="toSmessage">
           <!-- 箭头 -->
@@ -31,10 +31,10 @@
               </div>
             </template>
             <!-- else -->
-            <navigator hover-class="none" url="/pages/mine/auth/main" v-else class="mine-card__login">
+            <div hover-class="none" @click="resgiterOrLogin"  v-else class="mine-card__login" >
               注册/登录
               <!-- <img src="/static/images/me_icon_blackarrow@2x.png"> -->
-            </navigator>
+            </div>
           </div>
           <!-- <navigator hover-class="none" url="/pages/qrcode/index/main" class="weui-cell__ft">
             <img src="/static/images/me_icon_qrcode@2x.png">
@@ -53,7 +53,7 @@
           <div class="primary" v-else="sessionId">***</div>
           <div>积分</div>
         </navigator> -->
-       
+
       <!-- </div> -->
       <!-- <navigator hover-class="none" url="/pages/vip/index/main" class="mine-card__ft">
         <div class="weui-cell weui-cell_access">
@@ -118,7 +118,7 @@
       <div class="weui-panel__hd">
         我的服务
       </div>
-      <div class="weui-panel__bd">
+      <div class="weui-panel__bd my-service-box">
         <div class="weui-flex">
           <!-- 二期
           <navigator hover-class="none" url="/pages/scanorder/index/main" class="weui-flex__item">
@@ -165,7 +165,10 @@
 </template>
 <script>
   import { mapState } from 'vuex'
+  import UserModer from '@/model/user'
   import { Api, ORDER_STATE, ORDER_STATE_TEXT } from '@/http/api'
+
+  const userModel = new UserModer()
 
   export default {
     data () {
@@ -180,6 +183,31 @@
     },
 
     methods: {
+
+      /**
+       * @description 跳转注册登录组件
+       */
+      async resgiterOrLogin () {
+        console.log('resgiterOrLogin')
+
+        const userInfoIsScope = await userModel.checkUserInfoIsScope() //获取用户是否已经授权用户信息
+        console.log('userInfoIsScope',userInfoIsScope)
+        if(userInfoIsScope) {
+          //如果用户已经授权直接跳转快捷登录组件页面
+          wx.navigateTo({
+            url: '/pages/mine/bind/main'
+          })
+        }else{
+          //未授权跳转授权用户信息组件页面
+          wx.navigateTo({
+            url: '/pages/mine/auth/main'
+          })
+
+        }
+
+
+      },
+
       showServiceActionSheet() {
 
         // wx.getSystemInfo({
@@ -221,23 +249,15 @@
         // })
 
       },
-// 优惠券
+      // 优惠券
       discount() {
         if (this.sessionId) {
           wx.navigateTo({
             url: '/pages/coupon/index/main'
           })
         } else {
-          wx.showModal({
-            content: '请先登录',
-            confirmText: '去登录',
-            success: res => {
-              if (res.confirm) {
-                wx.navigateTo({
-                  url: '/pages/mine/auth/main'
-                })
-              }
-            }
+          wx.navigateTo({
+            url: '/pages/mine/auth/main'
           })
         }
       },
@@ -248,16 +268,8 @@
             url: '/pages/settings/index/main'
           })
         } else {
-          wx.showModal({
-            content: '请先登录',
-            confirmText: '去登录',
-            success: res => {
-              if (res.confirm) {
-                wx.navigateTo({
-                  url: '/pages/mine/auth/main'
-                })
-              }
-            }
+          wx.navigateTo({
+            url: '/pages/mine/auth/main'
           })
         }
       },
@@ -325,7 +337,9 @@
   right: 2px;
 }
 
-
+.my-service-box{
+  padding: 30rpx 20rpx !important;
+}
   .box{
     position: fixed;
     top:0rpx;
@@ -398,7 +412,7 @@
   }
 
   .mine-card {
-  
+
     &__user {
       .weui-cell {
         position: fixed;
@@ -581,7 +595,7 @@
       color: #F00909;
       &__ft_in-access:after {
         border-color: #FFF;
-        
+
       }
     }
   }

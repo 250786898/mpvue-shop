@@ -1,7 +1,7 @@
 <template>
   <div class="dialog" v-if="show">
     <div class="mask"></div>
-    <!-- <div class="close-icon" @click="hide">     
+    <!-- <div class="close-icon" @click="hide">
         <icon type="cancel" size="40" color="#fff"></icon>
     </div> -->
     <div class="dialog-main">
@@ -12,7 +12,7 @@
     <radio-group  class="store-list" @change="checkoutStoreType">
 
        <label class="store-item">
-        <radio class="store-item-radio" :checked="true" value="current" />
+        <radio class="store-item-radio" :checked="true" value="current" color="#0FD7C0" />
         <div>
           <div class="store-item-header">
 
@@ -25,8 +25,8 @@
             </div>
 
             <div class="distance" v-if="shareStoreInfo.storeDistance">
-              <img src="/static/images/common_icon_greenlocation@2x.png" alt="">
-              <span>距离您{{shareStoreInfo.storeDistance}}km</span>
+              <img src="/static/images/confirm_store_location_icon.png" alt="">
+              <span>距离您{{shareStoreDistance}}</span>
             </div>
 
           </div>
@@ -37,7 +37,7 @@
       </label>
 
         <label class="store-item">
-        <radio class="store-item-radio" value="usually" />
+        <radio class="store-item-radio" value="usually" color="#0FD7C0" />
         <div>
           <div class="store-item-header">
 
@@ -50,8 +50,8 @@
             </div>
 
             <div class="distance" v-if="usuallyStoreInfo.storeDistance">
-              <img src="/static/images/common_icon_greenlocation@2x.png" alt="">
-              <span>距离您{{usuallyStoreInfo.storeDistance}}km</span>
+              <img src="/static/images/confirm_store_location_icon.png" alt="">
+              <span>距离您{{usuallyStoreDistance}}</span>
             </div>
 
           </div>
@@ -85,25 +85,32 @@
       }
     },
     computed: {
-      ...mapState(['shareStoreInfo','usuallyStoreInfo'])
+      ...mapState(['shareStoreInfo','usuallyStoreInfo']),
+      shareStoreDistance () {
+        return this.shareStoreInfo.storeDistance < 1 ? this.shareStoreInfo.storeDistance * 1000 + 'm' : `${this.shareStoreInfo.storeDistance}km`
+      },
+      usuallyStoreDistance () {
+        return this.usuallyStoreInfo.storeDistance < 1 ? this.usuallyStoreInfo.storeDistance * 1000 + 'm' : `${this.usuallyStoreInfo.storeDistance}km`
+      }
     },
     data() {
       return {
         selectType: 'current', //选择类型：current：当前访问门店 usually：经常访问门店 。 默认为当前访问门店
-      } 
+      }
     },
     methods: {
       /**
        * @description 关闭弹窗
        */
       comfirmStore() {
+        console.log('currentType',this.selectType)
         const storeId = this.selectType == 'current' ? this.shareStoreInfo.storeId : this.usuallyStoreInfo.storeId
-        console.log('comfirmStore',storeId)
+        console.log('选择门店组件选择的Id',storeId)
         this.$emit('comfirmStore',storeId)
       },
 
       /**
-       * @param{string} 门店类型 
+       * @param{string} 门店类型
        * @@description 切换门店类型
        */
       checkoutStoreType ({ mp : {detail :{ value} } }) {
@@ -136,7 +143,7 @@
     &-header{
       display: flex;
       flex-direction: column;
-      padding: 28rpx 36rpx;
+      padding: 28rpx 16rpx;
       border-bottom: 1px solid rgba(187, 187, 187, 0.36);
       &__title{
         font-size: 32rpx;
@@ -150,25 +157,26 @@
       .store-item{
         display: flex;
         align-items: center;
-        padding: 36rpx 0 36rpx 36rpx;
+        padding: 36rpx 0 36rpx 16rpx;
         border-bottom: 1px solid rgba(187, 187, 187, 0.36);
         &-header{
           display: flex;
           align-items: center;
           .store-name{
-            font-size: 32rpx;
+            font-size: 27rpx;
             font-weight: 800;
             margin-right: 14rpx;
           }
           .store-tag{
-            width: 180rpx;
-            height: 44rpx;
-            line-height: 44rpx;
-            border-radius: 8px;
-            background-color: $theme-color;
-            color: rgba(255, 255, 255, 1);
-            font-size: 24rpx;
+            background-color: $orange-color;
+            width: 130rpx;
+            height: 36rpx;
+            line-height: 36rpx;
+            border-radius: 0;
+            color: white;
+            font-size: 18rpx;
             text-align: center;
+
           }
         }
         .detail-address{
@@ -181,14 +189,14 @@
         }
       }
       .distance{
-        color: $theme-color;
+        color: #FFA136;
         display: flex;
         align-items: center;
         margin-left: 12rpx;
         font-size: 24rpx;
         img{
-          width: 36rpx;
-          height: 36rpx;
+          width: 24rpx;
+          height: 24rpx;
         }
       }
     }
@@ -211,7 +219,7 @@
       height: 75rrpx;
       line-height: 75rpx;
       border-radius: 66rpx;
-      background-color: rgba(48, 193, 165, 1);
+      background-color: #0FD7C0;
       color: rgba(255, 255, 255, 1);
       font-size: 32rpx;
       text-align: center;

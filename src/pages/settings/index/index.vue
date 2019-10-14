@@ -18,10 +18,10 @@
       <div class="weui-cell__hd">
         <img src="/static/images/setting_icon_member@2x.png">
       </div>
-      <div class="weui-cell__bd">会员基本信息</div>
+      <div class="weui-cell__bd">用户信息</div>
       <div class="weui-cell__ft weui-cell__ft_in-access"></div>
     </navigator>
- 
+
     <div class="footer-bar">
       <button type="primary" hover-class="button-hover" @click="logout">退出登录</button>
     </div>
@@ -86,7 +86,15 @@
   }
 </script>
 
+<style>
+page{
+  background: #f5f5f5;
+  padding: 20rpx 0;
+}
+</style>
+
 <style scoped lang="scss">
+
   .weui-cells {
     margin-top: 0;
     &:before {

@@ -1,7 +1,7 @@
 <template>
   <div class="dialog" v-if="show">
     <div class="mask"></div>
-    <!-- <div class="close-icon" @click="hide">     
+    <!-- <div class="close-icon" @click="hide">
         <icon type="cancel" size="40" color="#fff"></icon>
     </div> -->
     <div class="dialog-main">
@@ -10,8 +10,8 @@
           <div class="store-info-header">
             <span class="store-name" >自提门店:{{shopDetail.storeName}}</span>
             <div class="distance" v-if="shopDetail.storeDistance">
-              <img src="/static/images/common_icon_greenlocation@2x.png" alt="">
-              <span>{{shopDetail.storeDistance}}km</span>
+              <img src="/static/images/confirm_store_location_icon.png" alt="">
+              <span>{{storeDistance}}</span>
             </div>
           </div>
           <div class="detain-address">{{shopDetail.storeAddress}}</div>
@@ -40,7 +40,11 @@
       }
     },
     computed: {
-      ...mapState(['shopDetail'])
+      ...mapState(['shopDetail']),
+      storeDistance () {
+        return this.shopDetail.storeDistance < 1 ? this.shopDetail.storeDistance * 1000 + 'm' : `${this.shopDetail.storeDistance}km`
+      }
+
     },
     methods: {
       /**
@@ -65,7 +69,7 @@
         wx.navigateTo({
           url: '/pages/store/select/main',
         })
-        
+
       }
     }
   }
@@ -104,13 +108,13 @@
         margin-bottom: 8rpx;
       }
       .distance{
-        color: $theme-color;
+        color: #FFA136;
         display: flex;
         align-items: center;
         margin-left: 12rpx;
         img{
-          width: 36rpx;
-          height: 36rpx;
+          width: 25rpx;
+          height: 25rpx;
         }
       }
       .detain-address{
@@ -130,18 +134,18 @@
       }
     }
     .comfirm-btn{
-      width: 568rpx;
+      width: 100%;
       height: 75rrpx;
       line-height: 75rpx;
       border-radius: 66rpx;
-      background-color: rgba(48, 193, 165, 1);
+      background-color: #0FD7C0;
       color: rgba(255, 255, 255, 1);
       font-size: 32rpx;
       text-align: center;
       margin-top: 32rpx;
     }
   }
-  
+
   .close-icon{
       position: fixed;
       z-index: 99;

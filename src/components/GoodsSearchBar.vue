@@ -11,14 +11,15 @@
       <div class="search-bar__form" @click="toSearch">
         <div class="search-bar__box">
           <img src="/static/images/common_nav_icon_serve.n@2x.png" />
-          <input
+          <text>搜索商品</text>
+          <!-- <input
             type="text"
             class="weui-search-bar__input"
             placeholder="搜索商品"
             placeholder-style="color: #ACACAC"
             readonly
             disabled
-          />
+          /> -->
         </div>
       </div>
       <!-- 首页会员码 -->
@@ -27,34 +28,27 @@
       </navigator>-->
 
     <!-- //占位符 -->
-    
+
     </div>
-    <div class="occupation"></div> 
+    <div class="occupation"></div>
   </div>
- 
-  
+
+
 </template>
 <script>
 import { mapState } from "vuex";
 export default {
   props: {
-    storeName: {
-      type: String,
-      default: ""
-    },
     showtip: {
       type: Boolean,
       default: true
     },
-    
+
   },
   computed: {
     ...mapState(['shopDetail'])
   },
   data() {
-    return {
-      storeName: ''
-    };
   },
 
 
@@ -62,17 +56,17 @@ export default {
 
 
   created() {
- 
+
   },
-  
+
   onShow() {
     // this.storeName = this.$store.state.shopDetail.storeName;
     // console.log('kkk',this.storeName)
   },
 
   methods: {
-   
-  
+
+
     //   cityModalShowshop(){
     // console.log(this.$store.state.tempOrder)
     //  },
@@ -140,6 +134,9 @@ export default {
   padding-right: 10rpx;
   display: flex;
   align-items: center;
+  font-size: 24rpx;
+  color: #acacac;
+  height: 100%;
   img{
     width: 56rpx;
     height: 56rpx;

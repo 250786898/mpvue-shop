@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import { Api } from '../http/api'
 import StoreModel from '@/model/store'
+import {resgiterOrLogin} from '../utils/index'
 
 const storeModel = new StoreModel()
 
@@ -54,7 +55,8 @@ export default {
       storeId
     }).then(res => {
       if (res.code === Api.CODES.SUCCESS) {
-        commit('setStoreId',storeId)    
+        console.log('confirmOrSwitchStore',storeId)
+        commit('setStoreId',storeId)
       }
     })
   },
@@ -68,8 +70,8 @@ export default {
         console.log('vuex登录Action设置',res)
         const storeId = res.data.storeId
         if(storeId) {
-          commit('setStoreId',res.data.storeId) 
-        }       
+          commit('setStoreId',res.data.storeId)
+        }
       }
     })
   },
@@ -117,9 +119,7 @@ export default {
         dispatch('updateCartNum')
         Vue.prototype.$bus.$emit('updateCart')
       } else if (res.code === 40001) {
-        wx.navigateTo({
-          url: '/pages/mine/auth/main'
-        })
+        resgiterOrLogin()
       } else {
         wx.showToast({
           title: res.message,
@@ -154,7 +154,7 @@ export default {
           url: '/pages/mine/auth/main'
         })
       } else {
-    
+
         // wx.showToast({
         //   title: res.message,
         //   icon: 'none'

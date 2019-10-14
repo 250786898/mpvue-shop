@@ -24,10 +24,9 @@ export default {
      * @description 返回首页
      */
     toIndex() {
-      this.$store.commit('setStoreId','')  //返回首页先情况vuex门店，首页才能监听到门店ID的变化
       wx.reLaunch({
         url: '/pages/index/main'
-      })   
+      })
       // wx.switchTab({
       //   url: '/pages/index/main'
       // })

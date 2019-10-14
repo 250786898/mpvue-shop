@@ -210,5 +210,6 @@ page{
   align-items: center;
   width: 750rpx;
   box-sizing: border-box;
+  background: #f5f5f5;
 }
 </style>

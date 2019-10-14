@@ -1,6 +1,7 @@
 <template>
   <div class="container">
-    <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/signin_bg_logo_big@2x.png">
+    <img src="/static/images/signin_bg_logo_big@2x.png" class="logo">
+    <div class="auth-desc">乐家生鲜</div>
 
     <div class="button-bar">
       <form report-submit @submit="uploadFormId">
@@ -158,15 +159,20 @@
 
 <style lang="scss" scoped>
   .container {
-    padding: 84rpx 48rpx 0;
-    > img {
-      display: block;
-      width: 200rpx;
-      height: 200rpx;
-      margin: 0 auto 128rpx;
+    padding: 140rpx 48rpx 0;
+    line-height: 48rpx;
+    font-size: 28rpx;
+    color: $text-black;
+
+    .auth-desc {
+      text-align: center;
+      font-size:36rpx;
+      font-weight:bold;
+      color:#666666;
     }
+
     .button-bar {
-      margin-top: 400rpx;
+      margin-top: 300rpx;
       button[type=primary] {
         margin-top: 30rpx;
         background-color: #45C844;
@@ -180,8 +186,16 @@
         }
       }
     }
-  }
-
+    
+    .logo {
+      display: block;
+      width: 150rpx;
+      height: 150rpx;
+      margin: 0 auto 36rpx;
+      border-radius: 50%;
+      box-shadow: 0px 0px 8rpx #B5A8A8;
+    }
+  }  
   .icon-wx,
   .icon-phone {
     margin-right: 10rpx;

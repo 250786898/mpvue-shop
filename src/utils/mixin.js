@@ -1,4 +1,7 @@
 let MIXIN = {
+  onShow () {
+    wx.hideHomeButton({}) //隐藏返回首页按钮
+  },
   onLoad () {
     if(this.$options.data) {
       // console.log('mixin')

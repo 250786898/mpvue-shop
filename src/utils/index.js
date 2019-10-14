@@ -1,3 +1,6 @@
+import UserModer from '@/model/user'
+const userModel = new UserModer()
+
 export function formatNumber (n) {
   const str = n.toString()
   return str[1] ? str : `0${str}`
@@ -86,6 +89,33 @@ export function serialize(page) {
   let params = Object.keys(options).map(key => `${ key }=${ options[key] }`).join('&')
   return `/${ route }?${ params }`
 }
+
+
+/**
+ * @description 跳转注册登录组件
+ */
+export async function resgiterOrLogin () {
+
+
+  console.log('resgiterOrLogin')
+    
+  const userInfoIsScope = await userModel.checkUserInfoIsScope() //获取用户是否已经授权用户信息
+  console.log('userInfoIsScope',userInfoIsScope)
+  if(userInfoIsScope) {
+    //如果用户已经授权直接跳转快捷登录组件页面
+    wx.navigateTo({
+      url: '/pages/mine/bind/main'
+    })
+  }else{
+    //未授权跳转授权用户信息组件页面
+    wx.navigateTo({
+      url: '/pages/mine/auth/main'
+    })
+    
+  }
+
+}
+
 
 export default {
   formatNumber,

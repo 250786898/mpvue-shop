@@ -3,6 +3,7 @@ import qs from 'qs'
 import config from '../config'
 import store from '../store/index'
 import md5 from 'js-md5/src/md5'
+import {resgiterOrLogin} from '../utils/index'
 
 const fly = new Fly
 
@@ -16,6 +17,8 @@ const objKeySort = function (obj) {//排序的函数
   }
   return newObj;//返回排好序的新对象
 }
+
+
 
 // fly.config.timeout = 20000
 fly.config.baseURL = apiURL
@@ -43,13 +46,21 @@ fly.interceptors.response.use(res => {
     let pages = getCurrentPages()
     let current = pages[pages.length - 1]
 
+    console.log('40001')
     if (config.ALL_GUEST_PAGES.indexOf(current.route) === -1) {
       if (redirectLock) return
       redirectLock = true
-      wx.reLaunch({
-        url: '/pages/mine/auth/main',
-        complete: () => redirectLock = false
-      });
+
+      console.log('resgiterOrLogin40001')
+
+      resgiterOrLogin()
+      redirectLock = false
+      // wx.reLaunch({
+      //   url: '/pages/mine/auth/main',
+      //   complete: () => redirectLock = false
+      // });
+
+
     }
   }
   return res.data
@@ -132,7 +143,7 @@ export const ORDER_STATE_TEXT = {
   [ORDER_STATE.POHYD]: '待提货',
 }
 
-export const UPLOAD_URL = `${ apiURL }common/upload` 
+export const UPLOAD_URL = `${ apiURL }common/upload`
 
 export const Api = {
   CODES: {
@@ -677,7 +688,7 @@ export const Api = {
       })
     },
 
-    /** 
+    /**
      * 11.2.
      * @param cartIds 购物车id，多个以逗号拼接
      * @description 删除购物车
@@ -994,7 +1005,7 @@ export const Api = {
   //14.活动API
   activity: {
 
-    
+
     //14.1 添加提醒
     addRemindMsg({ formId, activityId, goodsId, activityGoodsId}) {
       return post({

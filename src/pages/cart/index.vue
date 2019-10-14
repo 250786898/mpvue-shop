@@ -1,32 +1,32 @@
 <template>
   <div>
     <template  v-if="(cartItemResultList && cartItemResultList.length) || (failureGoodsList && failureGoodsList.length)">
-       
+
        <!-- 正常商品列表 -->
-      <base-cart 
-        :cartItemResultList="cartItemResultList" 
-        @updateActivityStatus="updateActivityStatus" 
+      <base-cart
+        :cartItemResultList="cartItemResultList"
+        @updateActivityStatus="updateActivityStatus"
         @updateCartNum="updateCartNum"
         @del="del"
         v-if="cartItemResultList && cartItemResultList.length"
-      /> 
+      />
 
       <!-- 失效商品列表 -->
-      <failure-cart 
-        :failureGoodsList="failureGoodsList" 
-        @updateActivityStatus="updateActivityStatus" 
+      <failure-cart
+        :failureGoodsList="failureGoodsList"
+        @updateActivityStatus="updateActivityStatus"
         v-if="failureGoodsList && failureGoodsList.length"
-      /> 
+      />
 
        <!-- 占位符 -->
-      <div style="height: 120rpx;"></div> 
+      <div style="height: 120rpx;"></div>
 
       <!-- 悬浮区域 -->
-      <Suspension 
-        :totalAmount="totalAmount" 
-        :promisAmount="promisAmount" 
-        :cartItemResultList="cartItemResultList" 
-        @updateActivityStatus="updateActivityStatus" 
+      <Suspension
+        :totalAmount="totalAmount"
+        :promisAmount="promisAmount"
+        :cartItemResultList="cartItemResultList"
+        @updateActivityStatus="updateActivityStatus"
         v-if="cartItemResultList && cartItemResultList.length"
       />
 
@@ -37,7 +37,7 @@
       <empty-cart />
     </template>
 
-   
+
   </div>
 </template>
 
@@ -95,7 +95,7 @@
        * @description 获取选择或则取消选择后的购物车列表
        */
       getUpdateCartResultList (cartItemResultList,checked,index) {
-        let list = cartItemResultList.map( (item,currentIndex) => {      
+        let list = cartItemResultList.map( (item,currentIndex) => {
           let checkedValue = currentIndex == index ? checked : ''
           return {
           ...item,
@@ -120,11 +120,11 @@
           if (res.code === Api.CODES.SUCCESS) {
 
             //选择或则取消了购物车重新更新订单
-            this.cartItemResultList = this.getUpdateCartResultList(res.data.cartItemResultList,checked,index) 
+            this.cartItemResultList = this.getUpdateCartResultList(res.data.cartItemResultList,checked,index)
             this.failureGoodsList = res.data.failureGoodsList
             this.totalAmount  =  res.data.totalAmount
-            this.promisAmount = res.data.promisAmount 
-        
+            this.promisAmount = res.data.promisAmount
+            this.$store.dispatch('updateCartNum')
             wx.hideLoading({})
           }
         })
@@ -156,7 +156,7 @@
       },
 
 
-      
+
       /**
        * @param {Object} item 购物车商品对象
        * @param {boolean} isFailureGoods 是否是失效商品
@@ -189,10 +189,10 @@
           }
         })
         .catch(e => console.log(e))
-        .then(() => wx.hideLoading())        
+        .then(() => wx.hideLoading())
       },
 
-  
+
       /**
        * @description 初始化，加载购物车列表
        */
@@ -212,9 +212,9 @@
             }))
             res.data.failureGoodsList = res.data.failureGoodsList.map(item => ({
               ...item,
-              ...SLIDE_PARAMS 
+              ...SLIDE_PARAMS
             }))
-            this.cartItemResultList = res.data.cartItemResultList 
+            this.cartItemResultList = res.data.cartItemResultList
             this.failureGoodsList = res.data.failureGoodsList
             this.totalAmount = res.data.totalAmount //合计购物车价格
             this.promisAmount = res.data.promisAmount //已优惠价格
@@ -241,7 +241,7 @@
       this.getCartList() //获取购物车列表
     },
 
-    
+
     onPullDownRefresh() {
       this.getCartList()  //下拉更新购物车列表
     }
@@ -386,5 +386,5 @@
     border-bottom: 1px solid #F4F4F4;
   }
   /*正常商品样式*/
-  
+
 </style>

@@ -22,10 +22,10 @@
             console.log('netword',res)
             if(res.networkType != 'none'){
               //监听到有网络跳转回上一个页面
-              wx.navigateBack({
-                delta: 1
+              console.log('监听到有网络跳转回上一个页面')
+              wx.reLaunch({
+                url: '/pages/index/main'
               })
-                
             }else{
               //还是无网络留在此页面
               setTimeout(() => {
@@ -54,7 +54,7 @@
       margin: 146rpx 0 28rpx 0;
     }
     .error_text{
-      font-size:24rpx;
+      font-size:30rpx;
       color: #666666;
       margin-bottom: 99rpx;
     }

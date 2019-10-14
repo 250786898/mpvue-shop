@@ -8,20 +8,20 @@
         
       </van-tabs>
 
-      <van-tabs sticky @change="tabChange" :active="activeIndex" tab-active-class="tab-active-class" tab-class="tab-class" color="#11D2C8" v-if="!isCeiling">
+      <van-tabs sticky @change="tabChange" :active="activeIndex" tab-active-class="tab-active-class" :swipe-threshold="4" tab-class="tab-class" color="#11D2C8" v-if="!isCeiling">
 
         <van-tab  v-for="item in tab" :title="item.title" :key="item.pcId"></van-tab>
 
         
       </van-tabs>
 
-      <div class="goods-recommend__bd">
+      <div class="goods-recommend__bd" :class="{'ceiling-goods-list' : isCeiling}">
         <template v-for="item in goodsList">
           <base-goods-card :item="item" :key="item.id" />
         </template>
          <EmptyGoods v-if="goodsList.length == 0 && !loading"/>
          <!-- 加载更多 -->
-        <lj-loading v-if="!isAllLoaded && loading"/>
+        <lj-loading v-if="!isAllLoaded && loading" />
         <div class="goods-tabs__tip" v-if="isAllLoaded && goodsList.length">亲,已经看到最后啦！</div>
       </div>
 
@@ -76,18 +76,27 @@
           },
           {
             pcId: 10,
-            title: '即将开抢 '
+            title: '即将开抢'
           },
 
           {
             pcId: 31,
-            title: '待提货',
-            deliveryType: 1
+            title: '内容3',
+
           },
           {
             pcId: 31,
-            title: '待核销',
-            deliveryType: 2
+            title: '内容4'
+
+          },
+          {
+            pcId: 31,
+            title: '内容5'
+
+          },
+          {
+            pcId: 31,
+            title: '内容6'
           }
         ], //分类栏
         pcId: 1, //当前分类编码
@@ -144,7 +153,14 @@
 
       //切换分类
       tabChange ({ mp: { detail: { index } } }) {
-        // wx.pageScrollTo({ scrollTop: 0 })
+
+        if(this.isCeiling) {
+          //如果已经处于吸顶状态切换到初始化相对应的滚动条
+          wx.pageScrollTo({ scrollTop: 157 })
+        }
+
+        
+        
         this.activeIndex = index
         console.log('tabChange',index)
         this.pcId = this.tab[index].pcId
@@ -153,6 +169,7 @@
         this.isAllLoaded = false
         this.getGoodsClassList(this.storeId , this.pcId , this.currentPage , showPageSize)
       },
+
 
       initData(){
         this.currentPage = 1
@@ -189,6 +206,20 @@
 </script>
 
 <style lang="scss">
+@keyframes fadeInDown
+{
+    from {
+        // opacity: 0;
+        transform: translateY(-100%);
+        // transform: stranslate(0,-1000px); /* 标准语法 */
+    }
+    to {
+        // opacity:1;
+          transform: translateY(0);
+          // transform: stranslate(0,10px); /* 标准语法 */
+    }
+}
+
 //tab栏样式
 .fixed-tab{
   z-index: 10;
@@ -197,7 +228,22 @@
   top: 0;
   left: 0;
   top: 100rpx;
+  animation: fadeInDown .3s linear;
+ }
+
+// 吸顶状态下门店列表外边距增加
+.ceiling-goods-list{
+  margin-top: 0;
+  min-height: 1500rpx;
 }
+
+//  /*从上到下进入*/
+.fadeInDown {
+  animation-name: fadeInDown;  
+}
+
+
+
 .fixed-goods-list{
   z-index: 99;
   width: 100vw;
@@ -205,6 +251,7 @@
   left: 0;
   top: 188rpx;
 }
+
 .tab-class {
   color:#717171 !important;
   font-size: 26rpx !important;
@@ -214,7 +261,7 @@
 // 标签激活态样式类
 .tab-active-class{
   color:#11D2C8 !important;
-  font-size: 30rpx !important;
+  font-size: 32rpx !important;
   font-weight:800 !important;
 }
 </style>
@@ -240,7 +287,6 @@
   }
 
  .goods-recommend {
-    margin-top: 20rpx;
     width: 702rpx;
     background: #fff;
     box-sizing: border-box;
@@ -306,6 +352,7 @@
             &__bd {
               padding-left: 10rpx;
               padding-right: 10rpx;
+
               width: 100%;
               box-sizing: border-box;
             }

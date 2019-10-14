@@ -12,7 +12,7 @@
           v-for="item in bannerList"
           :key="item.activityId"
         >
-          <img :src="item.bannerUrl" class="slide-image" mode="scaleToFill" />
+          <img :src="item.bannerUrl" class="slide-image" mode="aspectFit" />
 
         </swiper-item>
 
@@ -27,17 +27,27 @@ export default {
       type: Array,
       default: () => ([])
     }
+  },
+  data () {
+    return {
+      swiperHeight: 390 //轮播图高度
+    }
+  },
+  computed: {
+    swiperHeightStyle() { 
+      return this.swiperHeight ? `height: ${ this.swiperHeight }rpx;` : ''
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .swiper-wrap {
-  width: 100%;
+  width: 750rpx;
 }
 
 .swiper img {
-  width: 100%;
-  height: 100%;
+  width: 750rpx;
+  height: 390rpx;
 }
 </style>

@@ -2,12 +2,13 @@
   <div class="goods-row-item">
     <navigator
       :url="'/pages/goods/detail/main?id=' + item.id+ '&activityId=' + (item.activityId || '') + '&activityGoodsId=' + (item.id || '')"
-      class="weui-media-box weui-media-box_appmsg"
+      class="weui-media-box weui-media-box_appmsg goods-card"
       hover-class="weui-cell_active"
       >
       <div class="weui-media-box__hd weui-media-box__hd_in-appmsg">
         <img class="weui-media-box__thumb" :src="item.goodsImage" mode="aspectFit"/>
         <img :src="item.goodsTagImage" class="marker" v-if="item.goodsTagStatus == 1">
+        <div class="sell-out-icon" v-if="isSellOut">已抢光</div>
       </div>
 
       <div class="weui-media-box__bd weui-media-box__bd_in-appmsg">
@@ -27,7 +28,9 @@
           </div>
           <form report-submit="true" @submit="uploadFormId" v-else> 
             <button hover-class="none" form-type="submit" class="hiddenBtn" @click.stop="addToCart(item.id)">
-              <img src="/static/images/common_btn_shopcart_small.png@2x.png" class="icon-cart" @click.stop="addToCart(item.id)">
+              <img src="/static/images/common_btn_shopcart_sellout.png@2x.png.png" class="icon-cart"  v-if="isSellOut">
+              <img src="/static/images/common_btn_shopcart_small.png@2x.png" class="icon-cart" @click.stop="addToCart(item.id)" v-else
+              >          
             </button>
           </form> 
           
@@ -37,6 +40,7 @@
       <div class="xian"></div>
       
     </navigator>
+    <div class="sell-out-mask" v-if="isSellOut"></div>
   </div>
 </template>
 
@@ -55,9 +59,8 @@
         type: Object,
         default: () => ({})
       },
-      // isMultiDesc
-      // 是否热销
-      isHot: {
+      // 是否抢光
+      isSellOut: {
         type: Boolean,
         default: false
       }
@@ -118,6 +121,43 @@ onLoad(){
 </script>
 
 <style lang="scss" scoped>
+
+  // 已抢购相关样式
+  .sell-out-card{
+    background:rgba(253,253,253,1);
+    opacity:0.5;
+  }
+
+  .sell-out-mask{
+    background:rgba(253,253,253,1);
+    opacity:0.5;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+
+  .sell-out-icon{
+    width:140rpx;
+    height:140rpx;
+    line-height: 140rpx;
+    text-align: center;
+    background:rgba(0,0,0,1);
+    border-radius:50%;
+    color: $white-color;
+    font-size: 28rpx;
+    position: absolute;
+    top: 15rpx;
+    left: 45rpx;
+    opacity:0.6;
+    z-index: 8;
+  }
+
+  .goods-card{
+  }
+
   .counter{
     position: absolute;
     top:160rpx;

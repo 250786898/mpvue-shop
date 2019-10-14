@@ -36,7 +36,11 @@
     "pages/pickup/index/main",
     "pages/pickup/detail/main",
     "pages/pickup/instruction/main",
-    "pages/network/exceptions/main"
+    "pages/network/exceptions/main",
+    "pages/coupon/index/main",
+    "pages/coupon/shop/main",
+    "pages/coupon/goods/main",
+    "pages/coupon/qrcode/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -55,7 +59,7 @@
         "iconPath": "/static/images/homee_icon.png",
         "selectedIconPath": "static/images/home_icon.png"
       },
-   
+
       {
         "pagePath": "pages/cart/main",
         "text": "购物车",

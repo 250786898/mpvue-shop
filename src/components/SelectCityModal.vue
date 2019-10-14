@@ -4,7 +4,7 @@
   <div class="city-modal">
     <div class="city-modal__hd">
       <img src="/static/images/common_icon_greenlocation@2x.png">
-      <span>已开通服务城市</span>
+      <span>已开通服务城市{{cityName}}</span>
     </div>
     <div class="city-modal__bd">
       <div class="weui-flex">
@@ -24,6 +24,10 @@
       return {
         cities: ['广州市', '深圳市', '东莞市', '佛山市', '中山市', '珠海市']
       }
+    },
+
+    computed: {
+      ...mapState(['cityName'])
     },
 
 

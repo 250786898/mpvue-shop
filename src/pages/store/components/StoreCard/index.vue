@@ -4,7 +4,7 @@
     <div class="card-main">
       <div class="card-main-top">
         <h3 class="store-name">{{item.storeName}} </h3>
-        <span class="distance" v-if="showDistance && item.storeDistance">距离{{item.storeDistance}}km</span>
+        <span class="distance" v-if="showDistance && item.storeDistance">距离{{storeDistance}}</span>
       </div>
       <div class="card-main-content">
         <p class="detail-address">{{item.storeAddress}}</p>
@@ -12,7 +12,7 @@
         <div class="phone-box">
           <span class="phone">电话：{{item.franchiseeTel}}</span>
         </div>
-        
+
       </div>
       <img src="/static/images/arrows.png" class="arrows" alt="">
     </div>
@@ -44,6 +44,11 @@ export default {
     }
 
   },
+  computed: {
+    storeDistance () {
+      return this.item.storeDistance < 1 ? this.item.storeDistance * 1000 + 'm' : `${this.item.storeDistance}km`
+    }
+  },
   methods: {
     /**
      * @description 选择门店
@@ -69,9 +74,9 @@ export default {
               delta: 1
              })
           }
-         
-        })     
-      }   
+
+        })
+      }
     },
   }
 }
@@ -83,19 +88,21 @@ export default {
 }
 .card{
   display: flex;
-  padding: 50rpx 0;
+  padding: 30rpx 0;
   background: #ffffff;
   position: relative;
+  z-index: 9;
   .store-logo{
     width:80rpx;
     height:80rpx;
     border-radius:50%;
-    margin:0 21rpx 0 18rpx;
+    margin:0 21rpx 0 0rpx;
   }
   &-main{
     display: flex;
     flex-direction: column;
-    width: 452rpx;
+    width: 100%;
+    flex: 1;
     &-top{
       display: flex;
       justify-content: space-between;
@@ -115,7 +122,7 @@ export default {
     .card-main-content{
       font-size: 28rpx;
       color: #7F7F7F;
-      margin-top: 25rpx;
+      margin-top: 10rpx;
       line-height: 38rpx;
       .phone-box{
         display: flex;

@@ -28,6 +28,6 @@ export default {
   background: #0FD7C0;
   border-radius:50%;
   position: absolute;
-  top: -500rpx;
+  top: -565rpx;
 }
 </style>

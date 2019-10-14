@@ -9,7 +9,7 @@
     <div class="city-modal__bd">
       <div class="weui-flex">
         <div class="weui-flex__item" v-for="item in cities" @click="select(item)">
-          <div class="tag">{{ item }}</div>
+          <div class="tag" :class="{'active-tag' : item == cityName }">{{ item }}</div>
         </div>
       </div>
     </div>
@@ -24,6 +24,10 @@
       return {
         cities: ['广州市', '深圳市', '东莞市', '佛山市', '中山市', '珠海市']
       }
+    },
+
+    computed: {
+      ...mapState(['shopDetail','cityName'])
     },
 
 
@@ -84,5 +88,9 @@
     border-radius: 32rpx;
     color: #333;
     text-align: center;
+  }
+  .active-tag{
+    background-color: $theme-color;
+    color: $text-white;
   }
 </style>
