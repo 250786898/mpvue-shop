@@ -1,6 +1,6 @@
 <template>
   <div class="cart">
-    <img src="/static/images/carticon.png" class="empty-icon">
+    <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/carticon.png" class="empty-icon">
       <div class="empty-tip__text_main">购物车为空</div>
       <div class="empty-tip__text">赶紧去慰劳一下自己吧</div>
       <button type="primary" class="radius" @click="toIndex">
@@ -34,7 +34,7 @@ export default {
   padding-top: 124rpx;
   .empty-icon{
     width: 380rpx;
-    height: 260rpx; 
+    height: 260rpx;
   }
   .empty-tip__text{
     color: #CCCCCC;
@@ -55,5 +55,5 @@ export default {
     font-size: 32rpx;
   }
 }
-    
+
 </style>

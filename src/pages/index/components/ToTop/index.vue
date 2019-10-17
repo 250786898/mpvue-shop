@@ -1,8 +1,8 @@
 <template>
   <div  class="returntop">
-    <img src="/static/images/home_btn_top@2x.png" v-if="backToTopButtonShowed" @click="returnTop">
+    <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/home_btn_top@2x.png" v-if="backToTopButtonShowed" @click="returnTop">
   </div>
-  
+
 </template>
 
 <script>

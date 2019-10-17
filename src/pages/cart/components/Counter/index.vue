@@ -1,9 +1,9 @@
 <template>
   <div class="counter">
-    <img  src="/static/images/common_icon_reduce_s.png@2x.png" @click.stop="minus">
+    <img  src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_icon_reduce_s.png@2x.png" @click.stop="minus">
     <span>{{ count || '1' }}</span>
-    <img v-if="plusDisabled" src="/static/images/common_icon_addto_n.png@2x.png">
-    <img v-else src="/static/images/common_icon_addto.png@2x.png" @click.stop="plus">
+    <img v-if="plusDisabled" src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_icon_addto_n.png@2x.png">
+    <img v-else src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_icon_addto.png@2x.png" @click.stop="plus">
   </div>
 </template>
 
@@ -36,7 +36,7 @@
       prop: 'count',
       event: 'change'
     },
-    
+
 
     computed: {
       plusDisabled() { //最大值禁用
@@ -65,7 +65,7 @@
             return false
         }else{
             this.$emit('change', this.count - 1)
-        }   
+        }
       }
     }
   }

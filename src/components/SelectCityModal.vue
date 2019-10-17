@@ -3,7 +3,7 @@
 <template>
   <div class="city-modal">
     <div class="city-modal__hd">
-      <img src="/static/images/common_icon_greenlocation@2x.png">
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_icon_greenlocation@2x.png">
       <span>已开通服务城市{{cityName}}</span>
     </div>
     <div class="city-modal__bd">
@@ -33,16 +33,16 @@
 
     methods: {
       select(item) {
-        
+
         // this.cityname = this.$store.state.cityName
         //   Api.index.storeList({
-           
+
         //     city: this.cityname
         //   })
         //   .then(res => {
         //     console.log('8888',res)
         //   })
-        
+
         this.$store.commit('setcityname',item)
         this.$emit('select')
       }

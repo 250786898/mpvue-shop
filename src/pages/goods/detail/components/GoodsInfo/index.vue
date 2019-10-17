@@ -1,14 +1,14 @@
 <template>
   <div class="good-buy-bar">
-      <img src="/static/images/goods-detail-bar__bg.png" alt="" class="good-buy-bar__bg">
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/goods-detail-bar__bg.png" alt="" class="good-buy-bar__bg">
      <div class="price-box">
        <span class="current-price"  v-if="currentPrice">￥{{currentPrice}}</span>
        <span class="original-price" v-if="originalPrice">￥{{originalPrice}}</span>
-     </div>  
+     </div>
       <div class="end-time-box" v-if="endTime">
         <div class="end-time-box__title">距离结束时间</div>
         <countdowner :countdown="countDown"></countdowner>
-      </div>  
+      </div>
   </div>
 </template>
 
@@ -59,7 +59,7 @@ export default {
       width: 100%;
       height: 100%;
     }
-    .current-price{    
+    .current-price{
       font-weight:bold;
       font-size: 72rpx;
     }

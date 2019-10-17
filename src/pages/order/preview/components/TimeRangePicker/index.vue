@@ -118,14 +118,14 @@
       data(v) {
         this.list = v.map(item => {
           let json = Object.assign({}, item)
-          
+
           if(json.title.includes('-')){
             let ite = json.title.split('-')
-            json.title = `${ite[1]}-${ite[2]}`  
+            json.title = `${ite[1]}-${ite[2]}`
           }
           console.log('json',json)
 
-                 
+
           return json
         })
       }

@@ -3,7 +3,7 @@
   <div class="weui-search-bar">
     <div class="weui-search-bar__form" @click="toSearch">
       <div class="weui-search-bar__box">
-        <img src="/static/images/common_nav_icon_serve.n@2x.png" />
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_nav_icon_serve.n@2x.png" />
         <input
           type="text"
           class="weui-search-bar__input"
@@ -14,7 +14,7 @@
         />
       </div>
     </div>
- 
+
   </div>
 </template>
 <script>
@@ -30,7 +30,7 @@ export default {
       type: Boolean,
       default: true
     },
-    
+
   },
 
   data() {
@@ -39,11 +39,11 @@ export default {
     };
   },
   created() {
- 
+
   },
 
   methods: {
-   
+
 
     toSearch() {
       wx.navigateTo({
@@ -54,12 +54,12 @@ export default {
  created(){
     this.storeName = this.$store.state.shopDetail.storeName;
     console.log('created',this.storeName)
-  
+
  },
 
 
   onShow() {
-   
+
     this.storeName = this.$store.state.shopDetail.storeName;
     console.log('kkk',this.storeName)
   }

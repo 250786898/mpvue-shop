@@ -2,7 +2,7 @@
   <div>
     <!-- TODO: Search -->
     <div class="weui-cells__title">
-      <img src="/static/images/common_icon_greenlocation@2x.png">
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_icon_greenlocation@2x.png">
       附近自提门店
     </div>
     <div class="weui-cells weui-cells_pure" v-if="storeList.length">
@@ -13,7 +13,7 @@
           <p>门店营业时间: 8:00 - 20:00</p>
         </div>
         <div class="weui-cell__ft">
-          <img src="/static/images/common_icon_greenlocation@2x.png">
+          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_icon_greenlocation@2x.png">
           <div>{{ item.storeDistance }}km</div>
         </div>
       </div>

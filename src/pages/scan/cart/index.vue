@@ -37,10 +37,10 @@
         <div class="weui-cell__ft weui-cell__ft_in-access">未使用优惠券</div>
       </div>
     </div>
-    
+
     <!-- 总额 -->
     <lj-form-preview :items="bills"></lj-form-preview>
-    
+
     <payways></payways>
 
     <div class="scan-input-entry">
@@ -48,7 +48,7 @@
         扫不出来？试试<span>输入条形码</span>
       </navigator>
     </div>
-  
+
     <div class="footer-bar">
       <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/scancodepurchase_btn_scan@2x.png" @click="scan">
       <span>合计：</span>
@@ -80,12 +80,12 @@
           {
             name: '微信支付',
             checked: true,
-            icon: '/static/images/common_icon_wechat@2x.png'
+            icon: 'https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_icon_wechat@2x.png'
           },
           {
             name: '会员卡支付(剩余：￥0.00）',
             checked: false,
-            icon: '/static/images/common_icon_vip@2x.png'
+            icon: 'https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_icon_vip@2x.png'
           }
         ]
       }
@@ -204,7 +204,7 @@
       }
     }
   }
-  
+
   .footer-bar {
     padding: 15rpx 30rpx;
     background-color: #fff;

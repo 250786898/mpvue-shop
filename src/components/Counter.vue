@@ -1,10 +1,10 @@
 <template>
   <div class="counter">
-    <img v-if="minusDisabled" src="/static/images/common_icon_reduce_n.png@2x.png">
-    <img v-else="minusDisabled" src="/static/images/common_icon_reduce_s.png@2x.png" @click.stop="minus">
+    <img v-if="minusDisabled" src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_icon_reduce_n.png@2x.png">
+    <img v-else="minusDisabled" src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_icon_reduce_s.png@2x.png" @click.stop="minus">
     <span>{{ count }}</span>
-    <img v-if="plusDisabled" src="/static/images/common_icon_addto_n.png@2x.png">
-    <img v-else src="/static/images/common_icon_addto.png@2x.png" @click.stop="plus">
+    <img v-if="plusDisabled" src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_icon_addto_n.png@2x.png">
+    <img v-else src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_icon_addto.png@2x.png" @click.stop="plus">
   </div>
 </template>
 

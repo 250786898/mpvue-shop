@@ -2,7 +2,7 @@
 <div v-if="shown" class="popup">
   <div class="mask"></div>
    <div class="popnp">
-    <img src="/static/images/popnp.png">
+    <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/popnp.png">
     <p class="confirm"  @click="confirm">确定</p>
   </div>
 </div>
@@ -26,7 +26,7 @@
       },
     },
      methods: {
-      confirm(){ 
+      confirm(){
         wx.navigateTo({
           url:`/pages/order/index/main?status=${ORDER_STATE.FINISHED}`
         })
@@ -84,6 +84,6 @@
       color:#999;
       text-align:center;
     }
-   
+
   }
 </style>

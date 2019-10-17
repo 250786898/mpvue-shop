@@ -2,21 +2,21 @@
   <div class="weui-cells">
     <!-- <div class="weui-cell weui-cell_access" @click="setPassword">
       <div class="weui-cell__hd">
-        <img src="/static/images/setting_icon_membershipcard@2x.png">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/setting_icon_membershipcard@2x.png">
       </div>
       <div class="weui-cell__bd">会员卡支付密码</div>
       <div class="weui-cell__ft weui-cell__ft_in-access"></div>
     </div> -->
     <!-- <navigator url="/pages/address/list/main" class="weui-cell weui-cell_access">
       <div class="weui-cell__hd">
-        <img src="/static/images/setting_icon_location@2x.png">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/setting_icon_location@2x.png">
       </div>
       <div class="weui-cell__bd">收货地址</div>
       <div class="weui-cell__ft weui-cell__ft_in-access"></div>
     </navigator> -->
     <navigator url="/pages/mine/info/main" class="weui-cell weui-cell_access">
       <div class="weui-cell__hd">
-        <img src="/static/images/setting_icon_member@2x.png">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/setting_icon_member@2x.png">
       </div>
       <div class="weui-cell__bd">用户信息</div>
       <div class="weui-cell__ft weui-cell__ft_in-access"></div>

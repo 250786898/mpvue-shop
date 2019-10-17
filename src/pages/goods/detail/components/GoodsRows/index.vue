@@ -4,7 +4,7 @@
       <goods-item v-for="item in goods" :key="item.goodsId" :item="item"></goods-item>
       <div class="more" v-if="goods.length > 4 && showMore" @click="loadMore"
         hover-class="navigator-hover">
-        <!-- <img src="/static/images/left_arrow.png"> -->
+        <!-- <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/left_arrow.png"> -->
         <!-- <div class="more__text">点<br>击<br>查<br>看<br>更<br>多</div> -->
       </div>
     </div>
@@ -13,7 +13,7 @@
 
 <script>
   import GoodsItem from '../GoodsItem/index'
-  
+
   export default {
     components: {
       GoodsItem

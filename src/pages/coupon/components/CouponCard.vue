@@ -36,7 +36,7 @@
       <div class="coupon-card__buttom">
         <div class="coupon-desc">指定部分商品及门店适用</div>
       </div>
-      <img src="/static/images/used-coupon-icon.png" class="used-coupon-icon" alt="">
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/used-coupon-icon.png" class="used-coupon-icon" alt="">
     </div>
   </div>
 </template>

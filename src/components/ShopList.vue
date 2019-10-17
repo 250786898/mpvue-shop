@@ -8,7 +8,7 @@
         </div>
         <div class="weui-cell__ft">
           <div class="shop-distance">
-            <img src="/static/images/common_icon_greenlocation@2x.png">
+            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_icon_greenlocation@2x.png">
             <div>{{item.storeDistance}}公里</div>
           </div>
         </div>
@@ -54,7 +54,7 @@
     &-distance {
       font-size: 26rpx;
       text-align: center;
-      color: $text-gray;      
+      color: $text-gray;
       img {
         vertical-align: middle;
         width: 50rpx;
@@ -63,7 +63,7 @@
       }
     }
   }
-  
+
   .weui-cell__bd {
     padding-right: 80rpx;
   }

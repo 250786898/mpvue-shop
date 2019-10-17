@@ -8,8 +8,8 @@
     </div>
     <div class="no-store-tip">抱歉，您附近没有更多门店</div>
   </div>
-  
-   
+
+
 </template>
 
 <script>
@@ -28,8 +28,8 @@ export default {
     },
     lastRouter:{ //上一个路由名称
       type: String,
-      default: '123'
-    } 
+      default: ''
+    }
   },
   methods: {
     /**

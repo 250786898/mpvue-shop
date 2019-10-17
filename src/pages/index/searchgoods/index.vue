@@ -25,13 +25,13 @@
       </div>
       <div class="weui-search-bar__cancel-btn" :hidden="!inputShowed" @click="hideInput">取消</div>
       <navigator open-type="switchTab" url="/pages/cart/main" class="cartentry" :hidden="inputShowed || !resultShowed">
-        <img src="/static/images/common_tab_icon_shopcart_n@2x.png">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_tab_icon_shopcart_n@2x.png">
         <span class="weui-badge" style="position: absolute;top: -.4em;right: -.4em;">
           {{ cartNum }}
         </span>
       </navigator>
     </div>
-    
+
     <!-- 热门搜索、历史搜索 -->
     <div v-if="inputShowed || !resultShowed">
       <div class="tag-block">
@@ -43,7 +43,7 @@
       <div class="tag-block">
         <div class="tag-block__title">
           搜索历史
-          <img class="tag-block__title__icon" src="/static/images/search_icon_delete@2x.png" @click="clearSearchHistory()">
+          <img class="tag-block__title__icon" src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/search_icon_delete@2x.png" @click="clearSearchHistory()">
         </div>
         <div class="tag-block__bd">
           <span v-for="item in histories" :key="item" @click="search(item)">{{ item }}</span>
@@ -54,7 +54,7 @@
     <!-- 搜索结果 -->
     <div v-else>
       <goods-row-item v-for="item in goodsList" :item="item" :key="item.goodsId"></goods-row-item>
-      <empty v-if="goodsList.length == 0"></empty>  
+      <empty v-if="goodsList.length == 0"></empty>
     </div>
 
     <!-- 搜索结果模态窗 -->
@@ -107,8 +107,8 @@
        */
       getGoodsSearch () {
         console.log('search')
-        Api.goods.goodsSearch({ 
-          storeId: this.storeId, 
+        Api.goods.goodsSearch({
+          storeId: this.storeId,
           keyword: this.searched
          }).then( res => {
            if(res.code == Api.CODES.SUCCESS) {
@@ -146,7 +146,7 @@
           }
         }, 500)
       },
-      
+
       clearInput() {
         this.inputVal = ''
         this.recommends.length = 0
@@ -188,7 +188,7 @@
           data: this.histories
         })
       },
-      
+
       clearSearchHistory() {
         wx.showModal({
           content: '是否清空商品搜索历史记录',
@@ -326,7 +326,7 @@
     left: 30rpx;
     top: 18rpx;
   }
-  
+
   .cartentry {
     position: relative;
     padding-left: 28rpx;

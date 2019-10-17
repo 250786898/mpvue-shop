@@ -1,6 +1,6 @@
 <template>
   <navigator url="/pages/index/main" open-type="switchTab" class="fixed-cart-icon">
-    <img src="/static/images/home-icon.png">
+    <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/home-icon.png">
     <!-- <span class="weui-badge">{{cartNum}}</span> -->
   </navigator>
 </template>

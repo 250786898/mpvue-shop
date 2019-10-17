@@ -1,16 +1,16 @@
 <template>
   <div class="container">
-    <img src="/static/images/signin_bg_logo_big@2x.png" class="logo">
+    <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/signin_bg_logo_big@2x.png" class="logo">
     <div class="auth-desc">乐家生鲜</div>
 
     <div class="button-bar">
       <form report-submit @submit="uploadFormId">
         <button type="primary" form-type="submit" open-type="getPhoneNumber" @getphonenumber="getPhoneNumber" hover-class="button-hover">
-          <img src="/static/images/signin_icon_wechat@2x.png" class="icon-wx">
+          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/signin_icon_wechat@2x.png" class="icon-wx">
           微信用户手机号授权快捷登录
         </button>
-      </form> 
-      
+      </form>
+
       <!-- <button type="primary" @click="toRegister" :plain="true" hover-class="button-hover"> -->
         <!-- TODO: 图标缺失 -->
         <!-- <img src="/static/images" class="icon-phone"> -->
@@ -55,8 +55,8 @@
               console.log('vuex登录Action设置',res)
               const storeId = res.data.storeId
               if(storeId) {
-                this.$store.commit('setStoreId',res.data.storeId) 
-              }       
+                this.$store.commit('setStoreId',res.data.storeId)
+              }
             }
           })
         },
@@ -80,7 +80,7 @@
                   this.login({
                     openid: res.data.openid,
                     mobile: res.data.mobile,
-                    
+
                   })
                 }
               })
@@ -94,7 +94,7 @@
             }
           })
 
-        
+
         } else if (detail.errMsg !== 'getPhoneNumber:获取手机号失败') {
           // wx.showModal({
           //   title: '获取手机号码失败',
@@ -122,7 +122,7 @@
           avatar: this.wxUserInfo.avatarUrl,
           formId: this.formId,
         })
-        .then(res => {       
+        .then(res => {
           this.$store.dispatch('login', res.data.sessionId)
           Api.user.personCenter().then(res => {
             console.log(res)
@@ -137,7 +137,7 @@
           })
           // this.$store.commit('setSessionId', res.data.sessionId)
 
-    
+
           // wx.switchTab({ url: '/pages/mine/main' })
 
         })
@@ -147,7 +147,7 @@
     },
 
     onLoad() {
-      
+
       wx.login({
         success: ({ code }) => {
           this.code = code
@@ -186,7 +186,7 @@
         }
       }
     }
-    
+
     .logo {
       display: block;
       width: 150rpx;
@@ -195,7 +195,7 @@
       border-radius: 50%;
       box-shadow: 0px 0px 8rpx #B5A8A8;
     }
-  }  
+  }
   .icon-wx,
   .icon-phone {
     margin-right: 10rpx;

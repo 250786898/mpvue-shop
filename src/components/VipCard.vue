@@ -13,7 +13,7 @@
       </div>
       <div class="weui-cell__ft" @click="showIntroductionDialog">
         乐享卡VIP权益说明
-        <img src="/static/images/membershipcode_icon_explain@2x.png">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/membershipcode_icon_explain@2x.png">
       </div>
     </div>
     <div class="guoqi-timer" v-if="personCenter.vipState ==1 || personCenter.vipState == 2">{{vipInfo.vipEndTime}} 会员到期</div>

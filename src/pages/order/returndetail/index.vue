@@ -1,19 +1,19 @@
 <template>
   <div>
-    <!-- 
+    <!--
           1为待审核,2服务端审核确认,3拣货员已验货上传图片,4为服务端同意退款,5(对应2)为服务端审核拒绝, 6(对应4)服务端拒绝退款,7为退款完成 8-已取消 100已关闭 默认为 -->
     <div  style="position: relative; margin-bottom:24rpx;z-index:10" class="order-status bg-gradient">
       <!-- 待审核、审核确认 -->
       <div class="order-status-desc">
-        <template v-if="detail.state === 1">您已成功申请退款,请等待商家处理</template>  
-        
-        <template v-else-if="detail.state === 2">请将退货商品退还给门店</template>     
-        <template v-else-if="detail.state === 3">请等待商家处理</template>           
+        <template v-if="detail.state === 1">您已成功申请退款,请等待商家处理</template>
+
+        <template v-else-if="detail.state === 2">审核确认</template>
+        <template v-else-if="detail.state === 3">已验货</template>
         <!-- 同意 -->
-        <template v-else-if="detail.state === 4">商家已同意退款</template>           
-        <template v-else-if="detail.state === 5">审核拒绝</template>                
+        <template v-else-if="detail.state === 4">商家已同意退款</template>
+        <template v-else-if="detail.state === 5">审核拒绝</template>
         <!-- 不同意 -->
-        <template v-else-if="detail.state === 6">商家已拒绝退款</template>           
+        <template v-else-if="detail.state === 6">商家已拒绝退款</template>
         <!-- 退款成功 -->
         <div style="z-index:10;" v-else-if="detail.state === 7">
           <p style="margin-left:24rpx;">退款成功</p>
@@ -23,10 +23,10 @@
         <template v-else-if="detail.state === 100">已关闭退款申请</template>
       </div>
 
-      <img class="BackImg" src="/static/images/background_icon.png" alt="">
+      <img class="BackImg" src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/background_icon.png" alt="">
 
     </div>
-    
+
     <!-- 退款成功 -->
     <div class="weui-cells weui-cells_no-border order-cells return-info" style="margin-top: 0;position: relative;" >
       <!-- TODO: 后端返回字段不完整 -->
@@ -63,9 +63,9 @@
             </div>
           </div>
         </div>
-        
 
-        
+
+
         <div class="weui-cell return-info__sep return-info__combine">
           <div class="weui-cell__bd">退回优惠券</div>
           <div class="weui-cell__ft">￥{{ detail.refundCouponAmount }}</div>
@@ -74,15 +74,14 @@
           <div class="weui-cell__bd">退回积分</div>
           <div class="weui-cell__ft">{{ detail.refundPoint }}</div>
         </div>
-        
+
       </template>
-      <navigator :url="'/pages/order/consult/main?id=' + detail.refundId" class="weui-cell weui-cell_access consult-box">
+      <navigator :url="'/pages/order/consult/main?id=' + detail.refundId" class="weui-cell weui-cell_access">
         <div class="weui-cell__bd">协商历史</div>
-        <div class="red-dot"></div>
         <div class="weui-cell__ft weui-cell__ft_in-access"></div>
       </navigator>
     </div>
-  
+
     <!-- TODO: -->
     <!--
     <div class="weui-cells weui-cells_no-border order-cells return-info" v-if="detail.state === 4">
@@ -92,7 +91,7 @@
       </navigator>
     </div>
     -->
-  
+
     <div class="weui-panel goods-list-panel">
       <div class="weui-panel__bd">
         <url v-for="item in detail.shopRefundGoodses"
@@ -120,7 +119,7 @@
         </url>
       </div>
     </div>
-    
+
     <div class="weui-form-preview">
       <div class="weui-form-preview__bd">
         <div class="weui-form-preview__item">
@@ -143,7 +142,7 @@
         </div>
       </div>
     </div>
-    
+
     <!-- Footer Start -->
     <div class="footer-bar">
       <!-- 待审核、已审核 -->
@@ -271,15 +270,6 @@
       top:95rpx;
       left:0rpx;
   }
-  .red-dot{
-    background: red;
-    left: 140rpx;
-    top: 20rpx;
-    width: 20rpx;
-    height: 20rpx;
-    position: absolute;
-    border-radius: 50%;
-  }
  .BackImg{
     width: 702rpx;
     height: 196rpx;
@@ -398,7 +388,7 @@
       height: 502rpx;
     }
   }
-  
+
   .order-countdown {
     position: absolute;
     left: 50%;

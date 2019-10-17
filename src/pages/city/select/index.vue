@@ -3,7 +3,7 @@
 <template>
   <div class="city-modal">
     <div class="city-modal__hd">
-      <img src="/static/images/common_icon_greenlocation@2x.png">
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_icon_greenlocation@2x.png">
       <span>已开通服务城市</span>
     </div>
     <div class="city-modal__bd">
@@ -22,12 +22,16 @@
   export default {
     data() {
       return {
-        cities: ['广州市', '深圳市', '东莞市', '佛山市', '中山市', '珠海市']
+        cities: [] //开通服务的城市列表
       }
     },
 
     computed: {
       ...mapState(['shopDetail','cityName'])
+    },
+
+    mounted () {
+      this.getServiceCity()
     },
 
 
@@ -39,6 +43,17 @@
         this.$store.commit('setcityname',item)
         wx.navigateTo({
           url: '/pages/store/select/main',
+        })
+      },
+
+      /**
+       * @description 获取服务城市列表
+       */
+      getServiceCity () {
+        Api.index.getServiceCity().then(res => {
+          if(res.code === Api.CODES.SUCCESS) {
+            this.cities = res.data.cityList
+          }
         })
       }
     }

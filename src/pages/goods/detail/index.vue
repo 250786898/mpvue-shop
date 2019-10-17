@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="goodsDetailInfo">
     <!-- Swiper -->
     <DetailSwiper :bannerList="goodsDetailInfo.goodsBanner" />
 
@@ -13,7 +13,7 @@
 
 
     <!-- Type start: 提货时间 -->
-    <pickup-timer />
+    <!-- <pickup-timer /> -->
 
     <!-- Type end; -->
 
@@ -90,20 +90,14 @@
       }
     },
 
-    onLoad(e) {
-      // this.hidePopup()
-      // this.setStoreId()
-    },
 
     onShow () {
-      // this.setStore()
-      // this.goodsDetailInfo = {}
-      // this.commendGoodsList = []
-      // this.getDetail()
+      this.goodsDetailInfo = {} //初始化商品详情信息
     },
 
     async mounted () {
-      console.log('mounted',this.$mp.page.options.shareStoreId)
+      Object.assign(this.$data, this.$options.data()) //解决mpvue初始化未清空状态问题
+      console.log('goodDetailmounted',this.$mp.page.options.shareStoreId)
        this.hidePopup()
        this.saveGoodsDetailOptions()
        const shareStoreId = this.$mp.page.options.shareStoreId
@@ -137,7 +131,7 @@
       return {
         title: this.goodsDetailInfo.goodsName,
         path: `/pages/goods/detail/main?${options}`,
-        imageUrl: this.shareImg
+        imageUrl: this.goodsDetailInfo.goodsImage
       }
     },
 
@@ -160,7 +154,7 @@
       const path = await this.getLocationImg(goodsImgUrl)
       console.log('path',path)
       ctx.drawImage( path , 20 , 0, 140, 140)
-      ctx.drawImage( '/static/images/goods-detail-bar__bg.png' , 0, 140, 200, 40)
+      ctx.drawImage( 'https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/goods-detail-bar__bg.png' , 0, 140, 200, 40)
       ctx.setFillStyle('white')
       ctx.setFontSize(20)
       ctx.fillText( `￥${this.goodsDetailInfo.onlinePrice}`, 30 , 160, 100, 100)

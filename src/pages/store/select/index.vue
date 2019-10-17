@@ -5,13 +5,13 @@
     <current-store :item="currentStoreInfo" v-if="storeId || shareStoreId" />
     <current-location />
     <nearby-stores :store-list="nearbyStoreList" :last-router="lastRouter" v-if="nearbyStoreList && nearbyStoreList.length" :isCurrentLocateCity="isCurrentLocateCity" />
-    <page-loading  :show="showPageLoading"/> 
+    <page-loading  :show="showPageLoading"/>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import { Api } from '@/http/api' 
+import { Api } from '@/http/api'
 import TopBg from "./components/TopBg/index"
 import SearchStore from "./components/SearchStore/index"
 import CurrentStore from "./components/CurrentStore/index"
@@ -47,9 +47,9 @@ export default {
     },
   },
   mounted (e) {
-    console.log('smounted')
     const routerName = this.$mp.page ? this.$mp.page.options.router : ''
     this.setLastRouter(routerName)
+    console.log('slectMounted',this.$mp.page.options.router )
     this.initLoadStoreData()
   },
 
@@ -74,7 +74,7 @@ export default {
 
      /**
      * @description 获取附近门店列表信息Promise
-     */ 
+     */
      getStoreListPromise() {
        return Api.index.storeList({
          latitude: this.location.latitude,
@@ -87,13 +87,13 @@ export default {
      /**
       * @param {string} cityName 城市名
       * @description 设置城市名字
-      *  */ 
+      *  */
      setCityName (cityName) {
        if(!this.cityName) {
          this.$store.commit('setcityname',cityName) //第一次获取当前定位城市
        }
      },
-    
+
      /**
       * @param {object} currentStoreInfo 当前城市相关信息
       * @description 设置当前城市
@@ -106,7 +106,7 @@ export default {
       * @param {array} nearbyStoreList 附近门店列表
       * @description 设置附近门店
       *  */
-     setNearbyStoreList (nearbyStoreList) { 
+     setNearbyStoreList (nearbyStoreList) {
        console.log('2',nearbyStoreList)
        console.log('isCurrentLocateCity',this.isCurrentLocateCity)
        switch(this.isCurrentLocateCity) {
@@ -119,7 +119,7 @@ export default {
          break
        }
      },
-    
+
     /**
      * @description 处于定位当前城市，两种情况
      */
@@ -127,7 +127,7 @@ export default {
 
        let storeList = [] //过滤后返回的附近门店列表
        storeList = nearbyStoreList.filter(item => {
-         return item.storeDistance <= 10 
+         return item.storeDistance <= 10
        })
        console.log('setNearbyStoreOfLocateCity',storeList)
 
@@ -150,11 +150,11 @@ export default {
        * @description 设置定位城市状态
        */
      setLocateCityStatus () {
-       
+
        console.log('this.cityName',this.cityName)
        const locateCity = this.locateCity ? this.locateCity : wx.getStorageSync('locateCity') //vuex中不存在从缓存中读取
        console.log('currentLocateCity',locateCity)
-         
+
        if(locateCity == this.cityName) { //判断当前选择的城市是定位城市
          this.isCurrentLocateCity = true
        }else{
@@ -171,31 +171,31 @@ export default {
         if(res[0].code == Api.CODES.SUCCESS && res[0].code == Api.CODES.SUCCESS ) { //两个都请求成功
           this.hidePageLoading()
 
-          
+
           const currentStoreInfo =  res[0].data.shopStore //当前门店信息
           console.log('currentStoreInfo',currentStoreInfo)
 
-          
-          
+
+
           if(currentStoreInfo) {
-            this.setCurrentStoreInfo(currentStoreInfo) //设置当前门店相关信息  
+            this.setCurrentStoreInfo(currentStoreInfo) //设置当前门店相关信息
           }
 
           this.setLocateCityStatus() //设置定位城市状态
 
           const nearbyStoreList =  res[1].data.storeList || res[1].data.cityStore //当前门店信息
-         
-         
+
+
           if(nearbyStoreList) {
-            this.setNearbyStoreList(nearbyStoreList) //设置附近门店    
+            this.setNearbyStoreList(nearbyStoreList) //设置附近门店
           }
-           
-        }     
+
+        }
       })
-  
+
     }
   }
-  
+
 }
 </script>
 

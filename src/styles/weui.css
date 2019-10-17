@@ -928,13 +928,12 @@ icon {
   height: 1px;
   border-bottom: 1rpx solid #e5e5e5;
   color: #e5e5e5;
-  left: 15px;
 }
 
 .weui-media-box {
   padding: 15px;
   position: relative;
-  
+
 }
 
 .weui-media-box:before {
@@ -946,7 +945,6 @@ icon {
   height: 1px;
   border-top: 1rpx solid #e5e5e5;
   color: #e5e5e5;
-  left: 15px;
 }
 
 .weui-media-box:first-child:before {

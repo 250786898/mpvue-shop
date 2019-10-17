@@ -88,7 +88,9 @@ export default {
       console.log('首页storeId修改了',this.storeId)
       this.updateStoreInfo() //更新门店相关信息
       this.updateStoreData() //更新新的门店数据
+      this.hidePageLoading()
       this.hideComfirmStoreDialog()
+      this.hideSelectStoreDialog()
     },
     showSelectStoreDialog: function(val) {
       if(val){
@@ -115,6 +117,11 @@ export default {
     if(shareStoreId) {
       this.setShareStoreId(shareStoreId)
     }
+    if(this.storeId){
+      this.hidePageLoading()
+      return false
+    }
+
     if(isAuthLocate) {
       //已授权确认门店
       this.authedComfirmStore()
@@ -123,17 +130,12 @@ export default {
       this.authLocateAndcomfirmStore() //授权定位并且确认门店
     }
 
-
-
   },
-
-
 
   /**
    * @description 页面向上触发事件
    */
   onReachBottom () {
-    // this.loadMoreGoodsList()
   },
 
   /**
@@ -148,6 +150,8 @@ export default {
 
    //向上刷新数据
   onPullDownRefresh() {
+    console.log('onPullDownRefresh')
+    this.returnTop()
     this.updateStoreData()
   },
 
@@ -170,12 +174,11 @@ export default {
      */
     updateStoreData() {
       this.shownPageLoading()
-      Promise.all([this.setIndexStoreData(),this.setInitGoodsClassList()]).then(res => {
-        console.log('updateStoreData',res)
+      this.setIndexStoreData().then(res => {
         this.hidePageLoading()
+        wx.stopPullDownRefresh()
       })
       // this.setIndexStoreData() //banner数据
-      // this.setInitGoodsClassList() //商品数据
     },
 
     /**
@@ -206,36 +209,6 @@ export default {
         }
       })
     },
-
-    /**
-     * @param
-     * @description 获取商品数据
-     */
-    setInitGoodsClassList() {
-      this.loading = true
-      let promise
-        promise = Api.index.topGoods({ storeId : this.storeId, pcId: '', pageNumber: 1, pageSize: PAGE_SIZE }).then(res => {
-          if(res.code == Api.CODES.SUCCESS){
-            let data = res.data
-            if(data.shopGoodsList.length > 0) {
-              this.goodsList = data.shopGoodsList
-            } else {
-              //没有可以加载的数据了，显示到底
-              this.isAllLoaded = true
-            }
-          }
-        })
-
-        promise
-        .catch(e => e)
-        .then(() => { //延迟一定时间关闭加载分类动画
-          this.loading = false
-        } )
-      return promise
-    },
-
-
-
 
     /**
      * @description 已经授权情况确认相关门店业务
@@ -647,34 +620,6 @@ export default {
      this.shownSelectStoreDialog()
     },
 
-
-    /**
-     * @param
-     * @description 获取商品数据
-     */
-    setGoodsClassList(storeId, pcId, pageNumber, pageSize) {
-      this.loading = true
-      let promise
-        promise = Api.index.topGoods({ storeId, pcId, pageNumber, pageSize }).then(res => {
-          if(res.code == Api.CODES.SUCCESS){
-            var data = res.data
-            this.tab = data.classList
-            if(data.shopGoodsList.length > 0) {
-              this.goodsList = this.goodsList.concat(data.shopGoodsList)
-            } else {
-              //没有可以加载的数据了，显示到底
-              this.isAllLoaded = true
-            }
-          }
-        })
-
-        promise
-        .catch(e => e)
-        .then(() => { //延迟一定时间关闭加载分类动画
-          this.loading = false
-        } )
-    },
-
     /**
      * @description 加载更多商品数据
      */
@@ -682,7 +627,6 @@ export default {
        if (this.isAllLoaded || this.loading) return
       //还有数据，加载数据
       this.currentPage++
-      this.setGoodsClassList(this.storeId, '', this.currentPage , PAGE_SIZE)
     },
 
 

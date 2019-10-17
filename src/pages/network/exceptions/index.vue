@@ -1,10 +1,10 @@
 <template>
   <div class="container" >
-    <img src="/static/images/network_error_icon.png" mode="widthFix" class="error_icon">
+    <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/network_error_icon.png" mode="widthFix" class="error_icon">
     <p class="error_text">没信号啦，点击刷新按钮试试</p>
     <button type="primary" class="error_btn" @click="refresh">刷新一下</button>
-  </div> 
-  
+  </div>
+
 </template>
 
 <script>
@@ -14,7 +14,7 @@
       /**
        * @description 刷新一下，监听网络是否发生改变，监听到有网络则返回首页
        */
-      refresh () {  
+      refresh () {
         wx.showLoading()
         wx.getNetworkType({
           success: function(res) {
@@ -30,7 +30,7 @@
               //还是无网络留在此页面
               setTimeout(() => {
                 wx.hideLoading()
-              },1500)   
+              },1500)
             }
           }
         })

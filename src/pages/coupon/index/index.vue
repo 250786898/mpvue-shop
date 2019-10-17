@@ -10,14 +10,21 @@
 
     <div class="coupons-list-container">
 
-       <div class="coupons-list-header">
-          您有<span class="totol-coupons-num">2</span>张优惠券即将到期
-       </div>
+       <template v-if="list.length > 0">
+          <div class="coupons-list-header">
+              您有<span class="totol-coupons-num">2</span>张优惠券即将到期
+          </div>
 
-       <div class="coupons-list">
-         <coupon-card v-for="item in list" :key="item.couponId" :item="item"></coupon-card>
-         <coupon-card v-for="item in list" :key="item.couponId" :item="item" type="used"></coupon-card>
-       </div>
+          <div class="coupons-list" >
+            <coupon-card v-for="item in list" :key="item.couponId" :item="item"></coupon-card>
+            <coupon-card v-for="item in list" :key="item.couponId" :item="item" type="used"></coupon-card>
+          </div>
+       </template>
+
+       <template v-else>
+         <empty-coupon-tip />
+       </template>
+
     </div>
 
   </div>
@@ -48,13 +55,15 @@
   import { mapState } from 'vuex'
   import { Api } from '@/http/api'
   import CouponCard from '../components/CouponCard'
+  import EmptyCouponTip from '../components/EmptyCouponTip'
 
   const OPEN_WIDTH = 180
   const MOVE_THRESHOLD = 30
 
   export default {
     components: {
-      CouponCard
+      CouponCard,
+      EmptyCouponTip
     },
 
     data () {

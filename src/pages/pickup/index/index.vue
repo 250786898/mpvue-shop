@@ -28,7 +28,7 @@
 
     <!-- 空值 -->
     <div class="empty-tip" v-if="!loading && !list.length">
-      <img src="/static/images/shopcart_icon_bg.png@2x.png">
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/shopcart_icon_bg.png@2x.png">
       <div class="empty-tip__text empty-tip__text_main">购物车为空~</div>
       <div class="empty-tip__text">赶紧去慰劳一下自己吧~</div>
       <button type="primary" class="radius" @click="toIndex()">

@@ -74,7 +74,7 @@
     },
 
     computed: {
-      ...mapState(['storeId'])
+      ...mapState(['storeId','sessionId'])
     },
 
     methods: {
@@ -230,7 +230,12 @@
     },
 
     onLoad() {
+      console.log('购物车页面onLoad')
       this.$bus.$on('updateCart', this.getCartList)
+    },
+
+    mounted () {
+      console.log('购物车页面mounted')
     },
 
     onUnload() {
@@ -238,6 +243,11 @@
     },
 
     onShow() {
+      console.log('购物车页面onShow',this.sessionId)
+      if(!this.sessionId) {
+        //如果未登陆，初始化所有数据，避免退出登陆还存在购物车数据
+         Object.assign(this.$data, this.$options.data())
+      }
       this.getCartList() //获取购物车列表
     },
 

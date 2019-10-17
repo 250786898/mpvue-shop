@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-left">
-      
+
       <label class="checkbox"  v-if="isFailure">
 
       </label>
@@ -12,12 +12,12 @@
           <icon v-else class="weui-icon-checkbox_circle" type="circle" size="20"></icon>
         </div>
       </label>
-      
+
 
       <div :class="{ 'failure-img' : isFailure }">
-        <image class="goods-img" :src="item.goodsImage" />
+        <image class="goods-img" :src="item.goodsImage" mode="aspectFit" />
       </div>
-      
+
 
     </div>
     <div class="card-right">
@@ -33,7 +33,7 @@
       </div>
     </div>
   </div>
-  
+
 </template>
 
 <script>
@@ -87,7 +87,7 @@ export default {
     margin-right:18rpx;
   }
   &-right{
-    width: 100%;  
+    width: 100%;
   }
   .checkbox{
     display: flex;

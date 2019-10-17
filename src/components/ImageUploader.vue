@@ -2,10 +2,10 @@
   <div class="uploader">
     <div class="uploader__item" v-for="(img, index) in images" :key="img">
       <img :src="img" mode="aspectFill">
-      <img class="uploader__item__icon" src="/static/images/delete.png" @click="removeImage(index)">
+      <img class="uploader__item__icon" src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/delete.png" @click="removeImage(index)">
     </div>
     <div class="uploader__item" @click="selectImage" v-if="images.length < max">
-      <img src="/static/images/evaluate_icon_camera@2x.png">
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/evaluate_icon_camera@2x.png">
     </div>
   </div>
 </template>
@@ -65,12 +65,12 @@
             success: res => {
               if (typeof res.data === 'string') {
                 try {
-                  res.data = JSON.parse(res.data)                    
+                  res.data = JSON.parse(res.data)
                 } catch (e) {
                   console.log('JSON.parse failed', e)
                 }
                 if (res.data && res.data.code === Api.CODES.SUCCESS) {
-                  this.$emit('change', ([...this.images, res.data.data.result]).join(','))                
+                  this.$emit('change', ([...this.images, res.data.data.result]).join(','))
                 }
               }
             },
@@ -89,7 +89,7 @@
       removeImage(index) {
         let images = this.images.slice()
         images.splice(index, 1)
-        this.$emit('change', images.join(','))                
+        this.$emit('change', images.join(','))
       },
     }
   }

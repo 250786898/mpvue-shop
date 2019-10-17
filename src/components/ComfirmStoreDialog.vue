@@ -10,7 +10,7 @@
           <div class="store-info-header">
             <span class="store-name" >自提门店:{{shopDetail.storeName}}</span>
             <div class="distance" v-if="shopDetail.storeDistance">
-              <img src="/static/images/confirm_store_location_icon.png" alt="">
+              <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/confirm_store_location_icon.png" alt="">
               <span>{{storeDistance}}</span>
             </div>
           </div>
@@ -19,7 +19,7 @@
 
       <div class="change-box" @click="checkoutStore">
         <span>切换其他门店</span>
-        <img src="/static/images/arrows.png" alt="">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/arrows.png" alt="">
       </div>
       <button type="primary"  class="comfirm-btn" @click="comfirmStore">确定</button>
     </div>

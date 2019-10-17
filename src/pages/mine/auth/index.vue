@@ -1,12 +1,12 @@
 <template>
   <div class="container">
-    <img src="/static/images/signin_bg_logo_big@2x.png">
+    <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/signin_bg_logo_big@2x.png">
     <div class="auth-desc">乐家生鲜</div>
 
     <div class="button-bar">
       <button type="primary" open-type="getUserInfo" @getuserinfo="getUserInfo" hover-class="button-hover">授权登录</button>
     </div>
-    
+
   </div>
 </template>
 
@@ -23,7 +23,7 @@
         console.log('getUserInfo', detail)
         if (detail.errMsg === 'getUserInfo:ok') {
           this.$store.commit('setWxUserInfo', detail.userInfo)
-          
+
           // wx.login({
           //   success: ({ code }) => {
           //     Api.auths.weixinUserInfo({
@@ -75,7 +75,7 @@
         }
       }
     }
-    
+
     img {
       display: block;
       width: 150rpx;

@@ -25,17 +25,17 @@
           <div class="counter" v-if="currentGoodsCartNum > 0">
             <counter  v-model="currentGoodsCartNum" :max="item.inventoryAmount" @change="onGoodsNumChange($event,item)"></counter>
           </div>
-          <form report-submit="true" @submit="uploadFormId" v-else> 
+          <form report-submit="true" @submit="uploadFormId" v-else>
             <button hover-class="none" form-type="submit" class="hiddenBtn" @click.stop="addToCart(item.id)">
-              <img src="/static/images/common_btn_shopcart_small.png@2x.png" class="icon-cart" @click.stop="addToCart(item.id)">
+              <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_btn_shopcart_small.png@2x.png" class="icon-cart" @click.stop="addToCart(item.id)">
             </button>
-          </form> 
-          
-           
+          </form>
+
+
         </div>
       </div>
       <div class="xian"></div>
-      
+
     </navigator>
   </div>
 </template>
@@ -106,7 +106,7 @@
         this.$store.dispatch('addToCart', {
           goodsId: this.item.goodsId || this.item.id,
           activityId: this.item.activityId,
-          activityGoodsId    
+          activityGoodsId
         })
       }
     },
@@ -138,7 +138,7 @@ onLoad(){
     }
     .secondary{
       text-align: left;
-    } 
+    }
   }
 
 .goods-row-item__tb{

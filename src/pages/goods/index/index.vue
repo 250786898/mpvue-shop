@@ -21,7 +21,7 @@
             @click="selectGc(item)"
             :key="item.gcId"
             :class="{ active: item.selected }">{{ item.gcName }}</div>
-          <img class="mainer-tab-chevron" src="/static/images/classification_icon_ddm.png@2x.png" @click="mainerTabMenuShowed = !mainerTabMenuShowed">
+          <img class="mainer-tab-chevron" src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/classification_icon_ddm.png@2x.png" @click="mainerTabMenuShowed = !mainerTabMenuShowed">
         </div>
         <div class="mainer__bd">
           <scroll-view class="goods-list" scroll-y="true" @scrolltolower="onScrollToLower">
@@ -99,7 +99,7 @@
       classTwoHideList() {
         return this.classTwoDividerIndex === -1 ?
           // this.classTwoList :
-          [] : 
+          [] :
           this.classTwoList.slice(this.classTwoDividerIndex)
       }
     },
@@ -133,7 +133,7 @@
                   this.classTwoDividerIndex = index
                 }
               }
-            }).exec() 
+            }).exec()
           }
         }, 500)
       },
@@ -163,10 +163,10 @@
             this.setClassTwoDividerIndex()
             this.loaded = res.data.goodsList.length < PAGE_SIZE
           }
-        })  
+        })
       },
 
-     
+
 
       loadMore() {
         this.pageNumber += 1
@@ -180,7 +180,7 @@
         .then(res => {
           console.log(res.data.goodsList.length)
             if (res.data.goodsList.length > 0 && res.code === Api.CODES.SUCCESS) {
-              // @DEBUG: 
+              // @DEBUG:
               this.goodsList = [
                 ...this.goodsList,
                 ...res.data.goodsList,
@@ -233,7 +233,7 @@
     },
 
     onTabItemTap() {
-      let app = getApp()  
+      let app = getApp()
       if (typeof app.globalData.pcId === 'undefined') {
         this.pcId = ''
         this.reload()
@@ -400,7 +400,7 @@
         }
         .icon-cart {
           right: 0;
-        } 
+        }
       }
       &_member-only {
         .weui-media-box__desc {

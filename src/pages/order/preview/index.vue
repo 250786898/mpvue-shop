@@ -25,7 +25,7 @@
           hover-class="address-area__empty-btn_hover">
           + 新增收货地址
         </navigator>
-        <img class="address-area__border" src="/static/images/order_dividingline@2x.png">
+        <img class="address-area__border" src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/order_dividingline@2x.png">
       </div>
 
       <div class="weui-panel goods-list-panel">
@@ -77,13 +77,13 @@
             切换店铺
           </div> -->
         </div>
-        <img class="address-area__border" src="/static/images/order_dividingline@2x.png">
+        <img class="address-area__border" src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/order_dividingline@2x.png">
       </div>
 
       <div class="weui-panel goods-list-panel">
         <!-- <div class="weui-panel__hd" @click="selfHelpTimeRangePickerShowed = true"> -->
           <!-- <div class="weui-panel__hd">
-          <img src="/static/images/details_icon_clock@2x.png">
+          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/details_icon_clock@2x.png">
            提货时间
           <div class="time">{{showPickUpTime}}</div>
         </div> -->
@@ -122,7 +122,7 @@
     <LjFormPreview  :items="bills" :deliveryType="deliveryType" :activityType="activityType" :list="list" @tapCouponItem="tapCouponItem" :couponPrice="result.couponPrice"></LjFormPreview>
 
     <!-- 支付方式 -->
-    <payways title="支付方式" ref="payways" v-model="paymentCode" :pp.sync="isPp" :rewardPoint="result.rewardPoint"></payways> 
+    <payways title="支付方式" ref="payways" v-model="paymentCode" :pp.sync="isPp" :rewardPoint="result.rewardPoint"></payways>
 
     <!-- 底部 -->
     <div class="footer-bar">
@@ -221,7 +221,7 @@
           return 0
         }
       },
-      
+
       showPickUpTime () { //显示的提货时间
         const hours = new Date().getHours()
         let showPickUpTime = ''
@@ -233,9 +233,9 @@
         }
          this.$store.commit('pickuptime',showPickUpTime)
         return showPickUpTime
-         
+
       }
-     
+
     },
 
     methods: {
@@ -269,7 +269,7 @@
          this.list = []
          this.couponId= ''
          this.activityType= 1
-         this.deliveryStatus= 0   
+         this.deliveryStatus= 0
          this.teamOrder= ''   //订单信息
          this.storeList= []   //门店信息
          this.activityGoodsIdOftimes= '' //时间接口。单独购买调用
@@ -328,9 +328,9 @@
                 content:res.message || '服务器错误',
                 showCancel: false,
                 success: () => {
-                   wx.navigateBack({ }) 
+                   wx.navigateBack({ })
                 }
-              })            
+              })
             }
           })
 
@@ -356,7 +356,7 @@
                 success: (res) => {
                   wx.navigateBack()
                 }
-              })    
+              })
           }
         })
         .catch(e => console.log(e))
@@ -376,7 +376,7 @@
             store: {
                ...this.tempOrder.store,
               storeName: this.result.storeName,
-              storeId: this.result.storeId,       
+              storeId: this.result.storeId,
             }
           })
         }
@@ -518,7 +518,7 @@
                   icon: 'none'
                 })
               }
-              
+
             })
           } else {
             _resolve()
@@ -659,7 +659,7 @@
         }))
       },
 
-  
+
 
 
       findStoreByStoreId (storeList,storeId) {
@@ -681,7 +681,7 @@
         var dd = new Date();
         dd.setDate(dd.getDate()+dayCount);//设置日期
         var m = dd.getMonth()+1;//获取当前月份的日期
-        m = m <10 ? `0${m}` : m 
+        m = m <10 ? `0${m}` : m
         var d = dd.getDate();
         d = d <10 ? `0${d}` : d
         return `${m}月${d}日`
@@ -707,12 +707,12 @@
               console.log('storeItem',storeItem)
               this.$set(this.tempOrder,'store',storeItem)
               this.storeList = res.data.storeList
-            }        
+            }
           }
         })
         .catch(e => console.log(e))
         .then(() => wx.hideLoading())
-      } 
+      }
     },
 
     watch: {
@@ -733,7 +733,7 @@
           }
       this._setDefaultAddress()  //设置默认第一个门店地址
     },
-    
+
     onUnload() {
       this.$store.commit('clearTempOrder')
       this.order = null
@@ -756,7 +756,7 @@
 </style>
 
 <style lang="scss" scoped>
-  
+
   .time{
     float: left;
     font-size:30rpx;
@@ -906,7 +906,7 @@
   }
 
   .goods-row-item__tb {
-    
+
     .primary { font-size: 28rpx; }
     .goods-count {
       line-height: 30rpx;
@@ -917,7 +917,7 @@
 
   .form-cells {
     width: 702rpx;
-    border-radius:14rpx; 
+    border-radius:14rpx;
     margin-top: 20rpx;
     &:before,
     &:after {
@@ -927,7 +927,7 @@
       &__hd {
         color: $text-black;
         font-size: 28rpx;
-       
+
       }
       &__bd input {
         font-size: 28rpx;
@@ -970,10 +970,10 @@
   .box{
     height: 30rpx;
     width: 100%;
-  
+
   }
   .timerange-picker {
-    
+
     position: fixed;
     z-index: 11;
     bottom: 0;

@@ -1,6 +1,6 @@
 <template>
   <div class="loading">
-    <img src="/static/images/Spin-1s-60px.gif">
+    <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/Spin-1s-60px.gif">
   </div>
 </template>
 

@@ -37,10 +37,7 @@
     "pages/pickup/detail/main",
     "pages/pickup/instruction/main",
     "pages/network/exceptions/main",
-    "pages/coupon/index/main",
-    "pages/coupon/shop/main",
-    "pages/coupon/goods/main",
-    "pages/coupon/qrcode/main"
+    "pages/coupon/index/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -56,21 +53,21 @@
       {
         "pagePath": "pages/index/main",
         "text": "首页",
-        "iconPath": "/static/images/homee_icon.png",
+        "iconPath": "static/images/homee_icon.png",
         "selectedIconPath": "static/images/home_icon.png"
       },
 
       {
         "pagePath": "pages/cart/main",
         "text": "购物车",
-        "iconPath": "/static/images/cart_icon.png",
-        "selectedIconPath": "/static/images/cartt_icon.png"
+        "iconPath": "static/images/cart_icon.png",
+        "selectedIconPath": "static/images/cartt_icon.png"
       },
       {
         "pagePath": "pages/mine/main",
         "text": "我的",
-        "iconPath": "/static/images/minee_icon.png",
-        "selectedIconPath": "/static/images/mine_icon.png"
+        "iconPath": "static/images/minee_icon.png",
+        "selectedIconPath": "static/images/mine_icon.png"
       }
     ]
   },

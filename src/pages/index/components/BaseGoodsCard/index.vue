@@ -26,19 +26,19 @@
           <div class="counter" v-if="currentGoodsCartNum > 0">
             <counter  v-model="currentGoodsCartNum" :max="item.inventoryAmount" @change="onGoodsNumChange($event,item)"></counter>
           </div>
-          <form report-submit="true" @submit="uploadFormId" v-else> 
+          <form report-submit="true" @submit="uploadFormId" v-else>
             <button hover-class="none" form-type="submit" class="hiddenBtn" @click.stop="addToCart(item.id)">
-              <img src="/static/images/common_btn_shopcart_sellout.png@2x.png.png" class="icon-cart"  v-if="isSellOut">
-              <img src="/static/images/common_btn_shopcart_small.png@2x.png" class="icon-cart" @click.stop="addToCart(item.id)" v-else
-              >          
+              <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_btn_shopcart_sellout.png@2x.png.png" class="icon-cart"  v-if="isSellOut">
+              <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_btn_shopcart_small.png@2x.png" class="icon-cart" @click.stop="addToCart(item.id)" v-else
+              >
             </button>
-          </form> 
-          
-           
+          </form>
+
+
         </div>
       </div>
       <div class="xian"></div>
-      
+
     </navigator>
     <div class="sell-out-mask" v-if="isSellOut"></div>
   </div>
@@ -109,7 +109,7 @@
         this.$store.dispatch('addToCart', {
           goodsId: this.item.goodsId || this.item.id,
           activityId: this.item.activityId,
-          activityGoodsId    
+          activityGoodsId
         })
       }
     },
@@ -137,7 +137,7 @@ onLoad(){
     width: 100%;
     height: 100%;
   }
-  
+
 
   .sell-out-icon{
     width:140rpx;
@@ -156,6 +156,7 @@ onLoad(){
   }
 
   .goods-card{
+    height:268rpx;
   }
 
   .counter{
@@ -166,8 +167,13 @@ onLoad(){
   .weui-media-box__bd_in-appmsg{
     float:right;
     width: 428rpx;
-    height: 208rpx;
 
+  }
+  .weui-media-box_appmsg{
+    align-items: stretch;
+  }
+  .goods-row-item .weui-media-box{
+    padding: 30rpx 20rpx;
   }
 
   .goods-row-item__price{
@@ -178,7 +184,7 @@ onLoad(){
     }
     .secondary{
       text-align: left;
-    } 
+    }
   }
 
 .goods-row-item__tb{
@@ -190,16 +196,17 @@ onLoad(){
 }
 .goods-row-item{
   // position: relative;
-  background-color: #fff;
+  height:268rpx;
+  box-sizing: border-box;
   text-align: center;
   position: relative;
+  border-bottom:1px solid rgb(243, 243, 243);
   .xian{
     position:absolute;
     bottom:0rpx;
     left:18rpx;
     width: 669rpx;
     height: 1rpx;
-    border-bottom:1px solid rgb(243, 243, 243);
     opacity: 0.7;
   }
   .weui-media-box__desc{

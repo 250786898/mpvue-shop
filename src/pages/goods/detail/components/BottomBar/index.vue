@@ -5,11 +5,11 @@
 
       <div class="cart-box">
          <navigator open-type="switchTab" url="/pages/cart/main" class="cart-icon">
-          <img src="/static/images/common_tab_icon_shopcart_n@2x.png">
-          <span class="weui-badge">{{ cartNum }}</span>
+          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/cart_icon.png">
+          <span class="weui-badge" v-if="cartNum">{{ cartNum }}</span>
         </navigator>
       </div>
-     
+
       <button type="primary" class="radius bg-gradient" @click="confirmAdd">加入购物车</button>
     </div>
 
@@ -27,7 +27,7 @@ export default {
   },
   data () {
     return {
-    } 
+    }
   },
   computed: {
     ...mapState(['cartNum'])

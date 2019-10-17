@@ -1,35 +1,41 @@
 <template>
 	<div class="goods-recommend">
       <!-- <goods-list-tab /> -->
-      <van-tabs sticky @change="tabChange" :active="activeIndex" tab-active-class="tab-active-class" tab-class="tab-class" color="#11D2C8" class="fixed-tab" v-if="isCeiling">
+      <!-- <van-tabs sticky @change="tabChange" :active="activeIndex" tab-active-class="tab-active-class" tab-class="tab-class" color="#11D2C8" class="fixed-tab" v-if="isCeiling">
 
         <van-tab  v-for="item in tab" :title="item.title" :key="item.pcId"></van-tab>
 
-        
+
       </van-tabs>
 
       <van-tabs sticky @change="tabChange" :active="activeIndex" tab-active-class="tab-active-class" :swipe-threshold="4" tab-class="tab-class" color="#11D2C8" v-if="!isCeiling">
 
         <van-tab  v-for="item in tab" :title="item.title" :key="item.pcId"></van-tab>
 
-        
-      </van-tabs>
+
+      </van-tabs> -->
+      <div class="goods-recommend__title">
+       今日秒杀
+      </div>
 
       <div class="goods-recommend__bd" :class="{'ceiling-goods-list' : isCeiling}">
         <template v-for="item in goodsList">
           <base-goods-card :item="item" :key="item.id" />
         </template>
          <EmptyGoods v-if="goodsList.length == 0 && !loading"/>
-         <!-- 加载更多 -->
+      </div>
+      <!-- 加载更多 -->
+      <div class="goods-recommend__footer">
         <lj-loading v-if="!isAllLoaded && loading" />
         <div class="goods-tabs__tip" v-if="isAllLoaded && goodsList.length">亲,已经看到最后啦！</div>
       </div>
 
 
 
-  
 
-  
+
+
+
        <!-- <goods-tabs
             :goodsList="this.goodsList"
             :classList="this.tab"
@@ -39,7 +45,7 @@
           </goods-tabs> -->
 
          <!-- 商品空的时候显示空组件 -->
-    
+
 
   </div>
 </template>
@@ -103,7 +109,7 @@
         activeIndex: 0, //当前分类索引
         tabColor: '#11D2C8', //tab颜色值
         goodsList: [],  //商品列表
-        isAllLoaded: false,   
+        isAllLoaded: false,
         loading: false, //是否向上触发更新
       }
     },
@@ -119,8 +125,14 @@
     computed: {
       ...mapState(['storeId']),
     },
+    watch: {
+      storeId: function () {
+        console.log('goodlostStoreId修改了aaaaaaaaaaaaaaaaaaa',this.storeId)
+        this.getGoodsClassList(this.storeId , this.pcId , 1 , showPageSize)
+      }
+    },
     methods: {
-      
+
       clickTab (event) {
         console.log('clickTab',event)
       },
@@ -136,9 +148,9 @@
 
           promise = Api.index.topGoods({ storeId, pcId, pageNumber, pageSize }).then(res => {
             if(res.code == Api.CODES.SUCCESS){
-              var data = res.data     
+              var data = res.data
               if(data.shopGoodsList.length > 0) {
-                this.goodsList = this.goodsList.concat(data.shopGoodsList)          
+                this.goodsList = this.goodsList.concat(data.shopGoodsList)
               } else {
                 //没有可以加载的数据了，显示到底
                 this.isAllLoaded = true
@@ -159,8 +171,8 @@
           wx.pageScrollTo({ scrollTop: 157 })
         }
 
-        
-        
+
+
         this.activeIndex = index
         console.log('tabChange',index)
         this.pcId = this.tab[index].pcId
@@ -179,10 +191,12 @@
       }
     },
 
-    
+
     mounted() {
-      this.getGoodsClassList(this.storeId , this.pcId , this.currentPage , showPageSize)
-      console.log('goodMounted')
+      console.log('goodMountedList',this.storeId)
+      if(this.storeId) {
+        this.getGoodsClassList(this.storeId , this.pcId , this.currentPage , showPageSize)
+      }
     },
 
     //上触发加载分页数据
@@ -193,7 +207,7 @@
       this.getGoodsClassList(this.storeId, this.pcId, this.currentPage , showPageSize)
     },
 
-    
+
 
     /**
      * @description 向上更新商品数据
@@ -239,7 +253,7 @@
 
 //  /*从上到下进入*/
 .fadeInDown {
-  animation-name: fadeInDown;  
+  animation-name: fadeInDown;
 }
 
 
@@ -287,10 +301,17 @@
   }
 
  .goods-recommend {
-    width: 702rpx;
-    background: #fff;
+    width: 710rpx;
     box-sizing: border-box;
     border-radius:14rpx;
+    &__bd{
+      background: #fff;
+      border-bottom-left-radius: 14rpx;
+      border-bottom-right-radius: 14rpx;
+    }
+    &__footer {
+      background: #f5f5f5;
+    }
     &__title {
       margin: 0 auto;
       height: 90rpx;
@@ -327,11 +348,10 @@
             width:48%;
             margin:1%;
             height: 538rpx;
-            background: #fff;
           }
         }
 
-    
+
 
 
         /deep/ .goods-row-item {

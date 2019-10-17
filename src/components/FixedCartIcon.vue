@@ -1,6 +1,6 @@
 <template>
   <navigator url="/pages/cart/main" open-type="switchTab" class="fixed-cart-icon">
-    <img src="/static/images/common_btn_floatcart.png@2x.png">
+    <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_btn_floatcart.png@2x.png">
     <span class="weui-badge">{{cartNum}}</span>
   </navigator>
 </template>

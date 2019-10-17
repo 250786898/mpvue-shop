@@ -2,7 +2,7 @@
   <div>
 
     <div class="card">
-      <img src="/static/images/deliverycode_card_bg@2x.png" class="card__bg">
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/deliverycode_card_bg@2x.png" class="card__bg">
 
       <div class="card__bd">
         <!-- 条形码 -->
@@ -10,13 +10,13 @@
         <div class="card__barcode-text">{{ result.pickUpCode }}</div>
         <canvas canvas-id="qrcode" class="card__qrcode" v-if="!popupShowed"></canvas>
 
-          <!-- <img src="/static/images/membershipcode_qrcode@2x.png" class="card__qrcode"> -->
+          <!-- <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/membershipcode_qrcode@2x.png" class="card__qrcode"> -->
           <div class="card__qrcode-tip">自提订单提货凭证 请勿告诉陌生人</div>
           <!-- 门店 -->
           <div class="card__shop-item">
             <div class="weui-cell weui-cell_access" hover-class="navigator-hover" @click="openLocation">
               <div class="weui-cell__hd">
-                <img src="/static/images/deliverycode_img_logo@2x.png">
+                <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/deliverycode_img_logo@2x.png">
               </div>
               <div class="weui-cell__bd">
                 <div class="primary">提货门店{{ result.stroreName }}</div>
@@ -31,17 +31,17 @@
         <div class="card__dt">
           <navigator url="/pages/pickup/instruction/main" class="weui-cell weui-cell_access">
             <div class="weui-cell__hd">
-              <img src="/static/images/deliverycode_icon_gifrbag@2x.png">
+              <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/deliverycode_icon_gifrbag@2x.png">
             </div>
             <div class="weui-cell__bd">提货须知</div>
             <div class="weui-cell__ft weui-cell__ft_in-access"></div>
           </navigator>
-          <div class="weui-cell">
+          <!-- <div class="weui-cell">
             <div class="weui-cell__hd">
-              <img src="/static/images/deliverycode_icon_gifrbag@2x(1).png">
+              <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/deliverycode_icon_gifrbag@2x(1).png">
             </div>
             <div class="weui-cell__bd">提货时间：{{result.shippingTime }}</div>
-          </div>
+          </div> -->
         </div>
 
     </div>
@@ -60,7 +60,7 @@
   import PageLoading from '@/components/PageLoading'
   import { Api } from '@/http/api'
   import PickupResultPopup from './components/PickupResultPopup/index'
-  
+
   export default {
       components: {
        PickupResultPopup
@@ -98,12 +98,12 @@
             //          wx.navigateTo({
             //             url: '/pages/order/index/main'
             //           })
-            //       } 
+            //       }
             //     }
             //   })
-            clearInterval(this.timer) 
+            clearInterval(this.timer)
             wx.navigateTo({ url: '/pages/order/index/main' })
-          } 
+          }
         })
         .catch(e => console.log(e))
         .then(() => {})
@@ -156,7 +156,7 @@
         var dd = new Date();
         dd.setDate(dd.getDate()+dayCount);//设置日期
         var m = dd.getMonth()+1;//获取当前月份的日期
-        m = m < 10 ? `0${m}` : m 
+        m = m < 10 ? `0${m}` : m
         var d = dd.getDate();
         d = d < 10 ? `0${d}` : d
         return `${m}月${d}日`
@@ -203,15 +203,15 @@
     },
     mounted () {
       this.orderId = this.$mp.page.options.id
-      clearInterval(this.timer) 
+      clearInterval(this.timer)
       this.getOrderPickUpCodeDetail()
-      this.timer = setInterval(() => { 
+      this.timer = setInterval(() => {
         this.findOrderStat()
       }, 3000)
     },
     onUnload () {
       // this.recoverScreen()
-       clearInterval(this.timer) 
+       clearInterval(this.timer)
     },
 
   }
@@ -235,7 +235,7 @@
       width: 100%;
       height: 100%;
     }
-    
+
     &__bd {
       padding-top: 86rpx;
       position: relative;

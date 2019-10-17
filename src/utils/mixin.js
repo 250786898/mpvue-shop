@@ -1,11 +1,15 @@
 let MIXIN = {
   onShow () {
-    wx.hideHomeButton({}) //隐藏返回首页按钮
+    console.log('canIUse',wx.canIUse('hideHomeButton'))
+    if(wx.canIUse('hideHomeButton')) { //兼容低版本微信
+      wx.hideHomeButton({}) //隐藏返回首页按钮
+    }
+
   },
   onLoad () {
-    if(this.$options.data) {
-      // console.log('mixin')
-      // Object.assign(this.$data, this.$options.data()) //解决mpvue初始化未清空状态问题
+    if(typeof this.$options.data !==  'function' && typeof this.$options.data !== 'undefined') {
+      console.log('mixin',typeof this.$options.data)
+      Object.assign(this.$data, this.$options.data()) //解决mpvue初始化未清空状态问题
     }
   }
 }

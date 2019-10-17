@@ -1,6 +1,6 @@
 <template>
   <div class="loading">
-    <!-- <img src="/static/images/Spin-1s-60px.gif" v-if="isNeedRefresh && !isLoadedAll"> -->
+    <!-- <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/Spin-1s-60px.gif" v-if="isNeedRefresh && !isLoadedAll"> -->
     <div class="spinner">
       <div class="double-bounce1"></div>
       <div class="double-bounce2"></div>

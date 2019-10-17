@@ -3,9 +3,9 @@
     <div class="search-item">
       <div class="search-city" @click="navToSelectCity">{{cityName}}</div>
       <div class="search-main">
-        <label class="search-label" @click="navToSearch">     
+        <label class="search-label" @click="navToSearch">
           <icon class="icon-search" type="search" size="14"></icon>
-          <div class="search-bar__text">请输入小区名字</div>
+          <div class="search-bar__text">请输入提货地址</div>
         </label>
       </div>
     </div>

@@ -6,10 +6,10 @@
     <div class="fixed-top__holder"></div>
     <!-- 空值 -->
     <div v-if="!list.length && !loading" class="empty-tip">
-      <img src="/static/images/myOrder_bg@2x.png">
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/myOrder_bg@2x.png">
       <div class="empty-tip__text">暂时没有订单喔~</div>
     </div>
-    
+
     <div v-if="list.length">
       <div class="weui-panel order-panel" v-for="order in list" :key="order.orderId">
         <div class="weui-panel__hd">
@@ -18,8 +18,9 @@
           <span v-else-if="order.state === 0">订单已取消</span>
           <span v-else-if="order.state === 10">待付款</span>
           <span v-else-if="order.state === 20 || order.state === 21">
-            <!-- <template v-if="order.deliveryType === 1">待配送</template> -->
-            <!-- <template v-else>待核销</template> -->
+            <!-- <template v-if="order.deliveryType === 1">待配送</template>
+            <template v-else>待核销</template> -->
+           待提货
           </span>
           <span v-else-if="order.state === 30">
             <template v-if="order.deliveryType === 1">待收货</template>
@@ -32,7 +33,7 @@
         <div class="weui-panel__bd">
           <navigator :url="'/pages/order/detail/main?id=' + order.orderId" class="weui-cell weui-cell_access">
             <div class="weui-cell__bd">
-              <img :src="src" v-for="(src, srcIndex) in order.goodsImags">
+              <img :src="src" v-for="(src, srcIndex) in order.goodsImags" mode="aspectFit">
               <!-- <img src="https://wx4.sinaimg.cn/mw690/9b60d56cly1fyi5udqoxrj21240qon2w.jpg" mode="aspectFill"> -->
             </div>
             <div class="weui-cell__ft weui-cell__ft_in-access">
@@ -58,7 +59,7 @@
           </div>
 
           <div class="weui-cell order-panel__buttons">
-            <div class="weui-cell__bd"></div> 
+            <div class="weui-cell__bd"></div>
             <div class="weui-cell__ft">
               <!-- 0:  已取消;
               10: 待付款;
@@ -68,7 +69,7 @@
               40: 交易完成;
               50: 已关闭;
               59: 售后中;
-              60: 已售后; 
+              60: 已售后;
               31：待提货；新加
               -->
 
@@ -79,16 +80,16 @@
               </template>
               <!-- 交易成功，未评价 -->
               <template v-else-if="order.state === 40">
-                <button :plain="true" type="default" @click="del(order)">删除订单</button>
+                <!-- <button :plain="true" type="default" @click="del(order)">删除订单</button> -->
                 <!-- <button :plain="true" type="primary" v-if="order.evaluateState == 1" @click="commentHistory(order)">
                   历史评价
                   <span class="weui-badge weui-badge_dot"></span>
-                </button> -->
-                <!-- <button :plain="true" type="primary" v-else @click="comment(order)">评价</button> -->
+                </button>
+                <button :plain="true" type="primary" v-else @click="comment(order)">评价</button> -->
               </template>
               <!-- 交易成功，已评价 -->
               <template v-else-if="order.state === 49">
-                <button :plain="true" type="default" @click="del(order)">删除订单</button>
+                <!-- <button :plain="true" type="default" @click="del(order)">删除订单</button> -->
                 <!-- <button :plain="true" type="primary" @click="commentHistory(order)">
                   历史评价
                   <span class="weui-badge weui-badge_dot"></span>
@@ -117,14 +118,14 @@
               <!-- 待配送（无可用操作） -->
               <!-- 订单关闭 -->
               <template v-else-if="order.state === 0">
-                <button :plain="true" type="default" @click="del(order)">删除订单</button>
+                <!-- <button :plain="true" type="default" @click="del(order)">删除订单</button> -->
               </template>
             </div>
           </div>
         </div>
       </div>
     </div>
-    
+
     <loading v-if="list.length && !allLoaded"></loading>
     <div v-if="list.length && allLoaded" class="empty-tip" style="padding: 40rpx 0">
       <div class="empty-tip__text">没有更多了...</div>
@@ -158,7 +159,7 @@
         ORDER_STATE,
         ORDER_STATE_TEXT,
         activeIndex: -1,
-        
+
         tabs: [
           {
             status: -1,
@@ -199,7 +200,7 @@
     },
     onLoad(){
       console.log(this. getList())
-      
+
     },
 
     methods: {
@@ -256,7 +257,7 @@
           if (res.code === Api.CODES.SUCCESS) {
             // 微信支付
             if (order.paymentCode === 'weixinAppletPaymentPlugin') {
-              let params = JSON.parse(res.data.tocodeurl)            
+              let params = JSON.parse(res.data.tocodeurl)
               wx.requestPayment({
                 ...params,
                 success: () => {
@@ -336,6 +337,7 @@
     },
 
     onLoad(e) {
+      console.log('onLoad',e.status)
       if (e.status) {
         this.activeIndex = this.tabs.findIndex(item => item.status == e.status)
       } else {
@@ -376,11 +378,20 @@
     .weui-panel {
       &__hd {
         font-size: 28rpx;
+        position: relative;
         color: $text-black;
         &:before {
-          left: 20rpx;
-          right: 20rpx;
+          left: 20rpx !important;
+          right: 20rpx !important;
           border-color: #DEDEDE;
+          content: " ";
+          position: absolute;
+          top: 0;
+          height: 1rpx;
+        }
+        &:after{
+          left: 20rpx !important;
+          right: 20rpx !important;
         }
         span {
           float: right;
@@ -471,7 +482,7 @@
     height: 88rpx;
     &__holder {
       height: 88rpx;
-     
+
     }
   }
 </style>

@@ -3,8 +3,8 @@
     <div class="search-city" @click="navToSelectCity" >{{cityName}}</div>
     <div class="search-main">
       <label class="search-label">
-        <icon class="icon-search" type="search" size="14"></icon>  
-        <input type="text" class="search-bar__text" v-model="inputVal" placeholder="搜索地址" @input="searchStore" />
+        <icon class="icon-search" type="search" size="14"></icon>
+        <input type="text" class="search-bar__text" v-model="inputVal" placeholder="请输入提货地址" auto-focus  @input="searchStore" />
       </label>
 
     </div>
@@ -21,6 +21,12 @@ export default {
   },
   computed: {
     ...mapState(['cityName'])
+  },
+  onLoad () {
+    if(this.$options.data) {
+      console.log('mixin',this)
+      Object.assign(this.$data, this.$options.data()) //解决mpvue初始化未清空状态问题
+    }
   },
   methods:{
     /**

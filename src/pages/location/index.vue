@@ -1,6 +1,6 @@
 <template>
   <div class="location">
-    <img src="/static/images/login_icon_location@2x.png">
+    <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/login_icon_location@2x.png">
     <!-- <i class="icon-location"></i> -->
     <h4>您未开通定位权限，部分功能无法正常使用</h4>
     <button type="primary" open-type="openSetting" @opensetting="onOpenSetting" class="radius">开通权限</button>
@@ -48,7 +48,7 @@
             }
           })
       }
-    
+
 
     }
   }

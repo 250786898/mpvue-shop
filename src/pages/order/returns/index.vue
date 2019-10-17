@@ -2,7 +2,7 @@
   <div>
     <!-- 空值 -->
     <div v-if="!list.length && !loading" class="empty-tip">
-      <img src="/static/images/myOrder_bg@2x.png">
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/myOrder_bg@2x.png">
       <div class="empty-tip__text">暂时没有订单喔~</div>
     </div>
 
@@ -10,7 +10,7 @@
       <div class="weui-panel order-panel" v-for="order in list" :key="order.refundId">
         <div class="weui-panel__hd">
           {{ order.applyTime }}
-          <!-- 
+          <!--
           1为待审核,2服务端审核确认,3拣货员已验货上传图片,4为服务端同意退款,5(对应2)为服务端审核拒绝, 6(对应4)服务端拒绝退款,7为退款完成 8-已取消 100已关闭 默认为 1-->
           <span v-if="order.state === 1">处理中</span>
           <span v-else-if="order.state === 2">审核确认</span>
@@ -49,15 +49,15 @@
                 <button :plain="true" type="default" @click="cancel(order)">撤销售后</button>
               </template>
               <!-- 退款成功 -->
-              <template v-else-if="order.state === 7 || order.state === 8 || order.state === 100">
+              <!-- <template v-else-if="order.state === 7 || order.state === 8 || order.state === 100">
                 <button :plain="true" type="default" @click="del(order)">删除订单</button>
-              </template>
+              </template> -->
             </div>
           </div>
         </div>
       </div>
     </div>
-    
+
     <loading v-if="list.length && !allLoaded"></loading>
 
     <div v-if="list.length && allLoaded" class="empty-tip" style="padding: 40rpx 0">
@@ -94,7 +94,7 @@
         })
         .then(res => {
           if (res.code === Api.CODES.SUCCESS) {
-            // res.data.forEach(item => item.goodsImags = item.goodsImags.split(',')) 
+            // res.data.forEach(item => item.goodsImags = item.goodsImags.split(','))
             this.list = this.list.concat(res.data)
             this.allLoaded = res.data.length < PAGE_SIZE
           }

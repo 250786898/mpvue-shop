@@ -1,6 +1,6 @@
 <template>
   <div class="rater">
-    <img :src="item <= value ? '/static/images/evaluate_icon_stars_s@2x.png' : '/static/images/evaluate_icon_stars_n@2x.png'" v-for="item in [1,2,3,4,5]" :key="item" @click="select(item)">
+    <img :src="item <= value ? 'https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/evaluate_icon_stars_s@2x.png' : 'https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/evaluate_icon_stars_n@2x.png'" v-for="item in [1,2,3,4,5]" :key="item" @click="select(item)">
   </div>
 </template>
 

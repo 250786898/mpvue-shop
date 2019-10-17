@@ -1,10 +1,10 @@
 <template>
   <div class="coupon-card">
-    <img src="/static/images/qrcode_bg_coupon@2x.png" class="coupon-card__bg" mode="widthFix"/>
-    
+    <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/qrcode_bg_coupon@2x.png" class="coupon-card__bg" mode="widthFix"/>
+
     <!-- 已使用 -->
-    <img v-if="status == 1" src="/static/images/coupon_label_used@2x.png" class="stamp">
-    <img v-else-if="status == 2" src="/static/images/coupon_label_expired@2x.png" class="stamp">
+    <img v-if="status == 1" src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/coupon_label_used@2x.png" class="stamp">
+    <img v-else-if="status == 2" src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/coupon_label_expired@2x.png" class="stamp">
 
     <div class="weui-panel weui-panel_access coupon-item">
       <div class="weui-panel__bd">
@@ -26,7 +26,7 @@
                 <!-- TODO: 图标不对 -->
                 <navigator :url="'/pages/coupon/qrcode/main?id='+item.couponId" class="weui-cell__ft"
                   v-if="item.showUseCode">
-                  <img src="/static/images/orderdetails_img_qrcode.png">
+                  <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/orderdetails_img_qrcode.png">
                 </navigator>
                 <!-- 线上使用 -->
                 <template v-else>
@@ -77,7 +77,7 @@
       // online offline
       useway: {
         type: String,
-        default: 'online'          
+        default: 'online'
       },
       status: {
         type: Number,
@@ -148,7 +148,7 @@
         border-right: 1rpx solid #ccc;
       }
     }
-    
+
     .weui-panel__ft .weui-cell {
       padding: 18rpx 50rpx;
       font-size: 24rpx;

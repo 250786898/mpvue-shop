@@ -3,7 +3,7 @@
     <!-- 配送中 -->
     <div v-if="order.state === 30 && order.deliveryType === 1 && order.shippingCompany" class="order-map">
       <!-- @TODO: 经纬度信息 order.riderLng -->
-      <map :longitude="order.riderLng" :latitude="order.riderLat" :markers="[{iconPath: '/static/images/markers.png',id: 0,latitude: order.riderLat,longitude: order.riderLng,width: 30, height: 30}]">
+      <map :longitude="order.riderLng" :latitude="order.riderLat" :markers="[{iconPath: 'https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/markers.png',id: 0,latitude: order.riderLat,longitude: order.riderLng,width: 30, height: 30}]">
       </map>
       <cover-view class="order-countdown">
         <cover-view class="order-countdown__bg-left">
@@ -22,13 +22,13 @@
 
     <!-- 待支付、待配送、订单已关闭-->
     <div style="position: relative;" v-else>
-      <img class="BackImg" src="/static/images/background_icon.png" alt="">
+      <img class="BackImg" src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/background_icon.png" alt="">
       <div class="order-status ">
-        
+
         <!-- 待支付 -->
         <template v-if="order.state === 10">
           <div class="unpa">
-            <img src="/static/images/unpaid_icon.png" alt="">
+            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/unpaid_icon.png" alt="">
             <p class="unpaid">待支付</p><br>
             <span v-if="true">{{timers}}秒后自动取消订单</span>
           </div>
@@ -42,11 +42,11 @@
             </div>
           </template>
           <template v-else>
-             <img src="/static/images/orderdetail.png" alt="">
+             <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/orderdetail.png" alt="">
             <div style="margin-left:31rpx;">
               待提货
-              <div class="desc">提货时间 ：{{  order.pickTime }}</div>
-             
+              <!-- <div class="desc">提货时间 ：{{  order.pickTime }}</div> -->
+
             </div>
           </template>
         </template>
@@ -63,22 +63,22 @@
         </template>
         <!-- 订单已关闭 -->
         <template v-else-if="order.state === 50">
-           <img src="/static/images/close_icon.png" alt="">
+           <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/close_icon.png" alt="">
             <p style="margin-left:32rpx;">订单已关闭</p>
-          
+
         </template>
         <template v-else-if="order.state === 0 && !isAssemble">
-           <img src="/static/images/close_icon.png" alt="">
-         <p style="margin-left:32rpx;">订单已取消</p>  
+           <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/close_icon.png" alt="">
+         <p style="margin-left:32rpx;">订单已取消</p>
         </template>
         <template v-else-if="order.state === 0 && isAssemble">
           拼团失败
         </template>
         <!-- 订单已签收 改 交易成功 -->
         <template v-else-if="order.state === 40 || order.state === 49">
-           <img src="/static/images/success_icon.png" alt="">
+           <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/success_icon.png" alt="">
            <p style="margin-left:32rpx;">交易成功</p>
-          
+
         </template>
         <template v-else-if="order.state === 59">
           售后中
@@ -120,11 +120,11 @@
                 <div class="order-shop__desc">{{ order.receiverAddress }}</div>
               </div>
             </div>
-            
+
           </div>
           <!-- <div class="weui-cell__ft weui-cell__ft_in-access"></div> -->
         </div>
-         <img class="addborder" src="/static/images/order_dividingline@2x.png">
+         <img class="addborder" src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/order_dividingline@2x.png">
       </div>
     </div>
 
@@ -236,7 +236,7 @@
         </div>
         <div class="weui-form-preview__item" v-if="order.redPacketAmount">
           <div class="weui-form-preview__label">
-            <img src="/static/images/orderdetails_icon_redenvelopes@2x.png" class="redpack">
+            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/orderdetails_icon_redenvelopes@2x.png" class="redpack">
             {{ order.redPacketAmount }}元红包
           </div>
           <div class="weui-form-preview__value">-￥{{ order.redPacketAmount }}</div>
@@ -286,7 +286,7 @@
               <!-- XXX: 骑手详情不用做 -->
               <div class="text-green" @click="callRider">
                 联系骑手
-                <img src="/static/images/orderdetails_icon_phone@2x.png" class="tel-icon">
+                <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/orderdetails_icon_phone@2x.png" class="tel-icon">
               </div>
             </div>
           </div>
@@ -342,7 +342,7 @@
     <div class="footer-bar" v-if="order.state === 10">
       <button :plain="true" type="default" @click="cancel" v-if="order.orderType !=1">取消订单</button>
       <button :plain="true" type="primary" @click="pay">去支付</button>
-      
+
     </div>
 
     <!-- 已关闭 -->
@@ -357,13 +357,13 @@
 
     <!-- 交易成功 -->
     <div class="footer-bar" v-else-if="order.state === 40">
-      <button :plain="true" type="default" @click="del">删除订单</button>
+      <!-- <button :plain="true" type="default" @click="del">删除订单</button> -->
       <button :plain="true" type="default" @click="applyReturns">申请售后</button>
       <!-- <button :plain="true" type="primary" v-if="order.evaluateState == 1" @click="commentHistory">历史评价</button> -->
       <!-- <button :plain="true" type="primary" v-else  @click="comment">评价</button> -->
     </div>
     <div class="footer-bar" v-else-if="order.state === 49">
-      <button :plain="true" type="default" @click="del">删除订单</button>
+      <!-- <button :plain="true" type="default" @click="del">删除订单</button> -->
       <button :plain="true" type="default" @click="applyReturns">申请售后</button>
       <!-- <button :plain="true" type="primary" @click="commentHistory">历史评价</button> -->
     </div>
@@ -387,7 +387,7 @@
           <button :plain="true" type="default" @click="applyReturns">申请售后</button>
         </template>
         <template v-else>
-          <button :plain="true" type="default" @click="cancel" v-if="order.orderType !=1">取消订单</button> 
+          <button :plain="true" type="default" @click="cancel" v-if="order.orderType !=1">取消订单</button>
         </template>
 
         <button type="primary" class="bg-gradient" @click="showOrderCode">提货码</button>
@@ -418,8 +418,8 @@
     },
     data () {
       return {
-        ORDER_STATE, 
-        ORDER_STATE_TEXT, 
+        ORDER_STATE,
+        ORDER_STATE_TEXT,
         la: null,
         ra: null,
         order: {},  //倒计时
@@ -456,7 +456,7 @@
         return { h, m, s }
       },
 
-      /** 
+      /**
        * @description 支付方式文本
       */
       paymentCodeText() {
@@ -472,7 +472,7 @@
         }
       },
 
-      /** 
+      /**
        * @description 配送时间
       */
       deliveryRange() {
@@ -504,7 +504,7 @@
       }
     },
     methods: {
-      /** 
+      /**
        * @description 待支付倒计时
       */
        daojishi(){
@@ -800,7 +800,7 @@
 <style>
   page { background-color: #F5F5F5;
          padding-bottom: 120rpx;
-        padding-left:24rpx; 
+        padding-left:24rpx;
         }
 </style>
 
@@ -815,7 +815,7 @@
       font-size: 28rpx;
     }
     }
-    
+
   .addborder{
     display: block;
     width: 100%;
@@ -868,8 +868,8 @@
     }
   }
   .order-status {
-    
-    // background-image: url('/static/images/background_icon.png') center no-repeat;
+
+    // background-image: url('https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/background_icon.png') center no-repeat;
     position: relative;
     height: 196rpx;
     display: -webkit-flex;
@@ -883,13 +883,13 @@
     border-radius: 14rpx;
     .desc {
       font-size: 28rpx;
-     
+
     }
     img{
       position: absolute;
       top:26rpx;
       right:57rpx;
-      width:150rpx; 
+      width:150rpx;
       height: 150rpx;
 
     }
@@ -977,7 +977,7 @@
         line-height: 44rpx;
         border-radius: 22rpx;
         font-size: 26rpx;
-      }  
+      }
     }
     &__hd {
       line-height: inherit;
@@ -1197,7 +1197,7 @@
 
       .weui-flex {
         width: 100%;
-       
+
         &__item {
           position: relative;
           &.active {

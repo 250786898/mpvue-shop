@@ -1,6 +1,6 @@
 <template>
   <div class="empty-container">
-      <img src="/static/images/carticon.png" class="empty-icon">
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/carticon.png" class="empty-icon">
       <div class="empty-tip__text_main">抱歉，没有团购</div>
       <div class="empty-tip__text">我们正在为您精选优质的商品</div>
   </div>
@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  
+
 }
 </script>
 
@@ -23,7 +23,7 @@ export default {
   align-items: center;
   .empty-icon{
     width: 380rpx;
-    height: 260rpx; 
+    height: 260rpx;
     margin-top: 90rpx;
   }
   .empty-tip__text{

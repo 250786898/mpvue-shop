@@ -3,14 +3,14 @@
      <div class="weui-search-bar">
       <!-- 位置 -->
       <navigator url="/pages/store/select/main" class="location">
-        <img src="/static/images/scancodepurchase_icon_location.png@2x.png" />
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/scancodepurchase_icon_location.png@2x.png" />
         <div class="location__text">
           <div class="location__text__content" v-if="shopDetail">{{shopDetail.storeName}}</div>
         </div>
       </navigator>
       <div class="search-bar__form" @click="toSearch">
         <div class="search-bar__box">
-          <img src="/static/images/common_nav_icon_serve.n@2x.png" />
+          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_nav_icon_serve.n@2x.png" />
           <text>搜索商品</text>
           <!-- <input
             type="text"
@@ -24,7 +24,7 @@
       </div>
       <!-- 首页会员码 -->
       <!-- <navigator url="/pages/qrcode/index/main" class="weui-search-bar__cancel-btn">
-        <img src="/static/images/home_img_qrcode.png@2x.png">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/home_img_qrcode.png@2x.png">
       </navigator>-->
 
     <!-- //占位符 -->
@@ -83,6 +83,7 @@ export default {
 <style scoped lang="scss">
 .occupation{
   height: 100rpx;
+  background: #0FD7C0;
 }
 .weui-search-bar {
   height: 100rpx;
@@ -127,8 +128,8 @@ export default {
 }
 .search-bar__form{
   background: #f7f7f7;
-  width: 300rpx;
-  border-radius: 10rpx;
+  width: 200rpx;
+  border-radius: 15rpx;
 }
 .search-bar__box{
   padding-right: 10rpx;

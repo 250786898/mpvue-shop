@@ -10,7 +10,7 @@
           <p class="weui-media-box__desc">家门口的生鲜小超市</p>
         </div>
       </div>
-      <img src="/static/images/membershipcard_bg@2x.png" class="header__bg" mode="widthFix">
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/membershipcard_bg@2x.png" class="header__bg" mode="widthFix">
     </div>
     <div class="lj-form">
       <form>
@@ -24,7 +24,7 @@
               <input type="number" v-model.trim="mobile" placeholder="请输入手机号" :class="{ 'valid-error': mobileError }" @input="onMobileInput" maxlength="11">
             </div>
           </div>
-          
+
           <div class="weui-cell" v-if="isNew">
             <div class="weui-cell__hd">
               姓名
@@ -138,7 +138,7 @@
 
     methods: {
       onMobileInput({ mp: { detail } }) {
-        this.isMobileError = false        
+        this.isMobileError = false
         clearTimeout(this._timer)
         this._timer = setTimeout(() => {
           if (detail.value && mobileRegex.test(detail.value)) {
@@ -233,7 +233,7 @@
         if (this.isNew) {
           if (!this.realname) {
             this.realnameError = true
-            valid = false 
+            valid = false
           }
 
           if (!this.address) {
@@ -284,7 +284,7 @@
       // RESET ALL
       this.mobile = this.avatar = this.realname = ''
       this.sex = this.countdown = 0
-      this.mobileError = 
+      this.mobileError =
       this.realnameError =
       this.vcodeError =
       this.addressError =

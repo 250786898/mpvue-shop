@@ -2,7 +2,7 @@
   <navigator class="topnews-item" :url="'/pages/topnews/detail/main?id=' + item.articleId">
     <div class="topnews-item__thumb">
       <img :src="item.image" alt="" mode="widthFix" @load="onImageLoaded" @error="onImageLoaded">
-      <!-- <img v-if="item.type == 'video'" src="/static/images/list_btn_viedio@2x.png" class="icon-video"> -->
+      <!-- <img v-if="item.type == 'video'" src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/list_btn_viedio@2x.png" class="icon-video"> -->
     </div>
     <div class="topnews-item__bd">
       <div class="topnews-item__bd__title">{{ item.title }}</div>
@@ -10,7 +10,7 @@
     </div>
     <div class="topnews-item__ft">
       <div class="topnews-item__ft__like">
-        <img src="/static/images/list_icon_like@2x.png">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/list_icon_like@2x.png">
         <span>{{ item.spotCount }}</span>
       </div>
       <div class="topnews-item__ft__user">

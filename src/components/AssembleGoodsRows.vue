@@ -3,10 +3,10 @@
     <div class="goods-rows" v-if="goods.length">
       <template v-for="item in goods">
         <assemble-goods-item   v-if="item.activityStatus == 20 && item.id != goodsId"  :key="item.goodsId" :item="item" ></assemble-goods-item>
-      </template> 
+      </template>
       <div class="more" v-if="goods.length > 4 && showMore" @click="loadMore"
         hover-class="navigator-hover">
-        <!-- <img src="/static/images/left_arrow.png"> -->
+        <!-- <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/left_arrow.png"> -->
       </div>
     </div>
   </scroll-view>
@@ -14,7 +14,7 @@
 
 <script>
   import AssembleGoodsItem from '@/components/AssembleGoodsItem'
-  
+
   export default {
     components: {
       AssembleGoodsItem

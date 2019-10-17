@@ -75,7 +75,7 @@ export default {
           .filter(item => item.checked)
           .map(item => item.cartId)
           .join(',')
-      return  cartIds 
+      return  cartIds
     },
 
     /**
@@ -115,6 +115,9 @@ export default {
   line-height: 105rpx;
   text-align: center;
   color: #fff;
+  &::after{
+    border: none;
+  }
 }
 .footer-bar {
   z-index: 101;

@@ -1,6 +1,6 @@
 <template>
   <div>
-      <img class="mine-card__bg" src="/static/images/mine_bg.png"  alt="" >
+      <img class="mine-card__bg" src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/mine_bg.png"  alt="" >
 
     <div class="headline"> 我的 </div>
     <div class="dise"></div>
@@ -9,7 +9,7 @@
       <div class="mine-card__user">
         <div class="weui-cell" @click="toSmessage">
           <!-- 箭头 -->
-           <navigator hover-class="none"  > <img src="/static/images/icon_blackarrow.png" alt="" class="arrows" style="width:60rpx;height:60rpx;"> </navigator>
+           <navigator hover-class="none"  > <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/icon_blackarrow.png" alt="" class="arrows" style="width:60rpx;height:60rpx;"> </navigator>
 
           <!-- 头像 -->
           <div class="weui-cell__hd">
@@ -17,7 +17,7 @@
               <!-- if hasAvatar -->
               <img v-if="personCenter.avatar" :src="personCenter.avatar">
               <!-- else -->
-              <img v-else src="/static/images/me_img_headportrait_n@2x.png" class="placeholder">
+              <img v-else src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/me_img_headportrait_n@2x.png" class="placeholder">
             </div>
           </div>
           <div class="weui-cell__bd">
@@ -33,11 +33,11 @@
             <!-- else -->
             <div hover-class="none" @click="resgiterOrLogin"  v-else class="mine-card__login" >
               注册/登录
-              <!-- <img src="/static/images/me_icon_blackarrow@2x.png"> -->
+              <!-- <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/me_icon_blackarrow@2x.png"> -->
             </div>
           </div>
           <!-- <navigator hover-class="none" url="/pages/qrcode/index/main" class="weui-cell__ft">
-            <img src="/static/images/me_icon_qrcode@2x.png">
+            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/me_icon_qrcode@2x.png">
             <div>会员码</div>
           </navigator> -->
         </div>
@@ -58,7 +58,7 @@
       <!-- <navigator hover-class="none" url="/pages/vip/index/main" class="mine-card__ft">
         <div class="weui-cell weui-cell_access">
           <div class="weui-cell__hd">
-            <img src="/static/images/me_icon_ancrown@2x.png">
+            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/me_icon_ancrown@2x.png">
           </div>
           <div class="weui-cell__bd">乐享VIP</div>
           <div class="weui-cell__ft weui-cell__ft_in-access">
@@ -80,35 +80,35 @@
       <div class="xian"></div>
       <div class="weui-panel__hd">
         我的订单
-        <navigator hover-class="none" url="/pages/order/index/main" class="weui-cell__ft weui-cell__ft_in-access"
-          style="font-size: 24rpx; line-height: 40rpx;">查看全部订单</navigator>
+        <div hover-class="none" @click="allOrder" url="/pages/order/index/main" class="weui-cell__ft weui-cell__ft_in-access"
+          style="font-size: 24rpx; line-height: 40rpx;">查看全部订单</div>
       </div>
       <div class="weui-panel__bd">
         <div class="weui-flex">
-          <navigator hover-class="none"  :url="'/pages/order/index/main?status=' + ORDER_STATE.UNPAID" class="weui-flex__item" style="position:relative">
-            <img src="/static/images/payment_icon.png">
+          <div hover-class="none" @click="obligation " :url="'/pages/order/index/main?status=' + ORDER_STATE.UNPAID" class="weui-flex__item" style="position:relative">
+            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/payment_icon.png">
             <div>待付款</div>
             <span class="weui-badge" style="position: absolute;top: -.4em;right: 1em;" v-if="personCenter.notPayCount">{{ personCenter.notPayCount }}</span>
-          </navigator>
-          <navigator hover-class="none" :url="'/pages/order/index/main?status=' + ORDER_STATE.POHYD" class="weui-flex__item" style="position:relative">
-            <img src="/static/images/mention_icon.png">
+          </div>
+          <div hover-class="none" @click="toPickUp" :url="'/pages/order/index/main?status=' + ORDER_STATE.POHYD" class="weui-flex__item" style="position:relative">
+            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/mention_icon.png">
             <div>待提货</div>
             <span class="weui-badge" style="position: absolute;top: -.4em;right: 1em;" v-if="personCenter.notVeriCount">{{ personCenter.notVeriCount }}</span>
-          </navigator>
+          </div>
           <!-- <navigator hover-class="none" :url="'/pages/order/index/main?status=' + ORDER_STATE.UNRECEIVED" class="weui-flex__item" style="position:relative">
-            <img src="/static/images/me_icon_deliveried@2x.png">
+            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/me_icon_deliveried@2x.png">
             <div>待收货</div>
             <span class="weui-badge" style="position: absolute;top: -.4em;right: 1em;" v-if="personCenter.notReceivingCount">{{ personCenter.notReceivingCount }}</span>
           </navigator> -->
-          <navigator hover-class="none" :url="'/pages/order/index/main?status=' + ORDER_STATE.FINISHED" class="weui-flex__item" style="position:relative">
-            <img src="/static/images/evaluate_icon.png">
+          <div hover-class="none" @click="pickUp" :url="'/pages/order/index/main?status=' + ORDER_STATE.FINISHED" class="weui-flex__item" style="position:relative">
+            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/evaluate_icon.png">
             <div>已提货</div>
             <!-- <span class="weui-badge" style="position: absolute;top: -.4em;right: 1em;" v-if="personCenter.notEvaluationCount">{{ personCenter.notEvaluationCount }}</span> -->
-          </navigator>
-          <navigator hover-class="none" :url="'/pages/order/returns/main'" class="weui-flex__item" style="position:relative">
-            <img src="/static/images/after_icon.png">
+          </div>
+          <div hover-class="none" @click="salesReturn" :url="'/pages/order/returns/main'" class="weui-flex__item" style="position:relative">
+            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/after_icon.png">
             <div>退货/售后</div>
-          </navigator>
+          </div>
         </div>
       </div>
     </div>
@@ -122,37 +122,37 @@
         <div class="weui-flex">
           <!-- 二期
           <navigator hover-class="none" url="/pages/scanorder/index/main" class="weui-flex__item">
-            <img src="/static/images/me_icon_sweeporder@2x.png">
+            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/me_icon_sweeporder@2x.png">
             <div>扫码购订单</div>
           </navigator>
           -->
           <!-- <navigator hover-class="none" url="/pages/pickup/index/main" class="weui-flex__item">
-            <img src="/static/images/me_icon_deliverycode@2x.png">
+            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/me_icon_deliverycode@2x.png">
             <div>提货码</div>
           </navigator> -->
           <!-- 1.0 -->
           <navigator hover-class="none" @click="discount" class="weui-flex__item">
-          <img src="/static/images/coupon_icon.png">
+          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/coupon_icon.png">
             <!-- <div class="primary" v-if="sessionId">{{ personCenter.couponNum }}</div> -->
             <!-- <div class="primary" v-else="sessionId">***</div> -->
             <div>优惠券</div>
           </navigator>
           <!-- <navigator hover-class="none" url="/pages/order/teamlist/main" class="weui-flex__item">
-            <img src="/static/images/me_icon_tuan@2x.png">
+            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/me_icon_tuan@2x.png">
             <div>我的团购</div>
           </navigator> -->
           <button open-type="contact" class="weui-flex__item no-style">
-            <img src="/static/images/service_icon.png">
+            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/service_icon.png">
             <div>联系客服</div>
           </button>
 
           <button  @click="toSettings"  class="weui-flex__item no-style">
-            <img src="/static/images/set_icon.png">
+            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/set_icon.png">
             <div>设置</div>
           </button>
 
           <!-- <button open-type="feedback" class="weui-flex__item no-style">
-            <img src="/static/images/me_icon_feedback@2x.png">
+            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/me_icon_feedback@2x.png">
             <div>意见反馈</div>
           </button> -->
           <!-- <div class="weui-flex__item"></div> -->
@@ -167,6 +167,7 @@
   import { mapState } from 'vuex'
   import UserModer from '@/model/user'
   import { Api, ORDER_STATE, ORDER_STATE_TEXT } from '@/http/api'
+  import {resgiterOrLogin} from '../../utils/index'
 
   const userModel = new UserModer()
 
@@ -183,6 +184,80 @@
     },
 
     methods: {
+
+      allOrder () {
+        if(!this.sessionId) {
+          resgiterOrLogin()
+        }else{
+          wx.navigateTo({
+            url: `/pages/order/index/main`
+          })
+        }
+      },
+
+      obligation () {
+        if(!this.sessionId) {
+          resgiterOrLogin()
+        }else{
+          console.log('ORDER_STATE.UNPAID',ORDER_STATE.UNPAID)
+          wx.navigateTo({
+            url: `/pages/order/index/main?status=${ORDER_STATE.UNPAID}`
+          })
+        }
+
+      },
+
+      toPickUp () {
+        if(!this.sessionId) {
+          resgiterOrLogin()
+        }else{
+          wx.navigateTo({
+            url: `/pages/order/index/main?status=${ORDER_STATE.POHYD}`
+          })
+        }
+      },
+
+      pickUp () {
+         if(!this.sessionId) {
+          resgiterOrLogin()
+        }else{
+          wx.navigateTo({
+            url: `/pages/order/index/main?status=${ORDER_STATE.FINISHED}`
+          })
+        }
+      },
+
+      salesReturn () {
+        if(!this.sessionId) {
+          resgiterOrLogin()
+        }else{
+          wx.navigateTo({
+            url: `/pages/order/returns/main`
+          })
+        }
+
+      },
+
+       // 优惠券
+      discount() {
+        if (this.sessionId) {
+          wx.navigateTo({
+            url: '/pages/coupon/index/main'
+          })
+        } else {
+          resgiterOrLogin()
+        }
+      },
+
+      toSettings() {
+        if (this.sessionId) {
+          wx.navigateTo({
+            url: '/pages/settings/index/main'
+          })
+        } else {
+         resgiterOrLogin()
+        }
+      },
 
       /**
        * @description 跳转注册登录组件
@@ -249,30 +324,7 @@
         // })
 
       },
-      // 优惠券
-      discount() {
-        if (this.sessionId) {
-          wx.navigateTo({
-            url: '/pages/coupon/index/main'
-          })
-        } else {
-          wx.navigateTo({
-            url: '/pages/mine/auth/main'
-          })
-        }
-      },
 
-      toSettings() {
-        if (this.sessionId) {
-          wx.navigateTo({
-            url: '/pages/settings/index/main'
-          })
-        } else {
-          wx.navigateTo({
-            url: '/pages/mine/auth/main'
-          })
-        }
-      },
 
       toSmessage() {
         if (this.sessionId) {

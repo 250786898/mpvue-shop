@@ -31,12 +31,12 @@
 
   <div class="weui-cells weui-cells_no-border detail-form">
     <div class="lj-form">
-     
+
         <div class="weui-cell">
-          <img src="/static/images/icon_arrow.png" alt="">
+          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/icon_arrow.png" alt="">
           <div  style="font-size:30rpx; width:300rpx;" class="weui-cell__hd">
            <p style="float:left;">退货原因： </p> <span style="color:#999;"> 请选填</span>
-            
+
           </div>
           <div class="weui-cell__bd">
             <picker @change="onReasonChange" :value="reason" :range="reasonArray" range-key="reasonInfo">
@@ -138,12 +138,6 @@
             icon: 'none'
           })
         }
-         if (!this.goodsImageMore) {
-          return wx.showToast({
-            title: '请上传退货图片',
-            icon: 'none'
-          })
-        }
         // if (!this.addressInfo.addressId) {
         //   return wx.showToast({
         //     title: '请选择提货地址',
@@ -199,7 +193,7 @@
       let returnOrderGoodsList = getApp().globalData.returnOrderGoodsList
 
       if (returnOrderGoodsList) {
-        this.returnOrderGoodsList = returnOrderGoodsList        
+        this.returnOrderGoodsList = returnOrderGoodsList
       }
 
       this.getReasonList()
@@ -219,7 +213,7 @@
     .weui-cells {
       margin-top: 20rpx;
       border-radius: 14rpx;
-      
+
     }
     .picker {
       padding-right: 43rpx;

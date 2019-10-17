@@ -11,10 +11,10 @@
       </div>
     <radio-group  class="store-list" @change="checkoutStoreType">
 
-       <label class="store-item">
-        <radio class="store-item-radio" :checked="true" value="current" color="#0FD7C0" />
+       <label class="select-store-item">
+        <radio class="select-store-item-radio" :checked="true" value="current" color="#0FD7C0" />
         <div>
-          <div class="store-item-header">
+          <div class="select-store-item-header">
 
             <div class="store-name">
              {{shareStoreInfo.storeName}}
@@ -25,7 +25,7 @@
             </div>
 
             <div class="distance" v-if="shareStoreInfo.storeDistance">
-              <img src="/static/images/confirm_store_location_icon.png" alt="">
+              <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/confirm_store_location_icon.png" alt="">
               <span>距离您{{shareStoreDistance}}</span>
             </div>
 
@@ -36,10 +36,10 @@
         </div>
       </label>
 
-        <label class="store-item">
-        <radio class="store-item-radio" value="usually" color="#0FD7C0" />
+        <label class="select-store-item">
+        <radio class="select-store-item-radio" value="usually" color="#0FD7C0" />
         <div>
-          <div class="store-item-header">
+          <div class="select-store-item-header">
 
             <div class="store-name">
               {{usuallyStoreInfo.storeName}}
@@ -50,7 +50,7 @@
             </div>
 
             <div class="distance" v-if="usuallyStoreInfo.storeDistance">
-              <img src="/static/images/confirm_store_location_icon.png" alt="">
+              <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/confirm_store_location_icon.png" alt="">
               <span>距离您{{usuallyStoreDistance}}</span>
             </div>
 
@@ -64,7 +64,7 @@
     </radio-group >
       <div class="change-box"  @click="checkoutStore">
         <span>切换其他门店</span>
-        <img src="/static/images/arrows.png" alt="">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/arrows.png" alt="">
       </div>
       <button type="primary"  class="comfirm-btn" @click="comfirmStore">确定</button>
     </div>
@@ -154,7 +154,7 @@
       }
     }
     .store-list{
-      .store-item{
+      .select-store-item{
         display: flex;
         align-items: center;
         padding: 36rpx 0 36rpx 16rpx;

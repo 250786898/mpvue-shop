@@ -14,7 +14,7 @@
         </div>
 
       </div>
-      <img src="/static/images/arrows.png" class="arrows" alt="">
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/arrows.png" class="arrows" alt="">
     </div>
   </div>
 </template>
@@ -40,7 +40,7 @@ export default {
     },
     lastRouter:{ //上一个路由名称
       type: String,
-      default: '123'
+      default: ''
     }
 
   },
@@ -70,9 +70,9 @@ export default {
               url: '/pages/index/main'
             })
           }else{
-             wx.navigateBack({
-              delta: 1
-             })
+            wx.reLaunch({
+              url: '/pages/index/main'
+            })
           }
 
         })

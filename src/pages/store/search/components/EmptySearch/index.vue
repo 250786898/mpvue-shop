@@ -1,6 +1,6 @@
 <template>
   <div class="empty-container">
-    <img src="/static/images/empty-search-icon.png" class="empty-search-icon" />
+    <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/empty-search-icon.png" class="empty-search-icon" />
     <div class="empty-desc">抱歉，没有搜索到门店</div>
     <div class="empty-desc">建议您，请选择离您 最近门店提货</div>
   </div>
@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  
+
 }
 </script>
 

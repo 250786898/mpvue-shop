@@ -4,7 +4,7 @@
       <img class="wobble animated infinite" src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/tanchuang_yao.png">
     </div>
     <div class="close-btn">
-      <img @click="close" src="/static/images/home_popup_icon.png" />
+      <img @click="close" src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/home_popup_icon.png" />
     </div>
   </div>
 </template>
@@ -20,7 +20,7 @@
     },
     data() {
       return {
-        
+
       }
     },
     methods: {

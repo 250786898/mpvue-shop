@@ -15,10 +15,10 @@
 
               <div v-if="!couponPrice">
                 <span>{{list.length}}张优惠券可用</span>
-                <img class="weui-form-preview__value" src="/static/images/b1_icon_arrow_go.png" @click="tapCoupon" style="width:12rpx;height:22rpx;">
+                <img class="weui-form-preview__value" src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/b1_icon_arrow_go.png" @click="tapCoupon" style="width:12rpx;height:22rpx;">
               </div>
 
-              <div class="weui-form-preview__value" v-else>减 ￥{{couponPrice}} <img class="weui-form-preview__value" src="/static/images/b1_icon_arrow_go.png" @click="tapCoupon" style="width:12rpx;height:22rpx;"></div>
+              <div class="weui-form-preview__value" v-else>减 ￥{{couponPrice}} <img class="weui-form-preview__value" src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/b1_icon_arrow_go.png" @click="tapCoupon" style="width:12rpx;height:22rpx;"></div>
             </div>
           </template>
 
@@ -29,10 +29,10 @@
 
               <div v-if="!couponPrice">
                 <span>{{list.length}}张优惠券</span>
-                <img class="weui-form-preview__value" src="/static/images/b1_icon_arrow_go.png" @click="tapCoupon" style="width:12rpx;height:22rpx;">
+                <img class="weui-form-preview__value" src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/b1_icon_arrow_go.png" @click="tapCoupon" style="width:12rpx;height:22rpx;">
               </div>
 
-              <div class="weui-form-preview__value" v-else>减 ￥{{couponPrice}} <img class="weui-form-preview__value" src="/static/images/b1_icon_arrow_go.png" @click="tapCoupon" style="width:12rpx;height:22rpx;"></div>
+              <div class="weui-form-preview__value" v-else>减 ￥{{couponPrice}} <img class="weui-form-preview__value" src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/b1_icon_arrow_go.png" @click="tapCoupon" style="width:12rpx;height:22rpx;"></div>
 
             </div>
           </template>

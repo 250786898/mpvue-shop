@@ -5,7 +5,7 @@
       <span class="address" v-if="location.address">{{ relocationing ? '定位中...' : location.address}}</span>
       <span class="address" v-else>未获取到微信信息</span>
       <div class="reposition">
-        <img src="/static/images/common_icon_dangqian@2x.png" class="reposition-icon" alt="">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_icon_dangqian@2x.png" class="reposition-icon" alt="">
         <span  v-if="location.address" @click="relocation">重新定位</span>
         <button type="primary" open-type="openSetting" @opensetting="onOpenSetting" class="grant-permission" v-else>重新定位</button>
       </div>
@@ -32,13 +32,13 @@ export default {
   },
   methods: {
     /**
-     * @description 重新定位 
+     * @description 重新定位
      */
     relocation(e) {
 
       //已经授权定位
       this.resetLocate() //直接重新定位
-      
+
     },
 
     /**

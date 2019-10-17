@@ -13,7 +13,7 @@
           @blur="focus=false"
           @confirm="search(inputVal)"
           disabled
-          @click="toSearch" 
+          @click="toSearch"
           />
         <div class="weui-icon-clear" v-if="inputVal.length > 0" @click="clearInput">
           <icon type="clear" size="14"></icon>
@@ -26,7 +26,7 @@
     </div>
     <div class="weui-search-bar__cancel-btn" :hidden="!(inputShowed && focus)" @click="hideInput">取消</div>
     <navigator url="/pages/cart/main" open-type="switchTab" class="cartentry" :hidden="inputShowed && focus">
-      <img src="/static/images/common_tab_icon_shopcart_n@2x.png" alt="">
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_tab_icon_shopcart_n@2x.png" alt="">
       <span class="weui-badge" style="position: absolute; top: -.2em; right: 0;">{{ cartNum }}</span>
     </navigator>
   </div>
@@ -135,7 +135,7 @@
     left: 30rpx;
     top: 18rpx;
   }
-  
+
   .cartentry {
     position: relative;
     padding-left: 28rpx;

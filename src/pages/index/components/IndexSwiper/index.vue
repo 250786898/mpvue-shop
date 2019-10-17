@@ -8,11 +8,11 @@
       :style="swiperHeightStyle"
       indicator-color="rgba(255, 255, 255, .6)"
       indicator-active-color="#FFFFFF">
-        <swiper-item 
+        <swiper-item
           v-for="item in bannerList"
           :key="item.activityId"
         >
-          <img :src="item.bannerUrl" class="slide-image" mode="aspectFit" />
+          <img :src="item.bannerUrl" class="slide-image" mode="" />
 
         </swiper-item>
 
@@ -30,11 +30,11 @@ export default {
   },
   data () {
     return {
-      swiperHeight: 390 //轮播图高度
+      swiperHeight: 280 //轮播图高度
     }
   },
   computed: {
-    swiperHeightStyle() { 
+    swiperHeightStyle() {
       return this.swiperHeight ? `height: ${ this.swiperHeight }rpx;` : ''
     }
   }
@@ -43,11 +43,11 @@ export default {
 
 <style lang="scss" scoped>
 .swiper-wrap {
-  width: 750rpx;
-}
-
+    padding: 20rpx 20rpx 20rpx 20rpx;
+  }
 .swiper img {
-  width: 750rpx;
-  height: 390rpx;
+  vertical-align: middle;
+  width: 100%;
+  height: 280rpx;
 }
 </style>

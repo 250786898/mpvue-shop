@@ -52,9 +52,9 @@
       </div>
     </div> -->
 
-    <!-- <navigator :url="'/pages/order/contact/main?id=' + id" class="footer-bar">
+    <navigator :url="'/pages/order/contact/main?id=' + id" class="footer-bar">
       <button type="primary" class="bg-light">联系卖家</button>
-    </navigator> -->
+    </navigator>
   </div>
 </template>
 

@@ -2,7 +2,7 @@
   <div class="flashsale">
     <div class="weui-cells">
       <div class="weui-cell" >
-        <img src="/static/images/details_icon_clock@2x.png" class="clock-icon">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/details_icon_clock@2x.png" class="clock-icon">
         <span class="take-goods-time">现在下单,</span><span class="take-goods-time-color">&nbsp;&nbsp;{{showPickUpTime}}&nbsp;&nbsp;</span> 可提货
       </div>
     </div>
@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  computed: {     
+  computed: {
     showPickUpTime () { //显示的提货时间
       const hours = new Date().getHours()
       let showPickUpTime = ''
@@ -21,8 +21,8 @@ export default {
       }else{
         showPickUpTime = this.getDateStr(1)
       }
-      return showPickUpTime      
-    } 
+      return showPickUpTime
+    }
   },
   methods: {
     /**
@@ -35,7 +35,7 @@ export default {
       var dd = new Date();
       dd.setDate(dd.getDate()+dayCount);//设置日期
       var m = dd.getMonth()+1;//获取当前月份的日期
-      m = m <10 ? `0${m}` : m 
+      m = m <10 ? `0${m}` : m
       var d = dd.getDate();
       d = d <10 ? `0${d}` : d
       return `${m}月${d}日`
