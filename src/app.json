@@ -37,7 +37,9 @@
     "pages/pickup/detail/main",
     "pages/pickup/instruction/main",
     "pages/network/exceptions/main",
-    "pages/coupon/index/main"
+    "pages/coupon/index/main",
+    "pages/coupon/applicableStores/main",
+    "pages/coupon/applicableGoods/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
