@@ -7,8 +7,8 @@ let MIXIN = {
 
   },
   onLoad () {
-    if(typeof this.$options.data !==  'function' && typeof this.$options.data !== 'undefined') {
-      console.log('mixin',typeof this.$options.data)
+    if(typeof this.data !== 'undefined') {
+      console.log('mixin',this.$data,typeof this.$options.data())
       Object.assign(this.$data, this.$options.data()) //解决mpvue初始化未清空状态问题
     }
   }

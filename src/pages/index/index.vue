@@ -186,7 +186,26 @@ export default {
      */
     async updateStoreInfo () {
       const storeInfo = await this.getStoreInfoByStoreId(this.storeId)
-      console.log('更新门店信息',storeInfo)
+      if(!storeInfo.isBusiness) {
+        //如果该门店休息中，弹窗提示跳转选择其他门店
+         wx.showModal({
+          title: '提示',
+          content: `经常访问“${storeInfo.storeName}”，休息中请重新选择服务门店~`,
+          showCancel: false,
+          cancelText: '取消',
+          cancelColor: '#000000',
+          confirmText: '确定',
+          confirmColor: '#3CC51F',
+          success: (result) => {
+            if (result.confirm) {
+              wx.reLaunch({
+                url: '/pages/store/select/main'
+              })
+            }
+          }
+        })
+      }
+      console.log('首页更新门店信息',storeInfo)
       this.setStoreItemInfo(storeInfo)
     },
 

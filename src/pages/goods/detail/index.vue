@@ -92,7 +92,7 @@
 
 
     onShow () {
-      this.goodsDetailInfo = {} //初始化商品详情信息
+      // this.goodsDetailInfo = {} //初始化商品详情信息
     },
 
     async mounted () {

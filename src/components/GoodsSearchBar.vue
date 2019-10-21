@@ -2,12 +2,12 @@
   <div>
      <div class="weui-search-bar">
       <!-- 位置 -->
-      <navigator url="/pages/store/select/main" class="location">
+      <div class="location" @click="selectStore">
         <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/scancodepurchase_icon_location.png@2x.png" />
         <div class="location__text">
-          <div class="location__text__content" v-if="shopDetail">{{shopDetail.storeName}}</div>
+          <div class="location__text__content" v-if="shopDetail.storeName">{{shopDetail.storeName}}</div>
         </div>
-      </navigator>
+      </div>
       <div class="search-bar__form" @click="toSearch">
         <div class="search-bar__box">
           <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_nav_icon_serve.n@2x.png" />
@@ -37,6 +37,8 @@
 </template>
 <script>
 import { mapState } from "vuex";
+import config from "@/config"
+import { AMapWX } from "@/utils/amap-wx"
 export default {
   props: {
     showtip: {
@@ -49,6 +51,7 @@ export default {
     ...mapState(['shopDetail'])
   },
   data() {
+
   },
 
 
@@ -66,6 +69,14 @@ export default {
 
   methods: {
 
+    /**
+     * @description 选择门店，先刷新用户定位信息再进入选择门店组件
+     */
+    selectStore () {
+      wx.navigateTo({
+        url: '/pages/store/select/main'
+      })
+    },
 
     //   cityModalShowshop(){
     // console.log(this.$store.state.tempOrder)

@@ -2,9 +2,9 @@
   <div class="container">
     <top-bg/>
     <search-store :city-name="cityName" />
-    <current-store :item="currentStoreInfo" v-if="storeId || shareStoreId" />
+    <current-store :item="currentStoreInfo" v-if="currentStoreInfo.storeName && (storeId || shareStoreId)" />
     <current-location />
-    <nearby-stores :store-list="nearbyStoreList" :last-router="lastRouter" v-if="nearbyStoreList && nearbyStoreList.length" :isCurrentLocateCity="isCurrentLocateCity" />
+    <nearby-stores :store-list="nearbyStoreList" :last-router="lastRouter"  :isCurrentLocateCity="isCurrentLocateCity" />
     <page-loading  :show="showPageLoading"/>
   </div>
 </template>
@@ -72,6 +72,8 @@ export default {
        })
     },
 
+
+
      /**
      * @description 获取附近门店列表信息Promise
      */
@@ -127,7 +129,7 @@ export default {
 
        let storeList = [] //过滤后返回的附近门店列表
        storeList = nearbyStoreList.filter(item => {
-         return item.storeDistance <= 10
+         return item.storeDistance && item.storeDistance <= 10
        })
        console.log('setNearbyStoreOfLocateCity',storeList)
 
@@ -203,6 +205,7 @@ export default {
 page{
   width: 750rpx;
   box-sizing: border-box;
+  background: #f5f5f5;
 }
 .container{
   display: flex;

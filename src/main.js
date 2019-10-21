@@ -2,6 +2,8 @@ import Vue from 'vue'
 import App from './App'
 import store from './store/index'
 import mixin from './utils/mixin'
+import config from "@/config"
+import { AMapWX } from "@/utils/amap-wx"
 
 require('./styles/weui.css')
 require('./styles/common.scss')
@@ -46,6 +48,22 @@ if (sessionId) {
     store.commit('setWxPhoneNumber', phoneNumber) //缓存有电话号码设置电话号码到vuex
   }
 }
+
+
+//用户进入程序的时候刷新自己的相关定位信息
+let amap = new AMapWX({ key: config.AMAP_KEY })
+console.log('AMapWX')
+amap.getPoiAround({
+  success: res => { //用户成功授权
+    const locationInfo = res.markers[0] //当前用户定位定位相关信息
+    const cityName = res.poisData[0].cityname || res.pois[0].cityname //用户定位当前城市
+    console.log('程序进来定位',locationInfo)
+    store.commit("setcityname",cityName)
+    store.commit("setLocateCity",cityName)
+    store.commit("setLocationInfo",locationInfo)  //用户定位相关信息存到vuex
+  }
+})
+
 
 //监听忘了改变,如果没有网络情况跳转网络异常页面
 wx.onNetworkStatusChange(function (res) {

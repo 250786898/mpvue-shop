@@ -27,9 +27,13 @@
     },
      methods: {
       confirm(){
-        wx.navigateTo({
-          url:`/pages/order/index/main?status=${ORDER_STATE.FINISHED}`
-        })
+         wx.switchTab({
+        //如果核销成功，返回应该直接跳转我的
+            url: '/pages/mine/main'
+          })
+        // wx.navigateTo({
+        //   url:`/pages/order/index/main?status=${ORDER_STATE.FINISHED}`
+        // })
       },
      },
   }

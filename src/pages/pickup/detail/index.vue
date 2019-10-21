@@ -76,6 +76,54 @@
       }
     },
 
+    computed: {
+
+      pickup(){
+          let pickup=this.$store.state.pickup;
+          return pickup
+      },
+
+      showPickUpTime () { //显示的提货时间
+          const hours = new Date().getHours()
+          let showPickUpTime = ''
+          if(hours > 20) {
+            //超过20：00设置成显示后天提货
+            showPickUpTime = this.getDateStr(2)
+          }else{
+            showPickUpTime = this.getDateStr(1)
+          }
+          return showPickUpTime
+        },
+      },
+  mounted () {
+    console.log('mounted核销',this.popupShowed)
+    this.orderId = this.$mp.page.options.id
+    clearInterval(this.timer)
+    this.getOrderPickUpCodeDetail()
+    this.timer = setInterval(() => {
+      this.findOrderStat()
+    }, 3000)
+  },
+  onShow () {
+    if(this.popupShowed) {
+      wx.switchTab({
+        //如果核销成功，返回应该直接跳转我的
+        url: '/pages/mine/main'
+      })
+    }
+    console.log('onShow核销',this.popupShowed)
+  },
+  onUnload () {
+    // this.recoverScreen()
+    clearInterval(this.timer)
+  },
+
+
+  onLoad () {
+    console.log('mixin',typeof this.data,this.$options.data())
+    Object.assign(this.$data, this.$options.data()) //解决mpvue初始化未清空状态问题
+    },
+
     methods: {
      /**
       * @description 核销后提示信息
@@ -86,23 +134,8 @@
           if (res.code === Api.CODES.SUCCESS) {
             // this.result = res.data
             console.log('判断',res )
-              this.popupShowed = true
-            // wx.showModal({
-            //     title: '感谢购买',
-            //     content: '订单已核销成功',
-            //     showCancel: false ,
-            //     confirmColor: '#11D2C8',
-            //     success (res) {
-            //       if (res.confirm) {
-            //         console.log('用户点击确定')
-            //          wx.navigateTo({
-            //             url: '/pages/order/index/main'
-            //           })
-            //       }
-            //     }
-            //   })
+            this.popupShowed = true
             clearInterval(this.timer)
-            wx.navigateTo({ url: '/pages/order/index/main' })
           }
         })
         .catch(e => console.log(e))
@@ -181,39 +214,7 @@
         value: that.currentBrightness
         })
       }
-    },
-  computed: {
-
-    pickup(){
-        let pickup=this.$store.state.pickup;
-        return pickup
-    },
-
-    showPickUpTime () { //显示的提货时间
-        const hours = new Date().getHours()
-        let showPickUpTime = ''
-        if(hours > 20) {
-          //超过20：00设置成显示后天提货
-          showPickUpTime = this.getDateStr(2)
-        }else{
-          showPickUpTime = this.getDateStr(1)
-        }
-        return showPickUpTime
-      },
-    },
-    mounted () {
-      this.orderId = this.$mp.page.options.id
-      clearInterval(this.timer)
-      this.getOrderPickUpCodeDetail()
-      this.timer = setInterval(() => {
-        this.findOrderStat()
-      }, 3000)
-    },
-    onUnload () {
-      // this.recoverScreen()
-       clearInterval(this.timer)
-    },
-
+    }
   }
 </script>
 

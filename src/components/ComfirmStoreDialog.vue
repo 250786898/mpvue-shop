@@ -7,21 +7,21 @@
     <div class="dialog-main">
       <h3 class="dialog-main-desc">订单需要您到如下门店自提,请仔细确认地址!</h3>
       <div class="store-info">
-          <div class="store-info-header">
-            <span class="store-name" >自提门店:{{shopDetail.storeName}}</span>
+          <div class="store-info-header" v-if="shopDetail">
+            <span class="store-name" >自提门店:{{shopDetail.storeName}}<span v-if="!shopDetail.isBusiness"> 休息中</span></span>
             <div class="distance" v-if="shopDetail.storeDistance">
               <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/confirm_store_location_icon.png" alt="">
-              <span>{{storeDistance}}</span>
+              <span v-if="storeDistance &&shopDetail.isBusiness">{{storeDistance}}</span>
             </div>
           </div>
-          <div class="detain-address">{{shopDetail.storeAddress}}</div>
+          <div class="detain-address" v-if="shopDetail">{{shopDetail.storeAddress}}</div>
       </div>
 
       <div class="change-box" @click="checkoutStore">
         <span>切换其他门店</span>
         <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/arrows.png" alt="">
       </div>
-      <button type="primary"  class="comfirm-btn" @click="comfirmStore">确定</button>
+      <button type="primary"  class="comfirm-btn" @click="comfirmStore" v-if="shopDetail.isBusiness">确定</button>
     </div>
   </div>
 </template>

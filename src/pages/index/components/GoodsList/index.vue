@@ -1,7 +1,7 @@
 <template>
 	<div class="goods-recommend">
       <!-- <goods-list-tab /> -->
-      <!-- <van-tabs sticky @change="tabChange" :active="activeIndex" tab-active-class="tab-active-class" tab-class="tab-class" color="#11D2C8" class="fixed-tab" v-if="isCeiling">
+      <!-- <van-tabs sticky @change="tabChange" :active="activeIndex" tab-active-class="tab-active-class" :swipe-threshold="1" tab-class="tab-class" color="#11D2C8" class="fixed-tab" v-if="isCeiling">
 
         <van-tab  v-for="item in tab" :title="item.title" :key="item.pcId"></van-tab>
 
@@ -78,32 +78,32 @@
         tab: [
           {
             pcId: 1,
-            title: '今日爆款'
+            title: '今日秒杀'
           },
-          {
-            pcId: 10,
-            title: '即将开抢'
-          },
+          // {
+          //   pcId: 10,
+          //   title: '即将开抢'
+          // },
 
-          {
-            pcId: 31,
-            title: '内容3',
+          // {
+          //   pcId: 31,
+          //   title: '内容3',
 
-          },
-          {
-            pcId: 31,
-            title: '内容4'
+          // },
+          // {
+          //   pcId: 31,
+          //   title: '内容4'
 
-          },
-          {
-            pcId: 31,
-            title: '内容5'
+          // },
+          // {
+          //   pcId: 31,
+          //   title: '内容5'
 
-          },
-          {
-            pcId: 31,
-            title: '内容6'
-          }
+          // },
+          // {
+          //   pcId: 31,
+          //   title: '内容6'
+          // }
         ], //分类栏
         pcId: 1, //当前分类编码
         activeIndex: 0, //当前分类索引
@@ -223,14 +223,11 @@
 @keyframes fadeInDown
 {
     from {
-        // opacity: 0;
         transform: translateY(-100%);
-        // transform: stranslate(0,-1000px); /* 标准语法 */
+
     }
     to {
-        // opacity:1;
           transform: translateY(0);
-          // transform: stranslate(0,10px); /* 标准语法 */
     }
 }
 

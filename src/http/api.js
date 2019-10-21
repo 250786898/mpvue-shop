@@ -62,6 +62,24 @@ fly.interceptors.response.use(res => {
 
 
     }
+  }else if (res.data.code === Api.CODES.INEXISTENT_STORE){
+    //如果门店下架或者门店不存在跳转选择门店组件
+    // wx.showModal({
+    //   title: '提示',
+    //   content: '该门店已经休息啦~',
+    //   showCancel: false,
+    //   cancelText: '取消',
+    //   cancelColor: '#000000',
+    //   confirmText: '确定',
+    //   confirmColor: '#3CC51F',
+    //   success: (result) => {
+    //     if (result.confirm) {
+    //       wx.reLaunch({
+    //         url: '/pages/store/select/main'
+    //       })
+    //     }
+    //   }
+    // })
   }
   return res.data
 },
@@ -150,7 +168,8 @@ export const Api = {
     SUCCESS: 1,
     FAILED: 0,
     UNVALID_PARAMS: 10003,
-    SESSION_ERROR: 40001 // 未登录
+    SESSION_ERROR: 40001, // 未登录
+    INEXISTENT_STORE: 60002 //门店下架或者不存在
   },
 
   // 通用

@@ -2,7 +2,7 @@
   <div>
     <div class="weui-cells weui-cells_pure">
       <div class="weui-cell" v-for="(item,index) of list" :key="item.storeId" @click="openLocation(item)" hover-class="navigator-hover">
-        <div class="weui-cell__bd">
+        <div class="weui-cell__bd" v-if="item">
           <div class="shop-name">{{item.storeName}}</div>
           <div class="shop-address">{{item.storeAddress}}</div>
         </div>

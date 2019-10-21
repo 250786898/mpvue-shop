@@ -12,61 +12,63 @@
     <radio-group  class="store-list" @change="checkoutStoreType">
 
        <label class="select-store-item">
-        <radio class="select-store-item-radio" :checked="true" value="current" color="#0FD7C0" />
+        <radio class="select-store-item-radio" :disabled="shareStoreInfo.isBusiness == 0" value="current" color="#0FD7C0" />
         <div>
           <div class="select-store-item-header">
 
-            <div class="store-name">
-             {{shareStoreInfo.storeName}}
+            <div class="store-name" v-if="shareStoreInfo">
+             {{shareStoreInfo.storeName}}<span v-if="!shareStoreInfo.isBusiness">休息中</span>
             </div>
 
             <div class="store-tag">
               当前访问门店
             </div>
 
-            <div class="distance" v-if="shareStoreInfo.storeDistance">
+            <div class="distance" v-if="shareStoreInfo && shareStoreInfo.isBusiness">
               <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/confirm_store_location_icon.png" alt="">
               <span>距离您{{shareStoreDistance}}</span>
             </div>
 
           </div>
-          <span class="detail-address">
+          <span class="detail-address" v-if="shareStoreInfo">
             {{shareStoreInfo.storeAddress}}
           </span>
         </div>
       </label>
 
         <label class="select-store-item">
-        <radio class="select-store-item-radio" value="usually" color="#0FD7C0" />
-        <div>
+        <radio class="select-store-item-radio" value="usually" color="#0FD7C0" :disabled="usuallyStoreInfo.isBusiness == 0" />
+        <div >
           <div class="select-store-item-header">
 
-            <div class="store-name">
-              {{usuallyStoreInfo.storeName}}
+            <div class="store-name" v-if="usuallyStoreInfo">
+              {{usuallyStoreInfo.storeName}}<span v-if="!usuallyStoreInfo.isBusiness">休息中</span>
             </div>
 
             <div class="store-tag">
               经常访问门店
             </div>
 
-            <div class="distance" v-if="usuallyStoreInfo.storeDistance">
+            <div class="distance" v-if="usuallyStoreInfo && usuallyStoreInfo.isBusiness">
               <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/confirm_store_location_icon.png" alt="">
               <span>距离您{{usuallyStoreDistance}}</span>
             </div>
 
           </div>
-          <span class="detail-address">
+          <span class="detail-address" v-if="usuallyStoreInfo">
             {{usuallyStoreInfo.storeAddress}}
           </span>
         </div>
+
       </label>
 
     </radio-group >
-      <div class="change-box"  @click="checkoutStore">
+      <div class="change-box"  @click="checkoutStore" v-if="shareStoreInfo.isBusiness || usuallyStoreInfo.isBusiness">
         <span>切换其他门店</span>
         <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/arrows.png" alt="">
       </div>
-      <button type="primary"  class="comfirm-btn" @click="comfirmStore">确定</button>
+      <button type="primary"  class="comfirm-btn" @click="checkoutStore"  v-if="!shareStoreInfo.isBusiness && !usuallyStoreInfo.isBusiness">切换其他门店</button>
+      <button type="primary"  class="comfirm-btn" @click="comfirmStore" v-else>确定</button>
     </div>
   </div>
 </template>
@@ -87,15 +89,24 @@
     computed: {
       ...mapState(['shareStoreInfo','usuallyStoreInfo']),
       shareStoreDistance () {
-        return this.shareStoreInfo.storeDistance < 1 ? this.shareStoreInfo.storeDistance * 1000 + 'm' : `${this.shareStoreInfo.storeDistance}km`
+        if(this.shareStoreInfo) {
+           return this.shareStoreInfo.storeDistance < 1 ? this.shareStoreInfo.storeDistance * 1000 + 'm' : `${this.shareStoreInfo.storeDistance}km`
+        }else{
+          return ''
+        }
+
       },
       usuallyStoreDistance () {
-        return this.usuallyStoreInfo.storeDistance < 1 ? this.usuallyStoreInfo.storeDistance * 1000 + 'm' : `${this.usuallyStoreInfo.storeDistance}km`
+        if(this.usuallyStoreInfo) {
+          return this.usuallyStoreInfo.storeDistance < 1 ? this.usuallyStoreInfo.storeDistance * 1000 + 'm' : `${this.usuallyStoreInfo.storeDistance}km`
+        }else{
+          return ''
+        }
       }
     },
     data() {
       return {
-        selectType: 'current', //选择类型：current：当前访问门店 usually：经常访问门店 。 默认为当前访问门店
+        selectType: '', //选择类型：current：当前访问门店 usually：经常访问门店 。 默认为当前访问门店
       }
     },
     methods: {
@@ -104,9 +115,20 @@
        */
       comfirmStore() {
         console.log('currentType',this.selectType)
-        const storeId = this.selectType == 'current' ? this.shareStoreInfo.storeId : this.usuallyStoreInfo.storeId
-        console.log('选择门店组件选择的Id',storeId)
-        this.$emit('comfirmStore',storeId)
+        if(this.selectType) {
+          const storeId = this.selectType == 'current' ? this.shareStoreInfo.storeId : this.usuallyStoreInfo.storeId
+          console.log('选择门店组件选择的Id',storeId)
+          this.$emit('comfirmStore',storeId)
+        }else{
+          wx.showToast({
+            title: '请选择门店',
+            icon: 'none',
+            image: '',
+            duration: 1500,
+            mask: false
+          })
+        }
+
       },
 
       /**
