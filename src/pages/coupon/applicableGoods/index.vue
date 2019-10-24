@@ -15,7 +15,9 @@
     <div class="applicable-main">
       <div class="goods-list">
         <template v-for="item in applicableGoodsList">
-          <goods-item :item="item" :key="item.goodsId"/>
+          <div class="goods-item" :key="item.goodsId">
+            <goods-item :item="item"/>
+          </div>
         </template>
       </div>
       <!-- 加载更多 -->
@@ -81,8 +83,10 @@ page{
     .goods-list{
       width: 100%;
       display: flex;
-      justify-content: space-between;
       flex-wrap: wrap;
+      .goods-item{
+        flex:1;
+      }
     }
   }
   .goods-tabs__tip {

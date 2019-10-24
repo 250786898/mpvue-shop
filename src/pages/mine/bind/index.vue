@@ -11,6 +11,10 @@
         </button>
       </form>
 
+      <div class="protocol-box">
+        点击“登录”即表示您同意<span class="protocol-item" @click="serviceProtocol">《乐家生鲜服务协议》</span>
+      </div>
+
       <!-- <button type="primary" @click="toRegister" :plain="true" hover-class="button-hover"> -->
         <!-- TODO: 图标缺失 -->
         <!-- <img src="/static/images" class="icon-phone"> -->
@@ -25,8 +29,10 @@
   import { mapState } from 'vuex'
   import { Api } from '@/http/api'
   import StoreModel from '@/model/store'
+  import UserModer from '@/model/user'
 
   const storeModel = new StoreModel()
+  const userModel = new UserModer()
 
   export default {
     data () {
@@ -44,6 +50,29 @@
       uploadFormId: function (e) {
       this.formId = e.target.formId
       console.log( this.formId )
+      },
+
+       /**
+       * @descption 核对是否已经授权用户信息，已授权直接返回我的页面
+       */
+      async checkAuthUserInfo () {
+       const isAuthedUserInfo = await userModel.checkUserInfoIsScope()
+       if(isAuthedUserInfo) {
+         wx.switchTab({
+           url: '/pages/mine/main',
+         })
+
+       }
+       console.log('isAuthedUserInfo',isAuthedUserInfo)
+      },
+
+      /**
+       * @description 跳转服务协议页面
+       */
+      serviceProtocol () {
+        wx.navigateTo({
+          url: '/pages/mine/serviceAgreement/main',
+        })
       },
 
        /**
@@ -101,15 +130,15 @@
           //   content: detail.errMsg
           // })
           //  wx.navigateTo({ url: '/pages/mine/auth/main' })
-              wx.navigateBack({
-              delta: 1
-              })
+              // wx.navigateBack({
+              // delta: 1
+              // })
           }
           },
 
-      toRegister() {
-        wx.navigateTo({ url: '/pages/mine/register/main' })
-      },
+        toRegister() {
+          wx.navigateTo({ url: '/pages/mine/register/main' })
+        },
 
       login({ openid, mobile }) {
         console.log('loging')
@@ -153,6 +182,9 @@
           this.code = code
         }
       })
+    },
+
+    onUnload () {
     }
   }
 </script>
@@ -171,8 +203,17 @@
       color:#666666;
     }
 
+    .protocol-box{
+      margin-top: 20rpx;
+      color: $text-gray;
+      font-size: 24rpx;
+      .protocol-item{
+        color: #45C844;
+      }
+    }
+
     .button-bar {
-      margin-top: 300rpx;
+      margin-top: 200rpx;
       button[type=primary] {
         margin-top: 30rpx;
         background-color: #45C844;

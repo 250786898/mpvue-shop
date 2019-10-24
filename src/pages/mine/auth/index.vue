@@ -3,8 +3,13 @@
     <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/signin_bg_logo_big@2x.png">
     <div class="auth-desc">乐家生鲜</div>
 
+    <div class="auth-tip-content">
+      您暂未授权乐家生鲜Fresh小程序获取你的信息，将无法正常使用小程序的功能。如需要正常使用，请“授权登录”按钮，打开图像，昵称信息的权限。
+    </div>
+
     <div class="button-bar">
       <button type="primary" open-type="getUserInfo" @getuserinfo="getUserInfo" hover-class="button-hover">授权登录</button>
+      <button type="primary" plain="true" @click="navBackLastPage">取消</button>
     </div>
 
   </div>
@@ -12,13 +17,35 @@
 
 <script>
   import { Api } from '@/http/api'
+  import UserModer from '@/model/user'
+
+  const userModel = new UserModer()
 
   export default {
     data () {
       return {}
     },
 
+    onShow () {
+      // this.checkAuthUserInfo()
+    },
+
     methods: {
+
+      /**
+       * @descption 核对是否已经授权用户信息，已授权直接返回我的页面
+       */
+      async checkAuthUserInfo () {
+       const isAuthedUserInfo = await userModel.checkUserInfoIsScope()
+       if(isAuthedUserInfo) {
+         wx.switchTab({
+           url: '/pages/mine/main',
+         })
+
+       }
+       console.log('isAuthedUserInfo',isAuthedUserInfo)
+      },
+
       getUserInfo({ mp: { detail } }) {
         console.log('getUserInfo', detail)
         if (detail.errMsg === 'getUserInfo:ok') {
@@ -38,9 +65,19 @@
           //     })
           //   }
           // })
-           wx.navigateTo({ url: '/pages/mine/bind/main' })
+
+           wx.redirectTo({ url: '/pages/mine/bind/main' })
         }
          wx.checkSession
+      },
+
+      /**
+       * @descrition 返回上一页
+       */
+      navBackLastPage () {
+        wx.navigateBack({
+          delta: 1
+        })
       }
     }
   }
@@ -60,8 +97,14 @@
       color:#666666;
     }
 
+    .auth-tip-content{
+      margin-top: 50rpx;
+      color: $text-gray;
+      font-size: 26rpx;
+    }
+
     .button-bar {
-      margin-top: 300rpx;
+      margin-top: 100rpx;
       button[type=primary] {
         margin-top: 30rpx;
         background-color: #45C844;

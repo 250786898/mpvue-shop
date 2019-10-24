@@ -136,7 +136,7 @@
           :url="'/pages/goods/detail/main?id=' + item.goodsId + '&activityId='+item.activityId"
           class="weui-media-box weui-media-box_appmsg">
           <div class="weui-media-box__hd weui-media-box__hd_in-appmsg">
-            <image class="weui-media-box__thumb" :src="item.goodsImage" />
+            <image class="weui-media-box__thumb" :src="item.goodsImage" mode="aspectFit" />
           </div>
           <div class="weui-media-box__bd weui-media-box__bd_in-appmsg">
             <!-- if 赠品 -->
@@ -177,7 +177,7 @@
           :url="'/pages/goods/detail/main?id=' + item.goodsId"
           class="weui-media-box weui-media-box_appmsg">
           <div class="weui-media-box__hd weui-media-box__hd_in-appmsg">
-            <image class="weui-media-box__thumb" :src="item.goodsImage" />
+            <image class="weui-media-box__thumb" :src="item.goodsImage" mode="aspectFit"  />
           </div>
           <div class="weui-media-box__bd weui-media-box__bd_in-appmsg">
             <!-- if 赠品 -->
