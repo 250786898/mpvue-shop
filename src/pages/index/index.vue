@@ -115,7 +115,7 @@ export default {
 
 
   async mounted () {
-    console.log('首页mountedshareStoreId',this.$mp.page.options.shareStoreId)
+    console.log('首页a',this.$mp.page.options.shareStoreId)
     this.initPageShowHide()
 
     const isAuthLocate = await this.isAuthorizedLocation() //获取定位授权情况

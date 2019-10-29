@@ -17,7 +17,9 @@
         <div class="goods-row-item__tb" v-if="item">
 
         <!-- 替换组件 -->
-        <div class="goods-row-item__price"  >
+        <div class="goods-row-item__price">
+          <!-- <div class="primary">￥{{ item.discountedPrice }}</div>
+          <div class="secondary" v-if="item.scribingPrice">￥{{ item.scribingPrice }}</div> -->
           <div class="primary">￥{{ item.onlinePrice }}</div>
           <div class="secondary" v-if="item.onlineScribingPrice">￥{{ item.onlineScribingPrice }}</div>
         </div>

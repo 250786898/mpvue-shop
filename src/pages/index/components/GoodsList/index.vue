@@ -21,10 +21,9 @@
 
       </template> -->
 
-       <div class="goods-recommend__title">
-        今日秒杀
+     <div class="goods-recommend__title">
+        <span>今日秒杀</span>
       </div>
-
 
 
       <div class="goods-recommend__bd" :class="{'ceiling-goods-list' : isCeiling}">
@@ -132,6 +131,7 @@
     onPullDownRefresh () {
       console.log('onPullDownRefresh')
       this.goodsList = [] //先清空数据
+      // this.getGoodsListByActivityId(this.storeId , this.activityId , 1 )
       this.getGoodsClassList(this.storeId , this.pcId , 1 , showPageSize)
     },
 
