@@ -19,19 +19,19 @@
       </div>
 
       <div class="cart-list">
-        <goods-card 
-          v-for="(item, index) in cartItemResultList" 
-          :item="item" 
+        <goods-card
+          v-for="(item, index) in cartItemResultList"
+          :item="item"
           :key="index"
           :isFailure="false"
           @onGoodsCBChange="onGoodsCBChange"
           @onGoodsNumChange="onGoodsNumChange"
         />
       </div>
-      
+
     </div>
   </div>
-  
+
 </template>
 
 <script>
@@ -113,8 +113,8 @@ export default {
           fail: () => {},
           complete: () => {}
         });
-          
-        
+
+
       }else{
         //多于等于1的时候更新购物车
         this.$emit('updateCartNum',item)
@@ -130,7 +130,7 @@ export default {
           .filter(item => item.checked)
           .map(item => item.cartId)
           .join(',')
-      return  cartIds 
+      return  cartIds
     },
 
     /**
@@ -161,8 +161,8 @@ export default {
           }
         })
       }
-       
-      
+
+
     },
 
 
@@ -204,7 +204,7 @@ export default {
         }
       })
       .catch(e => console.log(e))
-      .then(() => wx.hideLoading())        
+      .then(() => wx.hideLoading())
     }
 
   }

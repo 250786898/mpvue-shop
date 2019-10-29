@@ -1,6 +1,11 @@
 <template>
   <div class="loading" v-if="show">
-    <lj-loading />
+    <!-- <lj-loading /> -->
+    <div class="loading-main">
+      <img src="/static/images/page_loading_icon.gif" mode="aspectFit">
+      <div class="loading-text">正在加载中...</div>
+    </div>
+
   </div>
 </template>
 
@@ -31,5 +36,18 @@ export default {
     top: 0;
     left: 0;
     z-index: 9999;
+    overflow: hidden;
+    img{
+      width: 600rpx;
+      height: 320rpx;
+    }
+    &-text{
+      color: #666;
+      text-align: center;
+      position: relative;
+      top: -100rpx;
+      font-size: 26rpx;
+
+    }
   }
 </style>

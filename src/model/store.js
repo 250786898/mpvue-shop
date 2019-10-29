@@ -1,6 +1,6 @@
 import { post } from '@/http/api'
 class StoreModel {
-  
+
   constructor () {
     this.latestKey = 'latestStoreId'
   }
@@ -9,7 +9,7 @@ class StoreModel {
    * @description 获取最新访问门店（未登录状态）
    */
   getLatestStoreOFNoLogin () {
-    return wx.getStorageSync(this.latestKey)  
+    return wx.getStorageSync(this.latestKey)
   }
 
   /**

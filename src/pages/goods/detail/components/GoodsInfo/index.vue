@@ -5,10 +5,14 @@
        <span class="current-price"  v-if="currentPrice">￥{{currentPrice}}</span>
        <span class="original-price" v-if="originalPrice">￥{{originalPrice}}</span>
      </div>
-      <div class="end-time-box" v-if="endTime">
+     <div class="end-time-box" v-if="startTime">
+         {{startTime}}开售
+      </div>
+      <div class="end-time-box" v-if="!startTime && endTime">
         <div class="end-time-box__title">距离结束时间</div>
         <countdowner :countdown="countDown"></countdowner>
       </div>
+
   </div>
 </template>
 
@@ -25,6 +29,10 @@ export default {
       default: ''
     },
     endTime: {
+      type: Number,
+      default: 0
+    },
+    startTime: {
       type: Number,
       default: 0
     }

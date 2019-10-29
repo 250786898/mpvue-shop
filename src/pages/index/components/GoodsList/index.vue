@@ -1,26 +1,35 @@
 <template>
-	<div class="goods-recommend">
+	<div class="goods-recommend min-contaner" >
       <!-- <goods-list-tab /> -->
-      <!-- <van-tabs sticky @change="tabChange" :active="activeIndex" tab-active-class="tab-active-class" :swipe-threshold="1" tab-class="tab-class" color="#11D2C8" class="fixed-tab" v-if="isCeiling">
-
-        <van-tab  v-for="item in tab" :title="item.title" :key="item.pcId"></van-tab>
-
-
-      </van-tabs>
-
-      <van-tabs sticky @change="tabChange" :active="activeIndex" tab-active-class="tab-active-class" :swipe-threshold="4" tab-class="tab-class" color="#11D2C8" v-if="!isCeiling">
-
-        <van-tab  v-for="item in tab" :title="item.title" :key="item.pcId"></van-tab>
-
-
-      </van-tabs> -->
-      <div class="goods-recommend__title">
-       今日秒杀
+      <!-- <div class="goods-recommend__title" :class="{'fixed-tab' : isCeiling}" v-if="tab.length == 1">
+        <span v-for="item in tab" :key="item.id">{{item.activityName}}</span>
       </div>
+      <template v-else>
+         <van-tabs sticky @change="tabChange" :active="activeIndex" tab-active-class="tab-active-class" :swipe-threshold="4" tab-class="tab-class" color="#0FD7C0" class="fixed-tab" v-if="isCeiling">
+
+          <van-tab  v-for="item in tab" :title="item.activityName" :key="item.id"></van-tab>
+
+
+        </van-tabs>
+
+        <van-tabs sticky @change="tabChange" :active="activeIndex" tab-active-class="tab-active-class" :swipe-threshold="4" tab-class="tab-class" color="#0FD7C0" v-if="!isCeiling">
+
+          <van-tab  v-for="item in tab" :title="item.activityName" :key="item.id"></van-tab>
+
+
+        </van-tabs>
+
+      </template> -->
+
+       <div class="goods-recommend__title">
+        今日秒杀
+      </div>
+
+
 
       <div class="goods-recommend__bd" :class="{'ceiling-goods-list' : isCeiling}">
         <template v-for="item in goodsList">
-          <base-goods-card :item="item" :key="item.id" />
+          <base-goods-card :item="item" :key="item.id" :isSellOut="item.activityStock == 0"/>
         </template>
          <EmptyGoods v-if="goodsList.length == 0 && !loading"/>
       </div>
@@ -60,6 +69,9 @@
   import BaseGoodsCard from "../BaseGoodsCard/index"
   import BeginGoodsCard from "../BeginGoodsCard/index"
   import LjLoading from '@/components/LjLoading'
+  import GoodsModel from '@/model/goods'
+
+  const goodsModel = new GoodsModel()
 
   //显示商品的数量
   const showPageSize = 10
@@ -75,37 +87,8 @@
     data () {
       return {
         currentPage: 1, //当前页数
-        tab: [
-          {
-            pcId: 1,
-            title: '今日秒杀'
-          },
-          // {
-          //   pcId: 10,
-          //   title: '即将开抢'
-          // },
-
-          // {
-          //   pcId: 31,
-          //   title: '内容3',
-
-          // },
-          // {
-          //   pcId: 31,
-          //   title: '内容4'
-
-          // },
-          // {
-          //   pcId: 31,
-          //   title: '内容5'
-
-          // },
-          // {
-          //   pcId: 31,
-          //   title: '内容6'
-          // }
-        ], //分类栏
-        pcId: 1, //当前分类编码
+        tab: [], //分类栏
+        activityId: 1, //当前分类编码
         activeIndex: 0, //当前分类索引
         tabColor: '#11D2C8', //tab颜色值
         goodsList: [],  //商品列表
@@ -128,14 +111,86 @@
     watch: {
       storeId: function () {
         console.log('goodlostStoreId修改了aaaaaaaaaaaaaaaaaaa',this.storeId)
+        // this.getGoodsListByActivityId(this.storeId , this.activityId , 1 )
         this.getGoodsClassList(this.storeId , this.pcId , 1 , showPageSize)
       }
     },
+
+
+    //上触发加载分页数据
+    onReachBottom: function(){
+      if (this.isAllLoaded || this.loading) return
+      //还有数据，加载数据
+      this.currentPage++
+      // this.getGoodsListByActivityId(this.storeId , this.activityId , this.currentPage )
+      this.getGoodsClassList(this.storeId, this.pcId, this.currentPage , showPageSize)
+    },
+
+      /**
+     * @description 向上更新商品数据
+     */
+    onPullDownRefresh () {
+      console.log('onPullDownRefresh')
+      this.goodsList = [] //先清空数据
+      this.getGoodsClassList(this.storeId , this.pcId , 1 , showPageSize)
+    },
+
+
+    mounted() {
+      console.log('goodMountedList',this.storeId)
+      if(this.storeId) {
+        this.setTabsList()
+        // this.getGoodsListByActivityId()
+
+        this.getGoodsClassList(this.storeId , this.pcId , this.currentPage , showPageSize)
+      }
+    },
+
     methods: {
 
       clickTab (event) {
         console.log('clickTab',event)
       },
+
+
+      async setTabsList () {
+        const res = await goodsModel.findActivityByStoreId({
+          storeId: this.storeId || ''
+        })
+        console.log('res.code11111111111111111',res.code)
+        if(res.code == Api.CODES.SUCCESS) {
+          this.tab = res.data.activityList
+          this.getGoodsListByActivityId(this.storeId , this.tab[0].id , this.currentPage )
+        }
+
+      },
+
+      getGoodsListByActivityId (storeId, activityId, pageNumber) {
+        this.loading = true
+        let promise
+       promise = goodsModel.findGoodsByActivity({
+         storeId, activityId, pageNumber
+        }).then(res => {
+          if(res.code == Api.CODES.SUCCESS){
+            var data = res.data
+            console.log('数据条用成功了',data.goodsList == null)
+            if(data.goodsList != null) {
+              console.log('//有可以加载的数据了',data.goodsList)
+              this.goodsList = this.goodsList.concat(data.goodsList)
+            } else {
+              //没有可以加载的数据了，显示到底
+              console.log('//没有可以加载的数据了，显示到底')
+              this.isAllLoaded = true
+            }
+          }
+        })
+        promise
+        .catch(e => e)
+        .then(() => this.loading = false)
+      },
+
+
+
 
       /**
        * @param
@@ -175,11 +230,11 @@
 
         this.activeIndex = index
         console.log('tabChange',index)
-        this.pcId = this.tab[index].pcId
+        this.activityId = this.tab[index].id
         this.goodsList = []
         this.currentPage = 1
         this.isAllLoaded = false
-        this.getGoodsClassList(this.storeId , this.pcId , this.currentPage , showPageSize)
+        this.getGoodsListByActivityId(this.storeId , this.activityId , this.currentPage )
       },
 
 
@@ -192,30 +247,11 @@
     },
 
 
-    mounted() {
-      console.log('goodMountedList',this.storeId)
-      if(this.storeId) {
-        this.getGoodsClassList(this.storeId , this.pcId , this.currentPage , showPageSize)
-      }
-    },
-
-    //上触发加载分页数据
-    onReachBottom: function(){
-      if (this.isAllLoaded || this.loading) return
-      //还有数据，加载数据
-      this.currentPage++
-      this.getGoodsClassList(this.storeId, this.pcId, this.currentPage , showPageSize)
-    },
 
 
 
-    /**
-     * @description 向上更新商品数据
-     */
-    onPullDownRefresh () {
-      console.log('onPullDownRefresh')
-      // this.getGoodsClassList(this.storeId , this.pcId , 1 , showPageSize)
-    }
+
+
   }
 </script>
 
@@ -231,6 +267,10 @@
     }
 }
 
+.min-contaner{
+  min-height: 1000rpx;
+}
+
 //tab栏样式
 .fixed-tab{
   z-index: 10;
@@ -244,8 +284,8 @@
 
 // 吸顶状态下门店列表外边距增加
 .ceiling-goods-list{
-  margin-top: 0;
-  min-height: 1500rpx;
+  margin-top: 80rpx;
+
 }
 
 //  /*从上到下进入*/
@@ -264,15 +304,26 @@
 }
 
 .tab-class {
-  color:#717171 !important;
-  font-size: 26rpx !important;
+  color:#333 !important;
+  font-size: 30rpx !important;
   font-weight:800 !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  border-right: 1px solid #eee !important;
+  // &:after{
+  //   content: ' ' !important;
+  //   width: 1px !important;
+  //   height: 50rpx !important;
+  //   background: $text-black !important;
+  //   display: flex !important;
+  //   margin-left: 0rpx;
+  // }
 }
 
 // 标签激活态样式类
 .tab-active-class{
-  color:#11D2C8 !important;
-  font-size: 32rpx !important;
+  color:#333 !important;
   font-weight:800 !important;
 }
 </style>

@@ -1,9 +1,13 @@
 <template>
   <div class="flashsale">
     <div class="weui-cells">
-      <div class="weui-cell" >
+      <div class="weui-cell" v-if="isSale">
         <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/details_icon_clock@2x.png" class="clock-icon">
-        <span class="take-goods-time">现在下单,</span><span class="take-goods-time-color">&nbsp;&nbsp;{{showPickUpTime}}&nbsp;&nbsp;</span> 可提货
+        <span class="take-goods-time">现在下单,</span><span class="take-goods-time-color">&nbsp;&nbsp;{{this.pickupTime}}&nbsp;&nbsp;</span> 可提货
+      </div>
+      <div class="weui-cell" v-else>
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/details_icon_clock@2x.png" class="clock-icon">
+        <span class="take-goods-time">预计提货时间:</span><span class="take-goods-time-color">&nbsp;&nbsp;{{showPickUpTime}}&nbsp;&nbsp;</span>
       </div>
     </div>
   </div>
@@ -11,6 +15,16 @@
 
 <script>
 export default {
+  props: {
+    pickupTime: {
+      type: String,
+      default: ''
+    },
+    isSale: { //提货状态, 0:预售 1:正在售卖中
+      type: Number,
+      default: 0
+    }
+  },
   computed: {
     showPickUpTime () { //显示的提货时间
       const hours = new Date().getHours()

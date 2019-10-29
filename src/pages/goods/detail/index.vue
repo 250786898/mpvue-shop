@@ -4,7 +4,7 @@
     <DetailSwiper :bannerList="goodsDetailInfo.goodsBanner" />
 
     <!-- 商品信息bar -->
-    <goods-info :current-price="goodsDetailInfo.onlinePrice" :original-price="goodsDetailInfo.onlineScribingPrice" :end-time="endTime" />
+    <goods-info :current-price="goodsDetailInfo.onlinePrice" :original-price="goodsDetailInfo.onlineScribingPrice" :end-time="endTime" :start-time="goodsDetailInfo.startTime" />
 
 
     <!-- 商品相关描述（名称） -->
@@ -13,7 +13,7 @@
 
 
     <!-- Type start: 提货时间 -->
-    <!-- <pickup-timer /> -->
+    <!-- <pickup-timer  :pickup-time="goodsDetailInfo.pickUpTime" /> -->
 
     <!-- Type end; -->
 
@@ -102,6 +102,11 @@
        this.saveGoodsDetailOptions()
        const shareStoreId = this.$mp.page.options.shareStoreId
 
+       if(shareStoreId == null && !this.storeId) {
+         //分享门店不存在情况隐藏分享按钮
+         wx.hideShareMenu()
+       }
+
         if(shareStoreId) {
           //从分享商品进来
           console.log('从分享商品进来')
@@ -116,6 +121,10 @@
       storeId: function () {
         console.log('监听到门店Id修改')
         if(this.getCurrentPageUrl() != 'pages/index/main'){  //只有当前页面发生才触发
+          //确认门店开启分享功能
+          wx.showShareMenu({
+            withShareTicket: true
+          })
           this.hideComfirmStoreDialog()
           this.hideSelectStoreDialog()
           this.getDetail()
@@ -323,7 +332,7 @@
 
 
           }else{
-
+            console.log('shareStoreId和usuallyStoreId不一致')
             if(usuallyStoreId) {
               //不一致：选择门店弹窗
               //设置当前门店和经常访问门店相关信息
@@ -333,8 +342,10 @@
               this.shownSelectStoreDialog()
             }else {
               //usuallyStoreId为空，第一次访问为空，直接弹出确认门店弹窗
-              this.setCurrentStoreInfo(this.shareStoreId)
-              this.showComfirmStoreDialog()
+              console.log('usuallyStoreId不存在')
+              const storeInfo =  await this.getOneStoreInfoByStoreId(this.shareStoreId)
+              this.setStoreItemInfo(storeInfo) //设置当前门店
+              this.shownComfirmStoreDialog()
             }
 
           }

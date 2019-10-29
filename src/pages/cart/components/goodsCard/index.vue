@@ -24,6 +24,7 @@
       <div class="good-name" :class="{ 'failure-good-name' : isFailure }">
         {{ item.goodsName }}
       </div>
+      <div class="start-sell-date" v-if="item.isSale == 0">{{item.saleTime}}开售</div>
       <div class="good-main" v-if="isFailure">
         <goods-price :item="item" :isFailure="true"></goods-price>
       </div>
@@ -88,6 +89,10 @@ export default {
   }
   &-right{
     width: 100%;
+    .start-sell-date {
+      color: $text-gray-deep;
+      font-size: 24rpx;
+    }
   }
   .checkbox{
     display: flex;

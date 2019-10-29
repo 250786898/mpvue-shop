@@ -18,6 +18,7 @@
         </div>
 
 
+
       </template>
 
       <page-loading  :show="showPageLoading"/>
@@ -54,6 +55,7 @@ const storeModel = new StoreModel()
 var mta = require("../../utils/mta_analysis.js");
 
 const PAGE_SIZE = 10 //一页商品的显示数量
+const CEILING_DISTANCE = 135 //滚动多少吸顶
 
 export default {
   components: {
@@ -86,6 +88,10 @@ export default {
   watch: {
     storeId: function () {
       console.log('首页storeId修改了',this.storeId)
+      //确认门店开启分享功能
+      wx.showShareMenu({
+        withShareTicket: true
+      })
       this.updateStoreInfo() //更新门店相关信息
       this.updateStoreData() //更新新的门店数据
       this.hidePageLoading()
@@ -109,11 +115,19 @@ export default {
 
 
   async mounted () {
-    console.log('首页mounted',this.storeId)
+    console.log('首页mountedshareStoreId',this.$mp.page.options.shareStoreId)
     this.initPageShowHide()
 
     const isAuthLocate = await this.isAuthorizedLocation() //获取定位授权情况
+
     const shareStoreId = this.$mp.page.options.shareStoreId
+
+     if(shareStoreId == null && !this.storeId) {
+        //分享门店不存在情况隐藏分享按钮
+        wx.hideShareMenu()
+      }
+
+
     if(shareStoreId) {
       this.setShareStoreId(shareStoreId)
     }
@@ -173,7 +187,7 @@ export default {
         2.更新门店相关数据（banner，商品数据）
      */
     updateStoreData() {
-      this.shownPageLoading()
+      // this.shownPageLoading()
       this.setIndexStoreData().then(res => {
         this.hidePageLoading()
         wx.stopPullDownRefresh()
@@ -254,7 +268,18 @@ export default {
      * @description 直接加载首页，确定进入程序的门店
      */
     async authedComfirmStoreByDirectLoad () {
+      console.log('authedComfirmStoreByDirectLoad',usuallyStoreId)
       const usuallyStoreId = await this.getUsuallyStoreId()
+      console.log('authedComfirmStoreByDirectLoad',usuallyStoreId)
+
+      if(!usuallyStoreId) {
+        //如果经常访问门店Id为空,跳转选择门店页面组件
+        wx.redirectTo({
+          url: '/pages/store/select/main'
+        })
+        return false
+      }
+
       if(this.storeId == usuallyStoreId){
         //已经设置过门店id
         this.hidePageLoading()
@@ -286,10 +311,22 @@ export default {
       }else{
         //不一致：选择门店弹窗
         //设置当前门店和经常访问门店相关信息
-        console.log('不一致：选择门店弹窗',this.storeList)
-        this.setCurrentStoreInfo(shareStoreId)
-        this.setUsuallyStoreInfo()
-        this.shownSelectStoreDialog()
+
+        console.log('设置当前门店和经常访问门店相关信息')
+        if(usuallyStoreId) {
+          //经常访问门店存在
+          const res = await this.setCurrentStoreInfo(shareStoreId)
+          console.log('不一致：选择门店弹窗',this.storeList)
+          this.setUsuallyStoreInfo()
+          this.shownSelectStoreDialog()
+        }else{
+          //经常访问门店不存存在，直接弹出确认门店弹窗
+          console.log('经常访问门店不存存在，弹出确认门店就行')
+          const storeInfo =  await this.getShareStoreInfo(shareStoreId)
+          this.setStoreItemInfo(storeInfo) //设置当前门店
+          this.shownComfirmStoreDialog()
+        }
+
       }
 
     },
@@ -429,8 +466,8 @@ export default {
     async getShareStoreInfo (shareStoreId) {
       const storeInfo = await storeModel.getOneStoreInfoByStoreId({
         storeId: this.shareStoreId,
-        longitude: this.longitude,
-        latitude: this.latitude,
+        longitude: this.location.longitude,
+        latitude: this.location.latitude,
       })
       return storeInfo.data
     },
@@ -459,11 +496,13 @@ export default {
      */
     async getUsuallyStoreId() {
       //判断是否存在登录状态，已登录从api获取经常访问门店，未登录从缓存中读取
-      if(this.$store.state.sessionId) {
-        const res = await Api.index.queryStoreByLastest()
-        console.log('getUsuallyStoreId',res)
 
+      if(this.$store.state.sessionId) {
+        console.log('getUsuallyStoreId')
+        const res = await Api.index.queryStoreByLastest()
+        console.log('getUsuallyStoreId1',res)
         if(res.code === Api.CODES.SUCCESS) {
+          console.log('getUsuallyStoreId2',res.data.storeId )
           return res.data.storeId
         }else{
           return ''
@@ -653,7 +692,7 @@ export default {
      * @description 监听商品列表组件是否要吸顶
      */
     checkCeiling (scrollTop) {
-      if(scrollTop >= 150) {
+      if(scrollTop >= CEILING_DISTANCE) {
         this.isCeiling = true  //滚动距离顶部150吸顶
       }else{
         this.isCeiling = false
@@ -672,7 +711,7 @@ export default {
       imageUrl: ''
     }
   }
-};
+}
 </script>
 
 <style>

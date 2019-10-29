@@ -30,7 +30,9 @@
     <!-- //占位符 -->
 
     </div>
-    <div class="occupation"></div>
+    <div class="occupation">
+        <img src="/static/images/pull_down_refresh_icon.gif" mode="aspectFit">
+    </div>
   </div>
 
 
@@ -94,7 +96,12 @@ export default {
 <style scoped lang="scss">
 .occupation{
   height: 100rpx;
-  background: #0FD7C0;
+  line-height: 100rpx;
+  text-align: center;
+  img{
+    width: 100rpx;
+    height: 100rpx;
+  }
 }
 .weui-search-bar {
   height: 100rpx;

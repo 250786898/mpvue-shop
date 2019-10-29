@@ -27,10 +27,11 @@
             <counter  v-model="currentGoodsCartNum" :max="item.inventoryAmount" @change="onGoodsNumChange($event,item)"></counter>
           </div>
           <form report-submit="true" @submit="uploadFormId" v-else>
-            <button hover-class="none" form-type="submit" class="hiddenBtn" @click.stop="addToCart(item.id)">
-              <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_btn_shopcart_sellout.png@2x.png.png" class="icon-cart"  v-if="isSellOut">
-              <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_btn_shopcart_small.png@2x.png" class="icon-cart" @click.stop="addToCart(item.id)" v-else
-              >
+            <button hover-class="none" form-type="submit" class="hiddenBtn"  v-if="isSellOut">
+              <img src="/static/images/common_btn_shopcart_sellout.png@2x.png" class="icon-cart">
+            </button>
+            <button hover-class="none" form-type="submit" class="hiddenBtn" @click.stop="addToCart(item.id)" v-else >
+              <img src="/static/images/common_btn_shopcart_small.png@2x.png" class="icon-cart" >
             </button>
           </form>
 
@@ -107,7 +108,7 @@
       addToCart(activityGoodsId = '') {
         console.log('currentGoodsCartNum',this.currentGoodsCartNum)
         this.$store.dispatch('addToCart', {
-          goodsId: this.item.goodsId || this.item.id,
+          goodsId: this.item.id,
           activityId: this.item.activityId,
           activityGoodsId
         })
