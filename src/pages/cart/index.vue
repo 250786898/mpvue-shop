@@ -50,6 +50,7 @@
   import EmptyCart from './components/EmptyCart/index'
   import Suspension from './components/Suspension/index'
 
+
   const SLIDE_PARAMS = {
     checked: true
   }

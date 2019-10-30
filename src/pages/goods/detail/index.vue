@@ -4,7 +4,13 @@
     <DetailSwiper :bannerList="goodsDetailInfo.goodsBanner" />
 
     <!-- 商品信息bar -->
-    <goods-info :current-price="goodsDetailInfo.onlinePrice" :original-price="goodsDetailInfo.onlineScribingPrice" :end-time="endTime" :start-time="goodsDetailInfo.startTime" />
+    <goods-info
+      :current-price="goodsDetailInfo.onlinePrice"
+      :original-price="goodsDetailInfo.onlineScribingPrice"
+      :end-time="endTime"
+      :start-time="goodsDetailInfo.startTime"
+      :is-sale="goodsDetailInfo.isSale"
+    />
 
 
     <!-- 商品相关描述（名称） -->
@@ -13,7 +19,7 @@
 
 
     <!-- Type start: 提货时间 -->
-    <!-- <pickup-timer  :pickup-time="goodsDetailInfo.pickUpTime" /> -->
+    <pickup-timer  :pickup-time="goodsDetailInfo.pickUpTime"  />
 
     <!-- Type end; -->
 

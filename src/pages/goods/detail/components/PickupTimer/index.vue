@@ -3,7 +3,7 @@
     <div class="weui-cells">
       <div class="weui-cell" v-if="isSale">
         <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/details_icon_clock@2x.png" class="clock-icon">
-        <span class="take-goods-time">现在下单,</span><span class="take-goods-time-color">&nbsp;&nbsp;{{this.pickupTime}}&nbsp;&nbsp;</span> 可提货
+        <span class="take-goods-time">现在下单,</span><span class="take-goods-time-color">&nbsp;&nbsp;{{showPickUpTime}}&nbsp;&nbsp;</span> 可提货
       </div>
       <div class="weui-cell" v-else>
         <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/details_icon_clock@2x.png" class="clock-icon">
@@ -14,6 +14,8 @@
 </template>
 
 <script>
+import { formatSaleDate } from "@/utils/index"
+
 export default {
   props: {
     pickupTime: {
@@ -25,18 +27,25 @@ export default {
       default: 0
     }
   },
+  mounted() {
+    formatSaleDate()
+  },
   computed: {
+    // showPickUpTime () { //显示的提货时间
+    //   const hours = new Date().getHours()
+    //   let showPickUpTime = ''
+    //   if(hours > 20) {
+    //     //超过20：00设置成显示后天提货
+    //     showPickUpTime = this.getDateStr(2)
+    //   }else{
+    //     showPickUpTime = this.getDateStr(1)
+    //   }
+    //   return showPickUpTime
+    // }
     showPickUpTime () { //显示的提货时间
-      const hours = new Date().getHours()
-      let showPickUpTime = ''
-      if(hours > 20) {
-        //超过20：00设置成显示后天提货
-        showPickUpTime = this.getDateStr(2)
-      }else{
-        showPickUpTime = this.getDateStr(1)
-      }
-      return showPickUpTime
+      return formatSaleDate(this.pickupTime)
     }
+
   },
   methods: {
     /**

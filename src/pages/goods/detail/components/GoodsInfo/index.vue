@@ -5,18 +5,21 @@
        <span class="current-price"  v-if="currentPrice">￥{{currentPrice}}</span>
        <span class="original-price" v-if="originalPrice">￥{{originalPrice}}</span>
      </div>
-     <div class="end-time-box" v-if="startTime">
-         {{startTime}}开售
-      </div>
-      <div class="end-time-box" v-if="!startTime && endTime">
+
+    <div class="end-time-box" v-if="isSale">
         <div class="end-time-box__title">距离结束时间</div>
         <countdowner :countdown="countDown"></countdowner>
       </div>
+     <div class="end-time-box" v-else >
+         {{saleTime}}开售
+      </div>
+
 
   </div>
 </template>
 
 <script>
+import { formatSaleDate } from "@/utils/index"
 import Countdowner from '@/components/Countdowner'
 export default {
   props: {
@@ -35,13 +38,20 @@ export default {
     startTime: {
       type: Number,
       default: 0
+    },
+    isSale: { //商品状态，0：处于预售中 1：正在售卖中
+      type: Number,
+      default: 0
     }
 
   },
   computed: {
     countDown () {
       return Math.floor(this.endTime / 1000) //毫秒转成秒
-   }
+   },
+    saleTime () { //显示的销售时间
+      return formatSaleDate(this.startTime)
+    }
   },
   components: {
     Countdowner

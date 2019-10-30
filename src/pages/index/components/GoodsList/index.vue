@@ -1,7 +1,7 @@
 <template>
 	<div class="goods-recommend min-contaner" >
       <!-- <goods-list-tab /> -->
-      <!-- <div class="goods-recommend__title" :class="{'fixed-tab' : isCeiling}" v-if="tab.length == 1">
+      <div class="goods-recommend__title" :class="{'fixed-tab' : isCeiling}" v-if="tab.length == 1">
         <span v-for="item in tab" :key="item.id">{{item.activityName}}</span>
       </div>
       <template v-else>
@@ -19,11 +19,11 @@
 
         </van-tabs>
 
-      </template> -->
-
+      </template>
+<!--
      <div class="goods-recommend__title">
         <span>今日秒杀</span>
-      </div>
+      </div> -->
 
 
       <div class="goods-recommend__bd" :class="{'ceiling-goods-list' : isCeiling}">
@@ -110,8 +110,8 @@
     watch: {
       storeId: function () {
         console.log('goodlostStoreId修改了aaaaaaaaaaaaaaaaaaa',this.storeId)
-        // this.getGoodsListByActivityId(this.storeId , this.activityId , 1 )
-        this.getGoodsClassList(this.storeId , this.pcId , 1 , showPageSize)
+        this.getGoodsListByActivityId(this.storeId , this.activityId , 1 )
+        // this.getGoodsClassList(this.storeId , this.pcId , 1 , showPageSize)
       }
     },
 
@@ -121,8 +121,8 @@
       if (this.isAllLoaded || this.loading) return
       //还有数据，加载数据
       this.currentPage++
-      // this.getGoodsListByActivityId(this.storeId , this.activityId , this.currentPage )
-      this.getGoodsClassList(this.storeId, this.pcId, this.currentPage , showPageSize)
+      this.getGoodsListByActivityId(this.storeId , this.activityId , this.currentPage )
+      // this.getGoodsClassList(this.storeId, this.pcId, this.currentPage , showPageSize)
     },
 
       /**
@@ -131,8 +131,9 @@
     onPullDownRefresh () {
       console.log('onPullDownRefresh')
       this.goodsList = [] //先清空数据
-      // this.getGoodsListByActivityId(this.storeId , this.activityId , 1 )
-      this.getGoodsClassList(this.storeId , this.pcId , 1 , showPageSize)
+      this.refreshTabsList()
+      this.getGoodsListByActivityId(this.storeId , this.activityId , 1 )
+      // this.getGoodsClassList(this.storeId , this.pcId , 1 , showPageSize)
     },
 
 
@@ -140,9 +141,9 @@
       console.log('goodMountedList',this.storeId)
       if(this.storeId) {
         this.setTabsList()
-        // this.getGoodsListByActivityId()
+        this.getGoodsListByActivityId()
 
-        this.getGoodsClassList(this.storeId , this.pcId , this.currentPage , showPageSize)
+        // this.getGoodsClassList(this.storeId , this.pcId , this.currentPage , showPageSize)
       }
     },
 
@@ -161,6 +162,17 @@
         if(res.code == Api.CODES.SUCCESS) {
           this.tab = res.data.activityList
           this.getGoodsListByActivityId(this.storeId , this.tab[0].id , this.currentPage )
+        }
+
+      },
+
+      async refreshTabsList () {
+        const res = await goodsModel.findActivityByStoreId({
+          storeId: this.storeId || ''
+        })
+        console.log('res.code11111111111111111',res.code)
+        if(res.code == Api.CODES.SUCCESS) {
+          this.tab = res.data.activityList
         }
 
       },
@@ -267,9 +279,9 @@
     }
 }
 
-.min-contaner{
-  min-height: 1000rpx;
-}
+// .min-contaner{
+//   min-height: 1600rpx;
+// }
 
 //tab栏样式
 .fixed-tab{
@@ -310,7 +322,7 @@
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
-  border-right: 1px solid #eee !important;
+  // border-right: 1px solid #eee !important;
   // &:after{
   //   content: ' ' !important;
   //   width: 1px !important;
