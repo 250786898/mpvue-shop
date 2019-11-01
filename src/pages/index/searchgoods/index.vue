@@ -27,13 +27,13 @@
       <navigator open-type="switchTab" url="/pages/cart/main" class="cartentry" :hidden="inputShowed || !resultShowed">
         <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_tab_icon_shopcart_n@2x.png">
         <span class="weui-badge" style="position: absolute;top: -.4em;right: -.4em;">
-          {{ cartNum }}
+          {{ cartNum || '0'}}
         </span>
       </navigator>
     </div>
 
     <!-- 热门搜索、历史搜索 -->
-    <div v-if="inputShowed || !resultShowed">
+    <!-- <div v-if="inputShowed || !resultShowed">
       <div class="tag-block">
         <div class="tag-block__title">热门搜索</div>
         <div class="tag-block__bd">
@@ -49,13 +49,13 @@
           <span v-for="item in histories" :key="item" @click="search(item)">{{ item }}</span>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <!-- 搜索结果 -->
-    <div v-else>
+    <!-- <div v-else>
       <goods-row-item v-for="item in goodsList" :item="item" :key="item.goodsId"></goods-row-item>
       <empty v-if="goodsList.length == 0"></empty>
-    </div>
+    </div> -->
 
     <!-- 搜索结果模态窗 -->
     <div class="search-recommend-modal" v-if="recommends.length">

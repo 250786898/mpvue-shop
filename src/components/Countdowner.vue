@@ -32,7 +32,7 @@
         let m = Math.floor((this.countdown % 3600) / 60)
         let s = this.countdown % 60
 
-        
+
         if (h > 99) {
           h = '99'
           m = '59'
@@ -47,17 +47,17 @@
     },
 
     created () {
-     console.log('created')
+     console.log('倒计时created')
      this.startCountdown()
      this.startMsecDown()
     },
 
     mounted () {
-      console.log('mounted')
+      console.log('倒计时mounted')
     },
 
     onShow () { //mpvue框架第一次不会执行，第二次访问开始会一直执行
-      console.log('onShow')
+      console.log('倒计时onShow')
       this.startCountdown()
       this.startMsecDown()
     },

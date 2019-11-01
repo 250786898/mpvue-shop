@@ -34,7 +34,7 @@
     <to-top />
 
     <!-- 底部栏 -->
-    <bottom-bar :goods-id="goodsDetailInfo.goodsId" />
+    <bottom-bar :goods-id="goodsDetailInfo.goodsId" :activityStock="goodsDetailInfo.activityStock" />
 
     <popup :show="popupShow"/>
 
@@ -43,6 +43,8 @@
     <ComfirmStoreDialog :show="showComfirmStoreDialog"  @comfirmStore="comfirmStore" />
 
     <canvas canvas-id="shareCanvas" style="width:200px;height:180px;position:fixed;top:30%;left:0%;opacity:0;position:fixed;top:999999999999999999999rpx;"></canvas>
+
+    <page-loading  :show="showPageLoading"/>
 
 
   </div>
@@ -53,6 +55,7 @@
   import { mapState } from 'vuex'
   import { serialize } from '@/utils/'
   import { AMapWX } from "@/utils/amap-wx"
+  import PageLoading from "@/components/PageLoading"
   import AssembleGoodsRows from '@/components/AssembleGoodsRows'
   import GoodsInfo from './components/GoodsInfo/index'
   import GoodsDesc from './components/GoodsDesc/index'
@@ -82,7 +85,8 @@
       BottomBar,
       Popup,
       ComfirmStoreDialog,
-      SelectStoreDialog
+      SelectStoreDialog,
+      PageLoading
     },
 
     data() {
@@ -92,6 +96,7 @@
         popupShow: false, //popup是否显示
         showSelectStoreDialog: false, //选择门店弹窗显示
         showComfirmStoreDialog: false, //确认门店弹窗显示
+        showPageLoading: false, //页面加载显示
         shareImg: '' //分享图片路径
       }
     },
@@ -581,7 +586,7 @@
           //   })
           // }
 
-          wx.showLoading()
+          this.showPageLoading = true //页面加载组件开启
           let params = {
             goodsId: options.id,
             storeId: this.storeId
@@ -598,7 +603,12 @@
             }
           })
           .catch(e => console.log(e))
-          .then(e => wx.hideLoading())
+          .then(e => {
+            setTimeout(() => { //定时器避免关闭太快出现闪烁状态
+              this.showPageLoading = false //页面加载组件关闭
+            },1000)
+
+          })
         },
 
 

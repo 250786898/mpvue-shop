@@ -728,9 +728,10 @@ export const Api = {
     },
 
     // 11.4. 购物车商品数量
-    count() {
+    count({ storeId }) {
       return post({
-        url: '/cart/count'
+        url: '/cart/count',
+        data: { storeId }
       })
     },
 

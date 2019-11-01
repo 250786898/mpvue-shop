@@ -1,9 +1,12 @@
 <template>
-    <div class="container">
+    <div class="container" >
 
       <!-- 自定义导航栏 -->
       <!-- <nav-bar /> -->
-      <goods-search-bar :location="location" :showtip="tipShown && !isCeiling"> </goods-search-bar>
+      <div id="ex2">
+        <goods-search-bar :location="location" :showtip="tipShown && !isCeiling"> </goods-search-bar>
+      </div>
+
       <template v-if="!showPageLoading">
         <!-- 搜索栏 -->
 
@@ -55,7 +58,6 @@ const storeModel = new StoreModel()
 var mta = require("../../utils/mta_analysis.js");
 
 const PAGE_SIZE = 10 //一页商品的显示数量
-const CEILING_DISTANCE = 135 //滚动多少吸顶
 
 export default {
   components: {
@@ -71,7 +73,7 @@ export default {
 
   data() {
     return {
-      showPageLoading: false, //页面数据师傅显示
+      showPageLoading: true, //页面加载显示
       showSelectStoreDialog: false, //选择门店弹窗显示
       showComfirmStoreDialog: false, //确认门店弹窗显示
       tipShown: true, //搜索栏是否显示
@@ -82,7 +84,7 @@ export default {
   },
 
   computed: {
-    ...mapState(["location", "storeId","shopDetail","shareStoreId"]),
+    ...mapState(["location", "storeId","shopDetail","shareStoreId","indexGoodsTop","indexBarHeight"]),
   },
 
   watch: {
@@ -115,6 +117,13 @@ export default {
 
 
   async mounted () {
+    　let _this = this
+
+　　setTimeout(function(){
+　    　_this.getElementHeight('#ex2')
+　　}, 100)
+
+    wx.showTabBar()
     console.log('首页a',this.$mp.page.options.shareStoreId)
     this.initPageShowHide()
 
@@ -158,7 +167,7 @@ export default {
   onPageScroll(e) {
     this.backToTopButtonShowed = e.scrollTop >= 200;
     this.tipShown = e.scrollTop < 100;
-    console.log('onPageScroll',e.scrollTop)
+    console.log('onPageScroll',e.scrollTop,this.indexGoodsTop,this.indexBarHeight)
     this.checkCeiling(e.scrollTop)
   },
 
@@ -170,6 +179,20 @@ export default {
   },
 
   methods: {
+
+    getElementHeight(id = "") {
+
+　　　　 let _query = wx.createSelectorQuery();
+
+　　　　_query.select(id).boundingClientRect()
+
+　　　　_query.exec((res) =>{
+             console.log('#affix节点的上边界坐',res); // #affix节点的上边界坐
+// 　　　　　　this.tHeight = res[0].height
+
+　　　　 })
+
+　　 },
 
     /**
      * @description 初始化页面显示隐藏
@@ -527,7 +550,11 @@ export default {
      * @description 隐藏页面加载loading
      */
     hidePageLoading () {
-       this.showPageLoading = false //关闭页面加载Loading
+      setTimeout(() => { //定时器避免关闭太快出现闪烁状态
+        console.log('//关闭页面加载Loading')
+        this.showPageLoading = false //关闭页面加载Loading
+      },1000)
+
     },
 
     /**
@@ -692,8 +719,9 @@ export default {
      * @description 监听商品列表组件是否要吸顶
      */
     checkCeiling (scrollTop) {
-      if(scrollTop >= CEILING_DISTANCE) {
-        this.isCeiling = true  //滚动距离顶部150吸顶
+      const ceilingDistance = this.indexGoodsTop -  this.indexBarHeight
+      if(scrollTop >= ceilingDistance) {
+        this.isCeiling = true  //滚动距离顶部吸顶
       }else{
         this.isCeiling = false
       }

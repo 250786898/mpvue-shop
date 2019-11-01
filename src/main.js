@@ -12,6 +12,7 @@ require('./styles/mixin.scss')
 
 var mta= require('./utils/mta_analysis')
 
+wx.hideTabBar()
 
 //引入mixin
 Vue.mixin(mixin)
@@ -42,7 +43,8 @@ const phoneNumber = wx.getStorageSync('PHONE_NUMBER')
 
 
 if (sessionId) {
-  store.dispatch('login', sessionId)  //缓存存在sessionId已经登录过,存在sessionId直接登录
+  store.dispatch('login', sessionId)  //缓存存在sessionId已经登录过,存在sessionId直接登录`
+  console.log('mainLogin')
   // store.commit('setSessionId', sessionId)
   if (phoneNumber) {
     store.commit('setWxPhoneNumber', phoneNumber) //缓存有电话号码设置电话号码到vuex

@@ -10,7 +10,8 @@
         </navigator>
       </div>
 
-      <button type="primary" class="radius bg-gradient" @click="confirmAdd">加入购物车</button>
+      <button type="primary" class="radius bg-gradient add-cart-btn" @click="confirmAdd" v-if="activityStock">加入购物车</button>
+      <button type="primary" class="radius bg-gradient" disabled v-else>已抢光，补货中</button>
     </div>
 
   </div>
@@ -23,6 +24,10 @@ export default {
     goodsId: { //商品id
       type: String,
       default: '123'
+    },
+    activityStock: { //时段活动库存
+      type: Number,
+      dafault: 0
     }
   },
   data () {
@@ -82,9 +87,11 @@ export default {
     width: 75%;
     height: 90rpx;
     line-height: 90rpx;
-    background:linear-gradient(270deg,rgba(18,205,207,1),rgba(12,225,179,1));
     font-size:32rpx;
     border-radius: 10rpx;
+  }
+  .add-cart-btn {
+    background:linear-gradient(270deg,rgba(18,205,207,1),rgba(12,225,179,1));
   }
 }
 </style>

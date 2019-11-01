@@ -60,7 +60,7 @@ export default {
     state.shopDetail = payload
   },
 
-  
+
 
   setPersonCenter(state, payload) {
     console.log('payload',payload)
@@ -110,11 +110,26 @@ export default {
     wx.setStorageSync('locateCity', payload)
   },
 
-  
+  /**
+   * @description 设置首页顶部栏高度
+   */
+  setIndexBarHeight (state,payload) {
+    state.indexBarHeight = payload
+  },
+
+  /**
+   * @description 设置首页时段活动距离顶部距离
+   */
+  setIndexGoodsTop (state,payload) {
+    state.indexGoodsTop = payload
+  },
+
+
 
   setRunTime(state,payload){
     state.runingtime = payload
   },
+
   pickuptime(state,payload){
     state.pickup=payload
   }

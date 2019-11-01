@@ -59,7 +59,7 @@ export default {
   },
   computed: {
     saleTime () { //显示的销售时间
-      return formatSaleDate(item.saleTime)
+      return  this.item.saleTime ? formatSaleDate(this.item.saleTime) : ''
     }
 },
   methods: {
@@ -115,7 +115,7 @@ export default {
   .good-name{
     font-size:28rpx;
     padding-right: 72rpx;
-    padding-bottom: 21rpx;
+    padding-bottom: 10rpx;
   }
   .failure-text,.failure-good-name{
     color: #999999;

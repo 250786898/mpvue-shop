@@ -20,13 +20,30 @@ export function formatDate (date, sep='-') {
  * @return {string} 返回格式化后的时间格式字符串 12月12日 00:00
  */
 export function formatSaleDate (date) {
-  const dateObj = new Date(date)
+  const formatDate = date.replace(/-/g, '/')
+  const dateObj = new Date(formatDate)
   const month = dateObj.getMonth() + 1
   const day = dateObj.getDate()
   const hour = dateObj.getHours() < 10 ? `0${dateObj.getHours()}` : dateObj.getHours()
   const minute = dateObj.getMinutes() < 10 ? `0${dateObj.getMinutes()}` : dateObj.getMinutes()
   console.log('formatSaleDate',`${month}月${day}日 ${hour}:${minute}`)
   return `${month}月${day}日 ${hour}:${minute}`
+}
+
+/**
+ * @param {string} date 标准时间字符串 如：2019-12-12 00:00:00
+ * @description 格式化提货时间
+ * @return {string} 返回格式化后的时间格式字符串 12月12日 00:00
+ */
+export function formatPickUpDate (date) {
+  const formatDate = date.replace(/-/g, '/')
+  const dateObj = new Date(formatDate)
+  const month = dateObj.getMonth() + 1
+  const day = dateObj.getDate()
+  const hour = dateObj.getHours() < 10 ? `0${dateObj.getHours()}` : dateObj.getHours()
+  const minute = dateObj.getMinutes() < 10 ? `0${dateObj.getMinutes()}` : dateObj.getMinutes()
+  console.log('formatSaleDate',`${month}月${day}日 ${hour}:${minute}`)
+  return `${month}月${day}日`
 }
 
 export function formatTime (date) {

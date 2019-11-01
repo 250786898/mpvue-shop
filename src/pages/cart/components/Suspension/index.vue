@@ -20,7 +20,8 @@
         </div>
       </div>
       <div>
-        <button class="radius bg-gradient settlement-btn"  @click="checkout">结算</button>
+        <button class="radius bg-gradient settlement-btn"  @click="checkout" v-if="totalAmount">结算</button>
+        <button class="radius bg-gradient disable-btn"  disabled v-else>结算</button>
       </div>
     </div>
   </div>
@@ -115,6 +116,17 @@ export default {
   line-height: 105rpx;
   text-align: center;
   color: #fff;
+  &::after{
+    border: none;
+  }
+}
+.disable-btn{
+  width:251rpx;
+  height:105rpx;
+  line-height: 105rpx;
+  text-align: center;
+  color: #fff;
+  background: #666;
   &::after{
     border: none;
   }

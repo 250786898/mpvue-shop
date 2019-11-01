@@ -10,7 +10,7 @@
       <div class="empty-tip__text">暂时没有订单喔~</div>
     </div>
 
-    <div v-if="list.length">
+    <div v-if="list.length" class="order-list">
       <div class="weui-panel order-panel" v-for="order in list" :key="order.orderId">
         <div class="weui-panel__hd">
           {{ order.orderTime }}
@@ -367,7 +367,7 @@
 </script>
 
 <style>
-  page { background-color: #F4F4F4;padding-left:24rpx; }
+  page { background-color: #F4F4F4;box-sizing:border-box;width: 100%; }
 </style>
 
 <style lang="scss" scoped>
@@ -472,6 +472,11 @@
         }
       }
     }
+  }
+  .order-list{
+    width: 100vw;
+    padding: 0 24rpx;
+    box-sizing: border-box;
   }
   .fixed-top {
     position: fixed;

@@ -1,6 +1,6 @@
 <template>
   <div>
-     <div class="weui-search-bar">
+     <div class="weui-search-bar" id="ex">
       <!-- 位置 -->
       <div class="location" @click="selectStore">
         <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/scancodepurchase_icon_location.png@2x.png" />
@@ -69,7 +69,28 @@ export default {
     // console.log('kkk',this.storeName)
   },
 
+    mounted() {
+      let _this = this
+  　　setTimeout(function(){
+  　    　_this.setIndexBarElementHeight('#ex')
+  　　}, 100)
+  },
+
   methods: {
+
+    setIndexBarElementHeight(id = "") {
+
+　　　　 let _query = wx.createSelectorQuery();
+
+　　　　_query.select(id).boundingClientRect()
+
+　　　　_query.exec((res) =>{
+          console.log('#affix节点的上边界坐3332',res); // #affix节点的上边界坐
+　　　　　 const tHeight = res[0].height
+          this.$store.commit('setIndexBarHeight',tHeight)
+　　　　 })
+
+　　 },
 
     /**
      * @description 选择门店，先刷新用户定位信息再进入选择门店组件

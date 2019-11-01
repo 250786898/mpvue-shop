@@ -6,11 +6,11 @@
        <span class="original-price" v-if="originalPrice">￥{{originalPrice}}</span>
      </div>
 
-    <div class="end-time-box" v-if="isSale">
+    <div class="end-time-box" v-if="isSale == 1">
         <div class="end-time-box__title">距离结束时间</div>
         <countdowner :countdown="countDown"></countdowner>
       </div>
-     <div class="end-time-box" v-else >
+     <div class="end-time-box sale-time-text" v-if="isSale == 0" >
          {{saleTime}}开售
       </div>
 
@@ -39,9 +39,9 @@ export default {
       type: Number,
       default: 0
     },
-    isSale: { //商品状态，0：处于预售中 1：正在售卖中
+    isSale: { //商品状态，0：处于预售中 1：正在售卖中 2：无状态都不显示
       type: Number,
-      default: 0
+      default: 2
     }
 
   },
@@ -50,7 +50,7 @@ export default {
       return Math.floor(this.endTime / 1000) //毫秒转成秒
    },
     saleTime () { //显示的销售时间
-      return formatSaleDate(this.startTime)
+      return this.startTime ? formatSaleDate(this.startTime) : ''
     }
   },
   components: {
@@ -97,6 +97,10 @@ export default {
       &__title{
         padding-bottom: 15rpx;
       }
+    }
+    .sale-time-text{
+      font-size: 31rpx;
+      font-weight: bold;
     }
   }
 </style>

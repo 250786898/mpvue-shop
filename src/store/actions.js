@@ -48,7 +48,7 @@ export default {
    * @param {object} payload 门店对象相关信息对象
    * @description 确定或则切换门店
    */
-  confirmOrSwitchStore({ commit },payload) {
+  confirmOrSwitchStore({ commit, dispatch },payload) {
     const storeId = payload.storeId
     storeModel.saveLatestStoreOFNoLogin(storeId)
     return Api.index.saveSwitchHistory({
@@ -57,6 +57,7 @@ export default {
       if (res.code === Api.CODES.SUCCESS) {
         console.log('confirmOrSwitchStore',storeId)
         commit('setStoreId',storeId)
+        dispatch('updateCartNum')
       }
     })
   },
@@ -77,8 +78,10 @@ export default {
   },
 
 
-  updateCartNum({ commit, dispatch }) {
-    Api.cart.count().then(res => {
+  updateCartNum({ state, commit, dispatch }) {
+    Api.cart.count({
+      storeId: state.storeId
+    }).then(res => {
       if (res.code == Api.CODES.SUCCESS) {
         commit('setCartNum', res.data)
         dispatch('syncCartTabbarBadge')
@@ -121,6 +124,7 @@ export default {
       } else if (res.code === 40001) {
         resgiterOrLogin()
       } else {
+        wx.hideLoading()
         wx.showToast({
           title: res.message,
           icon: 'none'
@@ -129,7 +133,6 @@ export default {
       return res
     })
     .catch(e => {
-      wx.hideLoading()
       return Promise.reject(e)
     })
   },

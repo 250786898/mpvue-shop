@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { formatSaleDate } from "@/utils/index"
+import { formatSaleDate, formatPickUpDate } from "@/utils/index"
 
 export default {
   props: {
@@ -26,9 +26,6 @@ export default {
       type: Number,
       default: 0
     }
-  },
-  mounted() {
-    formatSaleDate()
   },
   computed: {
     // showPickUpTime () { //显示的提货时间
@@ -43,8 +40,8 @@ export default {
     //   return showPickUpTime
     // }
     showPickUpTime () { //显示的提货时间
-      return formatSaleDate(this.pickupTime)
-    }
+        return formatPickUpDate(this.pickupTime)
+    },
 
   },
   methods: {

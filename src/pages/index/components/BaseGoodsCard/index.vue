@@ -43,7 +43,7 @@
       <div class="xian"></div>
 
     </navigator>
-    <div class="sell-out-mask" v-if="isSellOut"></div>
+    <navigator class="sell-out-mask" v-if="isSellOut"  :url="'/pages/goods/detail/main?id=' + item.id+ '&activityId=' + (item.activityId || '') + '&activityGoodsId=' + (item.id || '')"></navigator>
   </div>
 </template>
 
