@@ -456,7 +456,7 @@
 
       },
 
-        /**
+       /**
        * @description 设置用户相关定位信息(经纬度，所在地详情等)
        */
       setUserLocationInfo () {

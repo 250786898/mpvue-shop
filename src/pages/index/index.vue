@@ -3,9 +3,7 @@
 
       <!-- 自定义导航栏 -->
       <!-- <nav-bar /> -->
-      <div id="ex2">
-        <goods-search-bar :location="location" :showtip="tipShown && !isCeiling"> </goods-search-bar>
-      </div>
+      <goods-search-bar :location="location" :showtip="tipShown && !isCeiling"> </goods-search-bar>
 
       <template v-if="!showPageLoading">
         <!-- 搜索栏 -->
@@ -119,9 +117,7 @@ export default {
   async mounted () {
     　let _this = this
 
-　　setTimeout(function(){
-　    　_this.getElementHeight('#ex2')
-　　}, 100)
+　
 
     wx.showTabBar()
     console.log('首页a',this.$mp.page.options.shareStoreId)
@@ -179,20 +175,6 @@ export default {
   },
 
   methods: {
-
-    getElementHeight(id = "") {
-
-　　　　 let _query = wx.createSelectorQuery();
-
-　　　　_query.select(id).boundingClientRect()
-
-　　　　_query.exec((res) =>{
-             console.log('#affix节点的上边界坐',res); // #affix节点的上边界坐
-// 　　　　　　this.tHeight = res[0].height
-
-　　　　 })
-
-　　 },
 
     /**
      * @description 初始化页面显示隐藏
