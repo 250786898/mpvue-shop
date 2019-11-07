@@ -7,7 +7,7 @@
       <div class="weui-panel__bd">
         <div class="weui-media-box weui-media-box_appmsg" v-for="item in returnOrderGoodsList" :key="item.goodsId">
           <div class="weui-media-box__hd weui-media-box__hd_in-appmsg">
-            <image class="weui-media-box__thumb" :src="item.goodsImage" />
+            <image class="weui-media-box__thumb" :src="item.goodsImage" mode="aspectFit" />
           </div>
           <div class="weui-media-box__bd weui-media-box__bd_in-appmsg">
             <!-- if 赠品 -->
@@ -163,10 +163,16 @@
         .then(res => {
           wx.hideLoading()
           if (res.code === Api.CODES.SUCCESS) {
-            wx.showToast({ title: '已提交' })
-            wx.redirectTo({
-              url: '/pages/order/returns/main'
-            })
+            wx.showToast({
+              title: '申请成功',
+             })
+
+            setTimeout(() => {
+              wx.redirectTo({
+                url: `/pages/order/returns/main`
+              })
+            },1500)
+
           } else if (res.code === 5010329) {
             wx.showModal({
               title: '提示',

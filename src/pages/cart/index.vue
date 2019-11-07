@@ -68,6 +68,7 @@
       return {
         result: {}, //购物车相关信息
         cartItemResultList: [], //正常商品购物车列表
+        preSaleGoodList: [], //预售商品列表
         failureGoodsList: [], //失效商品购物车列表
         totalAmount: 0, //合计购物车价格
         promisAmount: 0 //已优惠价格

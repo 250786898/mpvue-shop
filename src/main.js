@@ -3,6 +3,7 @@ import App from './App'
 import store from './store/index'
 import mixin from './utils/mixin'
 import config from "@/config"
+import PageLoading from "@/components/PageLoading"
 import { AMapWX } from "@/utils/amap-wx"
 
 require('./styles/weui.css')
@@ -17,11 +18,18 @@ wx.hideTabBar()
 //引入mixin
 Vue.mixin(mixin)
 
+//全局注册组件
+Vue.component('page-loading',PageLoading)
+
 
 Vue.config.productionTip = false
 Vue.prototype.$store = store
 
 App.mpType = 'app'
+
+
+
+
 
 const app = new Vue(App)
 app.$mount()

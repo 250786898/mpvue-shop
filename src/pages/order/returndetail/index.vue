@@ -160,7 +160,12 @@
         type="default">
         删除订单
       </button> -->
+
+
     </div>
+
+     <page-loading :show="showPageLoading"/>
+
   </div>
 </template>
 
@@ -171,7 +176,8 @@
     data () {
       return {
         detail: {},
-        reasons: []
+        reasons: [],
+        showPageLoading: true //页面加载显示
       }
     },
 
@@ -188,9 +194,9 @@
 
     methods: {
       getDetail({ id }) {
-        wx.showLoading({ title: '加载中' })
         Api.refund.detail({ id })
         .then(res => {
+          this.hidePageLoading()
           if (res.code === Api.CODES.SUCCESS) {
             this.detail = res.data
           } else {
@@ -243,6 +249,7 @@
     },
 
     onLoad(e) {
+
       if (e.id) {
         this.getDetail({ id: e.id })
       }

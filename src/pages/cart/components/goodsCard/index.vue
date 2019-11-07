@@ -9,7 +9,7 @@
         <switch type="checkbox" class="weui-check" :checked="item.checked" @change="onGoodsCBChange($event, item,index)"/>
         <div class="weui-cell__hd weui-check__hd_in-checkbox">
           <icon v-if="item.checked && item.isSale " class="weui-icon-checkbox_success" type="success" size="20" color="#12D6BE" ></icon>
-          <icon v-else-if="!item.isSale" class="weui-icon-checkbox_success" type="success" size="20" color="#666" ></icon>
+          <icon v-else-if="!item.isSale" class="weui-icon-checkbox_success" type="success" size="20" color="#eee" ></icon>
           <icon v-else class="weui-icon-checkbox_circle" type="circle" size="20"></icon>
         </div>
       </label>

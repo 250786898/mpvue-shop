@@ -400,6 +400,8 @@
       @complete="onComplete">
     </payment-dialog>
 
+    <page-loading :show="showPageLoading"/>
+
     <!-- <red-package :shown="redPackageShow" @on-close="handleCloseRedPackage"></red-package> -->
   </div>
 </template>
@@ -429,7 +431,7 @@
         isAssemble: false, //是否是拼团页面详情
         timers:299, //待支付订单倒计时
         timer:null,  //定时器
-
+        showPageLoading: true //页面加载显示
       }
     },
     computed: {
@@ -571,13 +573,12 @@
       },
 
       getDetail({ orderId }) {
-        wx.showLoading({ title: '加载中' })
         Api.order.detail({ orderId  })
         .then(res => {
+          this.hidePageLoading()
           if (res.code === Api.CODES.SUCCESS) {
             this.order = res.data
             //支付有礼
-
           } else {
             wx.showToast({
               icon: 'none',
@@ -586,7 +587,6 @@
           }
         })
         .catch(e => console.log(e))
-        .then(() => wx.hideLoading())
       },
 
       remind() {
@@ -798,10 +798,13 @@
 </script>
 
 <style>
-  page { background-color: #F5F5F5;
-         padding-bottom: 120rpx;
-        padding-left:24rpx;
-        }
+  page {
+    background-color: #F5F5F5;
+    padding-bottom: 120rpx;
+    padding-left:24rpx;
+    width: 100vw;
+    box-sizing: border-box;
+  }
 </style>
 
 <style lang="scss" scoped>

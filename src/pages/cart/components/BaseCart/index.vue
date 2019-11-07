@@ -318,6 +318,7 @@ export default {
       display: flex;
       font-size: 30rpx;
       font-weight:800;
+      align-items: center;
     }
     &-right{
       color: #666666;

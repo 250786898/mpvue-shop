@@ -1,24 +1,11 @@
 <template>
   <div class="weui-cells">
-    <!-- <div class="weui-cell weui-cell_access" @click="setPassword">
-      <div class="weui-cell__hd">
-        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/setting_icon_membershipcard@2x.png">
-      </div>
-      <div class="weui-cell__bd">会员卡支付密码</div>
-      <div class="weui-cell__ft weui-cell__ft_in-access"></div>
-    </div> -->
-    <!-- <navigator url="/pages/address/list/main" class="weui-cell weui-cell_access">
-      <div class="weui-cell__hd">
-        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/setting_icon_location@2x.png">
-      </div>
-      <div class="weui-cell__bd">收货地址</div>
-      <div class="weui-cell__ft weui-cell__ft_in-access"></div>
-    </navigator> -->
-    <navigator url="/pages/mine/info/main" class="weui-cell weui-cell_access">
-      <div class="weui-cell__hd">
-        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/setting_icon_member@2x.png">
-      </div>
-      <div class="weui-cell__bd">用户信息</div>
+    <div  class="weui-cell weui-cell_access">
+      <div class="weui-cell__bd">手机号</div>
+      <div class="weui-cell__ft">{{mobile}}</div>
+    </div>
+    <navigator url="/pages/mine/serviceAgreement/main" class="weui-cell weui-cell_access">
+      <div class="weui-cell__bd">服务协议</div>
       <div class="weui-cell__ft weui-cell__ft_in-access"></div>
     </navigator>
 
@@ -30,11 +17,20 @@
 
 <script>
   import { Api } from '@/http/api'
+  import { encryptMobile } from "@/utils/index"
 
   export default {
     data () {
       return {
         autoRenew: true
+      }
+    },
+
+    computed: {
+      mobile () {
+        const mobile = wx.getStorageSync('PHONE_NUMBER')
+        console.log('mobile',mobile)
+        return encryptMobile(mobile)
       }
     },
 
@@ -102,6 +98,11 @@ page{
     }
     &:after {
       border-bottom: 1px dashed #DEDEDE;
+    }
+    &:nth-last-of-type(1) {
+      &:after{
+        border-bottom: none;
+      }
     }
   }
   .weui-cell {

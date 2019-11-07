@@ -7,9 +7,7 @@
     <div class="mine-card">
 
       <div class="mine-card__user">
-        <div class="weui-cell" @click="toSmessage">
-          <!-- 箭头 -->
-           <navigator hover-class="none"  > <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/icon_blackarrow.png" alt="" class="arrows" style="width:60rpx;height:60rpx;"> </navigator>
+        <div class="weui-cell">
 
           <!-- 头像 -->
           <div class="weui-cell__hd">
@@ -35,6 +33,7 @@
               注册/登录
               <!-- <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/me_icon_blackarrow@2x.png"> -->
             </div>
+            <p class="mine-card__desc">满世界给你找好吃的</p>
           </div>
           <!-- <navigator hover-class="none" url="/pages/qrcode/index/main" class="weui-cell__ft">
             <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/me_icon_qrcode@2x.png">
@@ -76,14 +75,13 @@
     </navigator> -->
 
 
-    <div class="weui-panel entry-panel">
-      <div class="xian"></div>
+    <div class="weui-panel entry-panel my-order-panel">
       <div class="weui-panel__hd">
         我的订单
         <div hover-class="none" @click="allOrder" url="/pages/order/index/main" class="weui-cell__ft weui-cell__ft_in-access"
           style="font-size: 24rpx; line-height: 40rpx;">查看全部订单</div>
       </div>
-      <div class="weui-panel__bd">
+      <div class="weui-panel__bd my-order-panel-content">
         <div class="weui-flex">
           <div hover-class="none" @click="obligation " :url="'/pages/order/index/main?status=' + ORDER_STATE.UNPAID" class="weui-flex__item" style="position:relative">
             <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/payment_icon.png">
@@ -113,12 +111,39 @@
       </div>
     </div>
 
-     <div class="weui-panel entry-panel" style="margin-top:292rpx; height:37%;" >
-      <div class="xian"></div>
+     <div class="weui-panel entry-panel" style="margin-top:312rpx;" >
       <div class="weui-panel__hd">
         我的服务
       </div>
       <div class="weui-panel__bd my-service-box">
+
+      <navigator @click="discount" hover-class="none" class="my-service-box-item">
+        <div class="my-service-box-item-main">
+          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/coupon_icon.png" class="my-service-box-item__icon" >
+          <div class="my-service-box-item__desc">我的优惠券</div>
+        </div>
+        <div class="weui-cell__ft weui-cell__ft_in-access"></div>
+      </navigator>
+
+      <div class="my-service-box-item">
+        <button open-type="contact" class="contact-btn">
+          <div class="my-service-box-item-main">
+            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/service_icon.png" class="my-service-box-item__icon" >
+            <div class="my-service-box-item__desc">客服和帮助</div>
+          </div>
+          <div class="weui-cell__ft weui-cell__ft_in-access"></div>
+        </button>
+      </div>
+
+      <navigator @click="toSettings" hover-class="none" class="my-service-box-item">
+        <div class="my-service-box-item-main">
+          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/set_icon.png" class="my-service-box-item__icon" >
+          <div class="my-service-box-item__desc">设置</div>
+        </div>
+        <div class="weui-cell__ft weui-cell__ft_in-access"></div>
+      </navigator>
+
+
         <div class="weui-flex">
           <!-- 二期
           <navigator hover-class="none" url="/pages/scanorder/index/main" class="weui-flex__item">
@@ -131,17 +156,20 @@
             <div>提货码</div>
           </navigator> -->
           <!-- 1.0 -->
-          <navigator hover-class="none" @click="discount" class="weui-flex__item">
-          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/coupon_icon.png">
-            <!-- <div class="primary" v-if="sessionId">{{ personCenter.couponNum }}</div> -->
-            <!-- <div class="primary" v-else="sessionId">***</div> -->
-            <div>优惠券</div>
-          </navigator>
+
+
+
+          <!-- <navigator hover-class="none" @click="discount" class="weui-flex__item"> -->
+            <!-- <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/coupon_icon.png"> -->
+              <!-- <div class="primary" v-if="sessionId">{{ personCenter.couponNum }}</div> -->
+              <!-- <div class="primary" v-else="sessionId">***</div> -->
+              <!-- <div>优惠券</div> -->
+          <!-- </navigator> -->
           <!-- <navigator hover-class="none" url="/pages/order/teamlist/main" class="weui-flex__item">
             <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/me_icon_tuan@2x.png">
             <div>我的团购</div>
           </navigator> -->
-          <button open-type="contact" class="weui-flex__item no-style">
+          <!-- <button open-type="contact" class="weui-flex__item no-style">
             <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/service_icon.png">
             <div>联系客服</div>
           </button>
@@ -149,7 +177,7 @@
           <button  @click="toSettings"  class="weui-flex__item no-style">
             <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/set_icon.png">
             <div>设置</div>
-          </button>
+          </button> -->
 
           <!-- <button open-type="feedback" class="weui-flex__item no-style">
             <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/me_icon_feedback@2x.png">
@@ -370,7 +398,9 @@
 </script>
 
 <style lang="scss" scoped>
-
+.mine-card__desc{
+  font-size: 24rpx;
+}
 .weui-cell__ft_in-access:after {
   // content: " ";
   display: inline-block;
@@ -388,10 +418,6 @@
   margin-top: -4px;
   right: 2px;
 }
-
-.my-service-box{
-  padding: 30rpx 20rpx !important;
-}
   .box{
     position: fixed;
     top:0rpx;
@@ -400,7 +426,6 @@
 
 
   .weui-panel__hd{
-    padding: 28rpx 30rpx 26rpx 38rpx;
     font-weight:bold;
   }
   .arrows{
@@ -600,6 +625,7 @@
   }
 
   .entry-panel {
+    height: auto;
     &:before,
     &:after {
       display: none;
@@ -607,8 +633,12 @@
 
     .weui-panel {
       &__hd {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        border-bottom: 1rpx solid #eeeeee;
         &:after {
           display: none;
+          border-bottom: 1rpx solid #eeeeee;
         }
         font-size: 30rpx;
         color: $text-black;
@@ -616,9 +646,6 @@
           float: right;
           padding-right:39rpx;
         }
-      }
-      &__bd {
-        padding: 18rpx 20rpx;
       }
     }
 
@@ -637,6 +664,12 @@
     }
   }
 
+  .my-order-panel{
+    &-content{
+      padding: 38rpx 20rpx !important;
+    }
+  }
+
   .complete-tip {
     margin-top: 20rpx;
     .weui-cell {
@@ -652,56 +685,50 @@
     }
   }
 
-  // .weui-actionsheet {
-  //   position: fixed;
-  //   left: 0;
-  //   bottom: 0;
-  //   transform: translate(0, 100%);
-  //   backface-visibility: hidden;
-  //   z-index: 5000;
-  //   width: 100%;
-  //   background-color: #EFEFF4;
-  //   //slide up animation
-  //   transition: transform .3s;
-  // }
-  // .weui-actionsheet__menu {
-  //   background-color: #FCFCFD;
-  // }
-  // .weui-actionsheet__action {
-  //   margin-top: 6px;
-  //   background-color: #FCFCFD;;
-  // }
-  // .weui-actionsheet__cell {
-  //   position: relative;
-  //   padding: 10px 0;
-  //   text-align: center;
-  //   font-size: 18px;
-  //   &:before {
-  //     content: " ";
-  //     position: absolute;
-  //     left: 0;
-  //     top: 0;
-  //     right: 0;
-  //     height: 1px;
-  //     border-top: 1px solid #e5e5e5;
-  //     color: #e5e5e5;
-  //     -webkit-transform-origin: 0 0;
-  //     transform-origin: 0 0;
-  //     -webkit-transform: scaleY(0.5);
-  //     transform: scaleY(0.5);
-  //   }
-  //   &:active{
-  //       background-color: #ECECEC;
-  //   }
-  //   &:first-child{
-  //     &:before{
-  //         display: none;
-  //     }
-  //   }
-  // }
+  .weui-panel{
+    padding: 0 30rpx !important;
+    box-sizing: border-box;
+  }
 
-  // //actionSheet aniamtion
-  // .weui-actionsheet_toggle{
-  //   transform: translate(0, 0);
-  // }
+
+  .my-service-box{
+    &-item{
+      height: 106rpx;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #636363;
+      font-size: 28rpx;
+      box-sizing: border-box;
+      width: 100%;
+      border-bottom: 1rpx solid #eeeeee;
+      &:nth-last-of-type(1){
+        border-bottom: none;
+      }
+      &-main{
+        flex: 1;
+        display: flex;
+        align-items: center;
+      }
+      &__icon{
+        height: 48rpx;
+        width: 48rpx;
+        margin-right: 12rpx;
+      }
+    }
+  }
+
+  .contact-btn{
+    height: 106rpx;
+    width: 100%;
+    background: none;
+    padding: 0;
+    color: #636363;
+    font-size: 28rpx;
+    display: flex;
+    &::after{
+      border: none !important;
+    }
+  }
+
 </style>

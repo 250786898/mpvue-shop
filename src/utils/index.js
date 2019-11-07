@@ -148,6 +148,15 @@ export async function resgiterOrLogin () {
 
 }
 
+/**
+ * @param {number} mobile 手机号
+ * @description 加密手机号码
+ * @return {string} 加密手机字符串
+ */
+export function encryptMobile (mobile) {
+  return `${mobile[0]}${mobile[1]}${mobile[2]}****${mobile[7]}${mobile[8]}${mobile[9]}${mobile[10]}`
+}
+
 
 export default {
   formatNumber,

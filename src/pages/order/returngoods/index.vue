@@ -16,7 +16,7 @@
               </template>
             </label>
             <div class="weui-media-box__hd weui-media-box__hd_in-appmsg">
-              <image class="weui-media-box__thumb" :src="item.goodsImage" />
+              <image class="weui-media-box__thumb" :src="item.goodsImage" mode="aspectFit"/>
             </div>
             <div class="weui-media-box__bd weui-media-box__bd_in-appmsg">
               <!-- if 赠品 -->
@@ -42,9 +42,9 @@
                 <counter v-model="item.returnGoodsNum" :max="item.goodsNum" :min="1"></counter>
               </div>
             </div>
-          </div>  
+          </div>
         </template>
-        
+
         <button type="primary" class="radius main-button" :disabled="!submittable" @click="submit">
           确定退货商品
         </button>
@@ -91,7 +91,7 @@
 
     onLoad(e) {
       this.orderId = e.id
-      
+
       wx.showLoading({ title: '加载中' })
       Api.order.detail({ orderId: e.id }).then(res => {
         if (res.code === Api.CODES.SUCCESS) {

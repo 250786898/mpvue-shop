@@ -106,18 +106,13 @@
       LjLoading
     },
     computed: {
-      ...mapState(['storeId',"indexGoodsTop","indexBarHeight"]),
-      isCeilingStyle () {
-        // { color: activeColor, margin: fontSize + 'px' }
-        if(this.isCeiling) {
-          return  ' margin-top:40px;'
-        }
-      }
+      ...mapState(['storeId',"indexGoodsTop","indexBarHeight"])
     },
     watch: {
       storeId: function () {
         console.log('goodlostStoreId修改了aaaaaaaaaaaaaaaaaaa',this.storeId)
         // this.getGoodsListByActivityId(this.storeId , this.activityId , 1 )
+        this.initData()
         this.setTabsList()
         // this.getGoodsClassList(this.storeId , this.pcId , 1 , showPageSize)
       }
@@ -138,9 +133,10 @@
      */
     onPullDownRefresh () {
       console.log('onPullDownRefresh')
-      this.goodsList = [] //先清空数据
-      this.refreshTabsList()
-      this.getGoodsListByActivityId(this.storeId , this.activityId , 1 )
+      this.initData()
+      this.setTabsList()
+      // this.refreshTabsList()
+      // this.getGoodsListByActivityId(this.storeId , this.activityId , 1 )
       // this.getGoodsClassList(this.storeId , this.pcId , 1 , showPageSize)
     },
 
@@ -297,6 +293,7 @@
       initData(){
         this.currentPage = 1
         this.goodsList = []//商品数据
+        this.activeIndex = 0 //恢复默认索引
         this.isAllLoaded = false//是否全部加载数据,
         this.loading =  false//是否向上更新
       }

@@ -44,7 +44,6 @@ import config from "@/config"
 import GoodsSearchBar from "@/components/GoodsSearchBar"
 import ComfirmStoreDialog from "@/components/ComfirmStoreDialog"
 import SelectStoreDialog from "@/components/SelectStoreDialog"
-import PageLoading from "@/components/PageLoading"
 import GoodsList from "./components/GoodsList/index"
 import IndexSwiper from "./components/IndexSwiper/index"
 import ToTop from "./components/ToTop/index"
@@ -60,7 +59,6 @@ const PAGE_SIZE = 10 //一页商品的显示数量
 export default {
   components: {
     GoodsSearchBar,
-    PageLoading,
     GoodsList,
     IndexSwiper,
     ToTop,
@@ -92,6 +90,7 @@ export default {
       wx.showShareMenu({
         withShareTicket: true
       })
+
       this.updateStoreInfo() //更新门店相关信息
       this.updateStoreData() //更新新的门店数据
       this.hidePageLoading()
