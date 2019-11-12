@@ -94,6 +94,10 @@
         //如果未登陆，初始化所有数据，避免退出登陆还存在购物车数据
          Object.assign(this.$data, this.$options.data())
       }
+      wx.showLoading({  //显示加载组件
+        mask: true,
+        title: '加载中'
+      })
       this.getCartList() //获取购物车列表
     },
 
@@ -226,10 +230,6 @@
        * @description 初始化，加载购物车列表
        */
       getCartList() {
-        wx.showLoading({
-          mask: true,
-          title: '加载中'
-        })
         Api.cart.cartList({
           storeId: this.storeId,
           carts: 'all'

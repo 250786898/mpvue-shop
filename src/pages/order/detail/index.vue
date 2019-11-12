@@ -505,6 +505,27 @@
         }
       }
     },
+
+     onLoad(e) {
+      Object.assign(this.$data, this.$options.data()) //解决mpvue初始化未清空状态问题
+      this.daojishi()
+      if (e.id) {
+        this.id = e.id
+        this.getDetail({ orderId: e.id })
+      }
+      clearInterval(this.__timer)
+      this.__timer = setInterval(() => {
+        if(this.order.times >0) {
+          this.$set(this.order,'times',this.order.times -=1)
+        }
+      }, 1000);
+    },
+
+
+    onUnload() {
+      clearInterval(this.__timer)
+    },
+
     methods: {
       /**
        * @description 待支付倒计时
@@ -527,43 +548,8 @@
 
           },1000)
         },
-      /**
-       * @description 跳转拼团商品详情
-       */
-      regroup() {
-        wx.navigateTo({ url: `/pages/goods/detail/main?id=${this.order.orderGoodsList[0].goodsId}&activityId=${this.order.orderGoodsList[0].activityId}` })
-        },
 
-       /**
-       * @description 图形进度条
-       */
-      setPercent(percent=100) {
-        percent = Math.min(Math.max(0, percent), 100)
 
-        if (!this._la) {
-          this._la = wx.createAnimation({
-            duration: 0,
-            transformOrigin: '100% 50% 0'
-          })
-        }
-        if (!this._ra) {
-          this._ra = wx.createAnimation({
-            duration: 0,
-            transformOrigin: '0% 50% 0'
-          })
-        }
-
-        let rdeg = Math.min((100 - percent) * 3.6, 180)
-
-        this._ra.rotate(rdeg).step()
-        this.ra = this._ra.export()
-
-        if (percent <= 50) {
-          let ldeg = (50 - percent) * 3.6
-          this._la.rotate(ldeg).step()
-          this.la = this._la.export()
-        }
-      },
       copyOrderNO() {
         wx.setClipboardData({
           data: this.order.orderSn,
@@ -571,6 +557,18 @@
           fail: () => wx.showToast({ title: '复制失败', icon: 'none' })
         })
       },
+
+       /**
+     * @description 隐藏页面加载loading
+     */
+    hidePageLoading () {
+      setTimeout(() => { //定时器避免关闭太快出现闪烁状态
+        console.log('//关闭页面加载Loading')
+        this.showPageLoading = false //关闭页面加载Loading
+      },2000)
+
+    },
+
 
       getDetail({ orderId }) {
         Api.order.detail({ orderId  })
@@ -623,177 +621,147 @@
         .catch(e => wx.hideLoading())
       },
 
-    cancel() {
-        wx.showLoading({ title: '取消中' })
-        Api.order.cancel({
-          orderId: this.order.orderId
-        }).then(res => {
-          wx.hideLoading()
+      cancel() {
+          wx.showLoading({ title: '取消中' })
+          Api.order.cancel({
+            orderId: this.order.orderId
+          }).then(res => {
+            wx.hideLoading()
 
-          if (res.code === Api.CODES.FAILED) {
-             wx.showToast({
-              title: res.message,
-              icon: 'none'
-            })
-            return false
-          }
-
-          if (res.code === Api.CODES.SUCCESS) {
-            this.getDetail({ orderId: this.order.orderId })
-          } else {
-            wx.showToast({
-              title: res.message,
-              icon: 'none'
-            })
-          }
-        })
-        .catch(e => wx.hideLoading())
-      },
-
-      finish() {
-        wx.showLoading({ title: '确认中' })
-        Api.order.finish({
-          orderId: this.order.orderId
-        }).then(res => {
-          wx.hideLoading()
-          if (res.code === Api.CODES.SUCCESS) {
-            this.getDetail({ orderId: this.order.orderId })
-          } else {
-            wx.showToast({
-              title: res.message,
-              icon: 'none'
-            })
-          }
-        })
-        .catch(e => wx.hideLoading())
-      },
-
-      onComplete(pwd) {
-        this.__pay(this.order, pwd)
-      },
-
-       // 微信支付
-      __pay(order, pwd) {
-        wx.showLoading({ mask: true, title: '支付中' })
-        Api.order.pay({
-          paySn: order.paySn,
-          paymentCode: order.paymentCode,
-          paymentId: order.paymentId,
-          paymentPasswd: pwd ? pwd : void(0)
-        }).then(res => {
-          if (res.code === Api.CODES.SUCCESS) {
-            if (order.paymentCode === 'weixinAppletPaymentPlugin') {
-              let params = JSON.parse(res.data.tocodeurl)
-              wx.requestPayment({
-                ...params,
-                success: () => {
-                  wx.showLoading({ mask: true, title: '请稍等' })
-
-                }
+            if (res.code === Api.CODES.FAILED) {
+              wx.showToast({
+                title: res.message,
+                icon: 'none'
               })
+              return false
+            }
+
+            if (res.code === Api.CODES.SUCCESS) {
+              this.getDetail({ orderId: this.order.orderId })
             } else {
-              wx.navigateTo({
-                url: `/pages/order/detail/main?id=${ order.orderId }`
+              wx.showToast({
+                title: res.message,
+                icon: 'none'
               })
             }
-          } else {
-            wx.showToast({
-              title: res.message,
-              icon: 'none'
-            })
-            if (res.code === 5000000) {
-              this.paymentDialogShowed = true
+          })
+          .catch(e => wx.hideLoading())
+        },
+
+        finish() {
+          wx.showLoading({ title: '确认中' })
+          Api.order.finish({
+            orderId: this.order.orderId
+          }).then(res => {
+            wx.hideLoading()
+            if (res.code === Api.CODES.SUCCESS) {
+              this.getDetail({ orderId: this.order.orderId })
+            } else {
+              wx.showToast({
+                title: res.message,
+                icon: 'none'
+              })
             }
+          })
+          .catch(e => wx.hideLoading())
+        },
+
+        onComplete(pwd) {
+          this.__pay(this.order, pwd)
+        },
+
+        // 微信支付
+        __pay(order, pwd) {
+          wx.showLoading({ mask: true, title: '支付中' })
+          Api.order.pay({
+            paySn: order.paySn,
+            paymentCode: order.paymentCode,
+            paymentId: order.paymentId,
+            paymentPasswd: pwd ? pwd : void(0)
+          }).then(res => {
+            if (res.code === Api.CODES.SUCCESS) {
+              if (order.paymentCode === 'weixinAppletPaymentPlugin') {
+                let params = JSON.parse(res.data.tocodeurl)
+                wx.requestPayment({
+                  ...params,
+                  success: () => {
+                    wx.showLoading({ mask: true, title: '请稍等' })
+
+                  }
+                })
+              } else {
+                wx.navigateTo({
+                  url: `/pages/order/detail/main?id=${ order.orderId }`
+                })
+              }
+            } else {
+              wx.showToast({
+                title: res.message,
+                icon: 'none'
+              })
+              if (res.code === 5000000) {
+                this.paymentDialogShowed = true
+              }
+            }
+            wx.hideLoading()
+          })
+          .catch(() => wx.hideLoading())
+        },
+
+        pay() {
+          if (this.order.paymentCode === 'balancePaymentPlugin') {
+            this.paymentDialogShowed = true
+          } else if (this.order.paymentCode === 'weixinAppletPaymentPlugin'){
+            this.__pay(this.order)
           }
-          wx.hideLoading()
-        })
-        .catch(() => wx.hideLoading())
-      },
+        },
+  /**
+   * des
+   */
+        applyReturns() {
+          wx.navigateTo({
+            url: `/pages/order/returngoods/main?id=${ this.order.orderId }`
+          })
+        },
 
-      pay() {
-        if (this.order.paymentCode === 'balancePaymentPlugin') {
-          this.paymentDialogShowed = true
-        } else if (this.order.paymentCode === 'weixinAppletPaymentPlugin'){
-          this.__pay(this.order)
-        }
-      },
-/**
- * des
- */
-      applyReturns() {
-        wx.navigateTo({
-          url: `/pages/order/returngoods/main?id=${ this.order.orderId }`
-        })
-      },
+        comment() {
+          wx.navigateTo({
+            url: `/pages/order/comment/main?id=${ this.order.orderId }`
+          })
+        },
 
-      comment() {
-        wx.navigateTo({
-          url: `/pages/order/comment/main?id=${ this.order.orderId }`
-        })
-      },
+        commentHistory() {
+          wx.navigateTo({ url: `/pages/order/commenthistory/main?id=${ this.order.orderId }` })
+        },
 
-      commentHistory() {
-        wx.navigateTo({ url: `/pages/order/commenthistory/main?id=${ this.order.orderId }` })
-      },
+        showOrderCode(order) {
+          wx.navigateTo({ url: `/pages/pickup/detail/main?id=${ this.order.orderId }` })
+        },
 
-      showOrderCode(order) {
-        wx.navigateTo({ url: `/pages/pickup/detail/main?id=${ this.order.orderId }` })
-      },
+        callRider() {
+          wx.makePhoneCall({
+            phoneNumber: this.order.riderPhone
+          })
+        },
 
-      callRider() {
-        wx.makePhoneCall({
-          phoneNumber: this.order.riderPhone
-        })
-      },
+        openLocation() {
+          // @TODO: 经纬度信息
+          wx.openLocation({
+            latitude: +this.order.shippingStartLat,
+            longitude: +this.order.shippingStartLon,
+            // scale,
+            name: this.order.receiverName,
+            address: this.order.receiverAddress
+          })
+        },
 
-      openLocation() {
-        // @TODO: 经纬度信息
-        wx.openLocation({
-          latitude: +this.order.shippingStartLat,
-          longitude: +this.order.shippingStartLon,
-          // scale,
-          name: this.order.receiverName,
-          address: this.order.receiverAddress
-        })
-      },
-
-        /**
-       * @description 设置该页面类型是拼团页面
-       */
-      _setAssemblePageType () {
-        this.isAssemble = true
-      },
-    },
-
-    onLoad(e) {
-      this.daojishi()
-      if (e.id) {
-        this.id = e.id
-        this.getDetail({ orderId: e.id })
+          /**
+         * @description 设置该页面类型是拼团页面
+         */
+        _setAssemblePageType () {
+          this.isAssemble = true
+        },
       }
-      if(e.type && e.type == 'assemble') {
-        //如果是拼团页面过来的，设置页面类型是拼团页面详情
-        this._setAssemblePageType()
-      }
-      clearInterval(this.__timer)
-      this.__timer = setInterval(() => {
-        if(this.order.times >0) {
-          this.$set(this.order,'times',this.order.times -=1)
-        }
-      }, 1000);
-    },
-
-    onShow() {
-      let app = getApp()
-      if (app.globalData.orderCommentted) {
-        delete app.globalData.orderCommentted
-        this.getDetail({ orderId: this.id })
-      }
-    },
-
-    onUnload() {
-    clearInterval(this.__timer)
-    }
   }
 </script>
 

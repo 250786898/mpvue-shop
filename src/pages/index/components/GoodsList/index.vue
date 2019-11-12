@@ -181,7 +181,7 @@
 
 　　　　_query.exec((res) =>{
           console.log('#affix节点的上边界坐2222222222',res); // #affix节点的上边界坐
-          const tTop = res[0].top
+          const tTop = res[0] && res[0].top != null ? res[0].top : ''
           this.$store.commit('setIndexGoodsTop',tTop)
 　　　　 })
 

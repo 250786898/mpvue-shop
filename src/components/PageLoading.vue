@@ -2,8 +2,8 @@
   <div class="loading" v-if="show">
     <!-- <lj-loading /> -->
     <div class="loading-main">
-      <img src="/static/images/page_loading_icon.gif" mode="aspectFit">
-      <div class="loading-text">正在加载中...</div>
+      <img src="/static/images/pull_down_refresh_icon.gif" mode="aspectFit">
+      <div class="loading-text">{{loadingText}}</div>
     </div>
 
   </div>
@@ -19,6 +19,10 @@ export default {
     show: {
       type: Boolean,
       default: false
+    },
+    loadingText: {
+      type: String,
+      default: '正在加载中...'
     }
   }
 }
@@ -38,14 +42,14 @@ export default {
     z-index: 9999;
     overflow: hidden;
     img{
-      width: 600rpx;
-      height: 320rpx;
+      width: 200rpx;
+      height: 150rpx;
     }
     &-text{
       color: #666;
       text-align: center;
       position: relative;
-      top: -100rpx;
+      top: -20rpx;
       font-size: 26rpx;
 
     }

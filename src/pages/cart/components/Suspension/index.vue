@@ -73,7 +73,7 @@ export default {
      */
     fetchCartIds(){
       const cartIds = this.cartItemResultList
-          .filter(item => item.checked)
+          .filter(item => item.checked && item.isSale)
           .map(item => item.cartId)
           .join(',')
       return  cartIds

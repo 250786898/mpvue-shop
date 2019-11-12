@@ -74,7 +74,7 @@ export default {
       amap.getPoiAround({
         success: res => { //用户成功授权
           const locationInfo = res.markers[0] //当前用户定位定位相关信息
-          const cityName = res.poisData[0].cityname || res.pois[0].cityname //用户定位当前城市
+          const cityName =  res.poisData[0].cityname //用户定位当前城市
           console.log('locationInfo',locationInfo)
           this.$store.commit("setcityname",cityName)
           this.$store.commit("setLocateCity",cityName)

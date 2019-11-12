@@ -116,7 +116,7 @@ export default {
   async mounted () {
     　let _this = this
 
-　
+
 
     wx.showTabBar()
     console.log('首页a',this.$mp.page.options.shareStoreId)
@@ -398,12 +398,13 @@ export default {
     setUserLocationInfo () {
        console.log('config',config)
        let amap = new AMapWX({ key: config.AMAP_KEY })
-       console.log('amap',amap)
+       console.log('AMapWX2',amap)
        return new Promise ((resolve, reject) => {
          amap.getPoiAround({
           success: res => { //用户成功授权
+           console.log('AMapWX2success',res)
             const locationInfo = res.markers[0] //当前用户定位定位相关信息
-            const cityName = res.poisData[0].cityname || res.pois[0].cityname //用户定位当前城市
+            const cityName =  res.poisData[0].cityname //用户定位当前城市
             console.log('AMapWX',res)
             this.longitude =locationInfo.longitude
             this.latitude = locationInfo.latitude

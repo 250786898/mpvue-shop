@@ -61,18 +61,22 @@ if (sessionId) {
 
 
 //用户进入程序的时候刷新自己的相关定位信息
-let amap = new AMapWX({ key: config.AMAP_KEY })
-console.log('AMapWX')
-amap.getPoiAround({
-  success: res => { //用户成功授权
-    const locationInfo = res.markers[0] //当前用户定位定位相关信息
-    const cityName = res.poisData[0].cityname || res.pois[0].cityname //用户定位当前城市
-    console.log('程序进来定位',locationInfo)
-    store.commit("setcityname",cityName)
-    store.commit("setLocateCity",cityName)
-    store.commit("setLocationInfo",locationInfo)  //用户定位相关信息存到vuex
-  }
-})
+// let amap = new AMapWX({ key: config.AMAP_KEY })
+// console.log('AMapWX1')
+// amap.getPoiAround({
+//   success: res => { //用户成功授权
+//     console.log('AMapWX1success',res)
+//     const locationInfo = res.markers[0] //当前用户定位定位相关信息
+//     const cityName = res.poisData[0].cityname //用户定位当前城市
+//     console.log('程序进来定位',locationInfo)
+//     store.commit("setcityname",cityName)
+//     store.commit("setLocateCity",cityName)
+//     store.commit("setLocationInfo",locationInfo)  //用户定位相关信息存到vuex
+//   },
+//   fail: info => {
+//     console.log('AMapWX1fail',info)
+//   }
+// })
 
 
 //监听忘了改变,如果没有网络情况跳转网络异常页面

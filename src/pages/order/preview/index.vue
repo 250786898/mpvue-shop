@@ -413,15 +413,9 @@
                   // 延时以等待后端状态改变
                   setTimeout(() => {
                     wx.hideLoading()
-                    if(this.result.cartOrderVoList[0].activityType == 30) {
-                      wx.redirectTo({
-                        url: `/pages/order/teamdetail/main?orderId=${order.orderId}`
-                      })
-                    }else {
-                      wx.redirectTo({
-                        url: `/pages/order/detail/main?id=${ order.orderId }`
-                      })
-                    }
+                    wx.redirectTo({
+                      url: `/pages/order/detail/main?id=${ order.orderId }`
+                    })
                   }, 3000)
                 },
                 complete: () => {
@@ -429,28 +423,16 @@
                   // 延时以等待后端状态改变
                   setTimeout(() => {
                     wx.hideLoading()
-                    if(this.result.cartOrderVoList[0].activityType == 30) {
-                      wx.redirectTo({
-                        url: `/pages/order/teamdetail/main?orderId=${order.orderId}`
-                      })
-                    }else {
-                      wx.redirectTo({
-                        url: `/pages/order/detail/main?id=${ order.orderId }`
-                      })
-                    }
+                    wx.redirectTo({
+                      url: `/pages/order/detail/main?id=${ order.orderId }`
+                    })
                   }, 3000)
                 }
               })
             } else {
-              if(this.result.cartOrderVoList[0].activityType == 30) {
-                wx.redirectTo({
-                  url: `/pages/order/teamdetail/main?orderId=${order.orderId}`
-                })
-              }else {
-                wx.redirectTo({
-                  url: `/pages/order/detail/main?id=${ order.orderId }`
-                })
-              }
+              wx.redirectTo({
+                url: `/pages/order/detail/main?id=${ order.orderId }`
+              })
             }
           } else {
             if (res.code === 5000000) {
@@ -628,15 +610,9 @@
                 title: '不支持的支付方式',
                 icon: 'none',
                 success: () => {
-                  if(this.result.cartOrderVoList[0].activityType == 30) {
-                    // wx.redirectTo({
-                    //   url: `/pages/order/teamdetail/main?groupOrderId=${this.result.groupOrderId || ''}&orderId=${order.orderId}`
-                    // })
-                  }else {
-                    wx.redirectTo({
-                      url: `/pages/order/detail/main?id=${ res.orderId }`
-                    })
-                  }
+                  wx.redirectTo({
+                    url: `/pages/order/detail/main?id=${ res.orderId }`
+                  })
                 }
               })
             }

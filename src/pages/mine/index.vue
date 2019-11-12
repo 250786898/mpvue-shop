@@ -1,9 +1,6 @@
 <template>
   <div>
-      <img class="mine-card__bg" src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/mine_bg.png"  alt="" >
-
-    <div class="headline"> 我的 </div>
-    <div class="dise"></div>
+    <img class="mine-card__bg" src="/static/images/mine_bg.png"  alt="" >
     <div class="mine-card">
 
       <div class="mine-card__user">
@@ -23,9 +20,6 @@
             <template v-if="sessionId">
               <h4>{{ personCenter.nickname }}</h4>
               <div class="mine-card__tag">
-                <!-- <span class="mine-card__tag__l" v-if="personCenter.vipState == 1 || personCenter.vipState == 2">乐享VIP</span>
-                <span class="mine-card__tag__r" v-if="personCenter.vipState == 2">体验卡</span>
-                <span class="mine-card__tag__r" v-if="personCenter.vipState == 0">普通会员</span> -->
               </div>
             </template>
             <!-- else -->
@@ -35,44 +29,13 @@
             </div>
             <p class="mine-card__desc">满世界给你找好吃的</p>
           </div>
-          <!-- <navigator hover-class="none" url="/pages/qrcode/index/main" class="weui-cell__ft">
-            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/me_icon_qrcode@2x.png">
-            <div>会员码</div>
-          </navigator> -->
+
         </div>
       </div>
-      <!-- <div class="weui-flex"> -->
-        <!-- <navigator hover-class="none" url="/pages/membercard/charge/main" class="weui-flex__item">
-          <div class="primary" v-if="sessionId">{{ personCenter.balance }}</div>
-          <div class="primary" v-else="sessionId">***</div>
-          <div>余额</div>
-        </navigator>
-        <navigator hover-class="none" url="/pages/bonuspoint/index/main" class="weui-flex__item">
-          <div class="primary" v-if="sessionId">{{ personCenter.points }}</div>
-          <div class="primary" v-else="sessionId">***</div>
-          <div>积分</div>
-        </navigator> -->
 
-      <!-- </div> -->
-      <!-- <navigator hover-class="none" url="/pages/vip/index/main" class="mine-card__ft">
-        <div class="weui-cell weui-cell_access">
-          <div class="weui-cell__hd">
-            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/me_icon_ancrown@2x.png">
-          </div>
-          <div class="weui-cell__bd">乐享VIP</div>
-          <div class="weui-cell__ft weui-cell__ft_in-access">
-            及时抢购，即享优惠
-          </div>
-        </div>
-      </navigator> -->
     </div>
 
-    <!-- <navigator hover-class="none" v-if="completedTipShown" url="/pages/mine/info/main" class="complete-tip">
-      <div class="weui-cell">
-        <div class="weui-cell__bd">完善会员信息.我们能为您提供更好会员服务,另好礼大放送! </div>
-        <div class="weui-cell__ft weui-cell__ft_in-access"></div>
-      </div>
-    </navigator> -->
+
 
 
     <div class="weui-panel entry-panel my-order-panel">
@@ -82,7 +45,7 @@
           style="font-size: 24rpx; line-height: 40rpx;">查看全部订单</div>
       </div>
       <div class="weui-panel__bd my-order-panel-content">
-        <div class="weui-flex">
+        <div class="weui-flex ">
           <div hover-class="none" @click="obligation " :url="'/pages/order/index/main?status=' + ORDER_STATE.UNPAID" class="weui-flex__item" style="position:relative">
             <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/payment_icon.png">
             <div>待付款</div>
@@ -397,6 +360,12 @@
   }
 </script>
 
+<style>
+page{
+  background: #f5f5f5;
+}
+</style>
+
 <style lang="scss" scoped>
 .mine-card__desc{
   font-size: 24rpx;
@@ -447,7 +416,7 @@
     left:0rpx;
   }
   .mine-card__bg{
-      height: 56%;
+      height: 310rpx;
       width: 100%;
       // z-index: 100;
       display: block;
@@ -472,7 +441,7 @@
 
   .weui-panel{
      position:fixed;
-     top:356rpx;
+     top:217rpx;
      left:24rpx;
      width: 702rpx;
      height: 254rpx;
@@ -493,7 +462,7 @@
     &__user {
       .weui-cell {
         position: fixed;
-        top:133rpx;
+        top:12rpx;
         left:1rpx;
         padding-top: 50rpx;
         padding-right: 80rpx;
@@ -666,7 +635,7 @@
 
   .my-order-panel{
     &-content{
-      padding: 38rpx 20rpx !important;
+      padding: 38rpx 0rpx !important;
     }
   }
 
@@ -728,6 +697,15 @@
     display: flex;
     &::after{
       border: none !important;
+    }
+  }
+
+  .my-order-panel-content{
+    .weui-flex{
+      justify-content: space-between;
+    }
+    .weui-flex__item{
+      // flex: 0 1 auto;
     }
   }
 
