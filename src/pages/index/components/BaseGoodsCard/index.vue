@@ -12,14 +12,19 @@
       </div>
 
       <div class="weui-media-box__bd weui-media-box__bd_in-appmsg">
-        <div class="weui-media-box__title">{{ item.goodsName }}</div>
-        <div class="weui-media-box__desc" v-if="item.shareDescription">{{ item.shareDescription || '' }}</div>
-        <div class="goods-row-item__tb" v-if="item">
+        <div class="goods-maim-content">
+          <div class="weui-media-box__title">{{ item.goodsName }}</div>
+          <div class="weui-media-box__desc" v-if="item.shareDescription">{{ item.shareDescription || '' }}</div>
+          <div class="limit-tag" v-if="item.activityLimitNum">限购</div>
+        </div>
 
+        <div class="goods-handle-box" v-if="item">
         <!-- 替换组件 -->
         <div class="goods-row-item__price">
+
           <div class="primary">￥{{ item.discountedPrice }}</div>
           <div class="secondary" v-if="item.scribingPrice">￥{{ item.scribingPrice }}</div>
+
           <!-- <div class="primary">￥{{ item.onlinePrice }}</div>
           <div class="secondary" v-if="item.onlineScribingPrice">￥{{ item.onlineScribingPrice }}</div> -->
         </div>
@@ -158,6 +163,27 @@ onLoad(){
     z-index: 8;
   }
 
+  .goods-maim-content{
+    display: flex;
+    flex-direction: column;
+    .limit-tag{
+      width:56rpx;
+      height:25rpx;
+      line-height: 25rpx;
+      text-align: center;
+      border:1rpx solid rgba(248,172,8,1);
+      border-radius:4rpx;
+      color: #F8AC08;
+      font-size:18rpx;
+    }
+  }
+
+  .goods-handle-box{
+    margin-top: 30rpx;
+    display: flex;
+    justify-content: space-between;
+  }
+
   .goods-card{
     height:268rpx;
   }
@@ -180,8 +206,6 @@ onLoad(){
   }
 
   .goods-row-item__price{
-    position:absolute;
-    top:150rpx;
     .secondary{
       padding: 0;
     }
@@ -191,7 +215,6 @@ onLoad(){
   }
 
 .goods-row-item__tb{
-  position: relative;
     .hiddenBtn{
       right:-8rpx;
       top:111rpx;
@@ -236,7 +259,6 @@ onLoad(){
 
   }
   .icon-cart{
-    position: absolute;
     right: 6rpx;
     bottom: 10rpx;
     width: 56rpx;

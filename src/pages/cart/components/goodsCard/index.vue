@@ -31,7 +31,7 @@
       </div>
       <div class="good-main" v-else>
         <goods-price :item="item" :isFailure="false"></goods-price>
-        <counter v-model="item.itemTotalNum" :max="item.maxNum" @change="onGoodsNumChange($event,item)"></counter>
+        <counter v-model="item.itemTotalNum" :max="maxNum" @change="onGoodsNumChange($event,item)"></counter>
       </div>
     </div>
   </div>
@@ -60,6 +60,10 @@ export default {
   computed: {
     saleTime () { //显示的销售时间
       return  this.item.saleTime ? formatSaleDate(this.item.saleTime) : ''
+    },
+    maxNum () { //商品购买的最大值
+      //限购数量优先级高于库存
+      return this.item.activityLimitNum ? this.item.activityLimitNum : this.item.maxNum
     }
 },
   methods: {

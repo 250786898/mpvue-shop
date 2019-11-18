@@ -16,12 +16,15 @@
     <!-- 商品相关描述（名称） -->
     <goods-desc :goods-name="goodsDetailInfo.goodsName" :goods-desc="goodsDetailInfo.shareDescription" />
 
-
+    <!-- 限g购 -->
+    <limit-purchase v-if="goodsDetailInfo.activityLimitNum" :num="goodsDetailInfo.activityLimitNum" />
 
     <!-- Type start: 提货时间 -->
     <!-- <pickup-timer  :pickup-time="goodsDetailInfo.pickUpTime"  /> -->
 
     <!-- Type end; -->
+
+
 
      <!-- 商品推荐 -->
     <GoodsRecommend :commendGoodsList="commendGoodsList" />
@@ -59,6 +62,7 @@
   import AssembleGoodsRows from '@/components/AssembleGoodsRows'
   import GoodsInfo from './components/GoodsInfo/index'
   import GoodsDesc from './components/GoodsDesc/index'
+  import LimitPurchase from './components/LimitPurchase/index'
   import PickupTimer from './components/PickupTimer/index'
   import GoodsRecommend from './components/GoodsRecommend/index'
   import GoodsDetail from './components/GoodsDetail/index'
@@ -86,7 +90,8 @@
       Popup,
       ComfirmStoreDialog,
       SelectStoreDialog,
-      PageLoading
+      PageLoading,
+      LimitPurchase
     },
 
     data() {

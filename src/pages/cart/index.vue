@@ -52,7 +52,7 @@
 
 
   const SLIDE_PARAMS = {
-    checked: true
+    checked: true //商品勾选状态
   }
 
   export default {
@@ -225,6 +225,16 @@
         .then(() => wx.hideLoading())
       },
 
+      /**
+       * @param {number} currentGoodsNum 当前商品已购买数量
+       * @param {number} stockTotalNum 当前商品库存数量
+       * @description 检查购物车某个商品是否超出库存
+       * @return {boolean} true:已超过库存 false:没用超出库存
+       */
+      checkoutIsOverStock (currentGoodsNum,stockTotalNum) {
+        return currentGoodsNum > stockTotalNum ? true : false
+      },
+
 
       /**
        * @description 初始化，加载购物车列表
@@ -237,7 +247,8 @@
           if (res.code == Api.CODES.SUCCESS) {
             res.data.cartItemResultList = res.data.cartItemResultList.map(item => ({
               ...item,
-              ...SLIDE_PARAMS
+              ...SLIDE_PARAMS,
+              isOverStock: this.checkoutIsOverStock(item.itemTotalNum,item.maxNum)
             }))
             res.data.failureGoodsList = res.data.failureGoodsList.map(item => ({
               ...item,
