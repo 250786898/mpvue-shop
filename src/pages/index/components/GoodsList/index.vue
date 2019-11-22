@@ -20,7 +20,8 @@
         </van-tabs>
 
       </template>
-<!--
+
+    <!--
      <div class="goods-recommend__title">
         <span>今日秒杀</span> :class="{'ceiling-goods-list' : isCeiling}"
 

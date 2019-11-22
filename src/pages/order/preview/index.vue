@@ -1,148 +1,17 @@
 <template>
-  <form>
-    <!-- Tab -->
-    <div class="tabs" v-if=" deliveryStatus == 2 ">
-      <div class="weui-flex">
-       <!-- <div class="weui-flex__item" :class="{ active: deliveryType === 3 }" @click="deliveryType = 3" v-if="deliveryStatus == 3">同城配送</div> -->
-       <div class="weui-flex__item" :class="{ active: deliveryType === 2 }" @click="deliveryType = 2" v-if="deliveryStatus == 2">门店自提</div>
-      </div>
-    </div>
-
-    <!-- Tab 同城配送 -->
-    <!-- <div v-if="deliveryType === 3">
-      <div class="address-area">
-        <navigator url="/pages/address/list/main?mode=select" class="weui-cell weui-cell_access" v-if="tempOrder && tempOrder.address">
-          <div class="weui-cell__bd">
-            <div>{{ tempOrder.address.name }}   {{ tempOrder.address.mobPhone }}</div>
-            <div class="desc" v-if="tempOrder.address.areaInfo">{{ tempOrder.address.areaInfo }}</div>
-          </div>
-          <div class="weui-cell__ft weui-cell__ft_in-access">
-            切换地址
-          </div>
-        </navigator>
-        <navigator v-else url="/pages/address/form/main?op=select"
-          class="address-area__empty-btn"
-          hover-class="address-area__empty-btn_hover">
-          + 新增收货地址
-        </navigator>
-        <img class="address-area__border" src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/order_dividingline@2x.png">
-      </div>
-
-      <div class="weui-panel goods-list-panel">
-        <div class="weui-panel__hd" @click="distributionTimeRangePickerShowed = true">
-          送达时间
-          <div class="weui-cell__ft weui-cell__ft_in-access">
-            <template v-if="distributionSelected.startTime && distributionSelected.endTime">
-              {{ distributionSelected.dataTime }} {{ distributionSelected.startTime }}-{{ distributionSelected.endTime }}
-            </template>
-            <template v-else>选择送达时间</template>
-          </div>
-        </div>
-        <div class="weui-panel__bd">
-          <div class="weui-media-box weui-media-box_appmsg" v-for="item in result.cartOrderVoList"
-            :key="item.goodsId">
-            <div class="weui-media-box__hd weui-media-box__hd_in-appmsg">
-              <image class="weui-media-box__thumb" :src="item.goodsImage"  mode="aspectFit"  />
-            </div>
-            <div class="weui-media-box__bd weui-media-box__bd_in-appmsg">
-              <div class="weui-media-box__title">{{ item.goodsName }}</div>
-              <div class="weui-media-box__desc" style="top:-30rpx;">
-                <span class="goods-price">￥{{ item.goodsPayPrice }}</span>
-                <div class="goods-count">数量: ×{{ item.goodsNum || 1 }}</div>
-              </div>
-              <div class="weui-media-box__desc" v-if="item.normalNum" style="top:-30rpx;">
-                <span class="goods-price">￥{{ item.onlinePrice }}</span>
-                <div class="goods-count">数量: ×{{ item.normalNum}}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
-<!-- :url="'/pages/order/selectshop/main?activityId=' + result.cartOrderVoList[0].activityId" -->
-    <!-- Tab 门店自提 -->
-    <div v-else >
-      <div class="address-area">
-        <div v-if="result.cartOrderVoList"  class="weui-cell weui-cell_access">
-          <div class="weui-cell__bd">
-            <template v-if="tempOrder.store">
-              <div class="collect">提货门店：{{ tempOrder.store.storeName }}</div>
-              <div v-if="tempOrder.store.storeAddress" class="desc">
-                {{ tempOrder.store.storeAddress }}
-              </div>
-              <!-- <div class="desc" v-if="tempOrder.address.areaInfo">{{ tempOrder.address.areaInfo }}</div> -->
-            </template>
-          </div>
-          <!-- <div cla ss="weui-cell__ft weui-cell__ft_in-access">
-            切换店铺
-          </div> -->
-        </div>
-        <img class="address-area__border" src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/order_dividingline@2x.png">
-      </div>
-
-      <div class="weui-panel goods-list-panel">
-        <!-- <div class="weui-panel__hd" @click="selfHelpTimeRangePickerShowed = true"> -->
-          <!-- <div class="weui-panel__hd">
-          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/details_icon_clock@2x.png">
-           提货时间
-          <div class="time">{{showPickUpTime}}</div>
-        </div> -->
-        <div class="weui-panel__bd">
-          <div class="weui-media-box weui-media-box_appmsg" v-for="item in result.cartOrderVoList"
-            :key="item.goodsId">
-            <div class="weui-media-box__hd weui-media-box__hd_in-appmsg">
-              <image class="weui-media-box__thumb" :src="item.goodsImage"  mode="aspectFit"  />
-            </div>
-            <div class="weui-media-box__bd weui-media-box__bd_in-appmsg">
-              <div class="weui-media-box__title">{{ item.goodsName }}</div>
-               <div class="weui-media-box__desc">
-                <span class="goods-price">￥{{ item.goodsPayPrice }}</span>
-                <div class="goods-count">数量: ×{{ item.goodsNum || 1 }}</div>
-              </div>
-              <div class="weui-media-box__desc" v-if="item.normalNum">
-                <span class="goods-price">￥{{ item.onlinePrice }}</span>
-                <div class="goods-count">数量: ×{{ item.normalNum}}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="weui-cells form-cells">
-      <div class="weui-cell">
-        <div class="weui-cell__hd">买家留言：</div>
-        <div class="weui-cell__bd">
-          <input type="text" v-model.trim="orderMessages" placeholder="（选填）给卖家留言，最多100个字" maxlength="100">
-        </div>
-      </div>
-    </div>
-
-    <!-- 结算预览 -->
-    <LjFormPreview  :items="bills" :deliveryType="deliveryType" :activityType="activityType" :list="list" @tapCouponItem="tapCouponItem" :couponPrice="result.couponPrice"></LjFormPreview>
-
+  <div>
+    <pickup-store-info />
+     <!-- <pickup-time /> -->
+    <submit-goods-list :list="result.cartOrderVoList" />
+    <buyer-message />
     <!-- 支付方式 -->
     <payways title="支付方式" ref="payways" v-model="paymentCode" :pp.sync="isPp" :rewardPoint="result.rewardPoint"></payways>
-
-    <!-- 底部 -->
-    <div class="footer-bar">
-      <span>合计:</span><span class="price">￥{{ orderAmount }}</span>
-      <form report-submit @submit="uploadFormId" >
-        <button  type="primary" class="radius bg-gradient" form-type="submit" @click="submit">提交订单</button>
-      </form>
-    </div>
-
-    <!-- 门店自取时间选择 -->
-    <time-range-picker
-      title="选择提货时间"
-      :shown.sync="selfHelpTimeRangePickerShowed"
-      :data="selfHelpTimeRange"
-      empty-tip="不在自提时间范围内"
-      v-model="selfHelpSelected">
-    </time-range-picker>
-
+    <footer-bar :orderAmount="orderAmount" @submit="submit" />
     <payment-dialog :shown.sync="paymentDialogShowed" :amount="orderAmount" @complete="onComplete"></payment-dialog>
-  </form>
+    <over-stock-popup :goods-list="result.limitCartOrderVoList" :show="isShowOverStockPopup" />
+
+
+  </div>
 </template>
 
 <script>
@@ -150,10 +19,14 @@
   import { formatDate } from '@/utils/'
   import { Api } from '@/http/api'
   import config from '@/config'
-  import LjFormPreview from './components/LjFormPreview/index'
-  import Payways from './components/Payways/index'
-  import PaymentDialog from './components/PaymentDialog/index'
-  import TimeRangePicker from './components/TimeRangePicker'
+  import Payways from './components/Payways'
+  import PaymentDialog from './components/PaymentDialog'
+  import overStockPopup from './components/overStockPopup'
+  import PickupStoreInfo from './components/PickupStoreInfo'
+  import PickupTime from './components/PickupTime'
+  import SubmitGoodsList from './components/SubmitGoodsList'
+  import BuyerMessage from './components/BuyerMessage'
+  import FooterBar from './components/FooterBar'
 
   let today = new Date()
   const TODAY_DATE = formatDate(today)
@@ -161,50 +34,24 @@
 
   export default {
     components: {
-      LjFormPreview,
       Payways,
       PaymentDialog,
-      TimeRangePicker
+      overStockPopup,
+      PickupStoreInfo,
+      PickupTime,
+      SubmitGoodsList,
+      BuyerMessage,
+      FooterBar
     },
 
     data () {
       return {
-        formId: '',
-        paymentDialogShowed: false,
-        payParams: null,
-        order: null,
         cartIds: '',
-        deliveryType: 2,
-        bills: [
-          // { label: '优惠券', value: '' },
-          // { label: '运费', value: '' }
-        ],
-        distributionTimeRangePickerShowed: false,
-        distributionTimeRange: [],
-        distributionSelected: {
-          // day: '今天',
-          // startTime: '13:00',
-          // endTime: '14:00'
-        },
-
-        selfHelpTimeRangePickerShowed: false,
-        selfHelpTimeRange: [],
-        selfHelpSelected: {},
-
         orderMessages: '',
-        paymentCode: 'weixinAppletPaymentPlugin',
+        paymentCode: 'weixinAppletPaymentPlugin', //支付方式
         isPp: false,
-
         result: {},
-        list : [],
-        couponId: '',
-        activityType: 2,
-        deliveryStatus: 0,
-        teamOrder: '',
-        positivenum: 0,
-        stsw: true,
-        storeList: [],
-        activityGoodsIdOftimes: '' //时间接口。单独购买调用
+        isShowOverStockPopup: false //是否显示超库存商品弹窗
       }
     },
 
@@ -221,24 +68,33 @@
           return 0
         }
       },
+    },
 
-      showPickUpTime () { //显示的提货时间
-        const hours = new Date().getHours()
-        let showPickUpTime = ''
-        if(hours > 20) {
-          //超过20：00设置成显示后天提货
-          showPickUpTime = this.getDateStr(2)
-        }else{
-          showPickUpTime = this.getDateStr(1)
-        }
-         this.$store.commit('pickuptime',showPickUpTime)
-        return showPickUpTime
+     onLoad(e) {
+      Object.assign(this.$data, this.$options.data()) //解决mpvue初始化未清空状态问题
+      this.cartIds = e.cartIds
+      this.getCheckoutData()
+          if(e.storeId) {
+            this.$bus.$on('shopChange', e => {
+              this.getCheckoutData(e.storeId)
+              // this.getTimeRange(e.storeId)
+            })
+          }
+      this._setDefaultAddress()  //设置默认第一个门店地址
+    },
 
-      }
+    onUnload() {
+      this.$store.commit('clearTempOrder')
+      this.order = null
+      this.$bus.$off('shopChange')
+      this.initData()
 
     },
 
     methods: {
+
+
+
       initData () {
         this.formId = ''
          this.paymentDialogShowed = false
@@ -272,7 +128,6 @@
          this.deliveryStatus= 0
          this.teamOrder= ''   //订单信息
          this.storeList= []   //门店信息
-         this.activityGoodsIdOftimes= '' //时间接口。单独购买调用
       },
 
       tapCouponItem (id){
@@ -347,6 +202,7 @@
         })
         .then(res => {
           if (res.code == Api.CODES.SUCCESS) {
+            this.checkIsShowOverStockPopup(res.data.limitCartOrderVoList)
             this.handleData(res.data, storeId)
           } else {
             wx.showModal({
@@ -361,6 +217,17 @@
         })
         .catch(e => console.log(e))
         .then(() => wx.hideLoading())
+      },
+
+      /**
+       * @param {array} limitCartOrderVoList 超库存商品数组
+       * @description 检测是否超库存
+       */
+      checkIsShowOverStockPopup (limitCartOrderVoList) {
+        console.log('checkIsShowOverStockPopup',limitCartOrderVoList)
+        if(limitCartOrderVoList && limitCartOrderVoList.length > 0) {
+          this.isShowOverStockPopup = true //存在弹超库存商品弹窗
+        }
       },
 
       handleData(data, storeId) {
@@ -392,6 +259,17 @@
         if (this.order) {
           this.pay(this.order, password)
         }
+      },
+
+      /**
+       * @description 获取提交订单的购物车Id
+       * @returns {string} 返回提交订单Id列表，逗号隔开
+       */
+      getSubmitOrderCartId () {
+        if (!this.result.cartOrderVoList) return ''
+        return this.result.cartOrderVoList
+          .map(item => item.cartId)
+          .join(',')
       },
 
       pay(order, pwd) {
@@ -514,7 +392,7 @@
               let form = {
                 showPickUpTime:this.showPickUpTime,
                 formId: this.formId,
-                cartIds: this.cartIds,
+                cartIds: this.getSubmitOrderCartId(),
                 orderMessages: this.orderMessages,
                 addressId: this.tempOrder.address && this.tempOrder.address.addressId,
                 couponIds: this.couponId ||this.result.couponId, // @TODO: 优惠券
@@ -647,21 +525,6 @@
         }
       },
 
-        /**
-         * @description 获取明天后天时间
-         */
-       getDateStr(dayCount){
-        if(null == dayCount){
-          dayCount = 0;
-        }
-        var dd = new Date();
-        dd.setDate(dd.getDate()+dayCount);//设置日期
-        var m = dd.getMonth()+1;//获取当前月份的日期
-        m = m <10 ? `0${m}` : m
-        var d = dd.getDate();
-        d = d <10 ? `0${d}` : d
-        return `${m}月${d}日`
-      },
 
       /**
        * @description 获取门店信息
@@ -689,33 +552,6 @@
         .catch(e => console.log(e))
         .then(() => wx.hideLoading())
       }
-    },
-
-    watch: {
-      deliveryType(value) {
-        this.getCheckoutData()
-      }
-    },
-
-     onLoad(e) {
-
-      this.cartIds = e.cartIds
-      this.getCheckoutData()
-          if(e.storeId) {
-            this.$bus.$on('shopChange', e => {
-              this.getCheckoutData(e.storeId)
-              // this.getTimeRange(e.storeId)
-            })
-          }
-      this._setDefaultAddress()  //设置默认第一个门店地址
-    },
-
-    onUnload() {
-      this.$store.commit('clearTempOrder')
-      this.order = null
-      this.$bus.$off('shopChange')
-      this.initData()
-
     }
   }
 </script>
@@ -726,299 +562,5 @@
     padding-bottom: 120rpx;
     padding-left:24rpx;
   }
-  .address-top {
-    margin-top: 40rpx;
-  }
 </style>
 
-<style lang="scss" scoped>
-
-  .time{
-    float: left;
-    font-size:30rpx;
-    font-weight:bold;
-    margin-left:14rpx;
-
-  }
-  .xian{
-    width: 702rpx;
-    height: 1rpx;
-    background:rgba(204,204,204,1);
-    opacity:0.4;
-    position: absolute;
-    top:85rpx;
-    left:0rpx;
-  }
-
-
-  .tabs {
-    margin-top: 40rpx;
-    .weui-flex {
-      background-color: #fff;
-      &__item {
-        font-size: 34rpx;
-        text-align: center;
-        line-height: 100rpx;
-        background-color: #E5E5E5;
-        &.active {
-          color: $theme-color-light;
-          background-color: transparent;
-        }
-        &:first-child {
-          border-top-right-radius: 20rpx;
-        }
-        &:last-child {
-          border-top-left-radius: 20rpx;
-        }
-      }
-    }
-  }
-
-
-  .address-area {
-    background-color: #fff;
-    width: 702rpx;
-    margin-top:24rpx;
-    border-radius: 14rpx;
-    &__border {
-      display: block;
-      width: 100%;
-      height: 8rpx;
-    }
-    &__empty-btn {
-      margin: 50rpx auto;
-      width: 386rpx;
-      line-height: 80rpx;
-      border: 4rpx dashed $text-gray;
-      text-align: center;
-      font-size: 30rpx;
-      &_hover {
-        border-color: $theme-color-light;
-        color: $theme-color-light;
-      }
-    }
-    .weui-cell {
-      padding-top: 30rpx;
-      padding-bottom: 30rpx;
-      &__bd {
-        font-size: 34rpx;
-        .collect{
-          font-weight:bold;
-        }
-        > .desc {
-          font-size: 30rpx;
-          color: $text-gray;
-          line-height: 40rpx;
-        }
-      }
-      &__ft {
-        font-size: 28rpx;
-        color: $theme-color-light;
-        &:after {
-          border-color: $theme-color-light;
-        }
-      }
-    }
-  }
-
-
-  /** TODO: 通用化考虑 */
-  .goods-list-panel {
-    .weui-panel {
-      width: 702rpx;
-      border-radius: 14rpx;
-      &__hd {
-        position: relative;
-        padding: 28rpx 30rpx 20rpx 60rpx;
-        padding-top: 20rpx;
-        font-size: 28rpx;
-        color: $text-black;
-        height: 28rpx;
-        width: 100%;
-        > img {
-          margin-right: 8rpx;
-          vertical-align: middle;
-          width: 36rpx;
-          height: 36rpx;
-          position: absolute;
-          top:35%;
-          left:22rpx;
-        }
-        &:after { left: 0; }
-        .weui-cell__ft_in-access {
-          float: right;
-          font-size: 28rpx;
-          color: $theme-color-light;
-          &:after {
-            border-color: $theme-color-light;
-          }
-        }
-      }
-    }
-    .weui-media-box__title {
-      margin-bottom: 0;
-      height: 100rpx;
-    }
-  }
-  .member-only {
-    line-height: 56rpx;
-    font-size: 32rpx;
-    color: #FFA442;
-    font-weight: 700;
-    &__tag {
-      font-weight: 400;
-      display: inline-block;
-      margin-left: 10rpx;
-      padding-left: 16rpx;
-      padding-right: 16rpx;
-      height: 36rpx;
-      line-height: 36rpx;
-      border-radius: 20rpx;
-      background-color: #FFA442;
-      font-size: 20rpx;
-      color: #fff;
-      vertical-align: middle;
-    }
-  }
-
-  .goods-row-item__tb {
-
-    .primary { font-size: 28rpx; }
-    .goods-count {
-      line-height: 30rpx;
-      top: auto!important;
-      bottom: 0!important;
-    }
-  }
-
-  .form-cells {
-    width: 702rpx;
-    border-radius:14rpx;
-    margin-top: 20rpx;
-    &:before,
-    &:after {
-      display: none;
-    }
-    .weui-cell {
-      &__hd {
-        color: $text-black;
-        font-size: 28rpx;
-
-      }
-      &__bd input {
-        font-size: 28rpx;
-      }
-    }
-  }
-
-  .footer-bar {
-    width: 100%;
-    height: 105rpx;
-    background-color: #fff;
-    text-align: left;
-    z-index: 10;
-    padding-left:23rpx;
-    line-height: 93rpx;
-    span {
-      font-size: 36rpx;
-      font-weight: 700;
-      color: $text-black;
-      vertical-align: middle;
-      line-height: 80rpx;
-      &.price {
-        color: $text-red;
-        margin-top:35rpx;
-      }
-    }
-
-    button {
-      margin-left: 40rpx;
-      display: inline-block;
-      line-height: 105rpx;
-      width: 251rpx;
-      height: 105rpx;
-      vertical-align: middle;
-      float: right;
-      font-size:32rpx;
-    }
-  }
-
-  .box{
-    height: 30rpx;
-    width: 100%;
-
-  }
-  .timerange-picker {
-
-    position: fixed;
-    z-index: 11;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: #fff;
-    &__hd {
-      text-align: center;
-      line-height: 100rpx;
-      font-size: 30rpx;
-      border-bottom: 1rpx solid #E7E7E7;
-    }
-    &__bd {
-      height: 476rpx;
-      display: -webkit-flex;
-      display: flex;
-    }
-    &__aside {
-      width: 150rpx;
-      background-color: #F3F3F3;
-      &__item {
-        font-size: 30rpx;
-        text-align: center;
-        line-height: 100rpx;
-        color: $text-gray;
-        &.active {
-          background-color: #fff;
-          color: $text-black;
-        }
-      }
-    }
-    &__mainer {
-      flex: 1;
-      overflow-x: hidden;
-      overflow-y: auto;
-      .weui-cell {
-        position: relative;
-        padding-top: 28rpx;
-        padding-bottom: 28rpx;
-        &__bd,
-        &__ft {
-          font-size: 28rpx;
-          color: $text-black;
-        }
-        &.active {
-          .weui-cell {
-            &__bd,
-            &__ft {
-              color: $theme-color-light;
-            }
-          }
-          &:after {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 56rpx;
-            height: 56rpx;
-            background-image: -webkit-linear-gradient(top right, #10D4C6, #10D4C6 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0));
-            background-image: linear-gradient(top right, #10D4C6, #10D4C6 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0));
-          }
-        }
-        icon {
-          position: absolute;
-          right: 4rpx;
-          top: 4rpx;
-          z-index: 2;
-        }
-      }
-    }
-  }
-</style>

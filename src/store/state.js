@@ -18,6 +18,6 @@ export default {
   locateCity: '', //用户定位城市
   indexBarHeight: 0 , //首页顶部栏高度
   indexGoodsTop: 0, //首页时段活动距离顶部距离
-  runingtime:0,
-  pickup:''
+  runingtime:0, //待支付倒计时时间
+  pickup:'' //提货
 }

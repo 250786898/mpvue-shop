@@ -47,25 +47,19 @@ export default {
     allChecked: {
       get () {
         //如果每一购物车商品都勾选则勾选
-        return this.cartItemResultList && this.cartItemResultList.every(item => item.checked)
-      },
-      set (checked) {
-        if(this.cartItemResultList){
-          //全选或则全部取消
-          this.cartItemResultList.forEach(item => item.checked = checked)
-        }
+        return this.cartItemResultList && this.cartItemResultList.every(item => item.isSelect)
       }
     }
   },
   methods: {
     /**
-     * @param {object} e 当前时间对象，包含是否已经全选状态boolean
      * @description 全选或则取消
      */
     onAllCheckedChange(e) {
-      this.allChecked = e.mp.detail.value
-      this.$emit('updateActivityStatus',e.mp.detail.value)
+      console.log('onAllCheckedChange',this.allChecked)
+      this.$emit('onAllCheckedChange',this.allChecked)
     },
+
 
     /**
      * @description 获取购车商品id集合，以逗号隔开(1,2,3...)

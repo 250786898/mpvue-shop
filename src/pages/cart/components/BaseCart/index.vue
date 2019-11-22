@@ -57,13 +57,7 @@ export default {
     allChecked: {
       get () {
         //如果每一购物车商品都勾选则勾选
-        return this.cartItemResultList && this.cartItemResultList.every(item => item.checked)
-      },
-      set (checked) {
-        if(this.cartItemResultList){
-          //全选或则全部取消
-          this.cartItemResultList.forEach(item => item.checked = checked)
-        }
+        return this.cartItemResultList && this.cartItemResultList.every(item => item.isSelect)
       }
     }
   },
@@ -76,9 +70,8 @@ export default {
      * @param {Number} 购车索引值
      * @description 选择取消购车商品
      */
-    onGoodsCBChange({ mp: { detail } }, item,index) {
-      item.checked = detail.value
-      this.$emit('updateActivityStatus',detail.value,index)
+    onGoodsCBChange({ mp: { detail } }, item) {
+      this.$emit('updateActivityStatus',item)
     },
 
     /**
@@ -86,8 +79,7 @@ export default {
      * @description 全选或则取消
      */
     onAllCheckedChange(e) {
-      this.allChecked = e.mp.detail.value
-      this.$emit('updateActivityStatus',e.mp.detail.value)
+      this.$emit('onAllCheckedChange')
     },
 
     /**
