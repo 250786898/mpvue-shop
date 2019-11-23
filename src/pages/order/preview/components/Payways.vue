@@ -4,7 +4,7 @@
     <div class="weui-cells__title" v-if="title">{{ title }}</div>
     <div class="weui-cells weui-cells_after-title">
       <radio-group @change="radioChange">
-        <label class="weui-cell weui-check__label" v-for="item in payways" :key="index">
+        <label class="weui-cell weui-check__label" v-for="item in payways" v-bind:key="item.value">
           <radio class="weui-check" :value="item.value" :checked="item.value === value" />
           <div class="weui-cell__hd">
             <img :src="item.icon">
@@ -16,19 +16,6 @@
           </div>
         </label>
       </radio-group>
-      <template v-if="false">
-        <label class="weui-cell weui-check__label" style="padding-top: 0;">
-          <switch type="checkbox" class="weui-check" :checked="pp" @change="onPpChange" />
-          <div class="weui-cell__hd">
-            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/details_icon_integral@2x.png">
-          </div>
-          <div class="weui-cell__bd">积分支付(最多使用{{ rewardPoint }}积分）</div>
-          <div class="weui-cell__ft weui-cell__ft_in-radio">
-            <icon class="weui-icon-radio" type="success" size="22" color="#0FD4BE" v-if="pp"></icon>
-            <div v-else class="radio-placeholder"></div>
-          </div>
-        </label>
-      </template>
     </div>
   </div>
 </template>
@@ -46,15 +33,6 @@
         type: String,
         default: 'weixinAppletPaymentPlugin'
       },
-      // 是否使用积分
-      pp: {
-        type: Boolean,
-        default: false
-      },
-      rewardPoint: {
-        type: Number,
-        default: 0
-      }
     },
 
     model: {
@@ -70,35 +48,15 @@
             checked: true,
             icon: 'https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_icon_wechat@2x.png',
             value: 'weixinAppletPaymentPlugin'
-          },
-          // {
-          //   name: '会员卡支付(剩余：￥0.00）',
-          //   checked: false,
-          //   icon: 'https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_icon_vip@2x.png',
-          //   value: 'balancePaymentPlugin'
-          // }
-        ],
-        balance: 0
+          }
+        ]
       }
     },
 
     methods: {
       radioChange(e) {
         this.$emit('change', e.mp.detail.value)
-      },
-
-      onPpChange(e) {
-        this.$emit('update:pp', e.mp.detail.value)
       }
-    },
-
-    onLoad() {
-      // Api.user.personCenter().then(res => {
-      //   if (res.code === Api.CODES.SUCCESS) {
-      //     this.payways[1].name = `会员卡支付(剩余：￥${ res.data.balance }）`
-      //     this.balance = res.data.balance
-      //   }
-      // })
     }
   }
 </script>

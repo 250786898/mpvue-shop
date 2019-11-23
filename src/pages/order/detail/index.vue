@@ -71,9 +71,6 @@
            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/close_icon.png" alt="">
          <p style="margin-left:32rpx;">订单已取消</p>
         </template>
-        <template v-else-if="order.state === 0 && isAssemble">
-          拼团失败
-        </template>
         <!-- 订单已签收 改 交易成功 -->
         <template v-else-if="order.state === 40 || order.state === 49">
            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/success_icon.png" alt="">
@@ -85,9 +82,6 @@
         </template>
         <template v-else-if="order.state === 60">
           已售后
-        </template>
-        <template v-else-if="order.state === 15">
-          拼团中
         </template>
         <!-- 交易成功 -->
         <template v-else-if="false">
@@ -128,49 +122,10 @@
       </div>
     </div>
 
-    <!-- 拼团商品列表 -->
-    <div class="weui-panel goods-list-panel" v-if="isAssemble">
-      <div class="weui-panel__bd">
-        <navigator v-for="item in order.orderGoodsList"
-          :key="item.goodsId"
-          :url="'/pages/goods/detail/main?id=' + item.goodsId + '&activityId='+item.activityId"
-          class="weui-media-box weui-media-box_appmsg">
-          <div class="weui-media-box__hd weui-media-box__hd_in-appmsg">
-            <image class="weui-media-box__thumb" :src="item.goodsImage" mode="aspectFit" />
-          </div>
-          <div class="weui-media-box__bd weui-media-box__bd_in-appmsg">
-            <!-- if 赠品 -->
-            <div v-if="item.isPresentation && item.isPresentation != 2 " class="weui-media-box__title">
-              <span class="goods-tag">赠品</span>
-              {{ item.goodsName }}
-            </div>
-            <div v-else class="weui-media-box__title weui-media-box__title_total">
-              {{ item.goodsName }}
-              <div class="goods-total">
-                ￥{{ item.onlinePrice * item.goodsNum }}
-                <navigator v-if="item.refundState == 1 || item.refundState == 3" :url="'/pages/order/returndetail/main?id=' + item.refundId" @click.stop>
-                  <button class="weui-btn" :plain="true" size="mini">售后</button>
-                </navigator>
-              </div>
-            </div>
 
-            <!-- 几人团 -->
-            <div class="group-buy-bar" v-if="order.groupPartner">
-              <span class="group-buy-bar__tag">{{ order.groupPartner }}人团</span>
-            </div>
-
-            <!-- else 赠品 -->
-            <div class="weui-media-box__desc" v-if="!item.isPresentation || item.isPresentation == 2">
-              <span >单价:￥{{ item.onlinePrice }}</span>
-              <div class="goods-count goods-count_ih">数量: x{{ item.goodsNum }}</div>
-            </div>
-          </div>
-        </navigator>
-      </div>
-    </div>
 
     <!-- 商品列表 -->
-    <div class="weui-panel goods-list-panel" v-else>
+    <div class="weui-panel goods-list-panel">
       <div class="weui-panel__bd">
         <navigator v-for="item in order.orderGoodsList"
           :key="item.goodsId"
@@ -350,11 +305,6 @@
       <button :plain="true" type="default" @click="del">删除订单</button>
     </div>
 
-    <!-- 重新拼团-->
-    <div class="footer-bar" v-else-if="order.state === 0 && isAssemble">
-       <button type="primary" class="bg-gradient" @click="regroup">重新拼团</button>
-    </div>
-
     <!-- 交易成功 -->
     <div class="footer-bar" v-else-if="order.state === 40">
       <!-- <button :plain="true" type="default" @click="del">删除订单</button> -->
@@ -428,7 +378,6 @@
         paymentDialogShowed: false,  //其他支付模块
         redPackageShow: false,  //摇一摇模块显示隐藏
         isRequestedFunction: false,  //摇一摇显示
-        isAssemble: false, //是否是拼团页面详情
         timers:299, //待支付订单倒计时
         timer:null,  //定时器
         showPageLoading: true //页面加载显示
@@ -753,14 +702,7 @@
             name: this.order.receiverName,
             address: this.order.receiverAddress
           })
-        },
-
-          /**
-         * @description 设置该页面类型是拼团页面
-         */
-        _setAssemblePageType () {
-          this.isAssemble = true
-        },
+        }
       }
   }
 </script>

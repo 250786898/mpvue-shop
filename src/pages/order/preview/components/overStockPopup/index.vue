@@ -7,7 +7,7 @@
        <scroll-view
         scroll-y
         scroll-with-animation
-        style="height: 300rpx;"
+        :style="goodsListHeight"
         class="goods-list"
         >
         <template v-for="item in goodsList" >
@@ -36,6 +36,15 @@
       goodsList: {
         type: Array,
         default: () => ([])
+      }
+    },
+
+    computed: {
+      goodsListHeight () {
+        if(this.goodsList.length > 1) {
+          return 'height: 300rpx;'
+        }
+        return ''
       }
     },
 

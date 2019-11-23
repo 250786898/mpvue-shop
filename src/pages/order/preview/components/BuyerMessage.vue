@@ -3,7 +3,7 @@
     <div class="weui-cell">
       <div class="weui-cell__hd">买家留言：</div>
       <div class="weui-cell__bd">
-        <input type="text" v-model.trim="orderMessages" placeholder="（选填）给卖家留言，最多100个字" maxlength="100">
+        <input type="text" :value="message" @input="inputMessage" placeholder="（选填）给卖家留言，最多100个字" maxlength="100">
       </div>
     </div>
   </div>
@@ -11,7 +11,25 @@
 
 <script>
 export default {
+  props: {
+    message: { //留言信息
+      type: String,
+      value: ''
+    }
+  },
+  model: {
+    prop:'message',
+    event: 'inputMessage'
+  },
 
+  methods: {
+    /**
+     * @description 输入留言信息
+     */
+    inputMessage (e) {
+      this.$emit('inputMessage',e.mp.detail.value)
+    }
+  }
 }
 </script>
 

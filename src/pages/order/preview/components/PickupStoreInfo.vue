@@ -3,10 +3,10 @@
   <div class="address-area">
     <div class="weui-cell weui-cell_access">
       <div class="weui-cell__bd">
-        <template v-if="tempOrder.store">
-          <div class="collect">提货门店：{{ tempOrder.store.storeName }}</div>
-          <div v-if="tempOrder.store.storeAddress" class="desc">
-            {{ tempOrder.store.storeAddress }}
+        <template v-if="shopDetail">
+          <div class="collect">提货门店：{{ shopDetail.storeName }}</div>
+          <div v-if="shopDetail.storeAddress" class="desc">
+            {{ shopDetail.storeAddress }}
           </div>
         </template>
       </div>
@@ -20,7 +20,7 @@
 import { mapState } from 'vuex'
 export default {
   computed: {
-    ...mapState(['tempOrder'])
+   ...mapState(['shopDetail'])
   }
 }
 </script>

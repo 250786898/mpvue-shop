@@ -704,9 +704,6 @@ page{
     .weui-flex{
       justify-content: space-between;
     }
-    .weui-flex__item{
-      // flex: 0 1 auto;
-    }
   }
 
 </style>

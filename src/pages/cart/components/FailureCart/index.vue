@@ -4,8 +4,8 @@
       <div class="group" v-if="failureGoodsList && failureGoodsList.length">
         <div class="group__title">失效商品</div>
         <div v-for="(item, index) in failureGoodsList" :key="item.goodsId" class="group-item">
-            <goods-card 
-              :item="item" 
+            <goods-card
+              :item="item"
               :key="index"
               :isFailure="true"
             />
@@ -71,9 +71,9 @@ export default {
         if (res.code === Api.CODES.SUCCESS) {
           if (isFailureGoods) {
             this.failureGoodsList = []
-          } 
+          }
           this.$store.dispatch('updateCartNum')
-          this.$emit('updateActivityStatus') //更新购物车列表
+          this.$emit('updateCartList') //更新购物车列表
         } else {
           wx.showToast({
             title: res.message,
@@ -82,7 +82,7 @@ export default {
         }
       })
       .catch(e => console.log(e))
-      .then(() => wx.hideLoading())        
+      .then(() => wx.hideLoading())
     },
   }
 }
@@ -155,8 +155,8 @@ export default {
       display: flex;
       align-items: center;
 
-      
-   
+
+
       .primary { font-size: 28rpx; }
       .secondary { font-size: 22rpx; }
       .goods-count,.goods-price {
@@ -164,11 +164,11 @@ export default {
         bottom: 0!important;
       }
     }
-  }  
+  }
  .clear-invalid-goods-btn{
     height: 90rpx;
     line-height: 90rpx;
     text-align: center;
     font-size:28rpx;
-  } 
+  }
 </style>

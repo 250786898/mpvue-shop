@@ -79,7 +79,7 @@ export default {
      * @description 全选或则取消
      */
     onAllCheckedChange(e) {
-      this.$emit('onAllCheckedChange')
+      this.$emit('onAllCheckedChange',this.allChecked)
     },
 
     /**
@@ -119,7 +119,7 @@ export default {
      */
     fetchCartIds(){
       const cartIds = this.cartItemResultList
-          .filter(item => item.checked)
+          .filter(item => item.isSelect)
           .map(item => item.cartId)
           .join(',')
       return  cartIds
@@ -166,7 +166,7 @@ export default {
       if (!this.cartItemResultList) return ''
 
       return this.cartItemResultList
-        .filter(item => item.checked)
+        .filter(item => item.isSelect)
         .map(item => item.cartId)
         .join(',')
     },
@@ -187,7 +187,7 @@ export default {
         if (res.code === Api.CODES.SUCCESS) {
           this.cartItemResultList = []
           this.$store.dispatch('updateCartNum')
-          this.$emit('updateActivityStatus') //更新购物车列表
+          this.$emit('updateCartList') //更新购物车列表
         } else {
           wx.showToast({
             title: res.message,
