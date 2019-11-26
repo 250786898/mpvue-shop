@@ -190,9 +190,11 @@
               icon: 'none',
               title: res.data.info
             })
+          }else{
+            //库存无问题，更新购物车
+            this.refreshCartList()
           }
-          //库存无问题，更新购物车
-          this.refreshCartList()
+
         }
 
 

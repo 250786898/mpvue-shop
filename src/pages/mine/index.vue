@@ -105,50 +105,6 @@
         </div>
         <div class="weui-cell__ft weui-cell__ft_in-access"></div>
       </navigator>
-
-
-        <div class="weui-flex">
-          <!-- 二期
-          <navigator hover-class="none" url="/pages/scanorder/index/main" class="weui-flex__item">
-            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/me_icon_sweeporder@2x.png">
-            <div>扫码购订单</div>
-          </navigator>
-          -->
-          <!-- <navigator hover-class="none" url="/pages/pickup/index/main" class="weui-flex__item">
-            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/me_icon_deliverycode@2x.png">
-            <div>提货码</div>
-          </navigator> -->
-          <!-- 1.0 -->
-
-
-
-          <!-- <navigator hover-class="none" @click="discount" class="weui-flex__item"> -->
-            <!-- <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/coupon_icon.png"> -->
-              <!-- <div class="primary" v-if="sessionId">{{ personCenter.couponNum }}</div> -->
-              <!-- <div class="primary" v-else="sessionId">***</div> -->
-              <!-- <div>优惠券</div> -->
-          <!-- </navigator> -->
-          <!-- <navigator hover-class="none" url="/pages/order/teamlist/main" class="weui-flex__item">
-            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/me_icon_tuan@2x.png">
-            <div>我的团购</div>
-          </navigator> -->
-          <!-- <button open-type="contact" class="weui-flex__item no-style">
-            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/service_icon.png">
-            <div>联系客服</div>
-          </button>
-
-          <button  @click="toSettings"  class="weui-flex__item no-style">
-            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/set_icon.png">
-            <div>设置</div>
-          </button> -->
-
-          <!-- <button open-type="feedback" class="weui-flex__item no-style">
-            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/me_icon_feedback@2x.png">
-            <div>意见反馈</div>
-          </button> -->
-          <!-- <div class="weui-flex__item"></div> -->
-          <!-- <div class="weui-flex__item"></div>  -->
-        </div>
       </div>
     </div>
 
@@ -274,49 +230,6 @@
 
       },
 
-      showServiceActionSheet() {
-
-        // wx.getSystemInfo({
-        //   success: result => {
-        //     //选项集合
-        //     let itemList;
-        //     itemList = ['在线客服']
-        //     if(this.personCenter.serverPhone) {
-        //     itemList.push(this.personCenter.serverPhone)
-
-        //     if (result.platform == 'android') {
-        //       itemList.push('取消')
-        //         }
-        //     }
-        //     wx.showActionSheet({
-        //       itemList,
-        //       itemColor: '#0ECD99',
-        //       success: res => {
-        //         switch(res.tapIndex) {
-        //           case 0:
-        //           //   handleContact(e) {
-        //           //   console.log(e.path)
-        //           //   console.log(e.query)
-        //           // }
-        //             break;
-        //           case 1:
-        //             wx.makePhoneCall({
-        //               phoneNumber: this.personCenter.serverPhone
-        //             })
-        //             break;
-        //           case 2:
-        //         }
-        //       },
-        //       fail: res => {
-        //         console.log(res)
-        //       }
-        //     })
-        //   }
-        // })
-
-      },
-
-
       toSmessage() {
         if (this.sessionId) {
           wx.navigateTo({
@@ -418,7 +331,6 @@ page{
   .mine-card__bg{
       height: 310rpx;
       width: 100%;
-      // z-index: 100;
       display: block;
       position: fixed;
       top:0rpx;
