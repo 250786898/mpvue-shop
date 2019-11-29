@@ -1,6 +1,11 @@
 @import './variable';
 @import './mixin';
 
+ /* 初始化项目行高为1 */
+page{
+  line-height: 1;
+}
+
 .hiddenBtn {
   background: none;
   border: none;

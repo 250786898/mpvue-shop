@@ -11,7 +11,7 @@ export default {
   ALL_GUEST_PAGES: [
     "pages/index/main",
     "pages/index/selectaddress/main",
-    "pages/index/searchgoods/main",
+    "pages/goods/search/main",
     "pages/cart/main",
     "pages/mine/main",
     "pages/location/main",

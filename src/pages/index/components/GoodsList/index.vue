@@ -1,59 +1,50 @@
 <template>
 	<view class="goods-recommend min-contaner" id="goods-list">
       <!-- <goods-list-tab /> -->
-      <div class="goods-recommend__title" :class="{'fixed-tab' : isCeiling}" v-if="tab.length == 1">
+      <div class="goods-recommend__title" :class="{'fixed-tab' : isCeiling}" :style="isCeiling ? fixedTop : '' " v-if="tab.length == 1">
         <span v-for="item in tab" :key="item.id">{{item.activityName}}</span>
       </div>
+
       <template v-else>
-         <van-tabs sticky @change="tabChange" :active="activeIndex" tab-active-class="tab-active-class" :swipe-threshold="4" tab-class="tab-class" color="#0FD7C0" class="fixed-tab" v-if="isCeiling">
+
+        <van-tabs
+          @tab="tabChange"
+          :active="activeIndex"
+          tab-active-class="tab-active-class"
+          custom-class="custom-class"
+          :swipe-threshold="4"
+          tab-class="tab-class"
+          line-width="26"
+          line-height="5"
+          line-bottom="11"
+          color="#01BD9F"
+          :ellipsis="false"
+          :class="isCeiling ? 'fixed-tab' : ''"
+          :style="isCeiling ? fixedTop : '' "
+        >
 
           <van-tab  v-for="item in tab" :title="item.activityName" :key="item.id"></van-tab>
-
-
-        </van-tabs>
-
-        <van-tabs sticky @change="tabChange" :active="activeIndex" tab-active-class="tab-active-class" :swipe-threshold="4" tab-class="tab-class" color="#0FD7C0" v-if="!isCeiling">
-
-          <van-tab  v-for="item in tab" :title="item.activityName" :key="item.id"></van-tab>
-
 
         </van-tabs>
 
       </template>
 
-    <!--
-     <div class="goods-recommend__title">
-        <span>今日秒杀</span> :class="{'ceiling-goods-list' : isCeiling}"
 
-      </div> -->
-
-      <div class="goods-recommend__bd" :style="{ marginTop:isCeiling? '40px' : '0px' }">
+      <div class="goods-recommend__bd goods-list" :style="{ marginTop:isCeiling? '40px' : '0px' }">
         <template v-for="item in goodsList">
-          <base-goods-card :item="item" :key="item.id" :isSellOut="item.activityStock == 0"/>
+          <div class="goods-card" :key="item.id">
+            <goods-card :item="item"  :isSellOut="item.activityStock == 0"/>
+          </div>
+
+          <!-- <base-goods-card :item="item" :key="item.id" :isSellOut="item.activityStock == 0"/> -->
         </template>
          <EmptyGoods v-if="goodsList.length == 0 && !loading"/>
       </div>
       <!-- 加载更多 -->
       <div class="goods-recommend__footer">
         <lj-loading v-if="!isAllLoaded && loading" />
-        <div class="goods-tabs__tip" v-if="isAllLoaded && goodsList.length">亲,已经看到最后啦！</div>
+        <div class="goods-tabs__tip" v-if="isAllLoaded && goodsList.length">我是有底线的！</div>
       </div>
-
-
-
-
-
-
-
-       <!-- <goods-tabs
-            :goodsList="this.goodsList"
-            :classList="this.tab"
-            :loading="loading"
-            :isAllLoaded="isAllLoaded"
-            @tabChange="tabChange($event)">
-          </goods-tabs> -->
-
-         <!-- 商品空的时候显示空组件 -->
 
 
   </view>
@@ -65,8 +56,8 @@
   import GoodsTabs from '@/components/GoodsTabs'
   import GoodsRowItem from '@/components/GoodsRowItem'
   import EmptyGoods from "../EmptyGoods/index"
-  import GoodsListTab from "../GoodsListTab/index"
   import BaseGoodsCard from "../BaseGoodsCard/index"
+  import GoodsCard from './components/GoodsCard'
   import BeginGoodsCard from "../BeginGoodsCard/index"
   import LjLoading from '@/components/LjLoading'
   import GoodsModel from '@/model/goods'
@@ -89,33 +80,32 @@
         tab: [], //分类栏
         activityId: '', //当前分类编码
         activeIndex: 0, //当前分类索引
-        tabColor: '#11D2C8', //tab颜色值
         goodsList: [],  //商品列表
-        isAllLoaded: false,
+        isAllLoaded: false, //是否全部加载完毕
         loading: false, //是否向上触发更新
-        activeColor: '#000',
-        fontSize: 24
+
       }
     },
     components: {
       GoodsTabs,
       GoodsRowItem,
       EmptyGoods,
-      GoodsListTab,
       BaseGoodsCard,
       BeginGoodsCard,
+      GoodsCard,
       LjLoading
     },
     computed: {
-      ...mapState(['storeId',"indexGoodsTop","indexBarHeight"])
+      ...mapState(['storeId',"indexGoodsTop","indexBarHeight"]),
+      fixedTop () {
+        return `top:${this.indexBarHeight}px`
+      }
     },
     watch: {
       storeId: function () {
         console.log('goodlostStoreId修改了aaaaaaaaaaaaaaaaaaa',this.storeId)
-        // this.getGoodsListByActivityId(this.storeId , this.activityId , 1 )
         this.initData()
         this.setTabsList()
-        // this.getGoodsClassList(this.storeId , this.pcId , 1 , showPageSize)
       }
     },
 
@@ -126,7 +116,6 @@
       //还有数据，加载数据
       this.currentPage++
       this.getGoodsListByActivityId(this.storeId , this.activityId , this.currentPage )
-      // this.getGoodsClassList(this.storeId, this.pcId, this.currentPage , showPageSize)
     },
 
       /**
@@ -136,56 +125,32 @@
       console.log('onPullDownRefresh')
       this.initData()
       this.setTabsList()
-      // this.refreshTabsList()
-      // this.getGoodsListByActivityId(this.storeId , this.activityId , 1 )
-      // this.getGoodsClassList(this.storeId , this.pcId , 1 , showPageSize)
     },
 
 
     mounted() {
-      　let _this = this
+      let _this = this
 
-　　setTimeout(function(){
-　    　_this.getElementHeight('#goods-list')
-　　}, 100)
-      // const query = wx.createSelectorQuery()
-      // console.log('#affixquery',query)
-      // query.select('#the-id').boundingClientRect()
-      // console.log('#affixquery2',query)
-      // // query.selectViewport().scrollOffset()
-      // // console.log('#affixquery3',query)
-      // query.exec(function(res){
-      //   console.log('#affixquery4',res)
-      //   // res[0].top       // #the-id节点的上边界坐标
-      //   // res[1].scrollTop // 显示区域的竖直滚动位置
-      // })
-      // console.log('goodMountedList',this.storeId)
-      // wx.createSelectorQuery().select('#goods').boundingClientRect((rect) =>{
-      //      console.log('#affix节点的上边界坐',rect); // #affix节点的上边界坐
-      // }).exec()
+  　　setTimeout(function(){
+  　    　_this.getElementHeight('#goods-list')
+  　　}, 100)
 
-      if(this.storeId) {
-        this.setTabsList()
-        this.getGoodsListByActivityId()
-
-        // this.getGoodsClassList(this.storeId , this.pcId , this.currentPage , showPageSize)
-      }
+        if(this.storeId) {
+          this.setTabsList()
+          this.getGoodsListByActivityId()
+        }
     },
 
     methods: {
 
       getElementHeight(id = "") {
-
 　　　　 let _query = wx.createSelectorQuery();
-
 　　　　_query.select(id).boundingClientRect()
-
 　　　　_query.exec((res) =>{
           console.log('#affix节点的上边界坐2222222222',res); // #affix节点的上边界坐
           const tTop = res[0] && res[0].top != null ? res[0].top : ''
           this.$store.commit('setIndexGoodsTop',tTop)
 　　　　 })
-
 　　 },
 
       clickTab (event) {
@@ -242,51 +207,20 @@
       },
 
 
-
-
       /**
-       * @param
-       * @description 获取商品数据
+       * @description  切换分类
        */
-      getGoodsClassList(storeId, pcId, pageNumber, pageSize) {
-        this.loading = true
-        let promise
-        console.log('getGoodsClassList',storeId)
-
-          promise = Api.index.topGoods({ storeId, pcId, pageNumber, pageSize }).then(res => {
-            if(res.code == Api.CODES.SUCCESS){
-              var data = res.data
-              if(data.shopGoodsList.length > 0) {
-                this.goodsList = this.goodsList.concat(data.shopGoodsList)
-              } else {
-                //没有可以加载的数据了，显示到底
-                this.isAllLoaded = true
-              }
-            }
-          })
-
-          promise
-          .catch(e => e)
-          .then(() => this.loading = false)
-      },
-
-      //切换分类
       tabChange ({ mp: { detail: { index } } }) {
-
         if(this.isCeiling) {
           //如果已经处于吸顶状态切换到初始化相对应的滚动条
           const ceilingDistance =  this.indexGoodsTop - this.indexBarHeight
-          console.log('tabChange',this.indexBarHeight,this.indexGoodsTop,ceilingDistance)
           wx.pageScrollTo({ scrollTop: ceilingDistance })
         }
-
-
-
-        this.activeIndex = index
-        this.activityId = this.tab[index].id
         this.goodsList = []
         this.currentPage = 1
         this.isAllLoaded = false
+        this.activeIndex = index
+        this.activityId = this.tab[index].id
         this.getGoodsListByActivityId(this.storeId , this.activityId , this.currentPage )
       },
 
@@ -325,21 +259,20 @@
   min-height: 1300rpx;
 }
 
+.custom-class{
+  border-bottom: 1rpx solid rgba(204, 204, 204, 0.3);
+}
+
 //tab栏样式
 .fixed-tab{
   z-index: 10;
   width: 100%;
   position: fixed;
-  top: 0;
   left: 0;
-  top: 100rpx;
   animation: fadeInDown .3s linear;
  }
 
-// 吸顶状态下门店列表外边距增加
-.ceiling-goods-list{
-  // margin-top: 44px;
-}
+
 
 //  /*从上到下进入*/
 .fadeInDown {
@@ -357,33 +290,24 @@
 }
 
 .tab-class {
-  color:#333 !important;
-  font-size: 30rpx !important;
-  font-weight:800 !important;
+  color:#798194 !important;
+  font-size: 34rpx !important;
+  font-weight:500 !important;
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
-  // border-right: 1px solid #eee !important;
-  // &:after{
-  //   content: ' ' !important;
-  //   width: 1px !important;
-  //   height: 50rpx !important;
-  //   background: $text-black !important;
-  //   display: flex !important;
-  //   margin-left: 0rpx;
-  // }
 }
 
 // 标签激活态样式类
 .tab-active-class{
-  color:#333 !important;
-  font-weight:800 !important;
+  color:#363F52 !important;
+  font-weight:bold !important;
+  font-size: 34rpx;
 }
 </style>
 
 <style scoped lang="scss">
   .goods-row-item{
-    // background-color:rgb(190, 29, 29);
     margin-bottom: 6rpx;
   }
 
@@ -393,11 +317,9 @@
   }
 
   .goods-tabs__tip {
-    height: 116rpx;
-    padding: 20rpx;
-    font-size: 26rpx;
-    line-height: 124rpx;
-    color: $text-gray;
+    padding: 25rpx 0 50rpx;
+    font-size: 28rpx;
+    color: #B2B2B2;
     text-align: center;
   }
 
@@ -405,6 +327,15 @@
     width: 710rpx;
     box-sizing: border-box;
     border-radius:14rpx;
+    .goods-list{
+      padding: 0 20rpx;
+    }
+    .goods-card {
+      border-bottom:1px solid rgba(204,204,204,0.3);
+      &:nth-last-of-type(1){
+        border-bottom: none;
+      }
+    }
     &__bd{
       background: #fff;
       border-bottom-left-radius: 14rpx;
@@ -440,7 +371,6 @@
       }
     }
       .goods-list {
-        padding: 10rpx;
         .weui-flex {
           flex-wrap: wrap;
           &__item {

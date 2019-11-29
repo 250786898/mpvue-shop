@@ -1,16 +1,26 @@
 <template>
     <div class="container" >
 
+      <!-- 悬浮顶部栏 -->
+      <fixed-top-bar />
+
       <!-- 自定义导航栏 -->
       <!-- <nav-bar /> -->
-      <goods-search-bar :location="location" :showtip="tipShown && !isCeiling"> </goods-search-bar>
+      <!-- <goods-search-bar :location="location" :showtip="tipShown && !isCeiling"> </goods-search-bar> -->
 
-      <template v-if="!showPageLoading">
+      <div v-if="!showPageLoading" class="container-main">
         <!-- 搜索栏 -->
 
 
         <!-- Swiper -->
-        <index-swiper :bannerList="storeData.bannerList" />
+        <theme-area :theme-type="'swiper'" />
+        <!-- <index-swiper :bannerList="storeData.bannerList" /> -->
+
+        <!-- 分类导航栏  -->
+        <category-nav />
+
+        <theme-area />
+
 
         <!-- 商品列表 -->
         <div class="goods-list-container">
@@ -20,7 +30,7 @@
 
 
 
-      </template>
+      </div>
 
       <page-loading  :show="showPageLoading"/>
 
@@ -28,8 +38,6 @@
 
       <ComfirmStoreDialog :show="showComfirmStoreDialog"  @comfirmStore="comfirmStore" />
 
-      <!-- Fixed -->
-      <to-top />
 
   </div>
 
@@ -41,12 +49,13 @@ import { mapState } from "vuex"
 import { Api } from "@/http/api"
 import { AMapWX } from "@/utils/amap-wx"
 import config from "@/config"
+import FixedTopBar from './components/FixedTopBar'
 import GoodsSearchBar from "@/components/GoodsSearchBar"
+import CategoryNav from './components/CategoryNav'
+import ThemeArea from './components/ThemeArea'
 import ComfirmStoreDialog from "@/components/ComfirmStoreDialog"
 import SelectStoreDialog from "@/components/SelectStoreDialog"
 import GoodsList from "./components/GoodsList/index"
-import IndexSwiper from "./components/IndexSwiper/index"
-import ToTop from "./components/ToTop/index"
 import NavBar from "./components/NavBar/index"
 import { serialize } from '@/utils/'
 import StoreModel from '@/model/store'
@@ -60,11 +69,12 @@ export default {
   components: {
     GoodsSearchBar,
     GoodsList,
-    IndexSwiper,
-    ToTop,
     NavBar,
     ComfirmStoreDialog,
-    SelectStoreDialog
+    SelectStoreDialog,
+    FixedTopBar,
+    CategoryNav,
+    ThemeArea
   },
 
   data() {
@@ -158,7 +168,6 @@ export default {
   onPageScroll(e) {
     this.backToTopButtonShowed = e.scrollTop >= 200;
     this.tipShown = e.scrollTop < 100;
-    console.log('onPageScroll',e.scrollTop,this.indexGoodsTop,this.indexBarHeight)
     this.checkCeiling(e.scrollTop)
   },
 
@@ -730,6 +739,9 @@ page {
 .goods-list-container{
   display: flex;
   justify-content: center;
+}
+.container-main{
+  padding: 0 20rpx;
 }
 .fixed-goods-list {
   position: fixed;

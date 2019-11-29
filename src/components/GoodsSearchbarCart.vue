@@ -78,7 +78,7 @@
 
       toSearch() {
         wx.navigateTo({
-          url: '/pages/index/searchgoods/main'
+          url: '/pages/goods/search/main'
         })
       }
     },
