@@ -32,21 +32,22 @@
 
 
       <div class="goods-recommend__bd goods-list" :style="{ marginTop:isCeiling? '40px' : '0px' }"  v-if="goodsList && goodsList.length > 0">
-        <template v-for="item in goodsList">
-          <div class="goods-card" :key="item.id">
+        <template v-if="!tabLoading">
+          <div class="goods-card" v-for="item in goodsList" :key="item.id">
             <goods-card :item="item"  :isSellOut="item.activityStock == 0"/>
           </div>
-
-          <!-- <base-goods-card :item="item" :key="item.id" :isSellOut="item.activityStock == 0"/>  -->
         </template>
+          <!-- <base-goods-card :item="item" :key="item.id" :isSellOut="item.activityStock == 0"/>  -->
       </div>
         <!-- 加载更多 -->
         <div class="goods-recommend__footer">
-          <lj-loading v-if="!isAllLoaded && loading" />
-          <div class="goods-tabs__tip" v-if="isAllLoaded && goodsList.length">我是有底线的！</div>
+          <!-- <lj-loading v-if="!isAllLoaded && loading" /> -->
+          <div class="goods-tabs__tip" v-if="!tabLoading && goodsList.length">我是有底线的！</div>
       </div>
 
-      <template v-if="goodsList.length == 0 && !loading">
+      <img src="/static/images/pull_down_refresh_icon.gif" alt="" class="tab-loading-icon" v-if="tabLoading">
+
+      <template v-if="!tabLoading && goodsList.length == 0 && !loading">
           <EmptyGoods/>
       </template>
 
@@ -88,7 +89,8 @@
         activeIndex: 0, //当前分类索引
         goodsList: [],  //商品列表
         isAllLoaded: false, //是否全部加载完毕
-        loading: false, //是否触发更新数据
+        tabLoading: false, //tab切换更新数据中状态
+        loading: false, //是否向上触发更新数据中状态
 
       }
     },
@@ -189,9 +191,8 @@
       },
 
       getGoodsListByActivityId (storeId, activityId, pageNumber) {
-        this.loading = true
-        let promise
-       promise = goodsModel.findGoodsByActivity({
+      let promise
+       return promise = goodsModel.findGoodsByActivity({
          storeId, activityId, pageNumber
         }).then(res => {
           if(res.code == Api.CODES.SUCCESS){
@@ -207,9 +208,6 @@
             }
           }
         })
-        promise
-        .catch(e => e)
-        .then(() => this.loading = false)
       },
 
 
@@ -222,15 +220,32 @@
           const ceilingDistance =  this.indexGoodsTop - this.indexBarHeight
           wx.pageScrollTo({ scrollTop: ceilingDistance })
         }
+        this.initTabData(index)
+        this.getGoodsListByActivityId(this.storeId , this.activityId , this.currentPage ).then(() => {
+          console.log('getGoodsListByActivityId')
+          setTimeout (() => {
+            this.tabLoading = false
+          },2000)
+
+        })
+      },
+
+      /**
+       * @param {number} index tab索引
+       * @description 初始化tab相关数据
+       */
+      initTabData (index) {
+        this.tabLoading = true
         this.goodsList = []
         this.currentPage = 1
         this.isAllLoaded = false
         this.activeIndex = index
         this.activityId = this.tab[index].id
-        this.getGoodsListByActivityId(this.storeId , this.activityId , this.currentPage )
       },
 
-
+      /**
+       * @description 初始化相关数据
+       */
       initData(){
         this.currentPage = 1
         this.goodsList = []//商品数据
@@ -239,12 +254,6 @@
         this.loading =  false//是否向上更新
       }
     },
-
-
-
-
-
-
 
   }
 </script>
@@ -309,6 +318,15 @@
   color:#363F52 !important;
   font-weight:bold !important;
   font-size: 34rpx;
+}
+
+
+.tab-loading-icon {
+  width: 80rpx;
+  height: 120rpx;
+  margin: auto;
+  display: block;
+  margin-top: 150rpx;
 }
 </style>
 
