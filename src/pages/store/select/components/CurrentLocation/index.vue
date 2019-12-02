@@ -28,7 +28,9 @@ export default {
     }
   },
   onLoad () {
+    console.log('currentShowcurrentShowcurrentShowcurrentShow2')
      this.amap = new AMapWX({ key: config.AMAP_KEY }) //初始化高德地图对象
+     this.resetLocate()
   },
   methods: {
     /**

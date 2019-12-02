@@ -1,9 +1,11 @@
 <template>
   <div class="category">
-    <div class="category-item" v-for="(item,index) in list" v-bind:key="index" :style="itemWidth" >
-      <img src="/static/images/20191128092643.png" alt="">
-      <span class="category-item__title">时令水果</span>
-    </div>
+    <template v-for="(item,index) in list" >
+      <div class="category-item" :style="itemWidth" v-bind:key="index" >
+        <img src="/static/images/20191128092643.png" alt="">
+        <span class="category-item__title">时令水果</span>
+      </div>
+    </template>
   </div>
 </template>
 
@@ -12,11 +14,11 @@ export default {
   props: {
     list: { //栏目列表
       type: Array,
-      default: () => ([1,2,3,4,5,6,7,8])
+      default: () => ([1,2,3,4,5,6,7,8,9,10])
     },
     numOfRow: { //定义一排多少个
       type: Number,
-      default: 4
+      default: 5
     }
   },
 
@@ -24,7 +26,14 @@ export default {
     itemWidth () { //每一项栏目的宽度
       const itemWidth = 100 / this.numOfRow
       return `width: ${itemWidth}%`
+    },
+    totalRow () { //总共多少行
+     return Math.floor(this.list.length /this.numOfRow)
     }
+  },
+
+  methods: {
+
   }
 }
 </script>
@@ -33,7 +42,7 @@ export default {
 .category{
   background: #fff;
   border-radius:10rpx;
-  padding: 30rpx 0;
+  padding: 30rpx 0 6rpx;
   display: flex;
   margin-bottom: 20rpx;
   flex-wrap: wrap;
@@ -41,9 +50,11 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 24rpx;
     img{
-      width: 100rpx;
-      height: 100rpx;
+      width: 106rpx;
+      height: 106rpx;
+      margin-bottom: 16rpx;
     }
     &__title{
       color: #221F20;

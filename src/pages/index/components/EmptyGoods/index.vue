@@ -1,6 +1,6 @@
 <template>
   <div class="empty-container">
-      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/carticon.png" class="empty-icon">
+      <img src="/static/images/empty-time-activity.png" class="empty-icon">
       <div class="empty-tip__text_main">抱歉，没有团购</div>
       <div class="empty-tip__text">我们正在为您精选优质的商品</div>
   </div>
@@ -15,24 +15,25 @@ export default {
 <style lang="scss" scoped>
 .empty-container{
   width:100%;
-  height:607rpx;
-  box-shadow:0px 3rpx 36rpx 4rpx rgba(0, 0, 0, 0.04);
+  height:858rpx;
+  background:rgba(255,255,255,1);
+  border-radius:10rpx;
   display: flex;
   flex-direction: column;
   align-items: center;
   .empty-icon{
     width: 380rpx;
     height: 260rpx;
-    margin-top: 90rpx;
+    margin-top: 113rpx;
   }
   .empty-tip__text{
-    color: #CCCCCC;
+    color: #8E8D8D;
     font-size: 26rpx;
     line-height: 48rpx;
   }
   .empty-tip__text_main{
-    color: #666666;
-    font-size: 32rpx;
+    color: #8E8D8D;
+    font-size: 28rpx;
     line-height: 48rpx;
   }
 }

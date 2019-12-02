@@ -1,11 +1,12 @@
 <template>
 	<view class="goods-recommend min-contaner" id="goods-list">
-      <!-- <goods-list-tab /> -->
+
+        <!-- <goods-list-tab /> -->
       <div class="goods-recommend__title" :class="{'fixed-tab' : isCeiling}" :style="isCeiling ? fixedTop : '' " v-if="tab.length == 1">
         <span v-for="item in tab" :key="item.id">{{item.activityName}}</span>
       </div>
 
-      <template v-else>
+      <div v-else>
 
         <van-tabs
           @tab="tabChange"
@@ -27,24 +28,29 @@
 
         </van-tabs>
 
-      </template>
+      </div>
 
 
-      <div class="goods-recommend__bd goods-list" :style="{ marginTop:isCeiling? '40px' : '0px' }">
+      <div class="goods-recommend__bd goods-list" :style="{ marginTop:isCeiling? '40px' : '0px' }"  v-if="goodsList && goodsList.length > 0">
         <template v-for="item in goodsList">
           <div class="goods-card" :key="item.id">
             <goods-card :item="item"  :isSellOut="item.activityStock == 0"/>
           </div>
 
-          <!-- <base-goods-card :item="item" :key="item.id" :isSellOut="item.activityStock == 0"/> -->
+          <!-- <base-goods-card :item="item" :key="item.id" :isSellOut="item.activityStock == 0"/>  -->
         </template>
-         <EmptyGoods v-if="goodsList.length == 0 && !loading"/>
       </div>
-      <!-- 加载更多 -->
-      <div class="goods-recommend__footer">
-        <lj-loading v-if="!isAllLoaded && loading" />
-        <div class="goods-tabs__tip" v-if="isAllLoaded && goodsList.length">我是有底线的！</div>
+        <!-- 加载更多 -->
+        <div class="goods-recommend__footer">
+          <lj-loading v-if="!isAllLoaded && loading" />
+          <div class="goods-tabs__tip" v-if="isAllLoaded && goodsList.length">我是有底线的！</div>
       </div>
+
+      <template v-if="goodsList.length == 0 && !loading">
+          <EmptyGoods/>
+      </template>
+
+
 
 
   </view>
@@ -82,7 +88,7 @@
         activeIndex: 0, //当前分类索引
         goodsList: [],  //商品列表
         isAllLoaded: false, //是否全部加载完毕
-        loading: false, //是否向上触发更新
+        loading: false, //是否触发更新数据
 
       }
     },
