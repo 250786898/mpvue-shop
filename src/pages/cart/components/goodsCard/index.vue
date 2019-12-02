@@ -28,7 +28,7 @@
       <div class="date-num" v-if="!isFailure">
         <div class="start-sell-date"><span v-if="item.isSale == 0">{{saleTime}}开售</span></div>
         <div class="sell-num-box">
-          <span v-if="item.activityLimitNum && item.itemTotalNum > item.activityLimitNum ">限购{{item.activityLimitNum}}份</span>
+          <span v-if="item.activityLimitNum && item.itemTotalNum > item.activityLimitNum - item.buyedNum">限购{{item.activityLimitNum}}份</span>
           <span v-else-if="item.maxNum && item.itemTotalNum > item.maxNum">剩余{{item.maxNum}}份</span>
           <span v-else> </span>
         </div>
@@ -71,7 +71,7 @@ export default {
     },
     maxNum () { //商品购买的最大值
       //限购数量优先级高于库存
-      return this.item.activityLimitNum ? this.item.activityLimitNum : this.item.maxNum
+      return this.item.activityLimitNum ? this.item.activityLimitNum - this.item.buyedNum : this.item.maxNum
     }
 },
   methods: {
