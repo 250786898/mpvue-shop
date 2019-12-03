@@ -4,6 +4,7 @@
     "pages/store/select/main",
     "pages/store/search/main",
     "pages/city/select/main",
+    "pages/city/search/main",
     "pages/goods/search/main",
     "pages/cart/main",
     "pages/mine/main",
