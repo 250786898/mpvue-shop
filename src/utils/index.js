@@ -1,4 +1,6 @@
 import UserModer from '@/model/user'
+import store from '../store/index'
+
 const userModel = new UserModer()
 
 export function formatNumber (n) {
@@ -156,6 +158,82 @@ export async function resgiterOrLogin () {
 export function encryptMobile (mobile) {
   return `${mobile[0]}${mobile[1]}${mobile[2]}****${mobile[7]}${mobile[8]}${mobile[9]}${mobile[10]}`
 }
+
+/**
+ * @description 检查是否需要更新小程序
+ */
+export function checkUpdateApp() {
+  if (wx.canIUse('getUpdateManager')) {
+    const updateManager = wx.getUpdateManager()
+    updateManager.onCheckForUpdate(function (res) {
+      console.log('onCheckForUpdate====', res)
+      // 请求完新版本信息的回调
+      if (res.hasUpdate) {
+        console.log('res.hasUpdate====')
+        updateManager.onUpdateReady(function () {
+          wx.showModal({
+            title: '发现新版本',
+            content: '升级至新版本，享受最新最全的活动内容',
+            showCancel: false,
+            success: function (res) {
+              console.log('success====', res)
+              // res: {errMsg: "showModal: ok", cancel: false, confirm: true}
+              if (res.confirm) {
+                // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
+                updateManager.applyUpdate()
+              }
+            }
+          })
+        })
+        updateManager.onUpdateFailed(function () {
+          // 新的版本下载失败
+          wx.showModal({
+            title: '已经有新版本了哟~',
+            content: '新版本已经上线啦~，请您删除当前小程序，重新搜索打开哟~',
+            showCancel: false
+          })
+        })
+      }
+    })
+  }
+}
+
+/**
+ * @description 监听忘了改变,如果没有网络情况跳转网络异常页面
+ */
+export function onNetworkStatusChange () {
+  wx.onNetworkStatusChange(function (res) {
+    console.log('onNetworkStatusChange1',res.isConnected)
+    console.log('onNetworkStatusChange2',res.networkType)
+    if(res.networkType == 'none'){
+      wx.redirectTo({
+        url: '/pages/network/exceptions/main'
+    })
+    }
+  })
+}
+
+/**
+ * @description 检查登录状态
+ */
+export function onLoginStatus () {
+  const sessionId = wx.getStorageSync('SESSION_ID')
+  const phoneNumber = wx.getStorageSync('PHONE_NUMBER')
+  if (sessionId) {
+    store.dispatch('login', sessionId)  //缓存存在sessionId已经登录过,存在sessionId直接登录`
+    console.log('mainLogin')
+    // store.commit('setSessionId', sessionId)
+    if (phoneNumber) {
+      store.commit('setWxPhoneNumber', phoneNumber) //缓存有电话号码设置电话号码到vuex
+    }
+  }
+}
+
+
+
+
+
+
 
 
 export default {
