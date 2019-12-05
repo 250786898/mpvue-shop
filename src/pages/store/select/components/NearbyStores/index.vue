@@ -51,6 +51,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.select-store-card{
+  z-index:10;
+  position: relative;
+}
 .no-store-tip{
   padding: 60rpx 0;
   color: #999999;

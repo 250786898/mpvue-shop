@@ -4,8 +4,8 @@
       <div class="bar-top">
         <div class="store">
           <img src="/static/images/locate_icon.png" class="locate-icon" />
-          <div class="store-main">
-            <span class="store-name">乐家生鲜旭景花园店</span>
+          <div class="store-main" @click="selectStore">
+            <span class="store-name">{{shopDetail.storeName}}</span>
             <img src="/static/images/right_arrows_icon.png" class="right-arrows-icon" />
           </div>
         </div>
@@ -35,12 +35,16 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   mounted() {
     let _this = this
   　setTimeout(function(){
   　  _this.setIndexBarElementHeight('#ex')
   　}, 100)
+  },
+  computed: {
+    ...mapState(['shopDetail'])
   },
   methods: {
 
@@ -56,6 +60,24 @@ export default {
           this.$store.commit('setIndexBarHeight',tHeight)
 　　　　 })
 　　 },
+
+    /**
+     * @description 选择门店，先刷新用户定位信息再进入选择门店组件
+     */
+    selectStore () {
+      wx.navigateTo({
+        url: '/pages/store/select/main'
+      })
+    },
+
+    /**
+     * @description 跳转搜索商品页面组件
+     */
+    toSearch() {
+      wx.navigateTo({
+        url: "/pages/index/searchgoods/main"
+      });
+    }
   }
 }
 </script>

@@ -1,11 +1,13 @@
 <template>
-  <div class="select-store-card">
-    <div class="select-store-card__title">当前位置</div>
+  <div class="select-store-card card">
+    <div class="select-store-card__title card__title">当前位置</div>
     <div class="location">
-      <span class="address" v-if="location.address">{{ relocationing ? '定位中...' : location.address}}</span>
-      <span class="address" v-else>未获取到微信信息</span>
-      <div class="reposition">
+      <div class="location-left">
         <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_icon_dangqian@2x.png" class="reposition-icon" alt="">
+        <span class="address" v-if="location.address">{{ relocationing ? '定位中...' : location.address}}</span>
+        <span class="address" v-else>未获取到微信信息</span>
+      </div>
+      <div class="reposition">
         <span  v-if="location.address" @click="relocation">重新定位</span>
         <button type="primary" open-type="openSetting" @opensetting="onOpenSetting" class="grant-permission" v-else>重新定位</button>
       </div>
@@ -95,6 +97,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.card {
+  padding: 0 20rpx;
+  &__title{
+    font-size: 28rpx;
+    color: #999999;
+    font-weight:500;
+  }
+}
 .grant-permission{
   background: none;
   color: #ccc;
@@ -103,19 +113,25 @@ export default {
 .location{
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   font-size: 28rpx;
-  padding: 28rpx 0 40rpx 0;
+  padding: 21rpx 0 28rpx 0;
+  &-left{
+    display: flex;
+    align-items: flex-start;
+  }
   .address{
-    width: 400rpx;
+    width: 413rpx;
+    font-size: 28rpx;
+    line-height: 45rpx;
   }
   .reposition {
     display: flex;
     color: #CCCCCC;
-    align-items: center;
+    font-size: 24rpx;
     &-icon{
-      width: 51rpx;
-      height: 51rpx;
+      width: 41rpx;
+      height: 41rpx;
       margin-right: 10rpx;
     }
   }
