@@ -280,7 +280,7 @@
 
 //tab栏样式
 .fixed-tab{
-  z-index: 10;
+  z-index: 99;
   width: 100%;
   position: fixed;
   left: 0;
@@ -311,6 +311,7 @@
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
+  z-index: 99 !important;
 }
 
 // 标签激活态样式类

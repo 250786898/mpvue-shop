@@ -1,7 +1,7 @@
 <template>
   <div class="locate">
     <div class="locate-desc">
-      <img src="/static/images/common_icon_greenlocation.png" alt="" class="locate-icon">
+      <img src="/static/images/select-city-locate.png" alt="" class="locate-icon">
       <span class="locate-text">当前定位城市</span>
     </div>
     <div class="current-city">
@@ -25,8 +25,9 @@ export default {
     margin-bottom: 19rpx;
   }
   &-icon{
-    width: 21rpx;
-    height: 25rpx;
+    width: 15rpx;
+    height: 19rpx;
+    margin-right: 2rpx;
   }
   &-text{
     color: #999999;

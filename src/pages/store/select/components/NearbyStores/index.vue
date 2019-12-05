@@ -9,7 +9,7 @@
         <no-availabe-servie />
       </template>
     </div>
-    <div class="no-store-tip" v-if="storeList.length > 0">抱歉，您附近没有更多门店</div>
+    <!-- <div class="no-store-tip" v-if="storeList.length > 0">抱歉，您附近没有更多门店</div> -->
   </div>
 
 

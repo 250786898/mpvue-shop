@@ -206,6 +206,7 @@ page{
   width: 750rpx;
   box-sizing: border-box;
   background: #f5f5f5;
+  padding-bottom: 138rpx;
 }
 .container{
   display: flex;

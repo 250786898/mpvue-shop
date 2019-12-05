@@ -99,6 +99,7 @@ export default {
 <style lang="scss" scoped>
 .card {
   padding: 0 20rpx;
+  border-radius: 10rpx;
   &__title{
     font-size: 28rpx;
     color: #999999;
@@ -129,6 +130,8 @@ export default {
     display: flex;
     color: #CCCCCC;
     font-size: 24rpx;
+    position: relative;
+    top: 8rpx;
     &-icon{
       width: 41rpx;
       height: 41rpx;

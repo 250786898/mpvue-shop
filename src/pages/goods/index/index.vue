@@ -77,8 +77,43 @@
         activitySubType: 0,
         activityType: 0 ,
         activityUrl: '',
-        classOneList: [],
-        classTwoList: [],
+        classOneList: [
+          {
+          'pcName': '1'
+          },
+          {
+          'pcName': '12'
+          },
+          {
+          'pcName': '13'
+          },
+          {
+          'pcName': '14'
+          }
+        ],
+        classTwoList: [
+          {
+          'gcName': '2'
+          },
+          {
+          'gcName': '22'
+          },
+          {
+          'gcName': '23'
+          },
+          {
+          'gcName': '24'
+          },
+          {
+          'gcName': '25'
+          },
+          {
+          'gcName': '25'
+          },
+          {
+          'gcName': '27'
+          }
+        ],
         goodsList: [],
         mainerTabMenuShowed: false,
         loading: false, // 是否加载中

@@ -1,13 +1,17 @@
 <template>
-  <div class="card">
-    <img src="/static/images/good-img.png" mode="aspectFit" class="goods-img">
+  <div class="card" @click="tabGoods">
+    <div  class="goods-img">
+      <img :src="item.goodsImage" mode="aspectFit">
+      <div class="sell-gone-tag" v-if="isSellOut">已抢光</div>
+    </div>
+
     <div class="card-main">
       <div class="card-main-top">
         <div class="goods-name">
-          原泽味 果园直发纯真鲜果 四川青脆李子 2.5kg
+          {{ item.goodsName }}
         </div>
-        <div class="goods-desc">脆甜爽口 现摘现发</div>
-        <div class="limit-tag">限购</div>
+        <div class="goods-desc" v-if="item.shareDescription">{{ item.shareDescription || '' }}</div>
+        <div class="limit-tag" v-if="item.activityLimitNum">限购</div>
       </div>
        <div class="card-main-bottom">
          <div class="card-main-bottom-left">
@@ -27,14 +31,37 @@
          </div>
       </div>
     </div>
+    <div class="card-mask"  v-if="isSellOut"></div>
   </div>
 </template>
 
 <script>
 import NumHandle from '../NumHandle'
 export default {
+  props: {
+    item: {
+      type: Object,
+      default: () => ({})
+    },
+    // 是否抢光
+    isSellOut: {
+      type: Boolean,
+      default: false
+    }
+  },
   components: {
     NumHandle
+  },
+
+  methods: {
+    /**
+     * @description 点击了商品，正常商品跳转商品详情
+     */
+    tabGoods () {
+      wx.navigateTo({
+        url: `/pages/goods/detail/main?id=${this.item.id}&activityId=${this.item.activityId}&activityGoodsId=${this.item.id}`
+      })
+    }
   }
 }
 </script>
@@ -46,10 +73,35 @@ export default {
   box-sizing: border-box;
   background: #ffffff;
   display: flex;
+  position: relative;
   .goods-img{
     width: 268rpx;
     height: 268rpx;
     margin-right: 21rpx;
+    position: relative;
+    .sell-gone-tag{
+      width: 140rpx;
+      height: 140rpx;
+      line-height: 140rpx;
+      text-align: center;
+      background:rgba(0,0,0,1);
+      opacity:0.6;
+      z-index: 10;
+      border-radius:50%;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      margin: -70rpx 0 0 -70rpx;
+      color:#FFFFFF;
+      font-size: 28rpx;
+    }
+    img{
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
   }
   .card-main{
     display: flex;
@@ -118,6 +170,16 @@ export default {
         font-size: 22rpx;
       }
     }
+  }
+  &-mask{
+    background:rgba(253,253,253,1);
+    opacity:0.5;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9;
   }
 }
 </style>
