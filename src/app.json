@@ -21,7 +21,7 @@
     "pages/mine/auth/main",
     "pages/mine/bind/main",
     "pages/mine/info/main",
-    "pages/catygory/main",
+    "pages/cateygory/main",
     "pages/mine/serviceAgreement/main",
     "pages/settings/index/main",
     "pages/pickup/index/main",
