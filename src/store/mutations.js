@@ -1,4 +1,4 @@
-import * as types from './mutation-types'
+
 
 export default {
   // @XXX: 可能需要改用 action 逆地址解析
@@ -68,9 +68,6 @@ export default {
     console.log('state.personCenter ',state.personCenter )
   },
 
-  // setAddressList(state, payload) {
-  //   state.addressList = payload
-  // },
 
   setCartNum(state, cartNum) {
     state.cartNum = cartNum
@@ -123,7 +120,6 @@ export default {
   setIndexGoodsTop (state,payload) {
     state.indexGoodsTop = payload
   },
-
 
 
   setRunTime(state,payload){

@@ -5,8 +5,10 @@
        <!-- 正常商品列表 -->
       <base-cart
         :cartItemResultList="cartItemResultList"
-        @updateActivityStatus="updateActivityStatus"
+        @onAllCheckedChange="onAllCheckedChange"
         @updateCartNum="updateCartNum"
+        @updateActivityStatus="updateActivityStatus"
+        @updateCartList="refreshCartList"
         @del="del"
         v-if="cartItemResultList && cartItemResultList.length"
       />
@@ -14,7 +16,7 @@
       <!-- 失效商品列表 -->
       <failure-cart
         :failureGoodsList="failureGoodsList"
-        @updateActivityStatus="updateActivityStatus"
+        @updateCartList="updateCartList"
         v-if="failureGoodsList && failureGoodsList.length"
       />
 
@@ -26,7 +28,7 @@
         :totalAmount="totalAmount"
         :promisAmount="promisAmount"
         :cartItemResultList="cartItemResultList"
-        @updateActivityStatus="updateActivityStatus"
+        @onAllCheckedChange="onAllCheckedChange"
         v-if="cartItemResultList && cartItemResultList.length"
       />
 
@@ -36,6 +38,8 @@
       <!-- 购物车为空的时候显示 -->
       <empty-cart />
     </template>
+
+
 
 
   </div>
@@ -49,11 +53,9 @@
   import BaseCart from './components/BaseCart/index'
   import EmptyCart from './components/EmptyCart/index'
   import Suspension from './components/Suspension/index'
+  import  CartModel from '@/model/cart'
 
-
-  const SLIDE_PARAMS = {
-    checked: true
-  }
+  const cartModel = new CartModel()
 
   export default {
     components: {
@@ -119,7 +121,7 @@
         if (!this.cartItemResultList) return ''
 
         return this.cartItemResultList
-          .filter(item => item.checked)
+          .filter(item => item.isSelect)
           .map(item => item.cartId)
           .join(',')
       },
@@ -139,12 +141,69 @@
       },
 
       /**
+       * @param {boolean} allSelectStauts 当前全选中状态
+       * @description 全选操作，修改全选状态
+       */
+      async onAllCheckedChange (allSelectStauts) {
+        wx.showLoading({})
+        console.log('onAllCheckedChange',allSelectStauts)
+        const res = await cartModel.updateSelect({
+          cartIds: allSelectStauts ? '' : 'all'
+        })
+
+        if(res.code == Api.CODES.SUCCESS) {
+          wx.hideLoading({})
+          if(res.data.info) {
+            //库存检测问题
+            wx.showToast({
+              icon: 'none',
+              title: res.data.info
+            })
+            setTimeout(() => {
+              this.refreshCartList()
+            },1500)
+
+
+          }else{
+            //库存无问题，更新购物车
+            this.refreshCartList()
+          }
+        }
+      },
+
+
+      /**
        * @param {boolean} 当前购物车商品是否选中
        * @param {index} 购物车商品所在索引
-       * @description 更新购物车列表数据
+       * @description 选中或则勾选更新购物车
        */
-      updateActivityStatus(checked,index) {
-        console.log('updateActivityStatus',checked,index)
+      async updateActivityStatus(item) {
+        const res = await cartModel.updateSelect({
+          cartIds: item.cartId
+        })
+
+        if(res.code == Api.CODES.SUCCESS) {
+
+          if(res.data.info) {
+            //库存检测问题
+            wx.showToast({
+              icon: 'none',
+              title: res.data.info
+            })
+          }else{
+            //库存无问题，更新购物车
+            this.refreshCartList()
+          }
+
+        }
+
+
+      },
+
+      /**
+       * @description 更新购物车列表
+       */
+      refreshCartList () {
         wx.showLoading({})
         Api.cart.cartList({
           storeId: this.storeId,
@@ -153,7 +212,7 @@
           if (res.code === Api.CODES.SUCCESS) {
 
             //选择或则取消了购物车重新更新订单
-            this.cartItemResultList = this.getUpdateCartResultList(res.data.cartItemResultList,checked,index)
+            this.cartItemResultList = res.data.cartItemResultList
             this.failureGoodsList = res.data.failureGoodsList
             this.totalAmount  =  res.data.totalAmount
             this.promisAmount = res.data.promisAmount
@@ -175,7 +234,7 @@
           storeId: this.storeId
         }).then(res => {
           if (res.code === Api.CODES.SUCCESS) {
-            this.updateActivityStatus()
+            this.refreshCartList()
           } else {
             wx.showToast({
               title: res.message,
@@ -213,7 +272,7 @@
               this.cartItemResultList.splice(index, 1)
             }
             this.$store.dispatch('updateCartNum')
-            this.updateActivityStatus()
+            this.refreshCartList()
           } else {
             wx.showToast({
               title: res.message,
@@ -225,7 +284,6 @@
         .then(() => wx.hideLoading())
       },
 
-
       /**
        * @description 初始化，加载购物车列表
        */
@@ -235,14 +293,6 @@
           carts: 'all'
         }).then(res => {
           if (res.code == Api.CODES.SUCCESS) {
-            res.data.cartItemResultList = res.data.cartItemResultList.map(item => ({
-              ...item,
-              ...SLIDE_PARAMS
-            }))
-            res.data.failureGoodsList = res.data.failureGoodsList.map(item => ({
-              ...item,
-              ...SLIDE_PARAMS
-            }))
             this.cartItemResultList = res.data.cartItemResultList
             this.failureGoodsList = res.data.failureGoodsList
             this.totalAmount = res.data.totalAmount //合计购物车价格

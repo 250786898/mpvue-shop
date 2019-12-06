@@ -39,7 +39,7 @@
           </div>
           <!-- 密码 -->
           <div class="payment__pwd">
-            <password v-model="input" @complete="onComplete" ref="password"></password>
+
           </div>
         </div>
       </div>
@@ -49,13 +49,9 @@
 
 <script>
   import { Api } from '@/http/api'
-  import Password from '@/components/Password'
+
 
   export default {
-    components: {
-      Password
-    },
-
     props: {
       shown: {
         type: Boolean,

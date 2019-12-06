@@ -114,10 +114,6 @@ export default {
 
 
   async mounted () {
-    　let _this = this
-
-
-
     wx.showTabBar()
     console.log('首页a',this.$mp.page.options.shareStoreId)
     this.initPageShowHide()

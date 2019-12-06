@@ -12,12 +12,10 @@ export default {
   usuallyStoreInfo: {}, //经常访问的门店信息
   storeInfo: {},  //定位门店信息
   cartNum: 0, // 购物车数量
-  tempOrder: {}, // 临时订单 拼团相关营销活动使用
-  gradePrivilegeExplain: '',
   cityName:'广州市', //选择的城市
   locateCity: '', //用户定位城市
   indexBarHeight: 0 , //首页顶部栏高度
   indexGoodsTop: 0, //首页时段活动距离顶部距离
-  runingtime:0,
-  pickup:''
+  runingtime:0, //待支付倒计时时间
+  pickup:'' //提货
 }
