@@ -37,19 +37,18 @@
             <goods-card :item="item"  :isSellOut="item.activityStock == 0"/>
           </div>
         </template>
-          <!-- <base-goods-card :item="item" :key="item.id" :isSellOut="item.activityStock == 0"/>  -->
       </div>
         <!-- 加载更多 -->
         <div class="goods-recommend__footer">
-          <!-- <lj-loading v-if="!isAllLoaded && loading" /> -->
           <div class="goods-tabs__tip" v-if="!tabLoading && goodsList.length">我是有底线的！</div>
       </div>
 
       <img src="/static/images/pull_down_refresh_icon.gif" alt="" class="tab-loading-icon" v-if="tabLoading">
 
-      <template v-if="!tabLoading && goodsList.length == 0 && !loading">
+
+      <div class="empty-goods-tip" v-if="!tabLoading && goodsList.length == 0 && !loading">
           <EmptyGoods/>
-      </template>
+      </div>
 
 
 
@@ -62,7 +61,7 @@
   import { Api } from '@/http/api'
   import GoodsTabs from '@/components/GoodsTabs'
   import GoodsRowItem from '@/components/GoodsRowItem'
-  import EmptyGoods from "../EmptyGoods/index"
+  import EmptyGoods from "@/components/EmptyGoodsTip"
   import BaseGoodsCard from "../BaseGoodsCard/index"
   import GoodsCard from './components/GoodsCard'
   import BeginGoodsCard from "../BeginGoodsCard/index"
@@ -346,6 +345,11 @@
     font-size: 28rpx;
     color: #B2B2B2;
     text-align: center;
+  }
+
+  .empty-goods-tip{
+    background: #fff;
+    padding: 113rpx 0 390rpx;
   }
 
  .goods-recommend {

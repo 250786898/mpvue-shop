@@ -1,8 +1,14 @@
 <template>
   <div class="nav">
-
-    <div class="nav-list">
-      <div class="nav-list-item"  @click="tabCategory(-1)" :class="{ 'active-item' : currentIndex == -1  }">
+    <scroll-view
+      :scroll-x="true"
+      :scroll-into-view="toCurrentNavItem"
+      :scroll-with-animation="true"
+      style=" white-space: nowrap; display: flex"
+      class="nav-list"
+    >
+    <!--  display: inline-block-->
+      <div class="nav-list-item"  @click="tabCategory(-1)" id="item-1" :class="{ 'active-item' : currentIndex == -1  }">
         全部
       </div>
       <div
@@ -10,17 +16,17 @@
         v-for="(item, index) in categoryList"
         v-bind:key="index"
         :class="{ 'active-item' : index == currentIndex }"
+        :id="'item'+index"
         @click="tabCategory(index)"
       >
-        时令尝鲜
+        {{item}}
       </div>
+    </scroll-view>
 
-
-      <div class="downward-icon" @click="handleCategoryShow">
-       <img src="/static/images/cate-downward-icon.png" alt="">
-      </div>
-
-    </div>
+     <div class="downward-icon" @click="handleCategoryShow">
+       <img src="/static/images/downward-bg-icon.png" alt="" class="downward-icon__bg">
+       <img src="/static/images/cate-downward-icon.png" alt="" class="downward-icon__main">
+     </div>
 
     <template v-if="isshowAllCategory">
       <div  class="category">
@@ -39,7 +45,7 @@
             :class="{ 'active-item' : index == currentIndex }"
             @click="tabCategory(index)"
           >
-            时令尝鲜
+            {{item}}
           </div>
         </div>
         <div class="category-mask">
@@ -57,7 +63,9 @@ export default {
     categoryList: {
       type: Array,
       default: () => {
-       return [1,2,3,4,5]
+       return [
+         '时令水果','悠闲食品','安心乳品','酒饮冲调','肉蛋食材','放心蔬菜','粮油速食','美妆护肤','个人护肤'
+       ]
       }
     }
   },
@@ -65,10 +73,22 @@ export default {
     return {
       isshowAllCategory : false, //是否显示全部导航
       currentIndex: -1, //当前所在栏目索引 -1代表全部
+      scrollLeft: '300'
     }
+  },
+  watch: {
+    'currentIndex' : function () {
+      console.log('currentIndex')
+      this.hideCategoryDialog()
+    },
   },
   components: {
     DownwardIcon
+  },
+  computed: {
+    toCurrentNavItem () {
+      return `item${this.currentIndex}`
+    }
   },
   methods: {
 
@@ -84,6 +104,13 @@ export default {
      */
     handleCategoryShow () {
       this.isshowAllCategory = !this.isshowAllCategory
+    },
+
+    /**
+     * @descption 隐藏分类弹窗
+     */
+    hideCategoryDialog() {
+      this.isshowAllCategory = false
     }
   }
 }
@@ -93,13 +120,13 @@ export default {
 .nav{
   position: relative;
   &-list{
-    margin-top: 25rpx;
-    display: flex;
-    align-items: center;
     padding-left: 12rpx;
-    flex-wrap: wrap;
-    height: 50rpx;
+    height: 100rpx;
+    padding-top: 25rpx;
+    width:582rpx;
+    box-sizing: border-box;
     overflow: hidden;
+    position: relative;
     &-item{
       width:120rpx;
       height:50rpx;
@@ -110,6 +137,7 @@ export default {
       border-radius:8rpx;
       color: #434343;
       font-size: 22rpx;
+      display: inline-block;
       margin-right: 10rpx;
     }
   }
@@ -118,17 +146,24 @@ export default {
     width: 75rpx;
     height: 100rpx;
     position: absolute;
-    background: #fff;
     display: flex;
     align-items: center;
     right: 0;
     z-index: 9;
-    top: -23rpx;
+    top: 0rpx;
     text-align: center;
     justify-content: center;
-    img{
+    &__bg{
+      width: 100%;
+      height:100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+    &__main{
       width:28rpx;
       height: 16rpx;
+      z-index: 10;
     }
   }
 

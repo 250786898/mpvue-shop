@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import NumHandle from '../NumHandle'
+import NumHandle from '@/components/GoodsNumHandle.vue'
 export default {
   props: {
     item: {

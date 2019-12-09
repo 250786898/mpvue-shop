@@ -50,9 +50,12 @@ export default {
 }
 .swiper-box .wx-swiper-dot{
     display: inline-flex;
-    margin-left: 10rpx;
+    margin-left: 5rpx !important;
+    margin-right: 5rpx !important;
     justify-content:space-between;
     width:18rpx;
+    min-width: auto;
+    padding: 0;
     height:6rpx;
     background:rgba(242,242,242,1);
     opacity: 0.5;

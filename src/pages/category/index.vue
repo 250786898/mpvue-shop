@@ -26,5 +26,6 @@ export default {
   display: flex;
   flex: 1;
   position: relative;
+  box-sizing: border-box;
 }
 </style>
