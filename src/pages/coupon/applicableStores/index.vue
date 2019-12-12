@@ -21,30 +21,44 @@ export default {
 }
 </script>
 
+<style>
+page{
+  background: #F1F1F1;
+}
+</style>
+
 <style lang="scss" scoped>
 .store-list{
   background: #f5f5f5;
-  padding: 20rpx 0 0 0;
+  padding: 20rpx 0 0rpx 0;
   &-item{
     background: #ffffff;
-    padding: 20rpx;
+    padding: 40rpx 30rpx 20rpx;
     box-sizing: border-box;
     &:after{
-      border-bottom: 1px solid #eee;
+      border-bottom: 1px solid #929292;
       content: ' ';
       display: block;
       height: 1px;
       width: 100%;
-      margin-top: 10rpx;
+      margin-top: 20rpx;
+    }
+    &:nth-last-of-type(1) {
+      &:after{
+        border: none;
+      }
     }
 
     .store-name{
       margin-bottom: 14rpx;
       font-size: 32rpx;
+      font-weight:bold;
     }
     .detail-address{
-      color: $text-gray;
-      font-size: 26rpx;
+      color: #999999;
+      margin-top: 17rpx;
+      font-size: 28rpx;
+      line-height: 1.3;
     }
   }
 }

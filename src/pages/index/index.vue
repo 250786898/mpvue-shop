@@ -34,10 +34,12 @@
 
       <page-loading  :show="showPageLoading"/>
 
+
       <SelectStoreDialog :show="showSelectStoreDialog" @comfirmStore="comfirmStore"/>
 
       <ComfirmStoreDialog :show="showComfirmStoreDialog"  @comfirmStore="comfirmStore" />
 
+      <CouponDialog />
 
   </div>
 
@@ -57,6 +59,7 @@ import ComfirmStoreDialog from "@/components/ComfirmStoreDialog"
 import SelectStoreDialog from "@/components/SelectStoreDialog"
 import GoodsList from "./components/GoodsList/index"
 import NavBar from "./components/NavBar/index"
+import CouponDialog from "./components/CouponDialog"
 import { serialize } from '@/utils/'
 import StoreModel from '@/model/store'
 
@@ -74,7 +77,8 @@ export default {
     SelectStoreDialog,
     FixedTopBar,
     CategoryNav,
-    ThemeArea
+    ThemeArea,
+    CouponDialog
   },
 
   data() {

@@ -1,69 +1,24 @@
 <template>
   <div class="container">
-
-    <div class="redeem-code">
-      <div class="redeem-code-form">
-        <input type="text" placeholder="请输入兑换码" class="redeem-code-input">
-        <span class="redeem-code-form__btn">兑换</span>
-      </div>
-    </div>
-
-    <div class="coupons-list-container">
-
-       <template v-if="list.length > 0">
-          <div class="coupons-list-header">
-              您有<span class="totol-coupons-num">2</span>张优惠券即将到期
-          </div>
-
-          <div class="coupons-list" >
-            <coupon-card v-for="item in list" :key="item.couponId" :item="item"></coupon-card>
-            <coupon-card v-for="item in list" :key="item.couponId" :item="item" type="used"></coupon-card>
-          </div>
-       </template>
-
-       <template v-else>
-         <empty-coupon-tip />
-       </template>
-
-    </div>
-
+    <exchange-box />
+    <CouponList/>
   </div>
-  <!--
 
-
-  <movable-area class="slider-left-item" style="width: 930rpx; margin-left:-180rpx;"
-    v-for="(item, index) in list"
-    :key="item.couponId">
-    <movable-view class="slider-left-content"
-      damping="100"
-      :x="item.x"
-      direction="horizontal"
-      @touchstart="handleTouchestart(item, $event)"
-      @touchend="handleTouchend(item, $event)"
-      @change="handleChange(item, $event)">
-      <coupon-card :status="1":item="item"></coupon-card>
-    </movable-view>
-    <view class='slider-left-handle'>
-      <view @click="del(item,index)" class="slider-left-handle__button red">
-        删除
-      </view>
-    </view>
-  </movable-area> -->
 </template>
 
 <script>
   import { mapState } from 'vuex'
   import { Api } from '@/http/api'
-  import CouponCard from '../components/CouponCard'
-  import EmptyCouponTip from '../components/EmptyCouponTip'
+  import ExchangeBox from './components/ExchangeBox/index'
+  import CouponList from './components/CouponList'
 
   const OPEN_WIDTH = 180
   const MOVE_THRESHOLD = 30
 
   export default {
     components: {
-      CouponCard,
-      EmptyCouponTip
+      ExchangeBox,
+      CouponList
     },
 
     data () {
@@ -219,42 +174,4 @@
 </style>
 
 <style lang="scss" scoped>
-.container{
-  box-sizing: border-box;
-}
-.redeem-code{
-  padding: 15rpx 25rpx;
-  background: $white-color;
-  width: 100vw;
-  box-sizing: border-box;
-  &-form{
-    display: flex;
-    align-items: center;
-    &__btn{
-      color:#000000;
-      font-size: 28rpx;
-      margin-left: 24rpx;
-    }
-  }
-  &-input{
-    flex: 1;
-    height:72rpx;
-    background:rgba(243,243,243,1);
-    border-radius:36rpx;
-    font-size: 28rpx;
-    color: #7F7F7F;
-    padding: 0 30rpx;
-  }
-}
-.coupons-list-container{
-  padding: 0 24rpx;
-  .coupons-list-header{
-    padding: 39rpx 0 24rpx 0;
-    color: #7F7F7F;
-    font-size: 28rpx;
-  }
-  .totol-coupons-num{
-    color: #FF9900;
-  }
-}
 </style>

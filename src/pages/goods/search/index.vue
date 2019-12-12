@@ -71,7 +71,6 @@
 <script>
   import { mapState } from 'vuex'
   import { Api } from '@/http/api'
-  import GoodsRowItem from '@/components/GoodsRowItem'
   import Empty from '@/components/Empty'
 
   const SEARCH_STORAGE_KEY = 'search_history'
@@ -79,7 +78,6 @@
 
   export default {
     components: {
-      GoodsRowItem,
       Empty
     },
 

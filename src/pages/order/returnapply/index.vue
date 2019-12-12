@@ -62,14 +62,6 @@
           <image-uploader v-model="goodsImageMore" :maxlength="3"></image-uploader>
         </div>
       </div>
-      <!-- <div class="weui-cell" hover-class="navigator-hover" @click="selectAddress">
-        <div class="weui-cell__hd" style="width: 140rpx">提货地址</div>
-        <div class="weui-cell__bd"></div>
-        <div class="weui-cell__ft weui-cell__ft_in-access" style="line-height: 60rpx;">
-          {{ addressInfo.areaInfo || '请选择' }}
-        </div>
-         <input type="text" v-model="address"> -->
-      <!-- </div>  -->
     </div>
 
     <div class="footer-bar">

@@ -48,7 +48,6 @@
 <script>
   import { Api } from '@/http/api'
   import { mapState } from 'vuex'
-  import GoodsRecommend from '@/components/GoodsRecommend'
   import FailureCart from './components/FailureCart/index'
   import BaseCart from './components/BaseCart/index'
   import EmptyCart from './components/EmptyCart/index'
@@ -59,7 +58,6 @@
 
   export default {
     components: {
-      GoodsRecommend,
       FailureCart,
       BaseCart,
       EmptyCart,

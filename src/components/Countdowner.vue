@@ -104,15 +104,15 @@
     span {
       vertical-align: top;
       display: inline-block;
-      font-size: 26rpx;
-      color: #0C524D;
+      font-size: 28rpx;
+      color: #fff;
       &.num {
         text-align: center;
         color: #fff;
         width:40rpx;
         height:36rpx;
         line-height: 36rpx;
-        background:rgba(25,111,105,1);
+        background:#F1913E;
         border-radius:6rpx;
         font-weight:800;
       }

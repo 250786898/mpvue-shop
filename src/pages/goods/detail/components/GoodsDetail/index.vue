@@ -20,12 +20,12 @@ export default {
 .goods-detail {
   background-color: #fff;
   margin-top: 20rpx;
-  padding: 0 30rpx;
+  padding: 0 20rpx;
   &__title {
-    padding-top: 39rpx;
-    padding-bottom: 39rpx;
+    padding-top: 32rpx;
+    padding-bottom: 32rpx;
     text-align: left;
-    font-size: 30rpx;
+    font-size: 38rpx;
     font-weight: bold;
     color: $text-black;
   }

@@ -1,197 +1,143 @@
 <template>
-  <div class="goods-row-item">
-    <navigator
-      :url="'/pages/goods/detail/main?id=' + item.id+ '&activityId=' + (item.activityId || '') + '&activityGoodsId=' + (item.id || '')"
-      class="weui-media-box weui-media-box_appmsg"
-      hover-class="weui-cell_active"
-      >
-      <div class="weui-media-box__hd weui-media-box__hd_in-appmsg">
-        <img class="weui-media-box__thumb" :src="item.goodsImage" mode="aspectFit"/>
-        <img :src="item.goodsTagImage" class="marker" v-if="item.goodsTagStatus == 1">
-      </div>
+  <div class="card">
+    <div class="goods-img">
+       <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/1576056769198.jpg"  mode="aspectFit" >
+       <div class="sell-gone-tag" v-if="isSellOut">已抢光</div>
+    </div>
 
-      <div class="weui-media-box__bd weui-media-box__bd_in-appmsg">
-        <div class="weui-media-box__title">{{ item.goodsName }}</div>
-        <div class="weui-media-box__desc" v-if="item.shareDescription">{{ item.shareDescription || '' }}</div>
-        <div class="goods-row-item__tb" v-if="item">
-
-        <!-- 替换组件 -->
-        <div class="goods-row-item__price"  >
-          <div class="primary">￥{{ item.onlinePrice }}</div>
-          <div class="secondary" v-if="item.onlineScribingPrice">￥{{ item.onlineScribingPrice }}</div>
-        </div>
-          <!-- <goods-price :item="item"></goods-price> -->
-
-          <div class="counter" v-if="currentGoodsCartNum > 0">
-            <counter  v-model="currentGoodsCartNum" :max="item.inventoryAmount" @change="onGoodsNumChange($event,item)"></counter>
+    <div class="goods-name">美国进口车厘子新鲜...</div>
+    <div class="goods-desc">新鲜礼盒水果 家庭装</div>
+    <div class="limit-label">限购1件</div>
+    <div class="card-footer">
+      <div class="card-footer-main">
+        <div class="price-wrap">
+          <div class="online-price">
+            <OnlinePrice :signSize="20" :beforeSize="32" :afterSize="24"/>
           </div>
-          <form report-submit="true" @submit="uploadFormId" v-else>
-            <button hover-class="none" form-type="submit" class="hiddenBtn" @click.stop="addToCart(item.id)">
-              <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_btn_shopcart_small.png@2x.png" class="icon-cart" @click.stop="addToCart(item.id)">
-            </button>
-          </form>
-
-
+          <div class="scribing-price">￥299.00</div>
         </div>
+        <div class="sell-null">已售4738份</div>
       </div>
-      <div class="xian"></div>
+      <div class="add-cart">
+        <GoodsNumHandle />
+      </div>
 
-    </navigator>
+    </div>
+    <div class="card-mask"  v-if="isSellOut"></div>
   </div>
 </template>
 
 <script>
-  import {Api} from '@/http/api'
-  import GoodsPrice from '@/components/GoodsPrice'
-  import Counter from '@/components/Counter'
-
-  export default {
-    components: {
-      GoodsPrice,
-      Counter
-    },
-    props: {
-      item: {
-        type: Object,
-        default: () => ({})
-      },
-      // isMultiDesc
-      // 是否热销
-      isHot: {
-        type: Boolean,
-        default: false
-      }
-    },
-    data () {
-      return {
-        currentGoodsCartNum: 0, //当前购物车数量
-      }
-    },
-
-    computed: {
-    },
-
-
-// 接收后台返回的商品信息
-
-    methods: {
-      /**
-       * @param {object} e count:增加或则减少的数量 type:类型(增加或则减少)
-       * @description 增加或则减少购买的数量
-       */
-      onGoodsNumChange ({ count,type },item) {
-        // console.log('count',count)
-        // switch(type){
-        //   case 'add':
-        //   //添加购物车数量
-        //   this.addToCart()
-        //   break
-        // }
-        this.addToCart()
-      },
-
-      uploadFormId (e) {
-        this.formId = e.target.formId
-        Api.user.addFormId({
-          formId: this.formId
-        }).then((res) =>{
-          if(res.code == Api.CODES.SUCCESS) {
-            console.log('777',res)
-          }
-        })
-      },
-
-      addToCart(activityGoodsId = '') {
-        console.log('currentGoodsCartNum',this.currentGoodsCartNum)
-        this.$store.dispatch('addToCart', {
-          goodsId: this.item.goodsId || this.item.id,
-          activityId: this.item.activityId,
-          activityGoodsId
-        })
-      }
-    },
-
-onLoad(){
-}
-
+import OnlinePrice from '@/components/OnlinePrice'
+import GoodsNumHandle from '@/components/GoodsNumHandle'
+export default {
+  components: {
+    OnlinePrice,
+    GoodsNumHandle
+  },
+  props:{
+    // 是否抢光
+    isSellOut: {
+      type: Boolean,
+      default: false
+    }
   }
+}
 </script>
 
 <style lang="scss" scoped>
-  .counter{
+.card{
+  width: 350rpx;
+  box-sizing: border-box;
+  padding: 10rpx 18rpx 20rpx;
+  background: #ffffff;
+  margin-bottom: 10rpx;
+  border-radius: 14rpx;
+  position: relative;
+  &-mask{
+    background:rgba(253,253,253,1);
+    opacity:0.5;
     position: absolute;
-    top:160rpx;
-    right: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9;
   }
-  .weui-media-box__bd_in-appmsg{
-    float:right;
-    width: 428rpx;
-    height: 208rpx;
+  .goods-img{
+    width: 314rpx;
+    height: 314rpx;
+    position: relative;
+    img{
+      width: 100%;
+      height: 100%
+    }
+    .sell-gone-tag{
+      width: 140rpx;
+      height: 140rpx;
+      line-height: 140rpx;
+      text-align: center;
+      background:rgba(0,0,0,1);
+      opacity:0.6;
+      z-index: 10;
+      border-radius:50%;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      margin: -70rpx 0 0 -70rpx;
+      color:#FFFFFF;
+      font-size: 28rpx;
+    }
 
   }
-
-  .goods-row-item__price{
-    position:absolute;
-    top:150rpx;
-    .secondary{
-      padding: 0;
-    }
-    .secondary{
-      text-align: left;
-    }
-  }
-
-.goods-row-item__tb{
-  position: relative;
-    .hiddenBtn{
-      right:-8rpx;
-      top:111rpx;
-    }
-}
-.goods-row-item{
-  // position: relative;
-  background-color: #fff;
-  text-align: center;
-  position: relative;
-  .xian{
-    position:absolute;
-    bottom:0rpx;
-    left:18rpx;
-    width: 669rpx;
-    height: 1rpx;
-    border-bottom:1px solid rgb(243, 243, 243);
-    opacity: 0.7;
-  }
-  .weui-media-box__desc{
-    float:left;
-    text-align: left;
-    margin: 13rpx 0 ;
-    height: 35rpx;
-    width: 368rpx;
-    line-height: 31rpx;
-  }
-  .weui-media-box__title{
-    float:left;
-    width: 405rpx;
-    height: 37rpx;
-    text-align: left;
-    margin-bottom:0;
+  .goods-name{
+    color: #101010;
     font-size: 30rpx;
-    font-weight:bold;
-    margin-top: 8rpx;
-    // word-wrap:break-word;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    line-height: 33rpx;
-
+    width:292px;
+    @include ellipsis;
+    margin: 13rpx 0 11rpx 0;
   }
-  .icon-cart{
-    position: absolute;
-    right: 6rpx;
-    bottom: 10rpx;
-    width: 56rpx;
-    height: 56rpx;
-
+  .goods-desc {
+    color: #999999;
+    font-size: 24rpx;
+  }
+  .limit-label{
+    width:93rpx;
+    height:34rpx;
+    line-height: 34rpx;
+    text-align: center;
+    border:2rpx solid rgba(248,172,8,1);
+    border-radius:4rpx;
+    color: #F8AC08;
+    font-size: 20rpx;
+    margin-top: 20rpx;
+    margin-bottom: 20rpx;
+  }
+  .add-cart{
+    width: 60rpx;
+    height: 60rpx;
+  }
+  .card-footer{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    &-main{
+      .price-wrap{
+        display: flex;
+        align-items: flex-end;
+        .scribing-price{
+          color: #3D3C3C;
+          font-size: 22rpx;
+          text-decoration: line-through;
+          margin-left: 11rpx;
+        }
+      }
+    }
+    .sell-null{
+      color: #787878;
+      font-size: 22rpx;
+      margin-top: 10rpx;
+    }
   }
 }
 </style>

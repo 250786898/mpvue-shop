@@ -9,7 +9,6 @@
     "pages/cart/main",
     "pages/mine/main",
     "pages/location/main",
-    "pages/goods/index/main",
     "pages/goods/detail/main",
     "pages/order/preview/main",
     "pages/order/index/main",
@@ -30,7 +29,8 @@
     "pages/network/exceptions/main",
     "pages/coupon/index/main",
     "pages/coupon/applicableStores/main",
-    "pages/coupon/applicableGoods/main"
+    "pages/coupon/applicableGoods/main",
+    "pages/coupon/fetch/main"
   ],
   "window": {
     "backgroundTextStyle": "light",

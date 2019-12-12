@@ -4,11 +4,10 @@
     <div class="footer-bar bp-footer-bar" >
 
       <div class="cart-box">
-         <navigator open-type="switchTab" url="/pages/cart/main" class="cart-icon">
-          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/cart_icon.png">
-          <span class="weui-badge" v-if="cartNum">{{ cartNum }}</span>
-        </navigator>
+         <CartIcon />
       </div>
+
+      <div class="line"></div>
 
       <button type="primary" class="radius bg-gradient add-cart-btn" @click="confirmAdd" v-if="activityStock">加入购物车</button>
       <button type="primary" class="radius bg-gradient" disabled v-else>已抢光，补货中</button>
@@ -19,7 +18,11 @@
 
 <script>
 import { mapState } from 'vuex'
+import CartIcon from '@/components/CartIcon'
 export default {
+  components: {
+    CartIcon
+  },
   props: {
     goodsId: { //商品id
       type: String,
@@ -55,11 +58,12 @@ export default {
 .footer-bar.bp-footer-bar {
   background-color: #fff;
   width:750rpx;
-  height:105rpx;
-  box-shadow: 1rpx 8rpx 8rpx 1px #000;
+  height:104rpx;
+  box-shadow:0px -3rpx 10rpx 0px rgba(240,241,243,0.45);
   box-sizing: border-box;
   display: flex;
   align-items: center;
+  z-index: 19;
   .cart-box{
     height: 100%;
     width: 137rpx;
@@ -81,6 +85,12 @@ export default {
       top: 0;
     }
   }
+
+  .line{
+    width:1px;
+    height:68rpx;
+    background:rgba(229,229,229,1);
+  }
   button {
     display: inline-block;
     vertical-align: middle;
@@ -91,7 +101,7 @@ export default {
     border-radius: 10rpx;
   }
   .add-cart-btn {
-    background:linear-gradient(270deg,rgba(18,205,207,1),rgba(12,225,179,1));
+    background:#01BD9F;
   }
 }
 </style>

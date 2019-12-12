@@ -1,5 +1,10 @@
 <template>
   <div v-if="goodsDetailInfo">
+
+    <!-- fixed-top -->
+    <FixedTop />
+
+
     <!-- Swiper -->
     <DetailSwiper :bannerList="goodsDetailInfo.goodsBanner" />
 
@@ -16,13 +21,18 @@
     <!-- 商品相关描述（名称） -->
     <goods-desc :goods-name="goodsDetailInfo.goodsName" :goods-desc="goodsDetailInfo.shareDescription" />
 
-    <!-- 限g购 -->
-    <limit-purchase v-if="goodsDetailInfo.activityLimitNum" :num="goodsDetailInfo.activityLimitNum" />
 
     <!-- Type start: 提货时间 -->
     <!-- <pickup-timer  :pickup-time="goodsDetailInfo.pickUpTime"  /> -->
 
     <!-- Type end; -->
+
+    <!-- 限购 -->
+    <!-- goodsDetailInfo.activityLimitNum -->
+    <limit-purchase v-if="true" :num="goodsDetailInfo.activityLimitNum" />
+
+    <!-- 优惠券 -->
+    <CouponBar />
 
 
 
@@ -33,8 +43,6 @@
     <!-- 商品详情 -->
     <goods-detail :detail-info="goodsDetailInfo.mobileBody" />
 
-    <!-- 返回顶部 -->
-    <to-top />
 
     <!-- 底部栏 -->
     <bottom-bar :goods-id="goodsDetailInfo.goodsId" :activityStock="goodsDetailInfo.activityStock" />
@@ -59,7 +67,6 @@
   import { serialize } from '@/utils/'
   import { AMapWX } from "@/utils/amap-wx"
   import PageLoading from "@/components/PageLoading"
-  import AssembleGoodsRows from '@/components/AssembleGoodsRows'
   import GoodsInfo from './components/GoodsInfo/index'
   import GoodsDesc from './components/GoodsDesc/index'
   import LimitPurchase from './components/LimitPurchase/index'
@@ -67,9 +74,10 @@
   import GoodsRecommend from './components/GoodsRecommend/index'
   import GoodsDetail from './components/GoodsDetail/index'
   import DetailSwiper from './components/DetailSwiper/index'
-  import ToTop from './components/ToTop/index'
   import BottomBar from './components/BottomBar/index'
+  import CouponBar from './components/CouponBar/index'
   import Popup from './components/Popup/index'
+  import FixedTop from './components/FixedTop/index'
   import ComfirmStoreDialog from "@/components/ComfirmStoreDialog"
   import SelectStoreDialog from "@/components/SelectStoreDialog"
   import StoreModel from '@/model/store'
@@ -78,20 +86,20 @@
   const storeModel = new StoreModel()
   export default {
     components: {
-      AssembleGoodsRows,
       GoodsInfo,
       GoodsDesc,
       PickupTimer,
       GoodsRecommend,
       GoodsDetail,
       DetailSwiper,
-      ToTop,
       BottomBar,
       Popup,
       ComfirmStoreDialog,
       SelectStoreDialog,
       PageLoading,
-      LimitPurchase
+      LimitPurchase,
+      FixedTop,
+      CouponBar
     },
 
     data() {

@@ -5,10 +5,12 @@
       <div class="applicable-header-desc">
         <div class="applicable-header-desc__title">以下商品可使用满199元减99元的优惠券</div>
         <div class="applicable-header-desc__date">有效期：2018-08-01 至 2018-08-30</div>
-        <div class="applicable-store">查看适用门店</div>
+        <div class="applicable-store">
+          <span>查看适用门店</span>
+          <img src="/static/images/coupon_goods_right.png" class="applicable-store__icon" alt="">
+        </div>
       </div>
 
-      <to-cart-icon />
 
     </div>
 
@@ -20,21 +22,22 @@
           </div>
         </template>
       </div>
-      <!-- 加载更多 -->
-      <div class="goods-list__footer">
-        <div class="goods-tabs__tip">亲,已经看到最后啦！</div>
-      </div>
     </div>
+
+    <div class="cart-icon">
+      <cart-icon :type="'black'"/>
+    </div>
+
 
   </div>
 </template>
 
 <script>
-import ToCartIcon from "@/components/ToCartIcon"
-import GoodsItem from "../components/GoodsItem"
+import CartIcon from "@/components/CartIcon"
+import GoodsItem from "@/components/GoodsRowItem"
 export default {
    components:{
-     ToCartIcon,
+     CartIcon,
      GoodsItem
    },
    data () {
@@ -60,21 +63,31 @@ page{
 <style lang="scss" scoped>
 .applicable{
   padding: 20rpx;
+  padding-bottom: 180rpx;
   box-sizing: border-box;
   &-header{
     display: flex;
     &-desc{
       flex: 1;
       &__title{
-        font-size: 28rpx;
+        font-size: 30rpx;
+        margin-bottom: 19rpx;
       }
       &__date{
-        font-size: 24rpx;
-        color: #AEAEAE;
+        font-size: 30rpx;
+        color: #929493;
+        margin-bottom: 18rpx;
       }
       .applicable-store{
-        color: #159FF7;
-        font-size: 24rpx;
+        color: #259BED;
+        font-size: 30rpx;
+        display: flex;
+        align-items: center;
+        &__icon{
+          width: 12rpx;
+          height: 19rpx;
+          margin-left: 10rpx;
+        }
       }
     }
   }
@@ -84,8 +97,9 @@ page{
       width: 100%;
       display: flex;
       flex-wrap: wrap;
+      justify-content: space-between;
       .goods-item{
-        flex:1;
+        // flex:1;
       }
     }
   }
@@ -96,6 +110,12 @@ page{
     line-height: 124rpx;
     color: $text-gray;
     text-align: center;
+  }
+  .cart-icon{
+    position: fixed;
+    z-index: 9;
+    left: 20rpx;
+    bottom: 64rpx;
   }
 }
 </style>

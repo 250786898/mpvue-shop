@@ -18,7 +18,6 @@ export default {
     "pages/topnews/list/main",
     "pages/topnews/detail/main",
     "pages/goodstheme/main",
-    "pages/goods/index/main",
     "pages/goods/detail/main",
     "pages/rockpack/index/main",
     "pages/theme/manjian/main",

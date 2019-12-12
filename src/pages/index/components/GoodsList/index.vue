@@ -59,8 +59,6 @@
 <script>
   import { mapState } from 'vuex'
   import { Api } from '@/http/api'
-  import GoodsTabs from '@/components/GoodsTabs'
-  import GoodsRowItem from '@/components/GoodsRowItem'
   import EmptyGoods from "@/components/EmptyGoodsTip"
   import BaseGoodsCard from "../BaseGoodsCard/index"
   import GoodsCard from './components/GoodsCard'
@@ -94,8 +92,6 @@
       }
     },
     components: {
-      GoodsTabs,
-      GoodsRowItem,
       EmptyGoods,
       BaseGoodsCard,
       BeginGoodsCard,
@@ -260,13 +256,13 @@
 <style lang="scss">
 @keyframes fadeInDown
 {
-    from {
-        transform: translateY(-100%);
+  from {
+    transform: translateY(-100%);
 
-    }
-    to {
-          transform: translateY(0);
-    }
+  }
+  to {
+    transform: translateY(0);
+  }
 }
 
 .min-contaner{

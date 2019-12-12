@@ -1,17 +1,31 @@
 <template>
   <div class="good-buy-bar">
-      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/goods-detail-bar__bg.png" alt="" class="good-buy-bar__bg">
-     <div class="price-box">
-       <span class="current-price"  v-if="currentPrice">￥{{currentPrice}}</span>
-       <span class="original-price" v-if="originalPrice">￥{{originalPrice}}</span>
+      <img src="/static/images/shopping_bj_png.png" alt="" class="good-buy-bar__bg">
+
+     <div class="bar-left">
+       <div class="price-box">
+        <div class="current-price"  v-if="currentPrice">
+          <online-price :color="'#ffffff'" :signSize="46" :beforeSize="72" :afterSize="50" />
+        </div>
+        <span class="original-price" v-if="originalPrice">￥{{originalPrice}}</span>
+      </div>
+
+      <div class="sell-null">
+        已售4578件
+      </div>
      </div>
+
 
     <div class="end-time-box" v-if="isSale == 1">
         <div class="end-time-box__title">距离结束时间</div>
-        <countdowner :countdown="countDown"></countdowner>
+        <div class="countdowner">
+          <countdowner :countdown="countDown"></countdowner>
+        </div>
+
       </div>
-     <div class="end-time-box sale-time-text" v-if="isSale == 0" >
-         {{saleTime}}开售
+     <div class="end-time-box sale-time-text" v-if="isSale == 0">
+       <!-- {{saleTime}} -->
+         后天10:00开售
       </div>
 
 
@@ -20,6 +34,7 @@
 
 <script>
 import { formatSaleDate } from "@/utils/index"
+import OnlinePrice from '@/components/OnlinePrice'
 import Countdowner from '@/components/Countdowner'
 export default {
   props: {
@@ -54,7 +69,8 @@ export default {
     }
   },
   components: {
-    Countdowner
+    Countdowner,
+    OnlinePrice
   }
 }
 </script>
@@ -62,12 +78,11 @@ export default {
 <style lang="scss" scoped>
   .good-buy-bar{
     width:100vw;
-    height:120rpx;
+    height:124rpx;
     color: #fff;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 25rpx;
     box-sizing: border-box;
     position: relative;
     &__bg{
@@ -77,6 +92,16 @@ export default {
       width: 100%;
       height: 100%;
     }
+
+    .bar-left{
+      z-index: 2;
+      margin-left: 20rpx;
+      .sell-null{
+        color: #fff;
+        font-size: 24rpx;
+      }
+    }
+
     .current-price{
       font-weight:bold;
       font-size: 72rpx;
@@ -88,19 +113,25 @@ export default {
     }
     .price-box{
       z-index: 2;
+      display: flex;
+      align-items: flex-end;
     }
     .end-time-box{
       z-index: 2;
-      color: #0C524D;
+      color: #fff;
       text-align: center;
       font-size: 24rpx;
       &__title{
         padding-bottom: 15rpx;
       }
     }
+    .countdowner{
+      margin-right: 29rpx;
+    }
     .sale-time-text{
-      font-size: 31rpx;
-      font-weight: bold;
+      font-size: 40rpx;
+      font-weight: 500;
+      margin-right: 23rpx;
     }
   }
 </style>

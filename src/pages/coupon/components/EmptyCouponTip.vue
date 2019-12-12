@@ -1,7 +1,7 @@
 <template>
   <div class="empty-coupon-box">
-     <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/empty-coupon_icon.png" class="empty-coupon_icon" alt="">
-     <div class="empty-coupon_text">还没有券哦~</div>
+     <img src="/static/images/picture_Default page_png.png" class="empty-coupon_icon" alt="">
+     <div class="empty-coupon_text">还没有优惠券哦~</div>
   </div>
 </template>
 
@@ -17,14 +17,17 @@ export default {
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
-  margin-top: 207rpx;
+  padding: 205rpx 0 288rpx 0;
+  background: #ffffff;
+  margin-top: 20rpx;
+  border-radius:10rpx;
 }
 .empty-coupon_icon{
-  width: 340rpx;
-  height: 238rpx;
+  width: 444rpx;
+  height: 320rpx;
 }
 .empty-coupon_text {
   color: #666666;
-  font-size: 24rpx;
+  font-size: 28rpx;
 }
 </style>
