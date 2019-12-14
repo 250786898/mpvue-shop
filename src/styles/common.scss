@@ -10,6 +10,9 @@
   }
 }
 button {
+  &::after{
+    border: none;
+  }
   &[type=default] {
     &[plain] {
       border-color: $text-gray;
