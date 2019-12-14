@@ -31,6 +31,9 @@ export default {
     activityStock: { //时段活动库存
       type: Number,
       dafault: 0
+    },
+    activityId:{
+      type:String //时段活动id
     }
   },
   data () {
@@ -47,7 +50,8 @@ export default {
     confirmAdd() {
       this.$store.dispatch('addToCart', {
         goodsId: this.goodsId,
-        count: 1
+        count: 1,
+        activityId:this.activityId
       })
     },
   }

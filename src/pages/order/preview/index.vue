@@ -8,7 +8,7 @@
     <payways title="支付方式"></payways>
     <footer-bar :orderAmount="orderInfo.orderAmount" @submit="submitOrder" />
     <payment-dialog :shown.sync="paymentDialogShowed" :amount="orderAmount" @complete="onComplete"></payment-dialog>
-    <over-stock-popup :goods-list="orderInfo.limitCartOrderVoList" :show="isShowOverStockPopup" />
+    <over-stock-popup :goods-list="orderInfo.limitCartOrderVoList" :show="isShowOverStockPopup" :effective-goods="orderInfo.cartOrderVoList"  />
 
 
   </div>

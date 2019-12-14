@@ -7,6 +7,7 @@
     "pages/city/search/main",
     "pages/goods/search/main",
     "pages/cart/main",
+    "pages/cart/activitiesGoods/main",
     "pages/mine/main",
     "pages/location/main",
     "pages/goods/detail/main",

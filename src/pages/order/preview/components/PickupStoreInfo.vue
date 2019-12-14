@@ -1,6 +1,12 @@
 <template>
-<div>
-  <div class="address-area">
+  <div class="info">
+    <div class="info-header">
+      提货门店
+    </div>
+    <div class="info-content">
+
+    </div>
+  <!-- <div class="address-area">
     <div class="weui-cell weui-cell_access">
       <div class="weui-cell__bd">
         <template v-if="shopDetail">
@@ -12,8 +18,8 @@
       </div>
     </div>
     <img class="address-area__border" src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/order_dividingline@2x.png">
+  </div> -->
   </div>
-</div>
 </template>
 
 <script>

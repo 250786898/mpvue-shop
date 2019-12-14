@@ -45,7 +45,7 @@
 
 
     <!-- 底部栏 -->
-    <bottom-bar :goods-id="goodsDetailInfo.goodsId" :activityStock="goodsDetailInfo.activityStock" />
+    <bottom-bar :goods-id="goodsDetailInfo.goodsId" :activityStock="goodsDetailInfo.activityStock" :activityId="goodsDetailInfo.activityId" />
 
     <popup :show="popupShow"/>
 

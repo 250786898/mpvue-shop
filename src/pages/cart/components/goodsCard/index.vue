@@ -71,7 +71,7 @@ export default {
     },
     maxNum () { //商品购买的最大值
       //限购数量优先级高于库存
-      return this.item.activityLimitNum ? this.item.activityLimitNum : this.item.maxNum
+      return this.item.activityLimitNum ? this.item.activityLimitNum - this.item.buyedNum : this.item.maxNum
     }
 },
   methods: {
