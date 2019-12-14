@@ -1,7 +1,7 @@
 <template>
   <div class="goods-list">
       <!-- 失效商品 -->
-      <div class="group" v-if="failureGoodsList && failureGoodsList.length">
+      <div class="group failure-goods" v-if="failureGoodsList && failureGoodsList.length">
         <div class="group__title">失效商品</div>
         <div v-for="(item, index) in failureGoodsList" :key="item.goodsId" class="group-item">
             <goods-card
@@ -10,12 +10,16 @@
               :isFailure="true"
             />
         </div>
+
+        <div class="failure-mask"></div>
       </div>
 
       <!-- 清空失效商品 -->
       <div class="group clear-invalid-goods-btn" v-if="failureGoodsList && failureGoodsList.length" @click="clearFailureCart">
         清空失效商品
       </div>
+
+
   </div>
 </template>
 
@@ -91,12 +95,25 @@ export default {
 <style lang="scss" scoped>
  .goods-list{
    padding-top: 24rpx;
+   position: relative;
+ }
+ .failure-goods{
+   position: relative;
+ }
+ .failure-mask{
+   position: absolute;
+   top: 0;
+   left: 0;
+   z-index: 2;
+   background:rgba(255,255,255,0.4);
+   height: 100%;
+   width: 100%;
  }
  .group {
     width: 708rpx;
     margin: auto;
     overflow: hidden;
-    border-radius:14rpx;
+    border-radius:10rpx;
     background: $white-color;
     &-item{
       border-radius:14rpx;
@@ -106,8 +123,8 @@ export default {
       background-color: $white-color;
       font-weight:800;
       text-align: center;
-      font-size: 32rpx;
-      color: $text-gray;
+      font-size: 34rpx;
+      color:#333333;
       height: 90rpx;
       line-height: 90rpx;
       border-bottom: 1rpx solid #F4F4F4;
@@ -166,9 +183,9 @@ export default {
     }
   }
  .clear-invalid-goods-btn{
-    height: 90rpx;
-    line-height: 90rpx;
+    height: 110rpx;
+    line-height:110rpx;
     text-align: center;
-    font-size:28rpx;
+    font-size:34rpx;
   }
 </style>

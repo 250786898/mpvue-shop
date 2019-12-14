@@ -6,8 +6,8 @@
        <img src="/static/images/common_icon_add.png" class="handle-img">
     </div>
     <div v-else>
-      <img src="/static/images/common_btn_shopcart_sellout.png@2x.png" class="icon-cart" v-if="addDisabled">
-       <img src="/static/images/common_btn_shopcart_small.png@2x.png" class="icon-cart" v-else>
+       <img src="/static/images/common_btn_shopcart_sellout.png@2x.png" :style="iconStyle" class="icon-cart" v-if="addDisabled">
+       <img src="/static/images/common_btn_shopcart_small.png@2x.png" :style="iconStyle" class="icon-cart" v-else>
 
     </div>
 
@@ -25,8 +25,17 @@
         type: Boolean,
         default: false
       },
+      iconSize: {
+        type: Number,
+        default: 60
+      }
     },
 
+    computed: {
+      iconStyle () {
+        return `width: ${this.iconSize}rpx;height:${this.iconSize}rpx;`
+      }
+    },
 
     methods: {
 

@@ -1,53 +1,53 @@
 <template>
   <div>
-    <template  v-if="(cartItemResultList && cartItemResultList.length) || (failureGoodsList && failureGoodsList.length)">
+    <div class="cart-container"  v-if="(cartItemResultList && cartItemResultList.length) || (failureGoodsList && failureGoodsList.length)">
 
-       <!-- 正常商品列表 -->
-      <base-cart
-        :cartItemResultList="cartItemResultList"
-        @onAllCheckedChange="onAllCheckedChange"
-        @updateCartNum="updateCartNum"
-        @updateActivityStatus="updateActivityStatus"
-        @updateCartList="refreshCartList"
-        @del="del"
-        v-if="cartItemResultList && cartItemResultList.length"
-      />
+        <!-- 优惠券模块 -->
+        <coupon-wrap />
 
-      <!-- 失效商品列表 -->
-      <failure-cart
-        :failureGoodsList="failureGoodsList"
-        @updateCartList="updateCartList"
-        v-if="failureGoodsList && failureGoodsList.length"
-      />
+        <!-- 正常商品列表 -->
+        <base-cart
+          :cartItemResultList="cartItemResultList"
+          @onAllCheckedChange="onAllCheckedChange"
+          @updateCartNum="updateCartNum"
+          @updateActivityStatus="updateActivityStatus"
+          @updateCartList="refreshCartList"
+          @del="del"
+          v-if="cartItemResultList && cartItemResultList.length"
+        />
 
-       <!-- 占位符 -->
-      <div style="height: 120rpx;"></div>
+        <!-- 失效商品列表 -->
+        <failure-cart
+          :failureGoodsList="failureGoodsList"
+          @updateCartList="updateCartList"
+          v-if="failureGoodsList && failureGoodsList.length"
+        />
 
-      <!-- 悬浮区域 -->
-      <Suspension
-        :totalAmount="totalAmount"
-        :promisAmount="promisAmount"
-        :cartItemResultList="cartItemResultList"
-        @onAllCheckedChange="onAllCheckedChange"
-        v-if="cartItemResultList && cartItemResultList.length"
-      />
+        <!-- 占位符 -->
+        <div style="height: 120rpx;"></div>
 
-    </template>
+        <!-- 悬浮区域 -->
+        <Suspension
+          :totalAmount="totalAmount"
+          :promisAmount="promisAmount"
+          :cartItemResultList="cartItemResultList"
+          @onAllCheckedChange="onAllCheckedChange"
+          v-if="cartItemResultList && cartItemResultList.length"
+        />
 
-    <template v-else >
+    </div>
+
+    <div class="empty-cart-container" v-else >
       <!-- 购物车为空的时候显示 -->
       <empty-cart />
-    </template>
-
-
-
-
+    </div>
   </div>
 </template>
 
 <script>
   import { Api } from '@/http/api'
   import { mapState } from 'vuex'
+  import CouponWrap from './components/CouponWrap'
   import FailureCart from './components/FailureCart/index'
   import BaseCart from './components/BaseCart/index'
   import EmptyCart from './components/EmptyCart/index'
@@ -58,6 +58,7 @@
 
   export default {
     components: {
+      CouponWrap,
       FailureCart,
       BaseCart,
       EmptyCart,
@@ -311,10 +312,23 @@
 </script>
 
 <style>
-  page { background-color: #F5F5F5;padding: 24rpx 0; }
+  page { background-color: #F5F5F5; }
 </style>
 
 <style lang="scss" scoped>
+.cart-container{
+  display: flex;
+  flex-direction: column;
+  padding: 20rpx 0;
+  box-sizing: border-box;
+  align-items: center;
+}
+.empty-cart-container{
+  width: 100vw;
+  height: 100vh;
+  padding: 20rpx 20rpx 58rpx;
+  box-sizing: border-box;
+}
   .empty-tip {
     padding-top: 100rpx;
     padding-bottom: 220rpx;

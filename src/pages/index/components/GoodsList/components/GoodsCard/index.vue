@@ -17,12 +17,9 @@
          <div class="card-main-bottom-left">
            <div class="price-area">
               <div class="current-price">
-                <span class="current-price__sign">￥</span>
-                <span class="current-price-before-point">13</span>
-                <span class="current-price__point">.</span>
-                <span class="current-price-after-point">80</span>
+                  <OnlinePrice :price="item.discountedPrice" />
               </div>
-              <div class="line-price">￥38.00</div>
+              <div class="line-price">￥{{item.scribingPrice}}</div>
            </div>
            <div class="sell-num">已售4738份</div>
          </div>
@@ -37,6 +34,7 @@
 
 <script>
 import NumHandle from '@/components/GoodsNumHandle.vue'
+import OnlinePrice from '@/components/OnlinePrice'
 export default {
   props: {
     item: {
@@ -50,7 +48,8 @@ export default {
     }
   },
   components: {
-    NumHandle
+    NumHandle,
+    OnlinePrice
   },
 
   methods: {
@@ -120,6 +119,8 @@ export default {
         color:#999999;
         font-size:26rpx;
         line-height: 26rpx;
+        width: 361rpx;
+        @include ellipsis;
         margin: 10rpx 0 15rpx;
       }
       .limit-tag{

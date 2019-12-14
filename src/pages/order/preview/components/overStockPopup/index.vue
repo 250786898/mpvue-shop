@@ -10,15 +10,17 @@
         :style="goodsListHeight"
         class="goods-list"
         >
+
         <template v-for="item in goodsList" >
+
           <goods-card :item="item" v-bind:key="item.goodsId" />
         </template>
 
 
       </scroll-view>
       <div class="dialog-main-footer">
-        <button class="back-cart-btn" @click="backToCartPage">返回购物车</button>
-        <button class="keepon-orders-btn" @click="hideDialog">继续下单</button>
+        <button class="btn back-cart-btn" @click="backToCartPage">返回购物车</button>
+        <button class="btn keepon-orders-btn" @click="hideDialog">继续下单</button>
       </div>
     </div>
   </div>
@@ -42,7 +44,7 @@
     computed: {
       goodsListHeight () {
         if(this.goodsList.length > 1) {
-          return 'height: 300rpx;'
+          return 'height: 233rpx;'
         }
         return ''
       }
@@ -98,6 +100,7 @@
     &__desc{
       color: #595959;
       font-size: 28rpx;
+      line-height:35rpx;
     }
     .goods-list{
       margin-top: 15rpx;
@@ -106,28 +109,24 @@
     &-footer{
       display: flex;
       margin-top: 30rpx;
-      .back-cart-btn{
-        width:187rpx;
-        height:64rpx;
-        line-height: 64rpx;
+      .btn{
+        width:197rpx;
+        height:74rpx;
+        line-height: 74rpx;
         text-align: center;
         background:rgba(170,170,170,1);
         border-radius:10rpx;
         font-size:32rpx;
-        color: #ffffff;
         padding: 0;
+      }
+      .back-cart-btn{
+        background:rgba(170,170,170,1);
+        color: #ffffff;
         margin-right: 46rpx;
       }
       .keepon-orders-btn{
-        width:187rpx;
-        height:64rpx;
-        line-height: 64rpx;
-        text-align: center;
         background:rgba(19,212,191,1);
-        border-radius:10rpx;
-        font-size:32rpx;
         color: #ffffff;
-        padding: 0;
       }
     }
   }

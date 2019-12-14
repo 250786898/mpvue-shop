@@ -7,14 +7,14 @@
           <label class="">
               <switch type="checkbox" class="weui-check" :checked="allChecked" @change="onAllCheckedChange"></switch>
               <div class="weui-check__hd_in-checkbox">
-                <icon class="weui-icon-checkbox_circle" type="circle" size="20" v-if="!allChecked"></icon>
-                <icon class="weui-icon-checkbox_success" type="success" color="#0EDABC" size="20" v-if="allChecked"></icon>
+                <icon class="weui-icon-checkbox_circle" type="circle" size="16" v-if="!allChecked"></icon>
+                <icon class="weui-icon-checkbox_success" type="success" color="#01bd9f" size="16" v-if="allChecked"></icon>
               </div>
             </label>
             <span class="group-desc">门店自提</span>
         </div>
         <div class="group-header-right" @click="clearAllCart">
-          <span>删除</span>
+          <img src="/static/images/commom_collection depot_png.png" class="delete-icon" alt="">
         </div>
       </div>
 
@@ -204,6 +204,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .weui-icon-checkbox_circle, .weui-icon-checkbox_success {
+    display: block;
+  }
+  .weui-check__hd_in-checkbox{
+    padding-right: 20rpx;;
+  }
   .empty-tip {
     padding-top: 220rpx;
     padding-bottom: 220rpx;
@@ -250,10 +256,10 @@ export default {
   }
 
   .group {
-    width: 708rpx;
+    width: 710rpx;
     margin: auto;
     overflow: hidden;
-    border-radius:14rpx;
+    border-radius:10rpx;
     background: $white-color;
     &-item{
       border-radius:14rpx;
@@ -308,7 +314,7 @@ export default {
     align-items: center;
     &-left{
       display: flex;
-      font-size: 30rpx;
+      font-size: 34rpx;
       font-weight:800;
       align-items: center;
     }
@@ -316,6 +322,10 @@ export default {
       color: #666666;
       font-size: 28rpx;
       font-weight: 800;
+      .delete-icon{
+        width: 46rpx;
+        height: 46rpx;
+      }
     }
   }
   .group-footer{
@@ -329,7 +339,7 @@ export default {
     margin-left: 48rpx;
   }
   .goods-list-item{
-    border-bottom: 1px solid #F4F4F4;
+    border-bottom: 1px solid #E4E4E4;
   }
   /*正常商品样式*/
 

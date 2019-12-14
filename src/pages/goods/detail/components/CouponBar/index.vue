@@ -11,40 +11,24 @@
         style=" white-space: nowrap; "
         class="coupon-list"
       >
-        <div class="coupon-item">
-          <div>满99减15元</div>
-          <div class="coupon-item-circle"></div>
-        </div>
-         <div class="coupon-item">
-          <div>满99减15元</div>
-          <div class="coupon-item-circle"></div>
-        </div>
-         <div class="coupon-item">
-          <div>满99减15元</div>
-          <div class="coupon-item-circle"></div>
-        </div>
-         <div class="coupon-item">
-          <div>满99减15元</div>
-          <div class="coupon-item-circle"></div>
-        </div>
-         <div class="coupon-item">
-          <div>满99减15元</div>
-          <div class="coupon-item-circle"></div>
-        </div>
+        <CouponLabel/>
 
       </scroll-view>
     </div>
 
     <div class="grayarrow-icon">
       <img src="/static/images/downward-bg-icon.png" class="grayarrow-icon__bg" alt="">
-       <img src="/static/images/common_icon_grayarrow.png.png" class="grayarrow-icon__main" mode="aspectFit">
+      <img src="/static/images/common_icon_grayarrow.png.png" class="grayarrow-icon__main" mode="aspectFit">
     </div>
   </div>
 </template>
 
 <script>
+import CouponLabel from '@/components/CouponLabel'
 export default {
-
+  components: {
+    CouponLabel
+  }
 }
 </script>
 
@@ -73,29 +57,6 @@ export default {
     padding: 0;
     align-items: center;
     font-size: 0;
-    .coupon-item{
-      position: relative;
-      padding: 0 14rpx 0 8rpx;
-      height:32rpx;
-      line-height: 32rpx;
-      text-align: center;
-      display: inline-block;
-      background:rgba(255,56,89,1);
-      border-radius:3rpx;
-      color: #fff;
-      font-size: 20rpx;
-      margin-right: 10rpx;
-      &-circle{
-        width: 10rpx;
-        height: 10rpx;
-        border-radius: 50%;
-        background: #fff;
-        z-index: 2;
-        position: absolute;
-        right: -5rpx;
-        top: 11rpx;
-      }
-    }
   }
   .grayarrow-icon{
     width:77rpx;

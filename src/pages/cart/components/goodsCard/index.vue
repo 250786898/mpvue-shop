@@ -8,27 +8,27 @@
       <label class="checkbox"  v-else>
         <switch type="checkbox" class="weui-check" :checked="item.isSelect" @change="onGoodsCBChange($event, item)"/>
         <div class="weui-cell__hd weui-check__hd_in-checkbox">
-          <icon v-if="item.isSelect && item.isSale " class="weui-icon-checkbox_success" type="success" size="20" color="#12D6BE" ></icon>
-          <icon v-else-if="!item.isSale" class="weui-icon-checkbox_success" type="success" size="20" color="#eee" ></icon>
-          <icon v-else class="weui-icon-checkbox_circle" type="circle" size="20"></icon>
+          <icon v-if="item.isSelect && item.isSale " class="weui-icon-checkbox_success" type="success" size="16" color="#01bd9f" ></icon>
+          <icon v-else-if="!item.isSale" class="weui-icon-checkbox_success" type="success" size="16" color="#eee" ></icon>
+          <icon v-else class="weui-icon-checkbox_circle" type="circle" size="16"></icon>
         </div>
       </label>
 
 
-      <div :class="{ 'failure-img' : isFailure }">
+      <div >
         <image class="goods-img" :src="item.goodsImage" mode="aspectFit" />
       </div>
 
 
     </div>
     <div class="card-right">
-      <div class="good-name" :class="{ 'failure-good-name' : isFailure }">
+      <div class="good-name">
         {{ item.goodsName }}
       </div>
       <div class="date-num" v-if="!isFailure">
         <div class="start-sell-date"><span v-if="item.isSale == 0">{{saleTime}}开售</span></div>
         <div class="sell-num-box">
-          <span v-if="item.activityLimitNum && item.itemTotalNum > item.activityLimitNum ">限购{{item.activityLimitNum}}份</span>
+          <span v-if="item.activityLimitNum && item.itemTotalNum > item.activityLimitNum">限购{{item.activityLimitNum || 0}}份</span>
           <span v-else-if="item.maxNum && item.itemTotalNum > item.maxNum">剩余{{item.maxNum}}份</span>
           <span v-else> </span>
         </div>
@@ -102,7 +102,7 @@ export default {
   display: flex;
   padding: 20rpx;
   box-sizing: border-box;
-  min-height: 222rpx;
+  min-height: 240rpx;
   align-items: center;
   border-bottom: 1rpx solid #F4F4F4;
   &-left{
@@ -111,9 +111,13 @@ export default {
   }
   &-right{
     width: 100%;
+    height: 174rpx;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     .start-sell-date {
-      color: $text-gray-deep;
-      font-size: 24rpx;
+      color: #787878;
+      font-size: 26rpx;
     }
   }
   .date-num{
@@ -121,21 +125,27 @@ export default {
     justify-content: space-between;
     align-items: center;
     .sell-num-box{
-      color: #CC3333;
-      font-size: 24rpx;
+      color: #FF0000;
+      font-size: 26rpx;
     }
   }
   .checkbox{
     display: flex;
     align-items: center;
-    width: 75rpx;
+    margin-right: 5rpx;
+  }
+  .weui-check__hd_in-checkbox{
+    padding-right: 20rpx;
+    justify-content:space-between
   }
   .goods-img{
-    height: 192rpx;
+    height: 174rpx;
     width: 174rpx;
   }
   .good-name{
-    font-size:28rpx;
+    font-size:32rpx;
+    font-weight:bold;
+    line-height: 40rpx;
     padding-right: 72rpx;
     padding-bottom: 10rpx;
   }
@@ -147,7 +157,7 @@ export default {
   }
   .good-main{
     display: flex;
-    padding-top: 21rpx;
+    padding-top: 32rpx;
     align-items: center;
     justify-content: space-between;
   }
