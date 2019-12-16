@@ -1,12 +1,10 @@
 <template>
-  <div class="weui-cells form-cells">
-    <div class="weui-cell">
-      <div class="weui-cell__hd">买家留言：</div>
-      <div class="weui-cell__bd">
-        <input type="text" :value="message" @input="inputMessage" placeholder="（选填）给卖家留言，最多100个字" maxlength="100">
+  <div class="card">
+      <div class="card-title">买家留言</div>
+      <div class="card-content">
+        <input type="text" class="card-content__input" :value="message" @input="inputMessage" placeholder="可以告诉我们您的需求" maxlength="100">
       </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -34,22 +32,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
- .form-cells {
-  width: 702rpx;
-  border-radius:14rpx;
-  margin-top: 20rpx;
-  &:before,
-  &:after {
-    display: none;
+ .card {
+  font-size: 28rpx;
+  display: flex;
+  height: 87rpx;
+  align-items: center;
+  justify-content:space-between;
+  padding: 0 30rpx;
+  box-sizing: border-box;
+  background: #ffffff;
+  border-top-left-radius: 10rpx;
+  border-top-right-radius: 10rpx;
+  border-bottom: 1rpx #CCCCCC solid;
+  &-title{
+    font-weight: bold;
   }
-  .weui-cell {
-    &__hd {
-      color: $text-black;
-      font-size: 28rpx;
-
-    }
-    &__bd input {
-      font-size: 28rpx;
+  &-content{
+    color: #999999;
+    &__input{
+      text-align: right;
     }
   }
 }

@@ -18,6 +18,7 @@
     "pages/order/returndetail/main",
     "pages/order/returngoods/main",
     "pages/order/returnapply/main",
+    "pages/order/payResult/main",
     "pages/mine/auth/main",
     "pages/mine/bind/main",
     "pages/mine/info/main",
@@ -31,7 +32,8 @@
     "pages/coupon/index/main",
     "pages/coupon/applicableStores/main",
     "pages/coupon/applicableGoods/main",
-    "pages/coupon/fetch/main"
+    "pages/coupon/fetch/main",
+    "pages/coupon/select/main"
   ],
   "window": {
     "backgroundTextStyle": "light",

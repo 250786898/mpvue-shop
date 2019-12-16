@@ -3,9 +3,12 @@
     <pickup-store-info />
      <!-- <pickup-time /> -->
     <submit-goods-list :list="orderInfo.cartOrderVoList" />
+    <CouponWrap />
     <buyer-message v-model="buyerMessage " />
     <!-- 支付方式 -->
-    <payways title="支付方式"></payways>
+    <payways></payways>
+    <price-info />
+
     <footer-bar :orderAmount="orderInfo.orderAmount" @submit="submitOrder" />
     <payment-dialog :shown.sync="paymentDialogShowed" :amount="orderAmount" @complete="onComplete"></payment-dialog>
     <over-stock-popup :goods-list="orderInfo.limitCartOrderVoList" :show="isShowOverStockPopup" :effective-goods="orderInfo.cartOrderVoList"  />
@@ -19,11 +22,13 @@
   import { Api } from '@/http/api'
   import Payways from './components/Payways'
   import PaymentDialog from './components/PaymentDialog'
+  import CouponWrap from './components/CouponWrap'
   import overStockPopup from './components/overStockPopup'
-  import PickupStoreInfo from './components/PickupStoreInfo'
+  import PickupStoreInfo from '../components/PickupStoreInfo'
   import PickupTime from './components/PickupTime'
   import SubmitGoodsList from './components/SubmitGoodsList'
   import BuyerMessage from './components/BuyerMessage'
+  import PriceInfo from './components/PriceInfo'
   import FooterBar from './components/FooterBar'
 
 
@@ -36,6 +41,8 @@
       PickupTime,
       SubmitGoodsList,
       BuyerMessage,
+      CouponWrap,
+      PriceInfo,
       FooterBar
     },
 
@@ -216,9 +223,9 @@
 
 <style>
   page {
-    background-color: #F3F3F3;
-    padding-bottom: 120rpx;
-    padding-left:24rpx;
+    background-color: #EEEEEE;
+    padding: 20rpx 20rpx 125rpx;
+    box-sizing: border-box;
   }
 </style>
 

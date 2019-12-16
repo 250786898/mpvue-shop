@@ -1,5 +1,5 @@
 <template>
-  <div class="current-price" :style="colorStyle">
+  <div class="current-price" :style="priceStyle">
     <span class="current-price__sign" :style="signStyle">￥</span>
     <span class="current-price-before-point" :style="beforeStyle" >{{priceBeforeSign}}</span>
     <span class="current-price__point" :style="beforeStyle">.</span>
@@ -29,7 +29,12 @@ export default {
     afterSize: {
       type: Number,
       default: 28
+    },
+    isbold: {
+      type: Boolean,
+      default: true
     }
+
   },
 
   computed: {
@@ -60,8 +65,9 @@ export default {
     aftetStyle () {
       return `font-size: ${this.afterSize}rpx`
     },
-    colorStyle () {
-      return `color:${this.color}`
+    priceStyle () {
+      let fontWeight = this.isbold ? 'bold' : 400
+      return `color:${this.color};font-weight: ${fontWeight};`
     }
   }
 }
@@ -69,7 +75,6 @@ export default {
 
 <style lang="scss" scoped>
 .current-price{
-  font-weight: bold;
   &__sign{
     font-size: 24rpx;
   }

@@ -21,7 +21,7 @@
       <div class="coupon-card-buttom">
         <div class="coupon-footer">
           <div class="coupon-desc">指定商品满199.00元减129.00元</div>
-          <div class="applicable" v-if="type == 'base' ">
+          <div class="applicable" v-if="type == 'base' || 'select' ">
             <span>查看可用商品</span>
             <!-- <span>查看适用门店</span> -->
             <img src="/static/images/deliverycode_icon_arrow.png" alt="">
@@ -40,6 +40,7 @@
         <div class="use-btn"  v-if="type == 'use'">立即使用</div>
       </div>
 
+      <radio class="item-radio" color="#01BD9F"></radio>
       <div class="cirle cirle-left"></div>
       <div class="cirle cirle-right"></div>
 
@@ -55,7 +56,7 @@
         type: Object,
         default: () => ({})
       },
-      type: { //优惠券类型: base(正常) used(已使用) expire（过期） fetch（立即领取）  use（立即使用）
+      type: { //优惠券类型: base(正常) used(已使用) expire（过期） fetch（立即领取）  use（立即使用） select(选择优惠券)
         type: String,
         default: 'use'
       }
@@ -173,6 +174,12 @@
       text-align: center;
       font-size: 24rpx;
       color: #FF7200;
+    }
+    .item-radio{
+       position: absolute;
+       top: 65rpx;
+       right: 20rpx;
+       transform: scale(0.8);
     }
     .cirle{
       background: #F1F1F1;

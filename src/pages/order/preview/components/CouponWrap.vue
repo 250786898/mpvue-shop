@@ -1,10 +1,11 @@
 <template>
   <div class="card">
-      <div class="card-title">支付方式</div>
-      <div class="card-content">
-        <div>微信支付</div>
-      </div>
+    <div class="card-title">优惠券</div>
+    <div class="card-content">
+      <span>满100减10元</span>
+      <img src="/static/images/order-right-icon.png" class="right-icon" alt="">
     </div>
+  </div>
 </template>
 
 <script>
@@ -14,7 +15,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
- .card {
+.card {
   font-size: 28rpx;
   display: flex;
   height: 87rpx;
@@ -30,10 +31,14 @@ export default {
     font-weight: bold;
   }
   &-content{
-    color: #01BD9F;
-    &__input{
-      text-align: right;
-    }
+    color: #999999;
+    display: flex;
+    align-items: center;
+  }
+  .right-icon{
+    width: 11rpx;
+    height: 20rpx;
+    margin-left: 9rpx;
   }
 }
 </style>
