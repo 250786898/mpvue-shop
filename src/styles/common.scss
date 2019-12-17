@@ -1,10 +1,11 @@
 @import './variable';
 @import './mixin';
+/* 初始化项目 */
 
- /* 初始化项目 */
-page{
+page {
   line-height: 1;
-  font-family:PingFang SC;
+  font-family: PingFang SC;
+  background: #F1F1F1;
 }
 
 .hiddenBtn {
@@ -12,16 +13,17 @@ page{
   border: none;
   padding: 0;
   &:after {
-    border:none
+    border: none
   }
 }
+
 button {
   font-size: 32rpx;
-  &::after{
+  &::after {
     border: none;
   }
   &[type=default] {
-    border:1px solid $text-gray;
+    border: 1px solid $text-gray;
     background: #FFFFFF;
     color: $text-gray;
     &[plain] {
@@ -65,7 +67,6 @@ button {
     background-color: rgba(0, 0, 0, .1);
     opacity: 0.7;
   }
-
   &.no-style {
     background-color: transparent;
     padding: 0;
@@ -78,7 +79,8 @@ button {
 }
 
 /*隐藏滚动条*/
-::-webkit-scrollbar{
+
+::-webkit-scrollbar {
   width: 0;
   height: 0;
   color: transparent;
@@ -89,7 +91,6 @@ button {
   height: 170rpx;
   border-radius: 10rpx;
   border: 1rpx solid #DEDEDE;
-
   textarea {
     width: 100%;
     height: 100%;
@@ -99,10 +100,12 @@ button {
 
 .weui-cells_pure {
   margin-top: 0;
-
-  &:before { display: none; }
-  &:after { border-color: #DEDEDE; }
-
+  &:before {
+    display: none;
+  }
+  &:after {
+    border-color: #DEDEDE;
+  }
   .weui-cell {
     padding-top: 30rpx;
     padding-bottom: 30rpx;
@@ -142,7 +145,8 @@ button {
   &:first-child {
     margin-top: 40rpx;
   }
-  &:before, &:after {
+  &:before,
+  &:after {
     display: none;
   }
   .weui-panel {
@@ -170,7 +174,7 @@ button {
             width: 100rpx;
             height: 100rpx;
           }
-          img + img {
+          img+img {
             margin-left: 18rpx;
           }
         }
@@ -223,7 +227,6 @@ button {
       @include bgGradientHover(true);
     }
   }
-
   &.button-hover {
     background-color: rgba(0, 0, 0, 0.1);
     opacity: 0.7;
@@ -236,6 +239,7 @@ button {
     background-color: #F77B0E!important;
   }
 }
+
 .bg-red {
   background-color: #F51414!important;
   &_hover {
@@ -272,7 +276,6 @@ button {
   font-size: 26rpx;
   color: #F00808;
   background-color: #FCF4CD;
-
   &_follow {
     position: relative;
     z-index: 12;
@@ -302,12 +305,10 @@ button {
       margin-top: -16rpx;
     }
   }
-
   .weui-cell_link .weui-cell__bd {
     color: #333333;
     font-size: 28rpx;
   }
-
   &_compact {
     .weui-media-box {
       padding-top: 20rpx;
@@ -359,7 +360,7 @@ button {
   }
 }
 
-.mask{
+.mask {
   background: #000;
   opacity: .7;
   position: fixed;
@@ -389,8 +390,12 @@ button {
       height: 1rpx;
       background-color: #DEDEDE;
     }
-    &:first-child { margin-right: 12rpx; }
-    &:last-child { margin-left: 12rpx; }
+    &:first-child {
+      margin-right: 12rpx;
+    }
+    &:last-child {
+      margin-left: 12rpx;
+    }
   }
 }
 
@@ -415,15 +420,16 @@ button {
 }
 
 .text-price {
-  font-size: 32prx;
-  // color: $text-red;
+  font-size: 32prx; // color: $text-red;
   color: #E42324;
 }
+
 .text-price_old {
   font-size: 24rpx;
   color: $text-gray;
   text-decoration: line-through;
 }
+
 .text-bold {
   font-weight: 700;
 }
@@ -431,22 +437,31 @@ button {
 .text-theme {
   color: $theme-color!important;
 }
+
 .text-theme-light {
   color: $theme-color-light!important;
 }
 
-.fz34 { font-size: 34rpx!important; }
-.fz30 { font-size: 30rpx!important; }
+.fz34 {
+  font-size: 34rpx!important;
+}
+
+.fz30 {
+  font-size: 30rpx!important;
+}
 
 .text-green {
   color: $text-green!important;
 }
+
 .text-red {
   color: $text-red!important;
 }
+
 .text-black {
   color: $text-black!important;
 }
+
 .text-gray {
   color: $text-gray!important;
 }
