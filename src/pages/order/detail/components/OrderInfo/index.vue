@@ -12,7 +12,7 @@
       </div>
     </div>
     <div class="card-item">
-      <div class="card-item-desc">订单编号：</div>
+      <div class="card-item-desc">支付方式：</div>
       <div class="card-item-content">微信支付</div>
     </div>
   </div>

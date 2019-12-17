@@ -11,6 +11,10 @@
           <span class="wait-pickup" v-else>×月×日可提货</span>
         </div>
       </div>
+      <div class="after-sell">
+        <div class="after-sell-btn">查看售后</div>
+      </div>
+
       <div class="card-main-content">
         <OnlinePrice :price="item.onlinePrice" />
         <div class="goods-num">
@@ -49,6 +53,21 @@ export default {
     img{
       width: 100%;
       height: 100%;
+    }
+  }
+  .after-sell{
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 26rpx;
+    &-btn{
+      width:112rpx;
+      height:34rpx;
+      line-height: 34rpx;
+      text-align: center;
+      border:1px solid rgba(153,153,153,1);
+      border-radius:4rpx;
+      color: #999999;
+      font-size: 22rpx;
     }
   }
   .card-main{

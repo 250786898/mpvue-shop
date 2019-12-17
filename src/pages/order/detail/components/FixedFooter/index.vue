@@ -28,35 +28,7 @@ export default {
       })
     },
 
-    /**
-     * @description 取消订单
-     */
-    cancelOrder () {
-      wx.showLoading({ title: '取消中' })
-      Api.order.cancel({
-        orderId: this.orderId
-      }).then(res => {
-        wx.hideLoading()
 
-        if (res.code === Api.CODES.FAILED) {
-          wx.showToast({
-            title: res.message,
-            icon: 'none'
-          })
-          return false
-        }
-
-        if (res.code === Api.CODES.SUCCESS) {
-
-        } else {
-          wx.showToast({
-            title: res.message,
-            icon: 'none'
-          })
-        }
-      })
-      .catch(e => wx.hideLoading())
-    },
 
     /**
      * @description 跳转提货码页面
