@@ -1,11 +1,17 @@
 <template>
   <div class="container">
 
-    <StatusInfo :status="order.state" />
+    <pay-bar />
 
-    <PickupStoreInfo :storeInfo="order" />
+    <status-info :status="order.state" v-if="order.state != 10" />
 
+    <pickup-store-info :storeInfo="order" />
 
+    <goods-info :orderInfo="order" />
+
+    <order-info :orderInfo="order" />
+
+    <fixed-footer :orderId="this.order.orderId" :orderstate="order.state" v-if="order.state > 10"  />
 
     <payment-dialog
       :shown.sync="paymentDialogShowed"
@@ -14,26 +20,28 @@
     </payment-dialog>
 
     <page-loading :show="showPageLoading"/>
-
-    <!-- <red-package :shown="redPackageShow" @on-close="handleCloseRedPackage"></red-package> -->
   </div>
 </template>
 
 <script>
   import { Api, ORDER_STATE, ORDER_STATE_TEXT } from '@/http/api'
   import StatusInfo from './components/StatusInfo'
+  import PayBar from './components/PayBar'
   import PickupStoreInfo from '../components/PickupStoreInfo'
+  import GoodsInfo from './components/GoodsInfo'
+  import OrderInfo from './components/OrderInfo'
+  import FixedFooter from './components/FixedFooter'
   import PaymentDialog from './components/PaymentDialog/index'
-  import Countdowner from '@/components/Countdowner'
-  import RedPackage from '@/components/RedPackage'
 
   export default {
     components: {
+      PayBar,
       PaymentDialog,
-      Countdowner,
-      RedPackage,
       StatusInfo,
-      PickupStoreInfo
+      GoodsInfo,
+      PickupStoreInfo,
+      OrderInfo,
+      FixedFooter
     },
     data () {
       return {
@@ -165,15 +173,6 @@
           },1000)
         },
 
-
-      copyOrderNO() {
-        wx.setClipboardData({
-          data: this.order.orderSn,
-          success: () => wx.showToast({ title: '复制成功' }),
-          fail: () => wx.showToast({ title: '复制失败', icon: 'none' })
-        })
-      },
-
        /**
      * @description 隐藏页面加载loading
      */
@@ -237,32 +236,7 @@
         .catch(e => wx.hideLoading())
       },
 
-      cancel() {
-          wx.showLoading({ title: '取消中' })
-          Api.order.cancel({
-            orderId: this.order.orderId
-          }).then(res => {
-            wx.hideLoading()
 
-            if (res.code === Api.CODES.FAILED) {
-              wx.showToast({
-                title: res.message,
-                icon: 'none'
-              })
-              return false
-            }
-
-            if (res.code === Api.CODES.SUCCESS) {
-              this.getDetail({ orderId: this.order.orderId })
-            } else {
-              wx.showToast({
-                title: res.message,
-                icon: 'none'
-              })
-            }
-          })
-          .catch(e => wx.hideLoading())
-        },
 
         finish() {
           wx.showLoading({ title: '确认中' })
@@ -350,9 +324,6 @@
           wx.navigateTo({ url: `/pages/order/commenthistory/main?id=${ this.order.orderId }` })
         },
 
-        showOrderCode(order) {
-          wx.navigateTo({ url: `/pages/pickup/detail/main?id=${ this.order.orderId }` })
-        },
 
         callRider() {
           wx.makePhoneCall({
@@ -377,7 +348,7 @@
 <style>
   page {
     box-sizing: border-box;
-    padding: 20rpx;
+    padding: 20rpx 20rpx 154rpx;
     background: #EEEEEE;
   }
 </style>

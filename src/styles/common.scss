@@ -16,29 +16,31 @@ page{
   }
 }
 button {
+  font-size: 32rpx;
   &::after{
     border: none;
   }
   &[type=default] {
+    border:1px solid $text-gray;
+    background: #FFFFFF;
+    color: $text-gray;
     &[plain] {
       border-color: $text-gray;
       line-height: 88rpx;
-      font-size: 30rpx;
       color: $text-gray;
     }
   }
   &[type=primary] {
-    background-color: #0FD7C0;
+    background-color: $theme-color;
     line-height: 88rpx;
-    font-size: 30rpx;
     color: #fff;
     &:after {
       border: 0 none;
     }
     &[plain] {
       background-color: transparent;
-      border-color: #0FD7C0;
-      color: #0FD7C0;
+      border-color: $theme-color;
+      color: $theme-color;
     }
     &.bg-light {
       background-color: #fff;

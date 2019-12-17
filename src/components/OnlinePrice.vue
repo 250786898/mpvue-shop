@@ -44,7 +44,7 @@ export default {
         let priceaArr = this.price.toString().split('.')
        return priceaArr[0] ? priceaArr[0] : ''
       }else{
-        return ''
+        return '0'
       }
 
     },
@@ -53,7 +53,7 @@ export default {
         let priceaArr = this.price.toString().split('.')
         return priceaArr[1] ?  priceaArr[1] : '00'
       }else{
-        return ''
+        return '00'
       }
     },
     signStyle () {
