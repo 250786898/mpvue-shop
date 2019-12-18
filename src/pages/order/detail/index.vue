@@ -136,16 +136,11 @@
               title: res.message,
               icon: 'none'
             })
-            if (res.code === 5000000) {
-              this.paymentDialogShowed = true
-            }
           }
           wx.hideLoading()
         })
         .catch(() => wx.hideLoading())
       },
-
-
 
       /**
        * @description 隐藏页面加载loading
