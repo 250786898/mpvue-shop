@@ -1,3 +1,6 @@
+<!--
+ * @description:
+ -->
 <template>
   <div class="current-price" :style="priceStyle">
     <span class="current-price__sign" :style="signStyle">￥</span>
@@ -10,27 +13,27 @@
 <script>
 export default {
   props: {
-    price: {
+    price: { //价格
        type: String,
        default: 24.00
     },
-    color: {
+    color: { //价格颜色
       type: String,
       default: '#ff0000'
     },
-    signSize: {
+    signSize: { //符号字体大小
       type: Number,
       default: 24
     },
-    beforeSize: {
+    beforeSize: { //符号前价格字体大小
       type: Number,
       default: 38
     },
-    afterSize: {
+    afterSize: { //符号后羿价格字体大小
       type: Number,
       default: 28
     },
-    isbold: {
+    isbold: { //价格是否粗体
       type: Boolean,
       default: true
     }
@@ -38,7 +41,7 @@ export default {
   },
 
   computed: {
-    priceBeforeSign () {
+    priceBeforeSign () { //符号前价格数量
       if(this.price) {
         console.log('this.price',this.price)
         let priceaArr = this.price.toString().split('.')
@@ -48,7 +51,7 @@ export default {
       }
 
     },
-    priceAfterSign () {
+    priceAfterSign () { //符号后价格数量
       if(this.price) {
         let priceaArr = this.price.toString().split('.')
         return priceaArr[1] ?  priceaArr[1] : '00'
@@ -56,16 +59,16 @@ export default {
         return '00'
       }
     },
-    signStyle () {
+    signStyle () { //符号的样式
       return `font-size: ${this.signSize}rpx`
     },
-    beforeStyle () {
+    beforeStyle () { //符号前的样式
       return `font-size: ${this.beforeSize}rpx`
     },
-    aftetStyle () {
+    aftetStyle () { //符号后的样式
       return `font-size: ${this.afterSize}rpx`
     },
-    priceStyle () {
+    priceStyle () { //价格后的样式
       let fontWeight = this.isbold ? 'bold' : 400
       return `color:${this.color};font-weight: ${fontWeight};`
     }
