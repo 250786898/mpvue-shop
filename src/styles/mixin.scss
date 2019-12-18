@@ -1,7 +1,12 @@
-@mixin ellipsis() {
-  white-space: nowrap;
+@mixin ellipsis($rows:1) {
   overflow: hidden;
   text-overflow: ellipsis;
+  @if ($rows==1)  {white-space: nowrap};
+  @if ($rows>=2) {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $rows;
+  }
 }
 
 @mixin bgGradient($direction:left, $reverse:false) {

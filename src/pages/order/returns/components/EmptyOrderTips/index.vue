@@ -18,7 +18,7 @@ export default {};
   height: 951rpx;
   background: rgba(255, 255, 255, 1);
   border-radius: 10rpx;
-  margin: 20rpx auto;
+  margin: 0 auto;
   flex-direction: column;
   display: flex;
   justify-content: center;

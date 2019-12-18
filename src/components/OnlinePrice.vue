@@ -3,7 +3,7 @@
     <span class="current-price__sign" :style="signStyle">￥</span>
     <span class="current-price-before-point" :style="beforeStyle" >{{priceBeforeSign}}</span>
     <span class="current-price__point" :style="beforeStyle">.</span>
-    <span class="current-price-after-point" :style="aftetStyle">{{afterBeforeSign}}</span>
+    <span class="current-price-after-point" :style="aftetStyle">{{priceAfterSign}}</span>
   </div>
 </template>
 
@@ -48,7 +48,7 @@ export default {
       }
 
     },
-    afterBeforeSign () {
+    priceAfterSign () {
       if(this.price) {
         let priceaArr = this.price.toString().split('.')
         return priceaArr[1] ?  priceaArr[1] : '00'

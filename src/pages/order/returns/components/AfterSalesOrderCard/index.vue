@@ -1,24 +1,35 @@
 <template>
   <div class="order-card">
-    <div class="order-card-time">2019-09-26 09:59:40</div>
-    <div class="order-card-goods">
-      <div class="order-card-goods__img">
-        <img src="/static/images/empty_order_tips.png" alt v-for="(item,index) in  4" :key="index" />
+    <div class="order-card-time">{{orderInfo.applyTime}}</div>
+    <navigator :url="'/pages/order/returndetail/main?id=' + orderInfo.refundId">
+      <div class="order-card-goods">
+        <div class="order-card-goods__img">
+          <img v-for="(item,index) in  orderInfo.goodsImage" :src="item" alt :key="index" />
+        </div>
+        <div class="order-card-goods__more">
+          <span>共{{orderInfo.goodsImage.length}}件</span>
+          <img src="/static/images/right_arrows_icon.png" alt />
+        </div>
       </div>
-      <div class="order-card-goods__more">
-        <span>共4件</span>
-        <img src="/static/images/right_arrows_icon.png" alt />
-      </div>
-    </div>
+    </navigator>
     <div class="order-card-status">
-      <span>退货/退款</span>
-      <span>待处理</span>
+      <!-- <span class="order-card-status__operation">退货/退款</span> -->
+      <span>{{orderInfo.stateInfo}}</span>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    orderInfo: {
+      type: Object,
+      default: () => {
+        return {};
+      }
+    } //订单基本信息
+  }
+};
 </script>
 
 <style lang="scss" scoped >
@@ -27,6 +38,7 @@ export default {};
   margin: 0 auto;
   background: rgba(255, 255, 255, 1);
   border-radius: 10rpx;
+  margin-bottom: 20rpx;
   &-time {
     height: 89rpx;
     padding-left: 22rpx;
@@ -73,6 +85,9 @@ export default {};
     color: rgba(175, 175, 175, 1);
     font-size: 28rpx;
     margin-left: 22rpx;
+    &__operation {
+      margin-right: 20rpx;
+    }
   }
 }
 </style>
