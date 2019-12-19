@@ -1,17 +1,12 @@
 <template>
   <div>
     <div class="tabs">
-      <LjTabs :tabs="tabs" @change="tabChange" />
+      <LjTabs :tabs="tabs" v-model="activeIndex"  @change="tabChange"  />
     </div>
 
-    <order-list :order-list="orderList" @refreshOrder="reloadOrderList" v-if="orderList && orderList.length" />
+    <order-list-wrap :order-list="orderList" @refreshOrder="reloadOrderList" v-if="orderList && orderList.length" />
 
-    <EmptyOrder />
-     <!-- 空值 -->
-    <!-- <div v-if="!orderList.length && !loading" class="empty-tip">
-      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/myOrder_bg@2x.png">
-      <div class="empty-tip__text">暂时没有订单喔~</div>
-    </div> -->
+    <EmptyOrder v-if="!orderList.length && !loading"  />
 
   </div>
 </template>
@@ -19,13 +14,13 @@
 <script>
 import { Api, ORDER_STATE, ORDER_STATE_TEXT } from '@/http/api'
 import LjTabs from './components/LjTabs'
-import OrderList from './components/OrderList'
+import OrderListWrap from './components/OrderList'
 import EmptyOrder from './components/EmptyOrder'
 const PAGE_SIZE = 10 //定义订单每一页加载的数量
 export default {
   components: {
     LjTabs,
-    OrderList,
+    OrderListWrap,
     EmptyOrder
   },
   data () {
@@ -66,9 +61,18 @@ export default {
       loading: false //数据正在加载中
     }
   },
-  mounted () {
-    this.getOrderList()
-    console.log('getOrderList')
+  // mounted () {
+  //   this.getOrderList()
+  //   console.log('getOrderList')
+  // },
+   onLoad(e) {
+    console.log('onLoad',e.status)
+    if (e.status) {
+      this.activeIndex = this.tabs.findIndex(item => item.status == e.status)
+    } else {
+      this.activeIndex = 0
+    }
+    this.reloadOrderList()
   },
   onReachBottom() {
     if (this.allLoaded || this.loading) return
@@ -118,8 +122,8 @@ export default {
     /**
      * @description tab栏改变
      */
-    tabChange (currentTabIndex) {
-      this.activeIndex = currentTabIndex
+    tabChange () {
+      // this.activeIndex = currentTabIndex
       this.initLoadData()
       this.getOrderList()
     },

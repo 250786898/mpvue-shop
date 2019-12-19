@@ -1,18 +1,48 @@
 <template>
-  <div class="weui-cells">
-    <div  class="weui-cell weui-cell_access">
-      <div class="weui-cell__bd">手机号</div>
-      <div class="weui-cell__ft">{{mobile}}</div>
+  <div class="container">
+    <div class="card">
+      <div class="card-left">
+        <span>手机号</span>
+      </div>
+      <div class="card-right">
+        <span>{{mobile}}</span>
+      </div>
     </div>
-    <navigator url="/pages/mine/serviceAgreement/main" class="weui-cell weui-cell_access">
-      <div class="weui-cell__bd">服务协议</div>
-      <div class="weui-cell__ft weui-cell__ft_in-access"></div>
-    </navigator>
 
-    <div class="footer-bar">
+     <div class="card" @click="toService">
+      <div class="card-left">
+        <span>服务协议</span>
+      </div>
+      <div class="card-right">
+        <img src="/static/images/order-right-icon.png" class="card-icon">
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-left">
+        <span>退款协议</span>
+      </div>
+      <div class="card-right">
+        <img src="/static/images/order-right-icon.png" class="card-icon">
+      </div>
+    </div>
+    <div class="card">
+      <button class="feedback-btn" open-type="feedback">
+      <div class="card-left">
+        <span>意见反馈</span>
+      </div>
+      <div class="card-right">
+        <img src="/static/images/order-right-icon.png" class="card-icon">
+      </div>
+      </button>
+    </div>
+
+    <div class="btn-bar">
       <button type="primary" hover-class="button-hover" @click="logout">退出登录</button>
     </div>
   </div>
+
+
 </template>
 
 <script>
@@ -35,46 +65,19 @@
     },
 
     methods: {
-      onAutoRenewChange(e) {
-        this.autoRenew = e.mp.detail.value
-      },
 
-      showPasswordActionSheet() {
-        wx.showActionSheet({
-          itemList: [
-            '修改支付密码',
-            '忘记支付密码'
-          ],
-          success(res) {
-            switch(res.tapIndex) {
-              case 0:
-                wx.navigateTo({ url: '/pages/password/modify/main' })
-                break;
-              case 1:
-                wx.navigateTo({ url: '/pages/password/find/main' })
-                break;
-            }
-          }
+      /**
+       * @description 跳转服务协议
+       */
+      toService () {
+        wx.navigateTo({
+          url: "/pages/mine/serviceAgreement/main"
         })
       },
 
-      setPassword() {
-        wx.showLoading()
-        Api.user.checkSetPayPwd().then(res => {
-          if (res.code === Api.CODES.SUCCESS) {
-            if (res.data.isSetPayPwd) {
-              this.showPasswordActionSheet()
-            } else {
-              wx.navigateTo({
-                url: '/pages/password/set/main'
-              })
-            }
-          }
-        })
-        .catch(e => console.log(e))
-        .then(() => wx.hideLoading())
-      },
-
+      /**
+       * @description 退出登录
+       */
       logout() {
         this.$store.dispatch('logout')
       }
@@ -84,49 +87,58 @@
 
 <style>
 page{
-  background: #f5f5f5;
+  background: #F1F1F1;
   padding: 20rpx 0;
 }
 </style>
 
 <style scoped lang="scss">
-
-  .weui-cells {
-    margin-top: 0;
-    &:before {
-      display: none;
-    }
-    &:after {
-      border-bottom: 1px dashed #DEDEDE;
-    }
+.container {
+  .card{
+    height: 106rpx;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 32rpx;
+    font-size: 34rpx;
+    background: #ffffff;
+    border-bottom: 1px solid #f1f1f1;
+    box-sizing: border-box;
     &:nth-last-of-type(1) {
-      &:after{
-        border-bottom: none;
+      border-bottom: none;
+    }
+    &-left{
+      color: #363636;
+    }
+    &-right{
+      color: #A3A3A3;
+      .card-icon{
+        width: 12rpx;
+        height: 23rpx;
       }
     }
   }
-  .weui-cell {
-    padding-top: 28rpx;
-    padding-bottom: 28rpx;
-    &:before {
-      left: 0;
-      border-top: 1px dashed #DEDEDE;
-    }
-    &__hd {
-      img {
-        vertical-align: middle;
-        margin-right: 20rpx;
-        width: 50rpx;
-        height: 50rpx;
-      }
-    }
-    &__bd {
-      font-size: 32rpx;
-      color: $text-black;
+  .btn-bar{
+    position: fixed;
+    bottom: 70rpx;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    button{
+      width:470rpx;
+      height:80rpx;
+      line-height: 80rpx;
+      font-size: 34rpx;
+      font-weight:bold;
     }
   }
-  .footer-bar button {
-    background-color: #F5F5F5;
-    color: #0CE0B5;
+  .feedback-btn{
+    background: #ffffff;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
+}
 </style>

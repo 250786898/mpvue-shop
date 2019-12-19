@@ -113,7 +113,9 @@
         .catch(e => wx.hideLoading())
       },
 
-
+      /**
+       * @description 支付订单
+       */
       payOrder() {
         wx.showLoading({ mask: true, title: '支付中' })
         Api.order.pay({

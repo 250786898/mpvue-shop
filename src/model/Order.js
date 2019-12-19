@@ -11,7 +11,7 @@ class OrderModel {
     UNPAID: 10,
     UNDELIVERY: 20,
     FINISHED: 40
-}
+  }
 
   ORDER_STATE_TEXT = {
     [ORDER_STATE.CANCELED]: '已取消',

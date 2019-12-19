@@ -5,7 +5,7 @@
     :scroll-into-view="toTabId"
     :scroll-with-animation="true"
     >
-    <div class="tabs-item" v-for="(item, index) in tabs" :key="index" @click="changeTab(index)" :id="'tab'+index">
+    <div class="tabs-item" v-for="(item, index) in tabs" :key="index" @click="change(index)" :id="'tab'+index">
       <span :class="{ 'tabs-item__activity': activeIndex == index }">{{ item.title }}</span>
     </div>
   </scroll-view>
@@ -14,7 +14,7 @@
 <script>
 export default {
   props: {
-    tabs: {
+    tabs: { //tab栏目
       type: Array,
       default: () => [
         {
@@ -37,12 +37,17 @@ export default {
         },
       ]
     },
-  },
-  data () {
-    return {
-      activeIndex: 0 //当前tab的索引
+    activeIndex: { //当前tab的索引
+      type: Number,
+      default: 0
     }
   },
+
+  model: {
+    prop: 'activeIndex',
+    event: 'change'
+  },
+
 
   computed: {
     /**
@@ -58,8 +63,7 @@ export default {
      * @param {number} index 当前tab索引
      * @description 改变tab
      */
-    changeTab (index) {
-      this.activeIndex = index
+    change (index) {
       this.$emit('change', index)
     }
   }

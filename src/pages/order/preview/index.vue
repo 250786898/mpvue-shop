@@ -9,10 +9,10 @@
     <payways></payways>
     <price-info />
 
-    <footer-bar :orderAmount="orderInfo.orderAmount" @submit="submitOrder" />
+    <footer-bar :orderAmount="orderInfo.orderAmount" @submit="showComfirmDialog" />
     <payment-dialog :shown.sync="paymentDialogShowed" :amount="orderAmount" @complete="onComplete"></payment-dialog>
     <over-stock-popup :goods-list="orderInfo.limitCartOrderVoList" :show="isShowOverStockPopup" :effective-goods="orderInfo.cartOrderVoList"  />
-
+    <ComfirmStoreDialog :show.sync="comfirmDialogShowed" @comfirmPay="submitOrder" />
 
   </div>
 </template>
@@ -22,6 +22,7 @@
   import { Api } from '@/http/api'
   import Payways from './components/Payways'
   import PaymentDialog from './components/PaymentDialog'
+  import ComfirmStoreDialog from './components/ComfirmStoreDialog'
   import CouponWrap from './components/CouponWrap'
   import overStockPopup from './components/overStockPopup'
   import PickupStoreInfo from '../components/PickupStoreInfo'
@@ -43,14 +44,16 @@
       BuyerMessage,
       CouponWrap,
       PriceInfo,
-      FooterBar
+      FooterBar,
+      ComfirmStoreDialog
     },
 
     data () {
       return {
         buyerMessage: '', //买家留言
         orderInfo: {},
-        isShowOverStockPopup: false //是否显示超库存商品弹窗
+        isShowOverStockPopup: false, //是否显示超库存商品弹窗
+        comfirmDialogShowed: false //确认门店的弹窗
       }
     },
 
@@ -144,6 +147,13 @@
         .catch(e => wx.hideLoading())
       },
 
+      /**
+       * @description 显示缺人门店弹窗
+       */
+      showComfirmDialog () {
+        this.comfirmDialogShowed = true
+      },
+
       pay(order, pwd) {
         wx.showLoading({ mask: true, title: '支付中' })
         Api.order.pay({
@@ -154,54 +164,37 @@
         }).then(res => {
           if (res.code === Api.CODES.SUCCESS) {
             // 微信支付
-            if (order.paymentCode === 'weixinAppletPaymentPlugin') {
-              let params = JSON.parse(res.data.tocodeurl)
-              wx.requestPayment({
-                ...params,
-                success: () => {
-                  wx.showLoading({ mask: true, title: '请稍等' })
-                  // 延时以等待后端状态改变
-                  setTimeout(() => {
-                    wx.hideLoading()
-                    wx.redirectTo({
-                      url: `/pages/order/detail/main?id=${ order.orderId }`
-                    })
-                  }, 3000)
-                },
-                complete: () => {
-                  wx.showLoading({ mask: true, title: '请稍等' })
-                  // 延时以等待后端状态改变
-                  setTimeout(() => {
-                    wx.hideLoading()
-                    wx.redirectTo({
-                      url: `/pages/order/detail/main?id=${ order.orderId }`
-                    })
-                  }, 3000)
-                }
-              })
-            } else {
-              wx.redirectTo({
-                url: `/pages/order/detail/main?id=${ order.orderId }`
-              })
-            }
+
+            let params = JSON.parse(res.data.tocodeurl)
+            wx.requestPayment({
+              ...params,
+              success: () => {
+                // 延时以等待后端状态改变
+                wx.showLoading({ mask: true, title: '请稍等' })
+                setTimeout(() => {
+                  wx.hideLoading()
+                  wx.redirectTo({
+                    url: `/pages/order/detail/main?id=${ order.orderId }`
+                  })
+                }, 3000)
+              },
+              complete: () => {
+                // 延时以等待后端状态改变
+                wx.showLoading({ mask: true, title: '请稍等' })
+                setTimeout(() => {
+                  wx.hideLoading()
+                  wx.redirectTo({
+                    url: `/pages/order/detail/main?id=${ order.orderId }`
+                  })
+                }, 3000)
+              }
+            })
           } else {
-            if (res.code === 5000000) {
-              wx.showModal({
-                title: '提示',
-                content:res.message ? res.message : '支付密码错误，请重试',
-                showCancel: false,
-                success: () => {
-                  this.paymentDialogShowed = true
-                }
-              })
-            } else {
-              wx.showToast({
-                title: res.message ? res.message : '服务器错误',
-                icon: 'none'
-              })
-            }
+            wx.showToast({
+              title: res.message ? res.message : '服务器错误',
+              icon: 'none'
+            })
           }
-          wx.hideLoading()
         })
         .catch(() => wx.hideLoading())
       },
