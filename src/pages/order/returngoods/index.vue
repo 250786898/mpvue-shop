@@ -1,117 +1,69 @@
 <template>
-  <div>
-    <div class="weui-panel goods-list-panel">
-      <div class="weui-panel__bd">
-        <template v-for="item in orderGoodsList">
-          <div class="weui-media-box weui-media-box_appmsg">
-            <label class="checkbox">
-              <template v-if="!item.isPresentation && !(item.refundState == 1 || item.refundState == 3)">
-                <switch type="checkbox" class="weui-check" :checked="item.checked" @change="onChange($event, item)"/>
-                <div class="weui-cell__hd weui-check__hd_in-checkbox">
-                  <icon class="weui-icon-checkbox_success" type="success" size="23" v-if="item.checked">
-                  </icon>
-                  <icon class="weui-icon-checkbox_circle" type="circle" size="23" v-else>
-                  </icon>
-                </div>
-              </template>
-            </label>
-            <div class="weui-media-box__hd weui-media-box__hd_in-appmsg">
-              <image class="weui-media-box__thumb" :src="item.goodsImage" mode="aspectFit"/>
-            </div>
-            <div class="weui-media-box__bd weui-media-box__bd_in-appmsg">
-              <!-- if 赠品 -->
-              <div v-if="item.isPresentation" class="weui-media-box__title">
-                <span class="goods-tag">赠品</span>
-                {{ item.goodsName }}
-              </div>
-              <div v-else class="weui-media-box__title weui-media-box__title_total">
-                {{ item.goodsName }}
-                <div class="goods-total">￥{{ item.onlinePrice * item.goodsNum }}</div>
-              </div>
-              <!-- else 赠品 -->
-              <div style="color:#999;font-size:28rpx;" class="weui-media-box__desc" v-if="!item.isPresentation">
-                <span > 单价:￥{{ item.onlinePrice }}</span>
-                <div  class="goods-count goods-count_ih">数量: x{{ item.goodsNum }}</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="weui-media-box" v-if="!item.isPresentation && item.goodsNum > 1">
-            <div style="overflow: hidden;">
-              <div style="float: right;">
-                <counter v-model="item.returnGoodsNum" :max="item.goodsNum" :min="1"></counter>
-              </div>
-            </div>
-          </div>
-        </template>
-
-        <button type="primary" class="radius main-button" :disabled="!submittable" @click="submit">
-          确定退货商品
-        </button>
-      </div>
-    </div>
+  <div class="">
+    <goods-card :goodList="goodList" @getChooseList="getChooseList" />
+    <button type="primary" class="sure-button" @click="submit">确认退货商品</button>
   </div>
 </template>
 
 <script>
-  import { Api } from '@/http/api'
-  import Counter from '@/components/Counter'
+import GoodsCard from "./components/GoodsCard/index";
+import { Api } from '@/http/api';
 
-  export default {
-    components: {
-      Counter
-    },
-
-    data () {
-      return {
-        orderId: '',
-        orderGoodsList: []
-      }
-    },
-
-    computed: {
-      submittable() {
-        return this.orderGoodsList.some(item => item.checked)
-      }
-    },
-
-    methods: {
-      onChange({ mp: { detail } }, item) {
-        item.checked = detail.value
-      },
-
-      submit() {
-        getApp().globalData.returnOrderGoodsList = this.orderGoodsList.filter(item => item.checked)
-
-        wx.redirectTo({
-          url: `/pages/order/returnapply/main?id=${ this.orderId }`
-        })
-      }
-    },
-
-    onLoad(e) {
-      this.orderId = e.id
-
-      wx.showLoading({ title: '加载中' })
-      Api.order.detail({ orderId: e.id }).then(res => {
-        if (res.code === Api.CODES.SUCCESS) {
-          this.orderGoodsList = res.data.orderGoodsList.map(item => ({
-            ...item,
-            checked: false,
-            returnGoodsNum: item.goodsNum
-          }))
-        }
-      })
-      .catch(e => console.log(e))
-      .then(() => wx.hideLoading())
+export default {
+  components: {
+    GoodsCard
+  },
+  data(){
+    return{
+      orderId: "6598224525651873792",
+      goodList:[]
     }
+  },
+  methods: {
+    async getGoodList() {
+      let data = await Api.order.detail({
+        orderId: "6598224525651873792"
+      });
+      this.goodList = data.data.orderGoodsList;
+      for(let i = 0;i<this.goodList.length;i++){
+        this.goodList[i].check = false;
+      }
+    },
+    submit() {
+      wx.navigateTo({
+        url: `/pages/order/returnapply/main?id=${this.orderId}`
+      });
+    },
+    getChooseList(val){
+      
+    }
+  },
+  onLoad(e){
+    wx.showLoading({ title: '加载中' })
+    if(e.orderId){
+      this.orderId = e.orderId
+      this.getGoodList();
+    }
+      this.getGoodList();
+      wx.hideLoading();
   }
+};
 </script>
+
 <style>
-  page { background-color: #F4F4F4; padding-left:24rpx;}
+page {
+  background: #f1f1f1;
+  padding-top: 20rpx;
+}
 </style>
-<style scoped lang="scss">
-  .main-button {
-    margin: 80rpx;
-  }
+<style lang="scss" scoped>
+.sure-button {
+  width: 470rpx;
+  height: 80rpx;
+  border-radius: 10rpx;
+  font-size: 34rpx;
+  line-height: 80rpx;
+  margin: 0 auto;
+  margin-top: 70rpx;
+}
 </style>

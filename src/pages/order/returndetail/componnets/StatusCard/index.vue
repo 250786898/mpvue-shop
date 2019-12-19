@@ -1,13 +1,40 @@
 <template>
   <div class="status" style>
     <img src="/static/images/order-status-bg.png" alt />
-    <p class="status__text">申请成功，待商家处理</p>
-    <p class="status__time">2019年10月21日 16:48:10</p>
+    <p class="status__text" v-if="status==1||status==2||status==3" >申请成功，待商家处理</p>
+    <p class="status__text" v-if="status==4||status==5" >请将退货商品退还给门店，待商家退款</p>
+    <p class="status__text" v-if="status==6" >拒绝申请</p>
+    <p class="status__text" v-if="status==7" >退款成功</p>
+    <p class="status__text" v-if="status==8" >撤销成功</p>
+
+    <p class="status__time">{{time}}</p>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    status: {
+      type: Number,
+      default: 1
+    }, //订单状态
+    time: {
+      type: String,
+      default: ""
+    } //订单时间
+  },
+  methods: {
+    getStatus() {
+          return "退款成功";
+
+      // switch (this.state) {
+      //   case 7:
+      //     return "退款成功";
+      //     break;
+      // }
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped >
@@ -30,8 +57,8 @@ export default {};
     margin-left: 36rpx;
     font-size: 36rpx;
     color: rgba(255, 255, 255, 1);
-    font-weight:800;
-    font-family:PingFang SC;
+    font-weight: 800;
+    font-family: PingFang SC;
   }
   &__time {
     margin-top: 14rpx;

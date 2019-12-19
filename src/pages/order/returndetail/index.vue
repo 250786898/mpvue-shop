@@ -1,25 +1,21 @@
-<!--
- * @description:
- -->
-
 <template>
   <div class="details">
     <!-- 申请状态 -->
-    <status-card />
+    <status-card :status="details.state" :time="details.applyTime" />
 
     <!-- 退款明细 -->
-    <total-amount />
+    <total-amount :amount="details.refundAmount" />
 
     <!-- 订单商品 -->
     <div class="details-goods">
-      <good-card />
+      <good-card :goodsData="details.shopRefundGoodses" />
     </div>
 
     <!-- 订单详情 -->
-    <order-details />
+    <order-details :time="details.applyTime" :number="details.refundSn" :reason="details.refundReason" />
 
     <!-- 底部 -->
-    <bottom-bar />
+    <bottom-bar v-if="details.state==1||details.state==2||details.state==3" />
 
   </div>
 </template>
@@ -31,6 +27,8 @@ import GoodCard from "./componnets/GoodCard/index";
 import OrderDetails from './componnets/OrderDetails/index';
 import BottomBar from './componnets/BottomBar/index';
 import { Api } from '@/http/api';
+// import OrderModel from '@/model/Order';
+// const orderModel = new OrderModel();
 
 export default {
   components: {
@@ -42,7 +40,7 @@ export default {
   },
   data(){
     return{
-      id:"",//当前订单id
+      id:"6598224884185174016",//当前订单id
       details:{} //当前订单信息
     }
   },
@@ -53,15 +51,15 @@ export default {
     async getDetails(){
       let data = await Api.refund.detail({id:this.id});
       console.log(data);
+      this.details = data.data;
     }
   },
   onLoad(e){
-    console.log(e);
     if(e.id){
       this.id = e.id;
       this.getDetails();
     }
-  }
+  },
 };
 </script>
 
@@ -69,6 +67,7 @@ export default {
 page {
   background: #f1f1f1;
   padding-top: 20rpx;
+  padding-bottom: 106rpx;
 }
 </style>
 
@@ -80,7 +79,7 @@ page {
     border-radius: 10rpx;
     margin-top: 20rpx;
     background: #fff;
-    padding: 30rpx 32rpx 30rpx 32rpx;
+    padding: 0 32rpx 0 32rpx;
   }
 }
 </style>

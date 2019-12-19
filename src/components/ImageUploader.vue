@@ -2,7 +2,7 @@
   <div class="uploader">
     <div class="uploader__item" v-for="(img, index) in images" :key="img">
       <img :src="img" mode="aspectFill">
-      <img class="uploader__item__icon" src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/delete.png" @click="removeImage(index)">
+      <img class="uploader__item__icon" src="/static/images/common_icon_close.png" @click="removeImage(index)">
     </div>
     <div class="uploader__item" @click="selectImage" v-if="images.length < max">
       <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/evaluate_icon_camera@2x.png">
@@ -49,6 +49,7 @@
           success: res => {
             if (res.tempFilePaths.length) {
               this.uploadImages(res.tempFilePaths)
+              console.log(res);
             }
           }
         })
@@ -58,7 +59,7 @@
         if (tempFilePaths) {
           wx.showLoading({ title: '上传中', mask: true })
           wx.uploadFile({
-            url: UPLOAD_URL, // 仅为示例，非真实的接口地址
+            url: UPLOAD_URL,
             filePath: tempFilePaths[0],
             name: 'files',
             formData: {},
@@ -100,8 +101,7 @@
     &__item {
       position: relative;
       display: inline-block;
-      margin-right: 20rpx;
-      margin-bottom: 20rpx;
+      margin-left: 17rpx;
       vertical-align: middle;
       width: 98rpx;
       height: 98rpx;

@@ -1,9 +1,10 @@
+
 <template>
   <div class="amount">
     <div class="amount-total amount-card">
       <div class="amount-total__text amount-card__text">申请退款总金额</div>
       <div class="amount-total__info amount-card__info">
-        <online-price :signSize="22" :beforeSize="34" :afterSize="24" :price="113" />
+        <online-price :signSize="22" :beforeSize="34" :afterSize="24" :price="amount" />
       </div>
     </div>
     <div class="amount-wechat amount-card">
@@ -38,6 +39,12 @@
 <script>
 import OnlinePrice from "@/components/OnlinePrice";
 export default {
+  props:{
+    amount:{
+      type:Number,
+      default:0
+    }//默认总金额
+  },
   components: {
     OnlinePrice
   }
