@@ -1,7 +1,7 @@
 <template>
   <div class="container" >
-    <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/network_error_icon.png" mode="widthFix" class="error_icon">
-    <p class="error_text">没信号啦，点击刷新按钮试试</p>
+    <img src="/static/images/network_error_icon.png" mode="widthFix" class="error_icon">
+    <p class="error_text">没有信号，点击刷新按钮试试~</p>
     <button type="primary" class="error_btn" @click="refresh">刷新一下</button>
   </div>
 
@@ -49,20 +49,22 @@
     flex-direction: column;
     align-items: center;
     .error_icon{
-      width: 378rpx;
-      height: 365rpx;
-      margin: 146rpx 0 28rpx 0;
+      width: 468rpx;
+      height: 328rpx;
+      margin: 215rpx 0 20rpx 0;
     }
     .error_text{
-      font-size:30rpx;
+      font-size:28rpx;
       color: #666666;
-      margin-bottom: 99rpx;
+      margin-bottom: 50rpx;
     }
     .error_btn{
-      width:432rpx;
-      height:90rpx;
-      background:rgba(15,213,195,1);
-      border-radius:45rpx;
+      width:240rpx;
+      height:67rpx;
+      line-height: 67rpx;
+      font-weight:bold;
+      font-size: 32rpx;
+      border-radius:10rpx;
     }
   }
 </style>

@@ -1,8 +1,7 @@
 <template>
   <div class="location">
-    <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/login_icon_location@2x.png">
-    <!-- <i class="icon-location"></i> -->
-    <h4>您未开通定位权限，部分功能无法正常使用</h4>
+    <img src="/static/images/service_not _available.png" mode="aspectFit">
+    <h4>您未开通定位权限,部分功能无法正常使用</h4>
     <button type="primary" open-type="openSetting" @opensetting="onOpenSetting" class="radius">开通权限</button>
   </div>
 </template>
@@ -56,26 +55,29 @@
 
 <style scoped lang="scss">
   .location {
-    padding-top: 174rpx;
+    padding-top: 239rpx;
     text-align: center;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     img {
-      width: 308rpx;
-      height: 285rpx;
+      width: 468rpx;
+      height: 328rpx;
       vertical-align: middle;
     }
     h4 {
-      margin: 40rpx 0rpx 0 0rpx;
-      font-size: 30rpx;
+      margin: 21rpx 0rpx 50rpx 0rpx;
+      font-size: 28rpx;
       color: #666666;
     }
-    p {
-      margin: 16rpx 100rpx 0 100rpx;
-      font-size: 24rpx;
-      color: #999;
-      line-height: 40rpx;
-    }
     button {
-      margin: 60rpx 136rpx 0 136rpx;
+      width:240rpx;
+      height:67rpx;
+      line-height: 67rpx;
+      font-size: 32rpx;
+      font-weight: bold;
+      border-radius:10rpx;
     }
   }
 </style>

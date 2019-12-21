@@ -82,7 +82,8 @@ export default {
          latitude: this.location.latitude,
          longitude: this.location.longitude,
          activityId: '',
-         city: this.cityName
+         city: ''
+        //  city: this.cityName
        })
      },
 

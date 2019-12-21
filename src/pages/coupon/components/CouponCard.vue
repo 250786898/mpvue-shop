@@ -21,7 +21,7 @@
       <div class="coupon-card-buttom">
         <div class="coupon-footer">
           <div class="coupon-desc">指定商品满199.00元减129.00元</div>
-          <div class="applicable" v-if="type == 'base' || 'select' ">
+          <div class="applicable" v-if="type == 'base' || type ==  'select' ">
             <span>查看可用商品</span>
             <!-- <span>查看适用门店</span> -->
             <img src="/static/images/deliverycode_icon_arrow.png" alt="">
@@ -40,7 +40,7 @@
         <div class="use-btn"  v-if="type == 'use'">立即使用</div>
       </div>
 
-      <radio class="item-radio" color="#01BD9F"></radio>
+      <radio class="item-radio" color="#01BD9F" v-if="type == 'select'"></radio>
       <div class="cirle cirle-left"></div>
       <div class="cirle cirle-right"></div>
 

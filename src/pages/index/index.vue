@@ -34,12 +34,13 @@
 
       <page-loading  :show="showPageLoading"/>
 
-
+      <!--  -->
       <SelectStoreDialog :show="showSelectStoreDialog" @comfirmStore="comfirmStore"/>
 
+      <!--  -->
       <ComfirmStoreDialog :show="showComfirmStoreDialog"  @comfirmStore="comfirmStore" />
 
-      <CouponDialog />
+      <!-- <CouponDialog /> -->
 
   </div>
 

@@ -47,11 +47,16 @@
     <!-- 底部栏 -->
     <bottom-bar :goods-id="goodsDetailInfo.goodsId" :activityStock="goodsDetailInfo.activityStock" :activityId="goodsDetailInfo.activityId" />
 
-    <popup :show="popupShow"/>
+    <!-- 活动结束弹窗 -->
+    <ActivityEndPopup :show="popupShow"/>
+
+
+    <!-- 活动结束弹窗 -->
+    <RestStorePopup :show="isShowRestStorePopup"/>
 
     <SelectStoreDialog :show="showSelectStoreDialog" @comfirmStore="comfirmStore"/>
 
-    <ComfirmStoreDialog :show="showComfirmStoreDialog"  @comfirmStore="comfirmStore" />
+    <ComfirmStoreDialog :show="showComfirmStoreDialog"  @comfirmStore="comfirmStore"/>
 
     <canvas canvas-id="shareCanvas" style="width:200px;height:180px;position:fixed;top:30%;left:0%;opacity:0;position:fixed;top:999999999999999999999rpx;"></canvas>
 
@@ -76,7 +81,8 @@
   import DetailSwiper from './components/DetailSwiper/index'
   import BottomBar from './components/BottomBar/index'
   import CouponBar from './components/CouponBar/index'
-  import Popup from './components/Popup/index'
+  import ActivityEndPopup from './components/ActivityEndPopup/index'
+  import RestStorePopup from './components/RestStorePopup'
   import FixedTop from './components/FixedTop/index'
   import ComfirmStoreDialog from "@/components/ComfirmStoreDialog"
   import SelectStoreDialog from "@/components/SelectStoreDialog"
@@ -93,7 +99,8 @@
       GoodsDetail,
       DetailSwiper,
       BottomBar,
-      Popup,
+      ActivityEndPopup,
+      RestStorePopup,
       ComfirmStoreDialog,
       SelectStoreDialog,
       PageLoading,
@@ -107,6 +114,7 @@
         goodsDetailInfo: {},
         commendGoodsList: [],
         popupShow: false, //popup是否显示
+        isShowRestStorePopup: false, //是否显示休息门店
         showSelectStoreDialog: false, //选择门店弹窗显示
         showComfirmStoreDialog: false, //确认门店弹窗显示
         showPageLoading: false, //页面加载显示
@@ -258,6 +266,13 @@
          */
         shownComfirmStoreDialog () {
           this.showComfirmStoreDialog = true
+        },
+
+        /**
+         * @description 显示休息门店弹窗
+         */
+        showRestStorePopup () {
+          this.isShowRestStorePopup = true
         },
 
 
@@ -431,7 +446,6 @@
        * @description 设置经常访问相关信息
        */
       async setUsuallyStoreInfo () {
-
         const usuallyStoreId = await this.getUsuallyStoreId()
         console.log('getUsuallyStoreId',usuallyStoreId)
         const usuallyStoreItem = await this.findStoreItemByStoreId(usuallyStoreId)
@@ -444,7 +458,17 @@
           longitude: this.location.longitude,
           latitude: this.location.latitude
         })
-        return res.data
+        console.log('findStoreItemByStoreId',res)
+        if(res.code == Api.CODES.SUCCESS) {
+          if(res.data.isBusiness) {
+            //门店正常营业
+            return res.data
+          }else{
+            //门店已经休息
+            this.showRestStorePopup()
+          }
+        }
+
       },
 
       /**
@@ -525,12 +549,22 @@
          * @description 获取分享门店信息
          */
         async getOneStoreInfoByStoreId (shareStoreId) {
-          const storeInfo = await storeModel.getOneStoreInfoByStoreId({
+          const res = await storeModel.getOneStoreInfoByStoreId({
             storeId: this.shareStoreId,
             longitude: this.location.longitude,
             latitude: this.location.latitude,
           })
-          return storeInfo.data
+          console.log('getOneStoreInfoByStoreId',res)
+           if(res.code == Api.CODES.SUCCESS) {
+              console.log('getOneStoreInfoByStoreId2',res.data.isBusiness)
+            if(res.data.isBusiness == 1) {
+              //门店正常营业
+              return res.data
+            }else{
+              //门店已经休息
+              this.showRestStorePopup()
+            }
+          }
         },
 
         /**

@@ -109,7 +109,6 @@
                   this.login({
                     openid: res.data.openid,
                     mobile: res.data.mobile,
-
                   })
                 }
               })
@@ -118,6 +117,7 @@
               wx.login({
                 success: ({ code }) => {
                   this.code = code
+                  this.getPhoneNumber(detail)
                 }
               })
             }
@@ -125,16 +125,16 @@
 
 
         } else if (detail.errMsg !== 'getPhoneNumber:获取手机号失败') {
-          // wx.showModal({
-          //   title: '获取手机号码失败',
-          //   content: detail.errMsg
-          // })
-          //  wx.navigateTo({ url: '/pages/mine/auth/main' })
-              // wx.navigateBack({
-              // delta: 1
-              // })
+            wx.showModal({
+              title: '获取手机号码失败',
+              content: detail.errMsg
+            })
+              wx.navigateTo({ url: '/pages/mine/auth/main' })
+              wx.navigateBack({
+                delta: 1
+              })
           }
-          },
+        },
 
         toRegister() {
           wx.navigateTo({ url: '/pages/mine/register/main' })
@@ -182,9 +182,6 @@
           this.code = code
         }
       })
-    },
-
-    onUnload () {
     }
   }
 </script>

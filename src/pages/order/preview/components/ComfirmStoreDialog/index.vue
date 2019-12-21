@@ -11,7 +11,7 @@
             :id="0"
             :longitude="shopDetail.storelng"
             :latitude="shopDetail.storeLat"
-            :scale="20"
+            :scale="18"
             :markers="markers"
             style="width: 504rpx; height: 309rpx;"
           >
