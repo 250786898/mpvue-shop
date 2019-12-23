@@ -2,7 +2,7 @@
   <div>
     <good-card :goodList="goodList" numberColor="#999" :checkboxShow="false" />
     <refund-proof @getProof="getProof" />
-    <button type="primary" class="subit-button" @click="submit" >提交</button>
+    <button type="primary" class="subit-button" @click="submit">提交</button>
   </div>
 </template>
 
@@ -19,7 +19,8 @@ export default {
   data() {
     return {
       orderId: "6598224525651873792",
-      goodList: []
+      goodList: [],
+      proof: {}
     };
   },
   methods: {
@@ -37,21 +38,61 @@ export default {
      * @description 获取凭证信息
      */
     getProof(val) {
-      console.log(val);
+      this.proof = val;
     },
 
     /**
      * @description 提交当前申请
      */
-    submit(){
+    async submit() {
+      if (!this.proof.refundReason) {
+        return wx.showToast({
+          title: "请选择退货原因",
+          icon: "none"
+        });
+      }
 
+      let list = this.goodList.map(item => ({
+        id: item.id,
+        goodsNum: item.goodsNum
+      }));
+
+      wx.showLoading({ title: "提交中" });
+
+      let data = await Api.refund.applyReturn({
+        orderId: this.orderId,
+        refundReason: this.proof.refundReason,
+        goodsImageMore: this.proof.goodsImageMore,
+        goodsJson: JSON.stringify(list)
+      });
+
+      wx.hideLoading();
+      if (data.code === Api.CODES.SUCCESS) {
+        wx.showToast({
+          title: "申请成功"
+        });
+
+        setTimeout(() => {
+          wx.redirectTo({
+            url: `/pages/order/returns/main`
+          });
+        }, 1500);
+      } else if (data.code === 5010329) {
+        wx.showModal({
+          title: "提示",
+          content: "订单签收超过7天，不能为您提供售后退款服务",
+          showCancel: false,
+          cancelText: "知道了"
+        });
+      } else {
+        wx.showToast({ title: data.message, icon: "none" });
+      }
     }
-
   },
   onLoad(e) {
-    if(e.orderId){
-      this.orderId = e.orderId;
-      this.getGoodList();
+    if (e.id) {
+      this.orderId = e.id;
+      this.goodList = JSON.parse(e.list);
     }
   }
 };
@@ -64,9 +105,9 @@ page {
 }
 </style>
 <style lang="scss" scoped>
-.subit-button{
-  width:470rpx;
-  height:80rpx;
+.subit-button {
+  width: 470rpx;
+  height: 80rpx;
   margin: 0 auto;
   margin-top: 50rpx;
   line-height: 80rpx;

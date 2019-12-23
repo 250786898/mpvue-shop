@@ -20,7 +20,7 @@
     </div>
     <div class="proof-item">
       <span class="proof-item__label">退货说明</span>
-      <span class="proof-item__text">说明</span>
+      <!-- <span class="proof-item__text">说明</span> -->
     </div>
     <div class="proof-item proof-upload">
       <span class="proof-item__label">上传凭证</span>

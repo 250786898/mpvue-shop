@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class>
     <goods-card :goodList="goodList" @getChooseList="getChooseList" />
     <button type="primary" class="sure-button" @click="submit">确认退货商品</button>
   </div>
@@ -7,45 +7,63 @@
 
 <script>
 import GoodsCard from "./components/GoodsCard/index";
-import { Api } from '@/http/api';
+import { Api } from "@/http/api";
 
 export default {
   components: {
     GoodsCard
   },
-  data(){
-    return{
+  data() {
+    return {
       orderId: "6598224525651873792",
-      goodList:[]
-    }
+      goodList: [],
+      chooseList: []
+    };
   },
   methods: {
+    /**
+     * @description 获取商品列表
+     */
     async getGoodList() {
       let data = await Api.order.detail({
         orderId: "6598224525651873792"
       });
       this.goodList = data.data.orderGoodsList;
-      for(let i = 0;i<this.goodList.length;i++){
-        this.goodList[i].check = false;
-      }
     },
+
+    /**
+     * @description 获取选择的商品
+     */
+    getChooseList(val) {
+      this.chooseList = val;
+    },
+
+    /**
+     * @description 提交所选择的商品
+     */
     submit() {
-      wx.navigateTo({
-        url: `/pages/order/returnapply/main?id=${this.orderId}`
-      });
-    },
-    getChooseList(val){
-      
+      if (this.chooseList.length) {
+        wx.navigateTo({
+          url: `/pages/order/returnapply/main?id=${
+            this.orderId
+          }&list=${JSON.stringify(this.goodList)}`
+        });
+      }else{
+        wx.showToast({
+          title: "请选择退货商品",
+          icon: "none"
+        });
+      }
     }
   },
-  onLoad(e){
-    wx.showLoading({ title: '加载中' })
-    if(e.orderId){
-      this.orderId = e.orderId
+  onLoad(e) {
+    wx.showLoading({ title: "加载中" });
+    if (e.orderId) {
+      this.orderId = e.orderId;
       this.getGoodList();
     }
-      this.getGoodList();
-      wx.hideLoading();
+    this.getGoodList();
+    wx.hideLoading();
   }
 };
 </script>
