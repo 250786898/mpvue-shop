@@ -177,7 +177,7 @@
     },
 
     computed: {
-      ...mapState(['storeId', 'cartNum','shareStoreId','location','locateCity']),
+      ...mapState(['storeId', 'cartNum','shareStoreId','location','locateCity','shareStoreInfo','usuallyStoreInfo']),
       endTime () {
         return  this.goodsDetailInfo.time >= 0 ? this.goodsDetailInfo.time : 0
       }
@@ -376,14 +376,27 @@
               //不一致：选择门店弹窗
               //设置当前门店和经常访问门店相关信息
               console.log('不一致2：选择门店弹窗')
-              this.setCurrentStoreInfo(this.shareStoreId)
-              this.setUsuallyStoreInfo()
+              await this.setCurrentStoreInfo(this.shareStoreId)
+              await this.setUsuallyStoreInfo()
+              console.log('usuallyStoreInfo And shareStoreInfo 2',this.usuallyStoreInfo,this.shareStoreInfo)
+              if(this.usuallyStoreInfo.isBusiness == 0 && this.shareStoreInfo.isBusiness == 0 ) {
+                //当前门店和经常访问都休息弹出休息弹窗
+                this.showRestStorePopup()
+                return false
+              }
               this.shownSelectStoreDialog()
+
             }else {
               //usuallyStoreId为空，第一次访问为空，直接弹出确认门店弹窗
               console.log('usuallyStoreId不存在')
               const storeInfo =  await this.getOneStoreInfoByStoreId(this.shareStoreId)
               this.setStoreItemInfo(storeInfo) //设置当前门店
+               console.log('+++++++++++++分享门店信息+++++++++++++++++++++++++++++++',storeInfo.isBusiness)
+              if(storeInfo.isBusiness == 0){
+                //分享的休息弹出休息弹出
+                this.showRestStorePopup()
+                return false
+              }
               this.shownComfirmStoreDialog()
             }
 
@@ -437,7 +450,7 @@
       async setCurrentStoreInfo (currentStoreId) {
         console.log('setCurrentStoreInfo',currentStoreId)
         const shareStoreItem = await this.findStoreItemByStoreId(currentStoreId)
-        console.log('setCurrentStoreInfo2',shareStoreItem)
+        console.log('setCurrentStoreInfo2222222222',shareStoreItem)
         this.$store.commit('setShareStoreInfo',shareStoreItem)
         this.$store.commit('setShareStoreId',currentStoreId) //存储分享分店Id到全局vuex
       },
@@ -460,13 +473,7 @@
         })
         console.log('findStoreItemByStoreId',res)
         if(res.code == Api.CODES.SUCCESS) {
-          if(res.data.isBusiness) {
-            //门店正常营业
             return res.data
-          }else{
-            //门店已经休息
-            this.showRestStorePopup()
-          }
         }
 
       },
@@ -548,22 +555,16 @@
         /**
          * @description 获取分享门店信息
          */
-        async getOneStoreInfoByStoreId (shareStoreId) {
+        async getOneStoreInfoByStoreId (storeId) {
           const res = await storeModel.getOneStoreInfoByStoreId({
-            storeId: this.shareStoreId,
+            storeId: storeId,
             longitude: this.location.longitude,
             latitude: this.location.latitude,
           })
           console.log('getOneStoreInfoByStoreId',res)
            if(res.code == Api.CODES.SUCCESS) {
               console.log('getOneStoreInfoByStoreId2',res.data.isBusiness)
-            if(res.data.isBusiness == 1) {
-              //门店正常营业
               return res.data
-            }else{
-              //门店已经休息
-              this.showRestStorePopup()
-            }
           }
         },
 
