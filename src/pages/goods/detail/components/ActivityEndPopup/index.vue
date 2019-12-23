@@ -2,10 +2,9 @@
   <div class="js_dialog" id="iosDialog2" style="opacity: 1;" v-if="show">
     <div class="weui-mask"></div>
     <div class="weui-dialog">
-        <div class="weui-dialog__title">提示</div>
-        <div class="weui-dialog__bd">您访问的商品活动已结束，去首页逛逛...</div>
+        <div class="weui-dialog__bd">您访问的商品活动已结束, 去首页逛逛...</div>
         <div class="weui-dialog__ft">
-            <button class="weui-dialog__btn weui-dialog__btn_primary" @click="toIndex">返回首页</button>
+            <button class="weui-dialog__btn weui-dialog__btn_primary" type="primary" @click="toIndex">返回首页</button>
         </div>
     </div>
   </div>
@@ -57,30 +56,27 @@ export default {
     text-align: center;
     border-radius: 3px;
     overflow: hidden;
-    padding-bottom: 30rpx;
-    border-radius: 32rpx;
-    &__title{
-      padding: 50rpx 0 0rpx 0;
-      font-size: 30rpx;
-      font-weight: 800;
-    }
+    padding: 70rpx 0rpx;
+    width: 590rpx;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    box-sizing: border-box;
+    border-radius: 10rpx;
     &__bd{
-      font-size: 32rpx;
-      color: #666;
-      padding: 15rpx 50rpx 25rpx;
-      line-height: 40rpx;
+      font-size: 30rpx;
+      width: 348rpx;
+      color: #3F3F3F;
+      line-height: 45rpx;
     }
     &__btn{
-      width: 250rpx;
-      height: 60rpx;
-      line-height: 60rpx;
-      text-align: center;
-      border: 2rpx solid #0FD7C0;
-      background: #fff;
-      color: #0FD7C0;
-      border: 2rpx solid #0FD7C0;
-      border-radius: 60rpx;
+      width: 306rpx;
+      height: 70rpx;
+      line-height: 70rpx;
+      border-radius: 10rpx;
       font-size: 32rpx;
+      font-weight: bold;
+      margin-top: 22rpx;
     }
 }
 

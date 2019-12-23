@@ -5,8 +5,8 @@
   <div class="current-price" :style="priceStyle">
     <span class="current-price__sign" :style="signStyle">￥</span>
     <span class="current-price-before-point" :style="beforeStyle" >{{priceBeforeSign}}</span>
-    <span class="current-price__point" :style="beforeStyle">.</span>
-    <span class="current-price-after-point" :style="aftetStyle">{{priceAfterSign}}</span>
+    <span class="current-price__point" :style="beforeStyle" v-if="showAfterSign">.</span>
+    <span class="current-price-after-point" :style="aftetStyle" v-if="showAfterSign">{{priceAfterSign}}</span>
   </div>
 </template>
 
@@ -34,6 +34,10 @@ export default {
       default: 28
     },
     isbold: { //价格是否粗体
+      type: Boolean,
+      default: true
+    },
+    showAfterSign: { //是否显示小数点后两位
       type: Boolean,
       default: true
     }

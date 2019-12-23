@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!orderList.length && !loading" class="empty-container">
+  <div class="empty-container">
     <img src="/static/images/order-list-empty-icon.png">
     <div class="empty-container__text">暂时没有订单哦</div>
     <div class="empty-container__desc">赶紧去首页犒劳一下自己~</div>

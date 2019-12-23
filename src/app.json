@@ -5,12 +5,12 @@
     "pages/store/search/main",
     "pages/city/select/main",
     "pages/city/search/main",
-    "pages/goods/search/main",
     "pages/cart/main",
     "pages/cart/activitiesGoods/main",
     "pages/mine/main",
     "pages/location/main",
     "pages/goods/detail/main",
+    "pages/goods/search/main",
     "pages/order/preview/main",
     "pages/order/index/main",
     "pages/order/detail/main",
@@ -33,7 +33,8 @@
     "pages/coupon/applicableStores/main",
     "pages/coupon/applicableGoods/main",
     "pages/coupon/fetch/main",
-    "pages/coupon/select/main"
+    "pages/coupon/select/main",
+    "pages/coupon/activity/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -43,15 +44,15 @@
     "backgroundColor": "#0FD7C0"
   },
   "tabBar": {
-    "color": "#797979",
-    "selectedColor": "#00dec7",
+    "color": "#CACACA",
+    "selectedColor": "#06B3AE",
     "borderStyle": "white",
     "list": [
       {
         "pagePath": "pages/index/main",
         "text": "首页",
-        "iconPath": "static/images/homee_icon.png",
-        "selectedIconPath": "static/images/home_icon.png"
+        "iconPath": "static/images/home_icon.png",
+        "selectedIconPath": "static/images/homee_icon.png"
       },
 
       {
@@ -63,8 +64,8 @@
       {
         "pagePath": "pages/mine/main",
         "text": "我的",
-        "iconPath": "static/images/minee_icon.png",
-        "selectedIconPath": "static/images/mine_icon.png"
+        "iconPath": "static/images/mine_icon.png",
+        "selectedIconPath": "static/images/minee_icon.png"
       }
     ]
   },

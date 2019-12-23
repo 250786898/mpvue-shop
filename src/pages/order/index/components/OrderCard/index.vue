@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card" @click="tabCard">
     <div class="card-header">
       <div class="order-date">{{item.orderTime}}</div>
       <div class="order-state">
@@ -54,6 +54,15 @@ export default {
     }
   },
   methods: {
+
+    /**
+     * @description 点击订单卡片跳转详情
+     */
+    tabCard () {
+      wx.navigateTo({
+        url: `/pages/order/detail/main?id=${this.item.orderId}`
+      })
+    },
 
     /**
      * @description 通用操作promise

@@ -13,19 +13,22 @@
 
        <label class="select-store-item">
         <radio class="select-store-item-radio" :disabled="shareStoreInfo.isBusiness == 0" value="current" color="#0FD7C0" />
-        <div>
+        <div class="select-store-item-main">
           <div class="select-store-item-header">
 
-            <div class="store-name" v-if="shareStoreInfo">
-             {{shareStoreInfo.storeName}}<span v-if="!shareStoreInfo.isBusiness">休息中</span>
+            <div class="select-store-item-header-main">
+              <div class="store-name" v-if="shareStoreInfo">
+                {{shareStoreInfo.storeName}}<span v-if="!shareStoreInfo.isBusiness">休息中</span>
+              </div>
+
+              <div class="store-tag">
+                当前访问
+              </div>
             </div>
 
-            <div class="store-tag">
-              当前访问门店
-            </div>
 
             <div class="distance" v-if="shareStoreInfo && shareStoreInfo.isBusiness">
-              <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/confirm_store_location_icon.png" alt="">
+
               <span>距离您{{shareStoreDistance}}</span>
             </div>
 
@@ -38,19 +41,21 @@
 
         <label class="select-store-item">
         <radio class="select-store-item-radio" value="usually" color="#0FD7C0" :disabled="usuallyStoreInfo.isBusiness == 0" />
-        <div >
+        <div class="select-store-item-main">
           <div class="select-store-item-header">
-
-            <div class="store-name" v-if="usuallyStoreInfo">
+            <div class="select-store-item-header-main">
+              <div class="store-name" v-if="usuallyStoreInfo">
               {{usuallyStoreInfo.storeName}}<span v-if="!usuallyStoreInfo.isBusiness">休息中</span>
+              </div>
+
+              <div class="store-tag">
+                经常访问
+              </div>
             </div>
 
-            <div class="store-tag">
-              经常访问门店
-            </div>
 
             <div class="distance" v-if="usuallyStoreInfo && usuallyStoreInfo.isBusiness">
-              <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/confirm_store_location_icon.png" alt="">
+
               <span>距离您{{usuallyStoreDistance}}</span>
             </div>
 
@@ -65,7 +70,7 @@
     </radio-group >
       <div class="change-box"  @click="checkoutStore" v-if="shareStoreInfo.isBusiness || usuallyStoreInfo.isBusiness">
         <span>切换其他门店</span>
-        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/arrows.png" alt="">
+        <img src="/static/images/order-right-icon.png" alt="">
       </div>
       <button type="primary"  class="comfirm-btn" @click="checkoutStore"  v-if="!shareStoreInfo.isBusiness && !usuallyStoreInfo.isBusiness">切换其他门店</button>
       <button type="primary"  class="comfirm-btn" @click="comfirmStore" v-else>确定</button>
@@ -162,60 +167,75 @@
     flex-direction: column;
     box-sizing: border-box;
     padding-bottom: 66rpx;
+    border-radius:10rpx 10rpx 0px 0px;
+    padding: 0 20rpx;
     &-header{
       display: flex;
       flex-direction: column;
-      padding: 28rpx 16rpx;
-      border-bottom: 1px solid rgba(187, 187, 187, 0.36);
+      padding: 29rpx 0;
+      border-bottom: 1px solid #E4E4E4;
       &__title{
-        font-size: 32rpx;
-        font-weight: bold;
+        font-size: 34rpx;
+        font-weight: 800;
+        margin-bottom: 19rpx;
       }
       &__desc{
-        font-size: 24rpx;
+        font-size: 25rpx;
+        color: #999999;
       }
     }
     .store-list{
       .select-store-item{
         display: flex;
         align-items: center;
-        padding: 36rpx 0 36rpx 16rpx;
+        padding: 30rpx 0 30rpx 5rpx;
         border-bottom: 1px solid rgba(187, 187, 187, 0.36);
+        &-main{
+          width: 100%;
+        }
         &-header{
           display: flex;
           align-items: center;
+          justify-content: space-between;
+          width: 100%;
+          margin-bottom: 12rpx;
+          &-main{
+            display: flex;
+            align-items: center;
+          }
           .store-name{
-            font-size: 27rpx;
-            font-weight: 800;
-            margin-right: 14rpx;
+            font-size: 32rpx;
+            font-weight: bold;
+            margin-right: 10rpx;
           }
           .store-tag{
-            background-color: $orange-color;
-            width: 130rpx;
-            height: 36rpx;
-            line-height: 36rpx;
-            border-radius: 0;
+            background-color: #FF6600;
+            width: 98rpx;
+            height: 30rpx;
+            line-height: 30rpx;
+            border-radius: 4rpx;
             color: white;
-            font-size: 18rpx;
+            font-weight: bold;
+            font-size: 20rpx;
             text-align: center;
 
           }
         }
         .detail-address{
-          font-size: 26rpx;
-          color: $text-gray;
+          font-size: 28rpx;
+          line-height: 45rpx;
+          width: 646rpx;
         }
         &-radio{
           margin-right: 16rpx;
-          transform: scale(0.8)
+          transform: scale(0.7)
         }
       }
       .distance{
-        color: #FFA136;
+        color: #FF6600;
         display: flex;
         align-items: center;
-        margin-left: 12rpx;
-        font-size: 24rpx;
+        font-size: 26rpx;
         img{
           width: 24rpx;
           height: 24rpx;
@@ -225,27 +245,27 @@
     .change-box{
       display: flex;
       align-items: center;
-      font-size: 28rpx;
+      font-size: 34rpx;
       text-align: left;
-      padding-left: 66rpx;
-      color: #101010;
+      color: #3F3F3F;
       width: 100%;
-      margin-top: 30rpx;
+      margin-top: 39rpx;
+      font-weight: bold;
       img{
-        width: 24rpx;
-        height: 24rpx;
+        width: 13rpx;
+        height: 22rpx;
+        margin-left: 14rpx;
       }
     }
     .comfirm-btn{
-      width: 568rpx;
-      height: 75rrpx;
-      line-height: 75rpx;
-      border-radius: 66rpx;
-      background-color: #0FD7C0;
+      width:606rpx;
+      height:80rpx;
+      line-height: 80rpx;
+      border-radius: 10rpx;
       color: rgba(255, 255, 255, 1);
       font-size: 32rpx;
       text-align: center;
-      margin-top: 32rpx;
+      margin: 39rpx auto 50rpx;
     }
   }
   .close-icon{

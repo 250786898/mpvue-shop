@@ -47,11 +47,16 @@
     <!-- 底部栏 -->
     <bottom-bar :goods-id="goodsDetailInfo.goodsId" :activityStock="goodsDetailInfo.activityStock" :activityId="goodsDetailInfo.activityId" />
 
-    <popup :show="popupShow"/>
+    <!-- 活动结束弹窗 -->
+    <ActivityEndPopup :show="popupShow"/>
+
+
+    <!-- 活动结束弹窗 -->
+    <RestStorePopup :show="isShowRestStorePopup"/>
 
     <SelectStoreDialog :show="showSelectStoreDialog" @comfirmStore="comfirmStore"/>
 
-    <ComfirmStoreDialog :show="showComfirmStoreDialog"  @comfirmStore="comfirmStore" />
+    <ComfirmStoreDialog :show="showComfirmStoreDialog"  @comfirmStore="comfirmStore"/>
 
     <canvas canvas-id="shareCanvas" style="width:200px;height:180px;position:fixed;top:30%;left:0%;opacity:0;position:fixed;top:999999999999999999999rpx;"></canvas>
 
@@ -76,7 +81,8 @@
   import DetailSwiper from './components/DetailSwiper/index'
   import BottomBar from './components/BottomBar/index'
   import CouponBar from './components/CouponBar/index'
-  import Popup from './components/Popup/index'
+  import ActivityEndPopup from './components/ActivityEndPopup/index'
+  import RestStorePopup from './components/RestStorePopup'
   import FixedTop from './components/FixedTop/index'
   import ComfirmStoreDialog from "@/components/ComfirmStoreDialog"
   import SelectStoreDialog from "@/components/SelectStoreDialog"
@@ -93,7 +99,8 @@
       GoodsDetail,
       DetailSwiper,
       BottomBar,
-      Popup,
+      ActivityEndPopup,
+      RestStorePopup,
       ComfirmStoreDialog,
       SelectStoreDialog,
       PageLoading,
@@ -107,6 +114,7 @@
         goodsDetailInfo: {},
         commendGoodsList: [],
         popupShow: false, //popup是否显示
+        isShowRestStorePopup: false, //是否显示休息门店
         showSelectStoreDialog: false, //选择门店弹窗显示
         showComfirmStoreDialog: false, //确认门店弹窗显示
         showPageLoading: false, //页面加载显示
@@ -169,7 +177,7 @@
     },
 
     computed: {
-      ...mapState(['storeId', 'cartNum','shareStoreId','location','locateCity']),
+      ...mapState(['storeId', 'cartNum','shareStoreId','location','locateCity','shareStoreInfo','usuallyStoreInfo']),
       endTime () {
         return  this.goodsDetailInfo.time >= 0 ? this.goodsDetailInfo.time : 0
       }
@@ -258,6 +266,13 @@
          */
         shownComfirmStoreDialog () {
           this.showComfirmStoreDialog = true
+        },
+
+        /**
+         * @description 显示休息门店弹窗
+         */
+        showRestStorePopup () {
+          this.isShowRestStorePopup = true
         },
 
 
@@ -361,14 +376,27 @@
               //不一致：选择门店弹窗
               //设置当前门店和经常访问门店相关信息
               console.log('不一致2：选择门店弹窗')
-              this.setCurrentStoreInfo(this.shareStoreId)
-              this.setUsuallyStoreInfo()
+              await this.setCurrentStoreInfo(this.shareStoreId)
+              await this.setUsuallyStoreInfo()
+              console.log('usuallyStoreInfo And shareStoreInfo 2',this.usuallyStoreInfo,this.shareStoreInfo)
+              if(this.usuallyStoreInfo.isBusiness == 0 && this.shareStoreInfo.isBusiness == 0 ) {
+                //当前门店和经常访问都休息弹出休息弹窗
+                this.showRestStorePopup()
+                return false
+              }
               this.shownSelectStoreDialog()
+
             }else {
               //usuallyStoreId为空，第一次访问为空，直接弹出确认门店弹窗
               console.log('usuallyStoreId不存在')
               const storeInfo =  await this.getOneStoreInfoByStoreId(this.shareStoreId)
               this.setStoreItemInfo(storeInfo) //设置当前门店
+               console.log('+++++++++++++分享门店信息+++++++++++++++++++++++++++++++',storeInfo.isBusiness)
+              if(storeInfo.isBusiness == 0){
+                //分享的休息弹出休息弹出
+                this.showRestStorePopup()
+                return false
+              }
               this.shownComfirmStoreDialog()
             }
 
@@ -422,7 +450,7 @@
       async setCurrentStoreInfo (currentStoreId) {
         console.log('setCurrentStoreInfo',currentStoreId)
         const shareStoreItem = await this.findStoreItemByStoreId(currentStoreId)
-        console.log('setCurrentStoreInfo2',shareStoreItem)
+        console.log('setCurrentStoreInfo2222222222',shareStoreItem)
         this.$store.commit('setShareStoreInfo',shareStoreItem)
         this.$store.commit('setShareStoreId',currentStoreId) //存储分享分店Id到全局vuex
       },
@@ -431,7 +459,6 @@
        * @description 设置经常访问相关信息
        */
       async setUsuallyStoreInfo () {
-
         const usuallyStoreId = await this.getUsuallyStoreId()
         console.log('getUsuallyStoreId',usuallyStoreId)
         const usuallyStoreItem = await this.findStoreItemByStoreId(usuallyStoreId)
@@ -444,7 +471,11 @@
           longitude: this.location.longitude,
           latitude: this.location.latitude
         })
-        return res.data
+        console.log('findStoreItemByStoreId',res)
+        if(res.code == Api.CODES.SUCCESS) {
+            return res.data
+        }
+
       },
 
       /**
@@ -524,13 +555,17 @@
         /**
          * @description 获取分享门店信息
          */
-        async getOneStoreInfoByStoreId (shareStoreId) {
-          const storeInfo = await storeModel.getOneStoreInfoByStoreId({
-            storeId: this.shareStoreId,
+        async getOneStoreInfoByStoreId (storeId) {
+          const res = await storeModel.getOneStoreInfoByStoreId({
+            storeId: storeId,
             longitude: this.location.longitude,
             latitude: this.location.latitude,
           })
-          return storeInfo.data
+          console.log('getOneStoreInfoByStoreId',res)
+           if(res.code == Api.CODES.SUCCESS) {
+              console.log('getOneStoreInfoByStoreId2',res.data.isBusiness)
+              return res.data
+          }
         },
 
         /**

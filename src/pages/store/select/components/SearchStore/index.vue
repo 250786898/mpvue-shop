@@ -1,14 +1,24 @@
 <template>
   <div class="search-bar">
     <div class="search-item">
-      <div class="search-city" @click="navToSelectCity">{{cityName}}</div>
-      <img src="/static/images/common_icon_dropdown.png" alt="" class="dropdown-icon">
+
       <div class="search-main">
-        <label class="search-label" @click="navToSearch">
+        <label class="search-label" @click="selectSearchAddesss">
+          <img src="/static/images/commom_search_png.png" alt="" class="search-icon">
           <div class="search-placeholder">请输入提货地址</div>
         </label>
       </div>
-    </div>
+   </div>
+  <!-- <div class="search-bar">
+    <div class="search-item">
+      <div class="search-city" @click="navToSelectCity">{{cityName}}</div>
+      <img src="/static/images/common_icon_dropdown.png" alt="" class="dropdown-icon">
+      <div class="search-main">
+        <label class="search-label" @click="selectSearchAddesss">
+          <div class="search-placeholder">请输入提货地址</div>
+        </label>
+      </div>
+    </div> -->
   </div>
 </template>
 
@@ -22,6 +32,20 @@ export default {
     navToSearch () {
       wx.navigateTo({
         url: '/pages/store/search/main',
+      })
+    },
+
+    /**
+    * @description 选择搜索地址，跳转选择地址组价
+    */
+    selectSearchAddesss () {
+      wx.chooseLocation({
+        success: (result)=>{
+          console.log('selectSearchAddesss',result)
+          this.$store.commit('setLocationInfo',result) //选择地址后重新设置当前定位
+        },
+        fail: ()=>{},
+        complete: ()=>{}
       })
     },
 
@@ -43,7 +67,7 @@ export default {
 <style lang="scss">
 .search-bar{
   width:710rpx;
-  height:64rpx;
+  height:74rpx;
   background:rgba(255,255,255,1);
   border-radius:10rpx;
   margin-top: 30rpx;
@@ -61,6 +85,13 @@ export default {
 .dropdown-icon{
   width:40rpx;
   height: 30rpx;
+}
+.search-icon{
+  width: 25rpx;
+  height: 23rpx;
+  position: relative;
+  top: 5rpx;
+  margin-left: 10rpx;
 }
 .search-main{
   display: flex;
@@ -84,16 +115,16 @@ export default {
   height: 100%;
   width: 100%;
   margin-left: 15rpx;
-  &::before{
-    content: ' ';
-    width:2rpx;
-    height:31rpx;
-    display: block;
-    background: #929292;
-  }
+  // &::before{
+  //   content: ' ';
+  //   width:2rpx;
+  //   height:31rpx;
+  //   display: block;
+  //   background: #929292;
+  // }
   .search-placeholder{
-    margin-left: 29rpx;
-    font-size:24rpx;
+    margin-left: 20rpx;
+    font-size:30rpx;
   }
   .icon-search{
     margin-right: 14rpx;
