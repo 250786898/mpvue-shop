@@ -1,6 +1,6 @@
 <template>
   <div class="container" >
-    <img src="/static/images/network_error_icon.png" mode="widthFix" class="error_icon">
+    <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/network_error_icon.png" mode="widthFix" class="error_icon">
     <p class="error_text">没有信号，点击刷新按钮试试~</p>
     <button type="primary" class="error_btn" @click="refresh">刷新一下</button>
   </div>

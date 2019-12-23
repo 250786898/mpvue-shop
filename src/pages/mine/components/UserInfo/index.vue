@@ -1,7 +1,7 @@
 <template>
   <div class="info">
     <div class="login" v-if="!sessionId" @click="resgiterOrLogin">
-      <img src="/static/images/default-head-portraits.png" class="userinfo-img" />
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/default-head-portraits.png" class="userinfo-img" />
       <span class="login-text">登录/注册</span>
     </div>
     <div class="userinfo" v-else>

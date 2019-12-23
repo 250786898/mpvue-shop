@@ -7,7 +7,7 @@
         <div class="applicable-header-desc__date">有效期：2018-08-01 至 2018-08-30</div>
         <div class="applicable-store">
           <span>查看适用门店</span>
-          <img src="/static/images/coupon_goods_right.png" class="applicable-store__icon" alt="">
+          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/coupon_goods_right.png" class="applicable-store__icon" alt="">
         </div>
       </div>
 

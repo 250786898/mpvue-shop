@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <div class="search">
-      <img src="/static/images/search_icon.png" class="search-icon" alt="" mode="aspectFit">
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/search_icon.png" class="search-icon" alt="" mode="aspectFit">
       <span class="placeholder">搜索商品</span>
     </div>
 

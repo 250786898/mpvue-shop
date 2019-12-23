@@ -1,6 +1,6 @@
 <template>
   <div class="service">
-    <img src="/static/images/service_not _available.png" class="service-icon" />
+    <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/service_not _available.png" class="service-icon" />
     <div class="service-text">当前定位不在服务范围内~</div>
   </div>
 </template>

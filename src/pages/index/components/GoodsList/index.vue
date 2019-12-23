@@ -43,7 +43,7 @@
           <div class="goods-tabs__tip" v-if="!tabLoading && goodsList.length">我是有底线的！</div>
       </div>
 
-      <img src="/static/images/pull_down_refresh_icon.gif" alt="" class="tab-loading-icon" v-if="tabLoading">
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/pull_down_refresh_icon.gif" alt="" class="tab-loading-icon" v-if="tabLoading">
 
 
       <div class="empty-goods-tip" v-if="!tabLoading && goodsList.length == 0 && !loading">

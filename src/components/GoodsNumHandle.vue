@@ -1,13 +1,13 @@
 <template>
   <div class="counter">
     <div v-if="count > 1">
-       <img src="/static/images/common_icon_duce.png" class="handle-img">
+       <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_icon_duce.png" class="handle-img">
         <span class="count">{{ count }}</span>
-       <img src="/static/images/common_icon_add.png" class="handle-img">
+       <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_icon_add.png" class="handle-img">
     </div>
     <div v-else>
-       <img src="/static/images/common_btn_shopcart_sellout.png@2x.png" :style="iconStyle" class="icon-cart" v-if="addDisabled">
-       <img src="/static/images/common_btn_shopcart_small.png@2x.png" :style="iconStyle" class="icon-cart" v-else>
+       <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_btn_shopcart_sellout.png@2x.png" :style="iconStyle" class="icon-cart" v-if="addDisabled">
+       <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_btn_shopcart_small.png@2x.png" :style="iconStyle" class="icon-cart" v-else>
 
     </div>
 

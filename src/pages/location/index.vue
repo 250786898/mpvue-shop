@@ -1,6 +1,6 @@
 <template>
   <div class="location">
-    <img src="/static/images/service_not _available.png" mode="aspectFit">
+    <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/service_not _available.png" mode="aspectFit">
     <h4>您未开通定位权限,部分功能无法正常使用</h4>
     <button type="primary" open-type="openSetting" @opensetting="onOpenSetting" class="radius">开通权限</button>
   </div>

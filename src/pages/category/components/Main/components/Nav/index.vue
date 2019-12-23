@@ -24,15 +24,15 @@
     </scroll-view>
 
      <div class="downward-icon" @click="handleCategoryShow">
-       <img src="/static/images/downward-bg-icon.png" alt="" class="downward-icon__bg">
-       <img src="/static/images/cate-downward-icon.png" alt="" class="downward-icon__main">
+       <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/downward-bg-icon.png" alt="" class="downward-icon__bg">
+       <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/cate-downward-icon.png" alt="" class="downward-icon__main">
      </div>
 
     <template v-if="isshowAllCategory">
       <div  class="category">
         <div class="category-header">
           <span class="category-header__title">全部分类</span>
-          <img src="/static/images/cate-upward-icon.png" alt="" class="upward-icon" @click="handleCategoryShow" />
+          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/cate-upward-icon.png" alt="" class="upward-icon" @click="handleCategoryShow" />
         </div>
         <div class="category-list">
           <div class="category-list-item"  @click="tabCategory(-1)" :class="{ 'active-item' : currentIndex == -1  }">

@@ -1,12 +1,12 @@
 <template>
   <div class="container">
      <div class="cart" v-if="type == 'white'">
-      <img src="/static/images/icon_shopping_png.png" class="cart-icon"  alt="">
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/icon_shopping_png.png" class="cart-icon"  alt="">
       <div class="cart-num" v-if="num <10">{{num}}</div>
       <div class="cart-num circle-radius" v-else>{{num}}</div>
     </div>
     <div class="black-cart" v-else>
-      <img src="/static/images/icon_shopping car_png.png" class="cart-icon"  alt="">
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/icon_shopping car_png.png" class="cart-icon"  alt="">
       <div class="cart-num" v-if="num < 100">{{num}}</div>
       <div class="cart-num circle-radius" v-else>{{num}}</div>
     </div>

@@ -6,7 +6,7 @@
       </div>
       <div class="weui-cell__ft">
         <button open-type="share">
-          <img src="/static/images/details_share_icon.png">
+          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/details_share_icon.png">
         </button>
       </div>
     </div>

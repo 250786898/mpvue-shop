@@ -13,7 +13,7 @@
           <view v-if="reason">{{ reasonArray[reason] && reasonArray[reason].reasonInfo }}</view>
           <view class="proof-item-option__arrow" v-else>
             请选择
-            <img src="/static/images/cate-downward-icon.png" alt />
+            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/cate-downward-icon.png" alt />
           </view>
         </picker>
       </div>

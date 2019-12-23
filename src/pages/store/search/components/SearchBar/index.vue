@@ -2,12 +2,12 @@
 <div class="search-bar">
   <div class="search-item">
     <div class="search-city" @click="navToSelectCity">{{cityName}}</div>
-    <img src="/static/images/common_icon_dropdown.png" alt="" class="dropdown-icon">
+    <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_icon_dropdown.png" alt="" class="dropdown-icon">
     <div class="search-main">
       <label class="search-label" @click="navToSearch">
         <input class="search-placeholder" v-model="inputVal" placeholder="请输入提货地址" auto-focus @input="searchStore"/>
       </label>
-      <img src="/static/images/common_icon_close.png" class="cancel-search-icon" alt="" mode="aspectFit">
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_icon_close.png" class="cancel-search-icon" alt="" mode="aspectFit">
     </div>
 
   </div>

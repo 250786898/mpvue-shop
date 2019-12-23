@@ -3,22 +3,22 @@
     <div v-if="adType === 'ADOne'" class="ad-one">
       <div class="weui-flex">
         <div class="weui-flex__item ad-one-left">
-          <img src="/static/images/goods-left.png" alt="">
+          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/goods-left.png" alt="">
         </div>
         <div class="weui-flex__item ad-one-right">
-          <img src="/static/images/ad2.png" alt="">
-          <img src="/static/images/ad3.png" alt="">
+          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/ad2.png" alt="">
+          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/ad3.png" alt="">
         </div>
       </div>
     </div>
     <div v-else class="weui-flex">
       <div class="weui-flex__item ad-one-right">
-        <img src="/static/images/ad3.png" alt="">
-        <img src="/static/images/ad2.png" alt="">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/ad3.png" alt="">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/ad2.png" alt="">
       </div>
       <div class="weui-flex__item ad-one-right">
-        <img src="/static/images/ad2.png" alt="">
-        <img src="/static/images/ad3.png" alt="">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/ad2.png" alt="">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/ad3.png" alt="">
       </div>
     </div>
   </div>

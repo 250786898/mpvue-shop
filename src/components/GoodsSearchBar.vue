@@ -31,7 +31,7 @@
 
     </div>
     <div class="occupation">
-        <img src="/static/images/pull_down_refresh_icon.gif" mode="aspectFit">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/pull_down_refresh_icon.gif" mode="aspectFit">
     </div>
   </div>
 

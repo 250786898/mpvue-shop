@@ -21,8 +21,8 @@
         <div class="grayarrow-icon">
           <div class="grayarrow-icon-box">
             <span class="grayarrow-icon__text">去凑单</span>
-            <img src="/static/images/cart-coupon-scrollbg.png" class="grayarrow-icon__bg" alt="">
-            <img src="/static/images/cart-coupon_icon_arrow.png.png" class="grayarrow-icon__main" mode="aspectFit">
+            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/cart-coupon-scrollbg.png" class="grayarrow-icon__bg" alt="">
+            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/cart-coupon_icon_arrow.png.png" class="grayarrow-icon__main" mode="aspectFit">
           </div>
         </div>
     </div>

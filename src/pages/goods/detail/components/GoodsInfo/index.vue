@@ -1,6 +1,6 @@
 <template>
   <div class="good-buy-bar">
-      <img src="/static/images/shopping_bj_png.png" alt="" class="good-buy-bar__bg">
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/shopping_bj_png.png" alt="" class="good-buy-bar__bg">
 
      <div class="bar-left">
        <div class="price-box">

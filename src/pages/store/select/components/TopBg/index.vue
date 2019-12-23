@@ -1,6 +1,6 @@
 <template>
   <div class="top-container">
-    <img src="/static/images/select-store-bg.png" alt="" mode="">
+    <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/select-store-bg.png" alt="" mode="">
   </div>
 </template>
 

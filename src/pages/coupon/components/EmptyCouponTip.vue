@@ -1,6 +1,6 @@
 <template>
   <div class="empty-coupon-box">
-     <img src="/static/images/picture_Default page_png.png" class="empty-coupon_icon" alt="">
+     <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/picture_Default page_png.png" class="empty-coupon_icon" alt="">
      <div class="empty-coupon_text">还没有优惠券哦~</div>
   </div>
 </template>

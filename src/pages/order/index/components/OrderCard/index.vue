@@ -18,7 +18,7 @@
       </div>
       <div class="card-main-right">
         <div class="goods-num">共{{item.goodsNum}}件</div>
-        <img src="/static/images/order-right-icon.png" class="right-icon">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/order-right-icon.png" class="right-icon">
       </div>
     </div>
     <div class="card-footer">

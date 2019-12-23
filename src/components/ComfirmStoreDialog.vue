@@ -18,7 +18,7 @@
 
       <div class="change-box" @click="checkoutStore">
         <span>切换其他门店</span>
-        <img src="/static/images/order-right-icon.png" class="right-icon">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/order-right-icon.png" class="right-icon">
       </div>
       <button type="primary"  class="comfirm-btn" @click="comfirmStore" v-if="shopDetail && shopDetail.isBusiness">确定</button>
     </div>

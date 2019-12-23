@@ -2,33 +2,33 @@
   <div class="bar">
     <div class="item" @click="discount">
       <div class="item-left">
-        <img src="/static/images/mine-coupon-icon.png" class="item-left__icon">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/mine-coupon-icon.png" class="item-left__icon">
         <span class="item-left__desc">我的优惠券</span>
       </div>
       <div class="item-right">
         <span class="item-right__content">2张优惠券可用</span>
-        <img src="/static/images/me_icon_blackarrow.png.png" alt="">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/me_icon_blackarrow.png.png" alt="">
       </div>
     </div>
     <div class="item">
       <button open-type="contact" class="contact-btn">
         <div class="item-left">
-          <img src="/static/images/mine-service-icon.png" class="item-left__icon">
+          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/mine-service-icon.png" class="item-left__icon">
           <span class="item-left__desc">客服和帮助</span>
         </div>
 
         <div class="item-right">
-          <img src="/static/images/me_icon_blackarrow.png.png" alt="">
+          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/me_icon_blackarrow.png.png" alt="">
         </div>
       </button>
     </div>
     <div class="item" @click="toSettings">
       <div class="item-left">
-        <img src="/static/images/mine-setting-icon.png" class="item-left__icon">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/mine-setting-icon.png" class="item-left__icon">
         <span class="item-left__desc">设置</span>
       </div>
       <div class="item-right">
-        <img src="/static/images/me_icon_blackarrow.png.png" alt="">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/me_icon_blackarrow.png.png" alt="">
       </div>
     </div>
   </div>

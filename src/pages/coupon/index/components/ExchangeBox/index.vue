@@ -1,7 +1,7 @@
 <template>
   <div class="exchange">
       <div class="input-wrap">
-        <img src="/static/images/search_icon.png" class="search-icon" alt="">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/search_icon.png" class="search-icon" alt="">
         <input type="text" placeholder="请输入兑换码" class="exchange-input">
       </div>
       <span class="exchange-btn">兑换</span>

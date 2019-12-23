@@ -15,7 +15,7 @@ export default {
   },
   data() {
     return {
-      orderId: "6598224525651873792",
+      orderId: '',
       goodList: [],
       chooseList: []
     };
@@ -25,10 +25,15 @@ export default {
      * @description 获取商品列表
      */
     async getGoodList() {
-      let data = await Api.order.detail({
-        orderId: "6598224525651873792"
+      let res = await Api.order.detail({
+        orderId: this.orderId
       });
-      this.goodList = data.data.orderGoodsList;
+      console.log('==getGoodList==',Api.CODES.SUCCESS)
+      if(res.code == Api.CODES.SUCCESS) {
+        this.goodList = res.data.orderGoodsList;
+        wx.hideLoading()
+      }
+
     },
 
     /**
@@ -56,14 +61,13 @@ export default {
       }
     }
   },
-  onLoad(e) {
+  onLoad({ id }) {
+    console.log('onLoad',id)
     wx.showLoading({ title: "加载中" });
-    if (e.orderId) {
-      this.orderId = e.orderId;
+    if (id) {
+      this.orderId = id;
       this.getGoodList();
     }
-    this.getGoodList();
-    wx.hideLoading();
   }
 };
 </script>

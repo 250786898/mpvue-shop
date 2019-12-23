@@ -3,27 +3,27 @@
     <div class="bar">
       <div class="bar-top">
         <div class="store">
-          <img src="/static/images/locate_icon.png" class="locate-icon" />
+          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/locate_icon.png" class="locate-icon" />
           <div class="store-main" @click="selectStore">
             <span class="store-name">{{shopDetail.storeName}}</span>
-            <img src="/static/images/right_arrows_icon.png" class="right-arrows-icon" />
+            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/right_arrows_icon.png" class="right-arrows-icon" />
           </div>
         </div>
-        <img src="/static/images/to_pick_up_icon.png" class="pickup-icon" alt="">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/to_pick_up_icon.png" class="pickup-icon" alt="">
       </div>
       <div class="bar-label">
         <div class="bar-label-item">
-          <img src="/static/images/pickup_appointment_icon.png" class="bar-label-item__icon" />
+          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/pickup_appointment_icon.png" class="bar-label-item__icon" />
           <span class="bar-label-item__text">预约自提</span>
         </div>
         <div class="bar-label-item">
-          <img src="/static/images/distance-icon.png" class="bar-label-item__icon" />
+          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/distance-icon.png" class="bar-label-item__icon" />
           <span class="bar-label-item__text">距离您100m</span>
         </div>
       </div>
       <div class="bar-search">
         <div class="search-box">
-          <img src="/static/images/search_icon.png" class="search_icon" alt="">
+          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/search_icon.png" class="search_icon" alt="">
           <span class="search_text">搜索商品</span>
         </div>
       </div>

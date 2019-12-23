@@ -3,7 +3,7 @@
     <div class="card-title">优惠券</div>
     <div class="card-content">
       <span>满100减10元</span>
-      <img src="/static/images/order-right-icon.png" class="right-icon" alt="">
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/order-right-icon.png" class="right-icon" alt="">
     </div>
   </div>
 </template>

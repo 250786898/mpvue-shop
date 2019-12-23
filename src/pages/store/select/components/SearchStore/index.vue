@@ -4,7 +4,7 @@
 
       <div class="search-main">
         <label class="search-label" @click="selectSearchAddesss">
-          <img src="/static/images/commom_search_png.png" alt="" class="search-icon">
+          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/commom_search_png.png" alt="" class="search-icon">
           <div class="search-placeholder">请输入提货地址</div>
         </label>
       </div>
@@ -12,7 +12,7 @@
   <!-- <div class="search-bar">
     <div class="search-item">
       <div class="search-city" @click="navToSelectCity">{{cityName}}</div>
-      <img src="/static/images/common_icon_dropdown.png" alt="" class="dropdown-icon">
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_icon_dropdown.png" alt="" class="dropdown-icon">
       <div class="search-main">
         <label class="search-label" @click="selectSearchAddesss">
           <div class="search-placeholder">请输入提货地址</div>

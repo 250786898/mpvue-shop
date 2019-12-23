@@ -2,7 +2,7 @@
   <div class="uploader">
     <div class="uploader__item" v-for="(img, index) in images" :key="img">
       <img :src="img" mode="aspectFill">
-      <img class="uploader__item__icon" src="/static/images/common_icon_close.png" @click="removeImage(index)">
+      <img class="uploader__item__icon" src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_icon_close.png" @click="removeImage(index)">
     </div>
     <div class="uploader__item" @click="selectImage" v-if="images.length < max">
       <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/evaluate_icon_camera@2x.png">

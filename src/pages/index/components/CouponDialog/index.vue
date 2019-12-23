@@ -3,7 +3,7 @@
     <div class="backdrop"></div>
     <div class="welcome-dialog" @click="hide">
       <div class="welcome-dialog-img">
-        <img src="/static/images/picture_popup window_png.png" mode="aspectFit" @click.stop="fetchCoupon">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/picture_popup window_png.png" mode="aspectFit" @click.stop="fetchCoupon">
         <icon type="cancel" class="welcome-dialog__footer" size="24" color="#fff" @click="hide"></icon>
       </div>
     </div>

@@ -57,7 +57,7 @@ export default {
       console.log('this.shopDetail.storeLat',this.shopDetail.storeLat)
       this.markers = [
         {
-          iconPath: "/static/images/comfire-store-mask-icon.png",
+          iconPath: "https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/comfire-store-mask-icon.png",
           id: 0,
           latitude: this.shopDetail.storeLat,
           longitude: this.shopDetail.storelng,

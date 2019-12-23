@@ -70,7 +70,7 @@
     </radio-group >
       <div class="change-box"  @click="checkoutStore" v-if="shareStoreInfo.isBusiness || usuallyStoreInfo.isBusiness">
         <span>切换其他门店</span>
-        <img src="/static/images/order-right-icon.png" alt="">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/order-right-icon.png" alt="">
       </div>
       <button type="primary"  class="comfirm-btn" @click="checkoutStore"  v-if="!shareStoreInfo.isBusiness && !usuallyStoreInfo.isBusiness">切换其他门店</button>
       <button type="primary"  class="comfirm-btn" @click="comfirmStore" v-else>确定</button>

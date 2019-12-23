@@ -1,6 +1,6 @@
 <template>
   <div class="empty-container">
-    <img src="/static/images/order-list-empty-icon.png">
+    <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/order-list-empty-icon.png">
     <div class="empty-container__text">暂时没有订单哦</div>
     <div class="empty-container__desc">赶紧去首页犒劳一下自己~</div>
   </div>

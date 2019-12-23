@@ -3,7 +3,7 @@
     <!-- v-if="list.length > 0" -->
     <div v-if="true" >
       <div class="coupons-list-header">
-          <img src="/static/images/common_remind_png.png" alt="" class="remind_png">
+          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_remind_png.png" alt="" class="remind_png">
           <span>您有<span class="totol-coupons-num">2</span>张优惠券即将到期</span>
       </div>
 

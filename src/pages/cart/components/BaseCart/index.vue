@@ -14,7 +14,7 @@
             <span class="group-desc">门店自提</span>
         </div>
         <div class="group-header-right" @click="clearAllCart">
-          <img src="/static/images/commom_collection depot_png.png" class="delete-icon" alt="">
+          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/commom_collection depot_png.png" class="delete-icon" alt="">
         </div>
       </div>
 

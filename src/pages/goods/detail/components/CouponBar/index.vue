@@ -17,8 +17,8 @@
     </div>
 
     <div class="grayarrow-icon">
-      <img src="/static/images/downward-bg-icon.png" class="grayarrow-icon__bg" alt="">
-      <img src="/static/images/common_icon_grayarrow.png.png" class="grayarrow-icon__main" mode="aspectFit">
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/downward-bg-icon.png" class="grayarrow-icon__bg" alt="">
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_icon_grayarrow.png.png" class="grayarrow-icon__main" mode="aspectFit">
     </div>
   </div>
 </template>

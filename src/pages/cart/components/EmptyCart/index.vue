@@ -1,6 +1,6 @@
 <template>
   <div class="cart">
-    <img src="/static/images/empry-carticon.png" class="empty-icon">
+    <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/empry-carticon.png" class="empty-icon">
       <div class="empty-tip__text">购物车啥都没有哟</div>
       <div class="empty-tip__text">给自已定一个小目标，先下一单~</div>
       <button type="primary" class="radius" @click="toIndex">

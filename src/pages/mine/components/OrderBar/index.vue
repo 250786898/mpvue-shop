@@ -2,26 +2,26 @@
   <div class="bar">
     <div class="orders">
       <div class="orders-item" @click="makeEmit('obligation')">
-        <img src="/static/images/payment_icon.png" class="orders-item__icon">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/payment_icon.png" class="orders-item__icon">
         <span class="orders-item__status">待付款</span>
       </div>
       <div class="orders-item" @click="makeEmit('toPickUp')">
-        <img src="/static/images/mention_icon.png" class="orders-item__icon">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/mention_icon.png" class="orders-item__icon">
         <span class="orders-item__status">待提货</span>
       </div>
       <div class="orders-item" @click="makeEmit('pickUp')" >
-        <img src="/static/images/evaluate_icon.png" class="orders-item__icon">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/evaluate_icon.png" class="orders-item__icon">
         <span class="orders-item__status">已提货</span>
       </div>
       <div class="orders-item" @click="makeEmit('salesReturn')">
-        <img src="/static/images/after-sell_icon.png" class="orders-item__icon">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/after-sell_icon.png" class="orders-item__icon">
         <span class="orders-item__status">售后/退款</span>
       </div>
     </div>
     <div class="all-order">
-      <img src="/static/images/all-order-border.png" class="all-order__border">
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/all-order-border.png" class="all-order__border">
       <div class="all-order-main" @click="makeEmit('allOrder')">
-        <img src="/static/images/after-sell_icon.png" class="all-order-main__icon">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/after-sell_icon.png" class="all-order-main__icon">
         <span class="all-order-main__status">全部订单</span>
       </div>
     </div>

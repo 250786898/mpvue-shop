@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img class="mine-card__bg" src="/static/images/mine_bg.png"  alt="" >
+    <img class="mine-card__bg" src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/mine_bg.png"  alt="" >
     <div class="mine-card">
 
       <div class="mine-card__user">

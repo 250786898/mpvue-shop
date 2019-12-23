@@ -23,6 +23,7 @@ export default {
      * @description 跳转申请售后页面
      */
     applyReturns() {
+      console.log('applyReturns',this.orderId)
       wx.navigateTo({
         url: `/pages/order/returngoods/main?id=${ this.orderId }`
       })

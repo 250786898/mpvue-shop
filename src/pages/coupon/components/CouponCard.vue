@@ -24,16 +24,16 @@
           <div class="applicable" v-if="type == 'base' || type ==  'select' ">
             <span>查看可用商品</span>
             <!-- <span>查看适用门店</span> -->
-            <img src="/static/images/deliverycode_icon_arrow.png" alt="">
+            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/deliverycode_icon_arrow.png" alt="">
           </div>
         </div>
       </div>
 
       <div class="expire-label" v-if="type == 'base' ">即将到期</div>
       <div class="expire-icon" v-else>
-        <img src="/static/images/pictuer_used_png.png" alt="" v-if=" type  == 'used'">
-        <img src="/static/images/picture_expired_png.png" v-if=" type  == 'expire'">
-        <img src="/static/images/coupon-collected_png.png" v-if=" type  == 'use'">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/pictuer_used_png.png" alt="" v-if=" type  == 'used'">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/picture_expired_png.png" v-if=" type  == 'expire'">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/coupon-collected_png.png" v-if=" type  == 'use'">
       </div>
       <div class="handle-btn">
         <div class="fetch-btn" v-if="type == 'fetch'">立即领取</div>
