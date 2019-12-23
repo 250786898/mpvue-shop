@@ -1,18 +1,14 @@
 <template>
   <div class="card">
-    <div class="goods" v-for="(item,index) in list" :key="index">
-      <div class='goods-checkbox' v-if="checkboxShow">
-        <switch
-          type="checkbox"
-          class="weui-check"
-          :checked="item.checked"
-          @change="onChange($event,item)"
-          color="#01bd9f"
-        />
+    <div class="goods" v-for="(item,index) in goodList" :key="index">
+      <div class="goods-checkbox" v-if="checkboxShow">
+        <label class="checkbox" >
+        <switch type="checkbox" class="weui-check" :checked="item.checked" @change="onChange(index,$event)"/>
         <div class="weui-cell__hd weui-check__hd_in-checkbox">
-          <icon class="weui-icon-checkbox_success" type="success" size="18" v-if="item.checked"></icon>
-          <icon class="weui-icon-checkbox_circle" type="circle" size="18" v-else></icon>
+          <icon v-if="item.checked" class="weui-icon-checkbox_success" type="success" size="16" color="#01bd9f" ></icon>
+          <icon v-else class="weui-icon-checkbox_circle" type="circle" size="16"></icon>
         </div>
+      </label>
       </div>
 
       <img :src="item.goodsImage" alt :style="checkboxShow? '':'padding-left:22rpx'" />
@@ -47,20 +43,17 @@ export default {
       default: true
     } //复选框是否显示
   },
+  
   components: {
     OnlinePrice
   },
-  data() {
-    return {
-      list: []
-    };
-  },
+
   methods: {
     /**
      * @description 改变复选框状态
      */
-    onChange(e,item){
-      item.checked = e.mp.detail.value
+    onChange(index,e) {
+      this.$emit('changeGoodsStatus',{index,checked: e.mp.detail.value})
     },
 
     /**
@@ -68,18 +61,6 @@ export default {
      */
     getNumberColor() {
       return `color:${numberColor}`;
-    }
-  },
-  watch: {
-    chooseGoods: function() {
-      console.log(this.list);
-      this.$emit("getChooseList", this.list.filter(item => item.checked));
-    },
-    goodList:function(){
-      this.list = this.goodList.map(item => ({
-      ...item,
-      checked: true
-    }));
     }
   }
 };
@@ -107,12 +88,16 @@ export default {
     position: relative;
     margin-left: 12rpx;
     margin-right: 15rpx;
-    .weui-icon-checkbox_circle{
+    .checkbox{
+      width: 100%;
+      height: 100%;
+    }
+    .weui-icon-checkbox_circle {
       color: #01bd9f;
     }
-    &__switch{
+    &__switch {
       width: 32rpx;
-    height: 32rpx;
+      height: 32rpx;
     }
   }
   img {
