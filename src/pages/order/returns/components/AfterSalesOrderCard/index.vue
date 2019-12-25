@@ -61,7 +61,6 @@ export default {
         width: 112rpx;
         height: 112rpx;
         margin-right: 10rpx;
-        border-radius: 50%;
         background: #ccc;
       }
     }

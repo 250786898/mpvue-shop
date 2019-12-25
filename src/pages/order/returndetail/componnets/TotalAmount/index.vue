@@ -74,7 +74,7 @@ export default {
     line-height: 100rpx;
     display: flex;
     justify-content: space-between;
-    border-bottom: 2rpx solid #ccc;
+    border-bottom: 2rpx solid #ebebeb;
     &__text {
       font-weight: 800;
       font-size: 34rpx;
