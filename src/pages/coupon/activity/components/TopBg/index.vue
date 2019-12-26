@@ -1,6 +1,17 @@
 <template>
-  <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/coupon-activity-bg.png" class="activity-bg">
+  <img :src="imgSrc" class="activity-bg">
 </template>
+
+<script>
+export default {
+  props: {
+    imgSrc: { //背景图片路径
+      type: String,
+      default: ''
+    }
+  }
+}
+</script>
 
 <style lang="scss" scoped>
 .activity-bg{

@@ -81,6 +81,29 @@ class CouponModel {
     })
   }
 
+  /**
+   * @param {string || number} activityId  优惠券活动id
+   * @description 获取活动优惠券
+   */
+  getActivityCoupon({ activityId }) {
+    return get({
+      url: '/couponAvtivity/activityCoupon',
+      data: { activityId }
+    })
+  }
+
+  /**
+   * @param {string || number} goodsId  商品id
+   * @param {string || number} storeId  门店id
+   * @description 获取活动优惠券
+   */
+  getGoodsDetailsCoupon({ goodsId, storeId }) {
+    return get({
+      url: '/coupon/goodsDetailsCoupon',
+      data: {  goodsId, storeId }
+    })
+  }
+
 
 }
 export default CouponModel

@@ -1,14 +1,17 @@
 <template>
  <div class="container">
-   <Top-bg />
+   <Top-bg :imgSrc="activityInfo.activityImg" />
    <div class="container-main">
-     <coupon-list/>
-     <EmptyIcon/>
+     <template v-if="couponList && couponList.length > 0">
+       <coupon-list :list="couponList" />
+     </template>
+     <template v-else>
+       <EmptyIcon/>
+     </template>
    </div>
-
    <to-home />
    <to-coupon />
-   <button class="fetch-btn">一键领取</button>
+   <button class="fetch-btn" v-if="isShowFetchBtn" @click="fetchCoupon">一键领取</button>
  </div>
 </template>
 
@@ -18,6 +21,9 @@ import CouponList from './components/CouponList/index'
 import toCoupon from './components/ToCoupon'
 import toHome from './components/toHome'
 import EmptyIcon from '../components//EmptyCouponTip'
+import CouponModel from '@/model/coupon'
+import { Api } from '../../../http/api'
+const couponModel = new CouponModel()
 export default {
   components: {
     TopBg,
@@ -25,6 +31,51 @@ export default {
     toHome,
     toCoupon,
     EmptyIcon
+  },
+
+  data () {
+    return {
+      activityInfo: {}, //活动信息
+      couponList: [], //优惠券列表
+      isShowFetchBtn: false //是否显示领取按钮
+    }
+  },
+
+  mounted () {
+    console.log('getActivityCouponList')
+    this.getActivityCouponList()
+  },
+
+  methods: {
+    /**
+     * @description 加载活动优惠券列表
+     */
+    async getActivityCouponList () {
+      wx.showLoading({
+        title: '加载中'
+      })
+      const res = await couponModel.getActivityCoupon({
+        activityId: '6615598898796830720'
+      })
+      wx.hideLoading()
+      console.log('1',res.data.shopCoupons)
+      if(res.code == Api.CODES.SUCCESS) {
+        this.isShowFetchBtn = res.data.oneKeyCollection == 0 ? true : false
+        this.activityInfo = res.data.shopCouponActivity
+        this.couponList = res.data.shopCoupons
+      }
+    },
+
+    /**
+     * @description 领取优惠券
+     */
+    fetchCoupon () {
+      this.$store.dispatch('fetchActivityCoupon', this.activityInfo.id).then(code => {
+        if(code == 200002) {
+         this.isShowFetchBtn = false //隐藏领取按钮
+        }
+      })
+    }
   }
 }
 </script>

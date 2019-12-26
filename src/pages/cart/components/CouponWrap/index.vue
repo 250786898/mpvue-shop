@@ -13,7 +13,7 @@
       </scroll-view>
         <div class="grayarrow-icon">
           <div class="grayarrow-icon-box">
-            <span class="grayarrow-icon__text">去凑单</span>
+            <span class="grayarrow-icon__text" @click="toBuyGoods">去凑单</span>
             <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/cart-coupon-scrollbg.png" class="grayarrow-icon__bg" alt="">
             <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/cart-coupon_icon_arrow.png.png" class="grayarrow-icon__main" mode="aspectFit">
           </div>
@@ -57,6 +57,17 @@ export default {
 
   computed: {
     ...mapState(['storeId'])
+  },
+
+  methods: {
+    /**
+     * @description 跳购物车活动商品
+     */
+    toBuyGoods () {
+      wx.navigateTo({
+        url: '/pages/cart/activitiesGoods/main'
+      })
+    }
   }
 }
 </script>

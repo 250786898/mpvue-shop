@@ -14,7 +14,7 @@
           <div class="online-price">
             <OnlinePrice :price="item.discountedPrice" :signSize="20" :beforeSize="32" :afterSize="24"/>
           </div>
-          <div class="scribing-price">￥{{item.scribingPrice}}</div>
+          <div class="scribing-price" v-if="item.scribingPrice">￥{{item.scribingPrice}}</div>
         </div>
         <div class="sell-null">已售0份</div>
       </div>
