@@ -17,6 +17,7 @@
           tab-class="tab-class"
           line-width="26"
           line-height="5"
+          :border="!isCeiling"
           line-bottom="11"
           color="#01BD9F"
           :ellipsis="false"
@@ -34,7 +35,7 @@
       <div class="goods-recommend__bd goods-list" :style="{ marginTop:isCeiling? '40px' : '0px' }"  v-if="goodsList && goodsList.length > 0">
         <template v-if="!tabLoading">
           <div class="goods-card" v-for="item in goodsList" :key="item.id">
-            <goods-card :item="item"  :isSellOut="item.activityStock == 0"/>
+            <goods-card :item="item" />
           </div>
         </template>
       </div>
@@ -43,7 +44,7 @@
           <div class="goods-tabs__tip" v-if="!tabLoading && goodsList.length">我是有底线的！</div>
       </div>
 
-      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/pull_down_refresh_icon.gif" alt="" class="tab-loading-icon" v-if="tabLoading">
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/pull_down_refresh_icon.gif" alt="" class="tab-loading-icon" v-if="tabLoading">
 
 
       <div class="empty-goods-tip" v-if="!tabLoading && goodsList.length == 0 && !loading">
@@ -213,6 +214,7 @@
         if(this.isCeiling) {
           //如果已经处于吸顶状态切换到初始化相对应的滚动条
           const ceilingDistance =  this.indexGoodsTop - this.indexBarHeight
+          console.log(' //如果已经处于吸顶状态切换到初始化相对应的滚动条',ceilingDistance)
           wx.pageScrollTo({ scrollTop: ceilingDistance })
         }
         this.initTabData(index)
@@ -269,9 +271,7 @@
   min-height: 1300rpx;
 }
 
-.custom-class{
-  border-bottom: 1rpx solid rgba(204, 204, 204, 0.3);
-}
+
 
 //tab栏样式
 .fixed-tab{

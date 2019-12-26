@@ -70,7 +70,7 @@
     </radio-group >
       <div class="change-box"  @click="checkoutStore" v-if="shareStoreInfo.isBusiness || usuallyStoreInfo.isBusiness">
         <span>切换其他门店</span>
-        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/order-right-icon.png" alt="">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/order-right-icon.png" alt="">
       </div>
       <button type="primary"  class="comfirm-btn" @click="checkoutStore"  v-if="!shareStoreInfo.isBusiness && !usuallyStoreInfo.isBusiness">切换其他门店</button>
       <button type="primary"  class="comfirm-btn" @click="comfirmStore" v-else>确定</button>
@@ -158,11 +158,10 @@
   .dialog-main{
     width: 100vw;
     background: #ffffff;
-    z-index: 99999;
+    z-index: 9999;
     position: fixed;
     bottom: 0;
     left: 0%;
-    z-index: 100;
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
@@ -173,7 +172,7 @@
       display: flex;
       flex-direction: column;
       padding: 29rpx 0;
-      border-bottom: 1px solid #E4E4E4;
+      border-bottom: 1rpx solid #E4E4E4;
       &__title{
         font-size: 34rpx;
         font-weight: 800;

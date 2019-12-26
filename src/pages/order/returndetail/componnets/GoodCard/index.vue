@@ -42,7 +42,7 @@ export default {
   justify-content: space-between;
   width: 636rpx;
   padding: 30rpx 0;
-  border-bottom: 2rpx solid #e8e8e8;
+  border-bottom: 1rpx solid #E4E4E4;
   &:nth-last-of-type(1) {
     border-bottom: none;
   }

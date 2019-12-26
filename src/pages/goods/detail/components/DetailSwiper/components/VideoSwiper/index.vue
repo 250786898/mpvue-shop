@@ -1,6 +1,6 @@
 <template>
   <div class="video-wrap">
-    <video  src="/static/video.mp4" class="video-item"></video>
+    <video  src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/aaa.mp4" class="video-item"></video>
   </div>
 </template>
 

@@ -14,7 +14,7 @@
             <span class="group-desc">门店自提</span>
         </div>
         <div class="group-header-right" @click="clearAllCart">
-          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/commom_collection depot_png.png" class="delete-icon" alt="">
+          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/commom_collection depot_png.png" class="delete-icon" alt="">
         </div>
       </div>
 
@@ -339,7 +339,7 @@ export default {
     margin-left: 48rpx;
   }
   .goods-list-item{
-    border-bottom: 1px solid #E4E4E4;
+    border-bottom: 1rpx solid #E4E4E4;
   }
   /*正常商品样式*/
 

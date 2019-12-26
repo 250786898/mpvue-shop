@@ -1,7 +1,7 @@
 <template>
   <div class="info">
     <div class="login" v-if="!sessionId" @click="resgiterOrLogin">
-      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/default-head-portraits.png" class="userinfo-img" />
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/default-head-portraits.png" class="userinfo-img" />
       <span class="login-text">登录/注册</span>
     </div>
     <div class="userinfo" v-else>
@@ -47,8 +47,8 @@ export default {
   z-index: 2;
   position: relative;
   .userinfo-img {
-    width:98rpx;
-    height:98rpx;
+    width:118rpx;
+    height:118rpx;
     border-radius:50%;
     margin-right: 35rpx;
   }

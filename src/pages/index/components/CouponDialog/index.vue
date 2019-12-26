@@ -3,7 +3,7 @@
     <div class="backdrop"></div>
     <div class="welcome-dialog" @click="hide">
       <div class="welcome-dialog-img">
-        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/picture_popup window_png.png" mode="aspectFit" @click.stop="fetchCoupon">
+        <img :src="imgSrc" mode="aspectFit" @click.stop="fetchCoupon">
         <icon type="cancel" class="welcome-dialog__footer" size="24" color="#fff" @click="hide"></icon>
       </div>
     </div>
@@ -17,9 +17,9 @@
         type: Boolean,
         default: true
       },
-      activityInfo: {
-        type: Object,
-        default: () => ({})
+      imgSrc: { //优惠券图片
+        type: String,
+        default: ''
       }
     },
     methods: {
@@ -29,7 +29,7 @@
        */
       hide() {
         console.log('hide')
-        this.shown = false
+        this.$emit('update:shown',false)
       },
 
       /**
@@ -37,6 +37,7 @@
        */
       fetchCoupon () {
         console.log('fetchCoupon')
+        this.$emit('fetchCoupon')
       }
     }
   }

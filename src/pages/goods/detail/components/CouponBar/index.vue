@@ -2,7 +2,7 @@
   <div class="bar">
     <div class="bar-main">
       <div class="bar-title">
-        优惠券
+        促销
       </div>
       <scroll-view
         :scroll-x="true"
@@ -17,8 +17,8 @@
     </div>
 
     <div class="grayarrow-icon">
-      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/downward-bg-icon.png" class="grayarrow-icon__bg" alt="">
-      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_icon_grayarrow.png.png" class="grayarrow-icon__main" mode="aspectFit">
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/downward-bg-icon.png" class="grayarrow-icon__bg" alt="">
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/common_icon_grayarrow.png.png" class="grayarrow-icon__main" mode="aspectFit">
     </div>
   </div>
 </template>

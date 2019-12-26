@@ -43,6 +43,7 @@ fly.interceptors.request.use(req => {
 let redirectLock = false
 fly.interceptors.response.use(res => {
   if (res.data.code === 40001) {
+
     let pages = getCurrentPages()
     let current = pages[pages.length - 1]
 
@@ -50,36 +51,9 @@ fly.interceptors.response.use(res => {
     if (config.ALL_GUEST_PAGES.indexOf(current.route) === -1) {
       if (redirectLock) return
       redirectLock = true
-
-      console.log('resgiterOrLogin40001')
-
       resgiterOrLogin()
       redirectLock = false
-      // wx.reLaunch({
-      //   url: '/pages/mine/auth/main',
-      //   complete: () => redirectLock = false
-      // });
-
-
     }
-  }else if (res.data.code === Api.CODES.INEXISTENT_STORE){
-    //如果门店下架或者门店不存在跳转选择门店组件
-    // wx.showModal({
-    //   title: '提示',
-    //   content: '该门店已经休息啦~',
-    //   showCancel: false,
-    //   cancelText: '取消',
-    //   cancelColor: '#000000',
-    //   confirmText: '确定',
-    //   confirmColor: '#3CC51F',
-    //   success: (result) => {
-    //     if (result.confirm) {
-    //       wx.reLaunch({
-    //         url: '/pages/store/select/main'
-    //       })
-    //     }
-    //   }
-    // })
   }
   return res.data
 },
@@ -107,7 +81,7 @@ fly.interceptors.response.use(res => {
 )
 
 export const get = (params) => {
-  return fly.get(`${ params.url }`, qs.stringify(params.data))
+  return fly.get(`${ params.url }`, params.data)
 }
 
 // 通用的post请求

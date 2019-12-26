@@ -1,12 +1,12 @@
 <template>
   <div class="container">
-    <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/signin_bg_logo_big@2x.png" class="logo">
+    <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/signin_bg_logo_big@2x.png" class="logo">
     <div class="auth-desc">乐家生鲜</div>
 
     <div class="button-bar">
       <form report-submit @submit="uploadFormId">
         <button type="primary" form-type="submit" open-type="getPhoneNumber" @getphonenumber="getPhoneNumber" hover-class="button-hover">
-          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/signin_icon_wechat@2x.png" class="icon-wx">
+          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/signin_icon_wechat@2x.png" class="icon-wx">
           微信用户手机号授权快捷登录
         </button>
       </form>

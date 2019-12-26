@@ -14,7 +14,7 @@
         </div>
 
       </div>
-      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/arrows.png" class="arrows" alt="">
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/arrows.png" class="arrows" alt="">
     </div>
   </div>
 </template>

@@ -5,7 +5,7 @@
 
     <status-info :status="order.state" v-if="order.state != 10" />
 
-    <pickup-store-info :storeInfo="order" />
+    <PickupStoreInfo :storeInfo="order" />
 
     <goods-info :orderInfo="order" />
 
@@ -27,7 +27,7 @@
   import { Api, ORDER_STATE, ORDER_STATE_TEXT } from '@/http/api'
   import StatusInfo from './components/StatusInfo'
   import PayBar from './components/PayBar'
-  import PickupStoreInfo from '../components/PickupStoreInfo'
+  import PickupStoreInfo from './components/PickupStore'
   import GoodsInfo from './components/GoodsInfo'
   import OrderInfo from './components/OrderInfo'
   import FixedFooter from './components/FixedFooter'

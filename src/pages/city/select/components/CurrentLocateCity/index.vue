@@ -1,7 +1,7 @@
 <template>
   <div class="locate">
     <div class="locate-desc">
-      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/select-city-locate.png" alt="" class="locate-icon">
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/select-city-locate.png" alt="" class="locate-icon">
       <span class="locate-text">当前定位城市</span>
     </div>
     <div class="current-city">

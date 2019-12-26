@@ -1,5 +1,5 @@
 <template>
-  <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/coupon-activity-bg.png" class="activity-bg">
+  <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/coupon-activity-bg.png" class="activity-bg">
 </template>
 
 <style lang="scss" scoped>

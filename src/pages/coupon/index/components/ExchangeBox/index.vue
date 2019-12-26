@@ -1,16 +1,51 @@
 <template>
   <div class="exchange">
       <div class="input-wrap">
-        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/search_icon.png" class="search-icon" alt="">
-        <input type="text" placeholder="请输入兑换码" class="exchange-input">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/search_icon.png" class="search-icon" alt="">
+        <input type="text" placeholder="请输入兑换码" class="exchange-input" v-model="exchangeCouponNO">
       </div>
-      <span class="exchange-btn">兑换</span>
+      <span class="exchange-btn" @click="exchangeCoupon">兑换</span>
   </div>
 </template>
 
 <script>
+import CouponModel from '@/model/coupon'
+import { Api } from '@/http/api'
+const couponModel = new CouponModel()
 export default {
-
+  data () {
+    return {
+      exchangeCouponNO: '' //优惠券兑换码
+    }
+  },
+  methods: {
+    /**
+     * @description 兑换优惠券
+     */
+    async exchangeCoupon () {
+      if(!this.exchangeCouponNO) {
+        wx.showToast({
+          title: '请输入兑换码~', //提示的内容,
+          icon: 'none' //图标,
+        })
+        return false
+      }
+      const res = await couponModel.receiveCoupon({
+        systemCode: this.exchangeCouponNO
+      })
+      if(res.code == Api.CODES.SUCCESS) {
+        wx.showToast({
+          title: '兑换成功~', //提示的内容,
+          icon: 'none' //图标,
+        })
+      }else{
+         wx.showToast({
+          title: res.message, //提示的内容,
+          icon: 'none' //图标,
+        })
+      }
+    }
+  }
 }
 </script>
 

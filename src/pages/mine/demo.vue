@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img class="mine-card__bg" src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/mine_bg.png"  alt="" >
+    <img class="mine-card__bg" src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/mine_bg.png"  alt="" >
     <div class="mine-card">
 
       <div class="mine-card__user">
@@ -12,7 +12,7 @@
               <!-- if hasAvatar -->
               <img v-if="personCenter.avatar" :src="personCenter.avatar">
               <!-- else -->
-              <img v-else src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/me_img_headportrait_n@2x.png" class="placeholder">
+              <img v-else src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/me_img_headportrait_n@2x.png" class="placeholder">
             </div>
           </div>
           <div class="weui-cell__bd">
@@ -25,7 +25,7 @@
             <!-- else -->
             <div hover-class="none" @click="resgiterOrLogin"  v-else class="mine-card__login" >
               注册/登录
-              <!-- <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/me_icon_blackarrow@2x.png"> -->
+              <!-- <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/me_icon_blackarrow@2x.png"> -->
             </div>
             <p class="mine-card__desc">满世界给你找好吃的</p>
           </div>
@@ -47,27 +47,27 @@
       <div class="weui-panel__bd my-order-panel-content">
         <div class="weui-flex ">
           <div hover-class="none" @click="obligation " :url="'/pages/order/index/main?status=' + ORDER_STATE.UNPAID" class="weui-flex__item" style="position:relative">
-            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/payment_icon.png">
+            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/payment_icon.png">
             <div>待付款</div>
             <span class="weui-badge" style="position: absolute;top: -.4em;right: 1em;" v-if="personCenter.notPayCount">{{ personCenter.notPayCount }}</span>
           </div>
           <div hover-class="none" @click="toPickUp" :url="'/pages/order/index/main?status=' + ORDER_STATE.POHYD" class="weui-flex__item" style="position:relative">
-            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/mention_icon.png">
+            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/mention_icon.png">
             <div>待提货</div>
             <span class="weui-badge" style="position: absolute;top: -.4em;right: 1em;" v-if="personCenter.notVeriCount">{{ personCenter.notVeriCount }}</span>
           </div>
           <!-- <navigator hover-class="none" :url="'/pages/order/index/main?status=' + ORDER_STATE.UNRECEIVED" class="weui-flex__item" style="position:relative">
-            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/me_icon_deliveried@2x.png">
+            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/me_icon_deliveried@2x.png">
             <div>待收货</div>
             <span class="weui-badge" style="position: absolute;top: -.4em;right: 1em;" v-if="personCenter.notReceivingCount">{{ personCenter.notReceivingCount }}</span>
           </navigator> -->
           <div hover-class="none" @click="pickUp" :url="'/pages/order/index/main?status=' + ORDER_STATE.FINISHED" class="weui-flex__item" style="position:relative">
-            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/evaluate_icon.png">
+            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/evaluate_icon.png">
             <div>已提货</div>
             <!-- <span class="weui-badge" style="position: absolute;top: -.4em;right: 1em;" v-if="personCenter.notEvaluationCount">{{ personCenter.notEvaluationCount }}</span> -->
           </div>
           <div hover-class="none" @click="salesReturn" :url="'/pages/order/returns/main'" class="weui-flex__item" style="position:relative">
-            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/after_icon.png">
+            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/after_icon.png">
             <div>退货/售后</div>
           </div>
         </div>
@@ -82,7 +82,7 @@
 
       <navigator @click="discount" hover-class="none" class="my-service-box-item">
         <div class="my-service-box-item-main">
-          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/coupon_icon.png" class="my-service-box-item__icon" >
+          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/coupon_icon.png" class="my-service-box-item__icon" >
           <div class="my-service-box-item__desc">我的优惠券</div>
         </div>
         <div class="weui-cell__ft weui-cell__ft_in-access"></div>
@@ -91,7 +91,7 @@
       <div class="my-service-box-item">
         <button open-type="contact" class="contact-btn">
           <div class="my-service-box-item-main">
-            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/service_icon.png" class="my-service-box-item__icon" >
+            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/service_icon.png" class="my-service-box-item__icon" >
             <div class="my-service-box-item__desc">客服和帮助</div>
           </div>
           <div class="weui-cell__ft weui-cell__ft_in-access"></div>
@@ -100,7 +100,7 @@
 
       <navigator @click="toSettings" hover-class="none" class="my-service-box-item">
         <div class="my-service-box-item-main">
-          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/set_icon.png" class="my-service-box-item__icon" >
+          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/set_icon.png" class="my-service-box-item__icon" >
           <div class="my-service-box-item__desc">设置</div>
         </div>
         <div class="weui-cell__ft weui-cell__ft_in-access"></div>

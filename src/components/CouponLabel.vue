@@ -1,13 +1,18 @@
 <template>
   <div class="coupon-item">
-    <div>满99减15元</div>
+    <div>满{{item.eliyibility}}减{{item.couponMoney}}元</div>
     <div class="coupon-item-circle"></div>
   </div>
 </template>
 
 <script>
 export default {
-
+  props: {
+    item: { //优惠券对象
+      type: Object,
+      default: {}
+    }
+  }
 }
 </script>
 

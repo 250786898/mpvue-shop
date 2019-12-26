@@ -8,7 +8,7 @@
         </div>
         <div class="order-card-goods__more">
           <span>共{{orderInfo.goodsImage.length}}件</span>
-          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/right_arrows_icon.png" alt />
+          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/right_arrows_icon.png" alt />
         </div>
       </div>
     </navigator>

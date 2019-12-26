@@ -7,22 +7,15 @@
         scroll-with-animation
         class="coupon-list"
         >
-        <CouponLabel />
-        <CouponLabel />
-        <CouponLabel />
-        <CouponLabel />
-        <CouponLabel />
-        <CouponLabel />
-        <CouponLabel />
-        <CouponLabel />
+        <CouponLabel v-for="item in couponList" v-bind:key="item.id" :item="item" />
 
 
       </scroll-view>
         <div class="grayarrow-icon">
           <div class="grayarrow-icon-box">
             <span class="grayarrow-icon__text">去凑单</span>
-            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/cart-coupon-scrollbg.png" class="grayarrow-icon__bg" alt="">
-            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/cart-coupon_icon_arrow.png.png" class="grayarrow-icon__main" mode="aspectFit">
+            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/cart-coupon-scrollbg.png" class="grayarrow-icon__bg" alt="">
+            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/cart-coupon_icon_arrow.png.png" class="grayarrow-icon__main" mode="aspectFit">
           </div>
         </div>
     </div>
@@ -31,22 +24,9 @@
       scroll-x
       scroll-with-animation
     >
-      <div class="goods-card">
-        <GoodsCard />
+      <div class="goods-card"  v-for="item in goodsList" v-bind:key="item.id">
+        <GoodsCard :item="item" v-if="item.activityStock"/>
       </div>
-
-      <div class="goods-card">
-        <GoodsCard />
-      </div>
-
-      <div class="goods-card">
-        <GoodsCard />
-      </div>
-
-      <div class="goods-card">
-        <GoodsCard />
-      </div>
-
 
     </scroll-view>
   </div>
@@ -55,10 +35,28 @@
 <script>
 import CouponLabel from '@/components/CouponLabel'
 import GoodsCard from './components/GoodsCard'
+import { mapState } from 'vuex'
+import { Api } from '@/http/api'
+
 export default {
   components: {
     CouponLabel,
     GoodsCard
+  },
+  props: {
+    goodsList: { //优惠券推荐商品列表
+      type: Array,
+      default: []
+    },
+    couponList: { //优惠券列表
+      type: Array,
+      default: []
+    }
+  },
+
+
+  computed: {
+    ...mapState(['storeId'])
   }
 }
 </script>

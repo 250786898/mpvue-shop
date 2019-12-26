@@ -1,7 +1,7 @@
 <template>
   <div class="weui-panel goods-list-panel">
     <div class="weui-panel__hd">
-      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/details_icon_clock@2x.png">
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/details_icon_clock@2x.png">
       <span>提货时间</span>
       <span class="time">{{showPickUpTime}}</span>
     </div>

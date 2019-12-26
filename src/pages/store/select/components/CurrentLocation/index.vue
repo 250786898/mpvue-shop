@@ -3,7 +3,7 @@
     <div class="select-store-card__title card__title">当前位置</div>
     <div class="location">
       <div class="location-left">
-        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_icon_dangqian@2x.png" class="reposition-icon" alt="">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/common_icon_dangqian@2x.png" class="reposition-icon" alt="">
         <span class="address" v-if="location.address">{{ relocationing ? '定位中...' : location.address}}</span>
         <span class="address" v-else>未获取到微信信息</span>
       </div>
@@ -107,9 +107,13 @@ export default {
   }
 }
 .grant-permission{
-  background: none;
   color: #ccc;
   padding: 0;
+  background: none;
+  height: 24rpx;
+  font-size: 24rpx;
+  line-height: 24rpx;;
+  border-radius: 0;
 }
 .location{
   display: flex;

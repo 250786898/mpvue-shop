@@ -1,41 +1,46 @@
 <template>
-  <div id="ex">
-    <div class="bar">
-      <div class="bar-top">
-        <div class="store">
-          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/locate_icon.png" class="locate-icon" />
-          <div class="store-main" @click="selectStore">
-            <span class="store-name">{{shopDetail.storeName}}</span>
-            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/right_arrows_icon.png" class="right-arrows-icon" />
+  <div class="bar">
+      <div class="store-bar">
+        <div class="bar-top">
+          <div class="store">
+            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/locate_icon.png" class="locate-icon" />
+            <div class="store-main" @click="selectStore">
+              <span class="store-name">{{shopDetail.storeName}}</span>
+              <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/right_arrows_icon.png" class="right-arrows-icon" />
+            </div>
+          </div>
+          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/to_pick_up_icon.png" class="pickup-icon" alt="">
+        </div>
+        <div class="bar-label">
+          <div class="bar-label-item">
+            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/pickup_appointment_icon.png" class="bar-label-item__icon" />
+            <span class="bar-label-item__text">预约自提</span>
+          </div>
+          <div class="bar-label-item">
+            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/distance-icon.png" class="bar-label-item__icon" />
+            <span class="bar-label-item__text">距离您100m</span>
           </div>
         </div>
-        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/to_pick_up_icon.png" class="pickup-icon" alt="">
       </div>
-      <div class="bar-label">
-        <div class="bar-label-item">
-          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/pickup_appointment_icon.png" class="bar-label-item__icon" />
-          <span class="bar-label-item__text">预约自提</span>
-        </div>
-        <div class="bar-label-item">
-          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/distance-icon.png" class="bar-label-item__icon" />
-          <span class="bar-label-item__text">距离您100m</span>
-        </div>
-      </div>
-      <div class="bar-search">
+      <div class="bar-search" id="ex">
         <div class="search-box">
-          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/search_icon.png" class="search_icon" alt="">
+          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/search_icon.png" class="search_icon" alt="">
           <span class="search_text">搜索商品</span>
         </div>
       </div>
-    </div>
-    <div class="occupy-box">
 
-    </div>
+       <div class="bar-search bar-fixed"  v-if="fixedSearchBar">
+        <div class="search-box">
+          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/search_icon.png" class="search_icon" alt="">
+          <span class="search_text">搜索商品</span>
+        </div>
+      </div>
+
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from "vuex"
 export default {
   mounted() {
     let _this = this
@@ -44,7 +49,19 @@ export default {
   　}, 100)
   },
   computed: {
-    ...mapState(['shopDetail'])
+    ...mapState(['shopDetail','indexBarHeight'])
+  },
+  data () {
+    return {
+      fixedSearchBar: false //门店bar是否显示
+    }
+  },
+
+  /**
+   * @description  鉴定滚动事件，从而是否显示回到顶部按钮和当前定位显示
+   * */
+  onPageScroll(e) {
+    this.fixedSearchBar = e.scrollTop >= 60 // 超过悬浮搜索栏
   },
   methods: {
 
@@ -55,9 +72,9 @@ export default {
 　　　　 let _query = wx.createSelectorQuery();
 　　　　_query.select(id).boundingClientRect()
 　　　　_query.exec((res) =>{
-          console.log('#affix节点的上边界坐3332',res); // #affix节点的上边界坐
 　　　　　 const tHeight = res[0] && res[0].height != null ? res[0].height : ''
           this.$store.commit('setIndexBarHeight',tHeight)
+            console.log('++++++++++++++++++++++++++#affix节点的上setIndexBarHeight+++++++',res); // #affix节点的上边界坐
 　　　　 })
 　　 },
 
@@ -83,16 +100,37 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@keyframes fadeInDown
+{
+  from {
+    transform: translateY(-100%);
+    opacity: 1;
+
+  }
+  to {
+    transform: translateY(0);
+    opacity: 0.8;
+  }
+}
 .bar{
   background: #ffffff;
-  padding: 20rpx;
-  position: fixed;
-  top: 0;
-  left: 0;
+  padding: 20rpx 0 0;
   width: 100%;
-  height: 230rpx;
   box-sizing: border-box;
-  z-index: 999;
+  &-fixed{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    background: #ffffff;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .store-bar {
+    padding: 0 20rpx;
+    margin-bottom: 20rpx;
+    animation: fadeInDown .3s linear;
+  }
   &-top{
     display: flex;
     justify-content: space-between;
@@ -140,10 +178,12 @@ export default {
     }
   }
   &-search{
-    margin-top: 20rpx;
+    padding: 0 20rpx 20rpx;
+    background: #ffffff;
+    box-sizing: border-box;
     .search-box{
       width:100%;
-      height:64rpx;
+      height: 74rpx;
       background:rgba(246,246,246,1);
       border-radius:15rpx;
       display: flex;
@@ -156,13 +196,9 @@ export default {
       }
       .search_text{
         color: #929292;
-        font-size: 24rpx;
+        font-size: 30rpx;
       }
     }
   }
-}
-.occupy-box{
-  height: 230rpx;
-  margin-bottom: 20rpx;
 }
 </style>

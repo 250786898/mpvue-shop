@@ -1,6 +1,6 @@
 <template>
   <div class="container" >
-    <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/network_error_icon.png" mode="widthFix" class="error_icon">
+    <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/network_error_icon.png" mode="widthFix" class="error_icon">
     <p class="error_text">没有信号，点击刷新按钮试试~</p>
     <button type="primary" class="error_btn" @click="refresh">刷新一下</button>
   </div>
@@ -59,9 +59,9 @@
       margin-bottom: 50rpx;
     }
     .error_btn{
-      width:240rpx;
-      height:67rpx;
-      line-height: 67rpx;
+      width:580rpx;
+      height:80rpx;
+      line-height: 80rpx;
       font-weight:bold;
       font-size: 32rpx;
       border-radius:10rpx;

@@ -5,7 +5,7 @@
      hover-class="none"
      class="icon-container"
     >
-     <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/icon_discount coupon_png.png" class="icon" >
+     <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/icon_discount coupon_png.png" class="icon" >
    </navigator>
 </template>
 

@@ -6,7 +6,7 @@
     <div class="fixed-top__holder"></div>
     <!-- 空值 -->
     <div v-if="!list.length && !loading" class="empty-tip">
-      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/myOrder_bg@2x.png">
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/myOrder_bg@2x.png">
       <div class="empty-tip__text">暂时没有订单喔~</div>
     </div>
 

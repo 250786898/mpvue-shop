@@ -30,7 +30,7 @@ export default {
     font-size: 28rpx;
     height: 74rpx;
     line-height: 74rpx;
-    border-bottom: 1px solid #E4E4E4;
+    border-bottom: 1rpx solid #E4E4E4;
     .activity{
       color: #01BD9F;
     }

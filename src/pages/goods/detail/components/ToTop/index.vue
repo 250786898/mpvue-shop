@@ -1,6 +1,6 @@
 <template>
   <div  class="returntop">
-    <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/details_btn_top@2x.png" v-if="backToTopButtonShowed" @click="returnTop">
+    <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/details_btn_top@2x.png" v-if="backToTopButtonShowed" @click="returnTop">
   </div>
 
 </template>

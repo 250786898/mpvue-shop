@@ -1,23 +1,47 @@
 <template>
   <div class="store-list">
-    <div class="store-list-item">
-       <div class="store-name">乐家生鲜（天朗店）</div>
-       <div class="detail-address">广州市天河区华港花园华建小区14号铺（华景新城）</div>
-    </div>
-    <div class="store-list-item">
-       <div class="store-name">乐家生鲜（天朗店）</div>
-       <div class="detail-address">广州市天河区华港花园华建小区14号铺（华景新城）</div>
-    </div>
-    <div class="store-list-item">
-       <div class="store-name">乐家生鲜（天朗店）</div>
-       <div class="detail-address">广州市天河区华港花园华建小区14号铺（华景新城）</div>
+    <div class="store-list-item" v-for="item in storeList" v-bind:key="item.storeId">
+       <div class="store-name">{{item.storeName}}</div>
+       <div class="detail-address">{{item.storeAddress}}</div>
     </div>
   </div>
 </template>
 
 <script>
-export default {
+import { Api } from '@/http/api'
+import CouponModel from '../../../model/coupon'
+const couponModel = new CouponModel()
 
+export default {
+  data () {
+    return {
+      storeList: [] //试用门店列表
+    }
+  },
+  mounted () {
+    this.getApplyStore()
+  },
+
+  methods: {
+    /**
+    * @description 获取可使用门店
+    */
+    async getApplyStore() {
+
+      wx.showLoading({
+        title: '加载中'
+      })
+      const res = await couponModel.getApplyStore({
+        systemCode: this.$root.$mp.query.couponCode,
+        storeId: this.storeId
+      })
+      wx.hideLoading()
+      console.log('this.$root.$mp.query.couponCode',res.data.shopStores)
+      if(res.code == Api.CODES.SUCCESS) {
+        this.storeList = res.data.shopStores
+      }
+    }
+  }
 }
 </script>
 

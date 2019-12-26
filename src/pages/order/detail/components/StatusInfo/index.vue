@@ -1,6 +1,6 @@
 <template>
   <div class="status">
-    <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/order-status-bg.png" class="status-bg">
+    <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/order-status-bg.png" class="status-bg">
     <div class="status-name">
       <span v-if="status === 0">已取消</span>
       <span v-if="status === 20">待提货</span>
@@ -8,9 +8,9 @@
     </div>
 
     <div class="status-icon">
-      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/order-cancel-icon.png" v-if="status === 0">
-      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/wait-pickup-icon.png.png" v-if="status === 20">
-      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/already-pickup-icon.png" v-if="status === 40">
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/order-cancel-icon.png" v-if="status === 0">
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/wait-pickup-icon.png.png" v-if="status === 20">
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/already-pickup-icon.png" v-if="status === 40">
     </div>
 
   </div>

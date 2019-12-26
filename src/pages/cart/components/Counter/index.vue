@@ -1,9 +1,9 @@
 <template>
   <div class="counter">
-    <img  src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_icon_reduce_s.png.png" @click.stop="minus">
+    <img  src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/common_icon_reduce_s.png.png" @click.stop="minus">
     <span>{{ count || '1' }}</span>
-    <img v-if="plusDisabled" src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_icon_addto_disable.png">
-    <img v-else src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_icon_addto_s.png.png" @click.stop="plus">
+    <img v-if="plusDisabled" src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/common_icon_addto_disable.png">
+    <img v-else src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/common_icon_addto_s.png.png" @click.stop="plus">
   </div>
 </template>
 

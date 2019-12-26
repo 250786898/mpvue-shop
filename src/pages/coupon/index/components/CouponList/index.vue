@@ -3,14 +3,14 @@
     <!-- v-if="list.length > 0" -->
     <div v-if="true" >
       <div class="coupons-list-header">
-          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_remind_png.png" alt="" class="remind_png">
-          <span>您有<span class="totol-coupons-num">2</span>张优惠券即将到期</span>
+          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/common_remind_png.png" alt="" class="remind_png">
+          <span>您有<span class="totol-coupons-num">{{couponInfo.expireSoonNum}}</span>张优惠券即将到期</span>
       </div>
 
       <div class="coupons-list" >
-        <CouponCard />
-        <CouponCard type="used" />
-        <CouponCard type="expire" />
+        <CouponCard v-for="item in couponInfo.normalList" :key="item.id" :item="item" />
+        <CouponCard type="used" v-for="item in couponInfo.useList" :key="item.id" :item="item" />
+        <CouponCard type="expire" v-for="item in couponInfo.expiredList" :key="item.id" :item="item" />
         <!-- <coupon-card v-for="item in list" :key="item.couponId" :item="item" type="used"></coupon-card> -->
       </div>
     </div>
@@ -31,6 +31,12 @@ export default {
     CouponCard,
     EmptyCouponTip
   },
+  props: {
+    couponInfo: {
+      type: Object,
+      default: () => ({})
+    }
+  }
 }
 </script>
 

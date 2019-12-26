@@ -7,7 +7,7 @@
       <div class="cate-item__title">全部</div>
       <GoodsCard :count="1" />
       <GoodsCard :count="2"  />
-      <GoodsCard :isSellOut="true" />
+      <GoodsCard />
      </div>
      <div class="cate-item">
       <div class="cate-item__title">生鲜水果</div>

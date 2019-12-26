@@ -2,7 +2,7 @@
   <div class="history">
     <div class="history-header">
       <div class="history-header__title">搜索历史</div>
-      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/search_icon_delete.png.png" class="delete-icon">
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/search_icon_delete.png.png" class="delete-icon">
     </div>
     <div class="history-list">
       <div class="history-list-item">

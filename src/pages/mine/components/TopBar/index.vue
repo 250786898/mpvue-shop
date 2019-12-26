@@ -1,5 +1,5 @@
 <template>
-  <img class="mine-card__bg" src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/mine_bg.png"  alt="" >
+  <img class="mine-card__bg" src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/mine_bg.png"  alt="" >
 </template>
 
 <script>

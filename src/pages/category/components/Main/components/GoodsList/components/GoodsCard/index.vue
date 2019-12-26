@@ -2,7 +2,7 @@
   <div class="card" @click="tabGoods">
     <div  class="goods-img">
       <img :src="item.goodsImage" mode="aspectFit">
-      <div class="sell-gone-tag" v-if="isSellOut">已抢光</div>
+      <div class="sell-gone-tag" v-if="!item.activityStock">已抢光</div>
     </div>
 
     <div class="card-main">
@@ -31,11 +31,11 @@
            <div class="sell-num">已售4738份</div>
          </div>
          <div class="card-main-bottom-right">
-            <NumHandle :count="count" :addDisabled="isSellOut" />
+            <NumHandle :count="count"  />
          </div>
       </div>
     </div>
-    <div class="card-mask"  v-if="isSellOut"></div>
+    <div class="card-mask"  v-if="!item.activityStock"></div>
   </div>
 </template>
 
@@ -50,11 +50,6 @@ export default {
         "id":"6609363913249136641","goodsNumErp":368803399,"goodsId":"6577128796548243456","activityId":"6609363912930369536","goodsName":"走地鸡约2斤/只","discountedPrice":39.90,"scribingPrice":49.00,"activityStock":64,"isShow":1,"sortNumber":20,"storeCount":null,"goodsImage":"https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/1575792481770.jpg","isDel":0,"shareDescription":"林中散养，肉质鲜美【12.10提货】","goodsNum":0,"tagList":[]},{"id":"6609363913257525248","goodsNumErp":368817474,"goodsId":"6583256419359793152","activityId":"6609363912930369536","goodsName":"百香果（约1000g）/16个","discountedPrice":8.80,"scribingPrice":16.90,"activityStock":49,"isShow":1,"sortNumber":19,"storeCount":null,"goodsImage":"https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/1575792275877.jpg","isDel":0,"shareDescription":"果香浓郁，VC满满~【12.10提货】","goodsNum":0,"tagList":[]},{"id":"6609363913257525249","goodsNumErp":368817593,"goodsId":"6597065431297564672","activityId":"6609363912930369536","goodsName":"潮汕鲜橄榄500g","discountedPrice":11.80,"scribingPrice":13.80,"activityStock":56,"isShow":1,"sortNumber":18,"storeCount":null,"goodsImage":"https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/1575792236540.jpg","isDel":0,"shareDescription":"酸甜可口，超好吃~【12.10提货】","goodsNum":0,"tagList":[]},{"id":"6609363913253330944","goodsNumErp":368802781,"goodsId":"6596311935635955712","activityId":"6609363912930369536","goodsName":"一级小香梨约1kg","discountedPrice":12.80,"scribingPrice":15.80,"activityStock":129,"isShow":1,"sortNumber":17,"storeCount":null,"goodsImage":"https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/1575792302416.jpg","isDel":0,"shareDescription":"汁水化渣，梨味浓郁【12.10提货】","goodsNum":0,"tagList":[]},{"id":"6609363913223970816","goodsNumErp":368818146,"goodsId":"6609355056363872256","activityId":"6609363912930369536","goodsName":"杂色蛤500g","discountedPrice":13.80,"scribingPrice":15.80,"activityStock":59,"isShow":1,"sortNumber":16,"storeCount":null,"goodsImage":"https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/1575793003908.jpg","isDel":0,"shareDescription":"个大肉肥，味道鲜美【12.10提货】","goodsNum":0,"tagList":[]},{"id":"6609363913249136640","goodsNumErp":368818118,"goodsId":"6609353463346241536","activityId":"6609363912930369536","goodsName":"乐肴居蜜汁叉烧包300g","discountedPrice":12.90,"scribingPrice":16.90,"activityStock":128,"isShow":1,"sortNumber":16,"storeCount":null,"goodsImage":"https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/1575792613725.jpg","isDel":0,"shareDescription":"满满肉香回味无穷~【12.10提货】","goodsNum":0,"tagList":[]},{"id":"6609363913244942336","goodsNumErp":368816814,"goodsId":"6567942712132116480","activityId":"6609363912930369536","goodsName":"精品红薯4袋*500g","discountedPrice":9.90,"scribingPrice":13.60,"activityStock":121,"isShow":1,"sortNumber":15,"storeCount":null,"goodsImage":"https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/1575792716497.jpg","isDel":0,"shareDescription":"精品杂粮红薯，香甜糯，越吃越健康【12.10提货】","goodsNum":0,"tagList":[]},{"id":"6609363913215582208","goodsNumErp":368818119,"goodsId":"6609355805386874880","activityId":"6609363912930369536","goodsName":"乐肴居藜麦紫薯球500g","discountedPrice":17.80,"scribingPrice":21.90,"activityStock":117,"isShow":1,"sortNumber":14,"storeCount":null,"goodsImage":"https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/1575793186821.jpg","isDel":0,"shareDescription":"糯韧Q弹，咸香饱腹【12.10提货","goodsNum":0,"tagList":[]},{"id":"6609363913219776512","goodsNumErp":368818141,"goodsId":"6609355364406140928","activityId":"6609363912930369536","goodsName":"工厂冻花胶500g","discountedPrice":29.80,"scribingPrice":32.90,"activityStock":57,"isShow":1,"sortNumber":13,"storeCount":null,"goodsImage":"https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/1575793087237.jpg","isDel":0,"shareDescription":"胶质厚实，滋补养生【12.10提货】","goodsNum":0,"tagList":[]},{"id":"6609363913228165120","goodsNumErp":368817983,"goodsId":"6606467430371827712","activityId":"6609363912930369536","goodsName":"广州酒家秋之风万福腊肠400g","discountedPrice":25.80,"scribingPrice":34.80,"activityStock":69,"isShow":1,"sortNumber":12,"storeCount":null,"goodsImage":"https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/1575792918939.jpg","isDel":0,"shareDescription":"广式风味，肥而不腻，口感鲜香【12.10提货】","goodsNum":0,"tagList":[]
         }
       }
-    },
-    // 是否抢光
-    isSellOut: {
-      type: Boolean,
-      default: false
     },
      count: {
       type: Number,

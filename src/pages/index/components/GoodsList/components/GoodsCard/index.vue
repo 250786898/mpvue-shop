@@ -2,7 +2,7 @@
   <div class="card" @click="tabGoods">
     <div  class="goods-img">
       <img :src="item.goodsImage" mode="aspectFit">
-      <div class="sell-gone-tag" v-if="isSellOut">已抢光</div>
+      <div class="sell-gone-tag" v-if="!item.activityStock">已抢光</div>
     </div>
 
     <div class="card-main">
@@ -21,14 +21,14 @@
               </div>
               <div class="line-price">￥{{item.scribingPrice}}</div>
            </div>
-           <div class="sell-num">已售4738份</div>
+           <div class="sell-num">已售0份</div>
          </div>
          <div class="card-main-bottom-right">
-            <NumHandle/>
+            <NumHandle :goodsInfo="item" />
          </div>
       </div>
     </div>
-    <div class="card-mask"  v-if="isSellOut"></div>
+    <div class="card-mask"  v-if="!item.activityStock"></div>
   </div>
 </template>
 
@@ -41,11 +41,6 @@ export default {
       type: Object,
       default: () => ({})
     },
-    // 是否抢光
-    isSellOut: {
-      type: Boolean,
-      default: false
-    }
   },
   components: {
     NumHandle,

@@ -4,6 +4,12 @@
       <!-- 悬浮顶部栏 -->
       <fixed-top-bar />
 
+      <!-- 占用高度区 -->
+      <!-- <div class="occupy-box" :style="occupyStyle">
+          111
+      </div> -->
+
+
       <!-- 自定义导航栏 -->
       <!-- <nav-bar /> -->
       <!-- <goods-search-bar :location="location" :showtip="tipShown && !isCeiling"> </goods-search-bar> -->
@@ -40,7 +46,7 @@
       <!--  -->
       <ComfirmStoreDialog :show="showComfirmStoreDialog"  @comfirmStore="comfirmStore" />
 
-      <!-- <CouponDialog /> -->
+      <CouponDialog :shown.sync="showActivityCouponDialog" :imgSrc="activityCouponInfo.activityImg" @fetchCoupon="fetchActivityCoupon" />
 
   </div>
 
@@ -52,6 +58,7 @@ import { mapState } from "vuex"
 import { Api } from "@/http/api"
 import { AMapWX } from "@/utils/amap-wx"
 import config from "@/config"
+import { resgiterOrLogin } from '@/utils'
 import FixedTopBar from './components/FixedTopBar'
 import GoodsSearchBar from "@/components/GoodsSearchBar"
 import CategoryNav from './components/CategoryNav'
@@ -61,13 +68,12 @@ import SelectStoreDialog from "@/components/SelectStoreDialog"
 import GoodsList from "./components/GoodsList/index"
 import NavBar from "./components/NavBar/index"
 import CouponDialog from "./components/CouponDialog"
-import { serialize } from '@/utils/'
 import StoreModel from '@/model/store'
+import CouponModel from '../../model/coupon'
 
 const storeModel = new StoreModel()
-var mta = require("../../utils/mta_analysis.js");
+const couponModel = new CouponModel()
 
-const PAGE_SIZE = 10 //一页商品的显示数量
 
 export default {
   components: {
@@ -87,15 +93,20 @@ export default {
       showPageLoading: true, //页面加载显示
       showSelectStoreDialog: false, //选择门店弹窗显示
       showComfirmStoreDialog: false, //确认门店弹窗显示
+      showActivityCouponDialog: false, //优惠券活动弹窗
       tipShown: true, //搜索栏是否显示
       isCeiling: false, //商品列表组件是否吸顶
       storeData: {}, //门店相关数据，banner，分类等
+      activityCouponInfo: '', //优惠券活动信息
       storeList: [] //门店列表
     }
   },
 
   computed: {
     ...mapState(["location", "storeId","shopDetail","shareStoreId","indexGoodsTop","indexBarHeight"]),
+    occupyStyle () {
+      return `height: ${this.indexBarHeight}px`
+    }
   },
 
   watch: {
@@ -105,7 +116,7 @@ export default {
       wx.showShareMenu({
         withShareTicket: true
       })
-
+      this.loadAndShowCouponDialog() //加载显示优惠券弹窗
       this.updateStoreInfo() //更新门店相关信息
       this.updateStoreData() //更新新的门店数据
       this.hidePageLoading()
@@ -161,11 +172,6 @@ export default {
 
   },
 
-  /**
-   * @description 页面向上触发事件
-   */
-  onReachBottom () {
-  },
 
   /**
    * @description  鉴定滚动事件，从而是否显示回到顶部按钮和当前定位显示
@@ -288,6 +294,7 @@ export default {
 
       if(!usuallyStoreId) {
         //如果经常访问门店Id为空,跳转选择门店页面组件
+        console.log('//如果经常访问门店Id为空,跳转选择门店页面组件',usuallyStoreId)
         wx.redirectTo({
           url: '/pages/store/select/main'
         })
@@ -615,6 +622,56 @@ export default {
     },
 
     /**
+     * @description 加载并显示优惠券
+     */
+    async loadAndShowCouponDialog () {
+      console.log('loadAndShowCouponDialogloadAndShowCouponDialogloadAndShowCouponDialogloadAndShowCouponDialogloadAndShowCouponDialog')
+      const res = await couponModel.getActivtiyPopupInfo({
+        storeId: this.storeId
+      })
+      if(res.code === Api.CODES.SUCCESS) {
+        const activityCouponImg  = res.data.shopCouponActivitys[0].activityImg
+        if(activityCouponImg) {
+          this.activityCouponInfo = res.data.shopCouponActivitys[0]
+          this.showActivityCouponDialog = true //优惠券弹窗显示
+        }
+      }
+    },
+
+    /**
+     * @description 获取活动优惠券
+     */
+    async fetchActivityCoupon () {
+      const res = await couponModel.receiveCouponByActivityId({
+        activityId : this.activityCouponInfo.id
+      })
+      if(res.code === Api.CODES.SUCCESS) {
+        if(res.data === 200001) {
+          wx.showToast({
+            title: '恭喜你，抢到了!', //提示的内容,
+            icon: 'none', //图标,
+            duration: 1500, //延迟时间,
+          })
+          setTimeout(() => {
+            //领取成功跳转我的优惠券
+            wx.navigateTo({
+              url: '/pages/coupon/index/main'
+            })
+          },1500)
+        }else if(res.data === 200002) {
+          wx.showToast({
+            title: '您来晚了，优惠券已被抢光~', //提示的内容,
+            icon: 'none', //图标,
+            duration: 1500, //延迟时间,
+          })
+        }
+      }else if (res.code === 40001) {
+        console.log('跳转登录')
+        resgiterOrLogin() //跳转登录
+      }
+    },
+
+    /**
      * @description 回到顶部
      */
     returnTop() {
@@ -755,6 +812,8 @@ page {
   align-items: center;
   width: 100vw;
   z-index: 99;
-
+}
+.occupy-box{
+  margin-bottom: 20rpx;
 }
 </style>

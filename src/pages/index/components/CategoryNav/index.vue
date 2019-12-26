@@ -2,7 +2,7 @@
   <div class="category">
     <template v-for="(item,index) in list" >
       <div class="category-item" :style="itemWidth" v-bind:key="index" >
-        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/20191128092643.png" alt="">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/20191128092643.png" alt="">
         <span class="category-item__title">时令水果</span>
       </div>
     </template>

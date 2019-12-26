@@ -1,8 +1,15 @@
 <template>
   <div class="goods-list">
       <!-- 失效商品 -->
-      <div class="group failure-goods" v-if="failureGoodsList && failureGoodsList.length">
-        <div class="group__title">失效商品</div>
+      <div class="group failure-goods"  v-if="failureGoodsList && failureGoodsList.length">
+        <div class="group-header">
+          <div class="group-header__title">因售罄、下架原因导致失效商品</div>
+          <div class="group-header-right" @click="clearFailureCart">
+            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/commom_collection depot_png.png" class="delete-icon">
+            <span class="group-header-right__text">清空</span>
+          </div>
+        </div>
+
         <div v-for="(item, index) in failureGoodsList" :key="item.goodsId" class="group-item">
             <goods-card
               :item="item"
@@ -15,9 +22,9 @@
       </div>
 
       <!-- 清空失效商品 -->
-      <div class="group clear-invalid-goods-btn" v-if="failureGoodsList && failureGoodsList.length" @click="clearFailureCart">
+      <!-- <div class="group clear-invalid-goods-btn" v-if="failureGoodsList && failureGoodsList.length" @click="clearFailureCart">
         清空失效商品
-      </div>
+      </div> -->
 
 
   </div>
@@ -41,6 +48,7 @@ export default {
      * @description 清除失效商品购物车
      */
     clearFailureCart () {
+      console.log('clearFailureCart')
       const cartIds =  this.getFailureCartIds()
       this.del(cartIds,true)
     },
@@ -119,15 +127,33 @@ export default {
       border-radius:14rpx;
       background: $white-color;
     }
-    &__title {
+    &-header {
       background-color: $white-color;
-      font-weight:800;
+      padding: 0 26rpx 0 30rpx;
+      box-sizing: border-box;
       text-align: center;
-      font-size: 34rpx;
+      font-size: 30rpx;
       color:#333333;
-      height: 90rpx;
-      line-height: 90rpx;
-      border-bottom: 1rpx solid #F4F4F4;
+      height: 110rpx;
+      line-height: 110rpx;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1rpx solid #E4E4E4;
+      &-right{
+        display: flex;
+        align-items: center;
+        color: #858585;
+        font-size: 30rpx;
+        z-index: 99;
+        .delete-icon{
+          width: 46rpx;
+          height: 46rpx;
+        }
+        &__text{
+          line-height: 1;
+        }
+      }
     }
     + .group {
       margin-top: 20rpx;

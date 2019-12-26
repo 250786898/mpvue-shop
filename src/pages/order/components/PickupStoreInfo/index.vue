@@ -11,7 +11,7 @@
       <div class="detail-address">
         {{ storeInfo.receiverAddress || shopDetail.storeAddress }}
       </div>
-       <img class="info-border" src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/order_dividingline@2x.png">
+       <img class="info-border" src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/order_dividingline@2x.png">
     </div>
   </div>
 </template>
@@ -41,7 +41,7 @@ export default {
     padding: 24rpx 32rpx;
     font-size: 36rpx;
     font-weight: 800;
-    border-bottom: 1px #E4E4E4 solid;
+    border-bottom: 1rpx #E4E4E4 solid;
   }
   &-content{
     padding: 20rpx 32rpx 37rpx;

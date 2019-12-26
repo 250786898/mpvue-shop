@@ -16,7 +16,7 @@
     <div class="cirle cirle-left"></div>
     <div class="cirle cirle-right"></div>
     <div class="coupon-icon">
-      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/coupon-activityt-used.png" class="used-icon">
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/coupon-activityt-used.png" class="used-icon">
     </div>
   </div>
 </template>

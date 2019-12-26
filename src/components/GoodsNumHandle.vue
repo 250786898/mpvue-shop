@@ -1,13 +1,13 @@
 <template>
   <div class="counter">
     <div v-if="count > 1">
-       <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_icon_duce.png" class="handle-img">
+       <img src="/static/images/common_icon_duce.png" class="handle-img">
         <span class="count">{{ count }}</span>
-       <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_icon_add.png" class="handle-img">
+       <img src="/static/images/common_icon_add.png" class="handle-img">
     </div>
     <div v-else>
-       <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_btn_shopcart_sellout.png@2x.png" :style="iconStyle" class="icon-cart" v-if="addDisabled">
-       <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_btn_shopcart_small.png@2x.png" :style="iconStyle" class="icon-cart" v-else>
+       <img src="/static/images/common_btn_shopcart_sellout.png@2x.png" :style="iconStyle" class="icon-cart" v-if="goodsInfo.activityStock == 0">
+       <img src="/static/images/common_btn_shopcart_small.png@2x.png" :style="iconStyle" class="icon-cart" @click.stop="addToCart" v-else>
 
     </div>
 
@@ -17,17 +17,17 @@
 <script>
   export default {
     props: {
-      count: {
+      count: { //当前添加商品数量
         type: Number,
         default: 1
       },
-      addDisabled: {
-        type: Boolean,
-        default: false
-      },
-      iconSize: {
+      iconSize: { //添加购物车icon尺寸
         type: Number,
         default: 60
+      },
+      goodsInfo: { //添加的商品信息
+        type: Object,
+        default: () => ({})
       }
     },
 
@@ -39,7 +39,19 @@
 
     methods: {
 
+      /**
+       * @description 添加到购物车
+       */
+      addToCart() {
+        console.log('goodsInfo',this.goodsInfo)
+        this.$store.dispatch('addToCart', {
+          goodsId: this.goodsInfo.id,
+          activityId: this.goodsInfo.activityId,
+          activityGoodsId: ''
+        })
+      }
     }
+
   }
 </script>
 

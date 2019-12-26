@@ -1,6 +1,6 @@
 <template>
   <div class="downward-icon" @click="showAllCategory">
-    <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/cate-downward-icon.png" alt="">
+    <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/cate-downward-icon.png" alt="">
   </div>
 </template>
 

@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <div class="search">
-      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/search_icon.png" class="search-icon" alt="" mode="aspectFit">
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/search_icon.png" class="search-icon" alt="" mode="aspectFit">
       <span class="placeholder">搜索商品</span>
     </div>
 
@@ -27,12 +27,12 @@ export default {
   padding: 0 20rpx;
   .search {
     width:620rpx;
-    height:64rpx;
+    height:74rpx;
     display: flex;
     align-items: center;
     padding: 0 6rpx;
     color: #929292;
-    font-size: 28rpx;
+    font-size: 30rpx;
     background:rgba(243,243,243,1);
     border-radius:10rpx;
     margin-right: 24rpx;

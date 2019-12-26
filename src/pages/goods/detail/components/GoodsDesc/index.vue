@@ -6,7 +6,7 @@
       </div>
       <div class="weui-cell__ft">
         <button open-type="share">
-          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/details_share_icon.png">
+          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/details_share_icon.png">
         </button>
       </div>
     </div>
@@ -37,15 +37,16 @@ export default {
       border-color: #EAEAEA;
     }
     &__title {
-      font-weight:bold;
       text-overflow: ellipsis;
       display:  -webkit-box;
+      overflow: hidden;
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 2;
       font-size: 34rpx;
       color: #333333;
       line-height: 40rpx;
       margin-bottom: 17rpx;
+      padding-bottom: 2rpx;
     }
     &__desc {
       color: #999999;

@@ -2,7 +2,15 @@
   <div class="card">
       <div class="card-title">买家留言</div>
       <div class="card-content">
-        <input type="text" class="card-content__input" :value="message" @input="inputMessage" placeholder="可以告诉我们您的需求" maxlength="100">
+        <input
+          type="text"
+          class="card-content__input"
+          :value="message"
+          @input="inputMessage"
+          placeholder="可以告诉我们您的需求"
+          placeholder-style="color:#999999"
+          maxlength="100"
+        >
       </div>
     </div>
 </template>
@@ -43,7 +51,7 @@ export default {
   background: #ffffff;
   border-top-left-radius: 10rpx;
   border-top-right-radius: 10rpx;
-  border-bottom: 1rpx #CCCCCC solid;
+  border-bottom: 1rpx #E4E4E4 solid;
   &-title{
     font-weight: bold;
   }

@@ -23,7 +23,7 @@
         <template v-else-if="detail.state === 100">已关闭退款申请</template>
       </div>
 
-      <img class="BackImg" src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/background_icon.png" alt="">
+      <img class="BackImg" src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/background_icon.png" alt="">
 
     </div>
 

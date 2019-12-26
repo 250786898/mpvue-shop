@@ -47,7 +47,7 @@ export default {
   position: fixed;
   bottom: 0;
   left: 0;
-  height:124rpx;
+  height: 105rpx;
   background:rgba(255,255,255,1);
   box-shadow:0px -6rpx 10rpx 0px rgba(237,237,237,0.57);
   display: flex;

@@ -3,10 +3,10 @@
  -->
 <template>
   <div class="current-price" :style="priceStyle">
-    <span class="current-price__sign" :style="signStyle">￥</span>
-    <span class="current-price-before-point" :style="beforeStyle" >{{priceBeforeSign}}</span>
-    <span class="current-price__point" :style="beforeStyle" v-if="showAfterSign">.</span>
-    <span class="current-price-after-point" :style="aftetStyle" v-if="showAfterSign">{{priceAfterSign}}</span>
+    <div class="current-price__sign" :style="signStyle">￥</div>
+    <div class="current-price-before-point" :style="beforeStyle" >{{priceBeforeSign}}</div>
+    <div class="current-price__point" :style="aftetStyle" v-if="showAfterSign">.</div>
+    <div class="current-price-after-point" :style="aftetStyle" v-if="showAfterSign">{{priceAfterSign}}</div>
   </div>
 </template>
 
@@ -64,13 +64,13 @@ export default {
       }
     },
     signStyle () { //符号的样式
-      return `font-size: ${this.signSize}rpx`
+      return `font-size: ${this.signSize}rpx;`
     },
     beforeStyle () { //符号前的样式
-      return `font-size: ${this.beforeSize}rpx`
+      return `font-size: ${this.beforeSize}rpx;`
     },
     aftetStyle () { //符号后的样式
-      return `font-size: ${this.afterSize}rpx`
+      return `font-size: ${this.afterSize}rpx;`
     },
     priceStyle () { //价格后的样式
       let fontWeight = this.isbold ? 'bold' : 400
@@ -82,6 +82,13 @@ export default {
 
 <style lang="scss" scoped>
 .current-price{
+  display: flex;
+  align-items: flex-end;
+  font-size: 0;
+  div {
+    display: inline-block;
+    vertical-align: bottom;
+  }
   &__sign{
     font-size: 24rpx;
   }

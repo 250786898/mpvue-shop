@@ -59,19 +59,21 @@ export default {
     right: 39rpx;
     width:84rpx;
     height:44rpx;
-    line-height: 44rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-    background:rgba(67,67,67,0.4);
-    border-radius:22rpx;
+    color: #2D2D2D;
+    background:rgba(205,205,205,0.6);
+    border-radius: 22rpx;
     font-size: 30rpx;
-    color: #ffffff;
+    color: #2D2D2D;
     &-length {
-      color: #ffffff;
-      font-size: 26rpx;
+      color: #2D2D2D;
+      font-size: 24rpx;
     }
     &-current{
-      font-size: 30rpx;
-      font-weight:800;
+      font-size: 24rpx;
     }
   }
 }

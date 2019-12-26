@@ -14,7 +14,7 @@
         <span>服务协议</span>
       </div>
       <div class="card-right">
-        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/order-right-icon.png" class="card-icon">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/order-right-icon.png" class="card-icon">
       </div>
     </div>
 
@@ -23,7 +23,7 @@
         <span>退款协议</span>
       </div>
       <div class="card-right">
-        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/order-right-icon.png" class="card-icon">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/order-right-icon.png" class="card-icon">
       </div>
     </div>
     <div class="card">
@@ -32,7 +32,7 @@
         <span>意见反馈</span>
       </div>
       <div class="card-right">
-        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/order-right-icon.png" class="card-icon">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/order-right-icon.png" class="card-icon">
       </div>
       </button>
     </div>

@@ -3,11 +3,11 @@
     <div class="applicable-header">
 
       <div class="applicable-header-desc">
-        <div class="applicable-header-desc__title">以下商品可使用满199元减99元的优惠券</div>
-        <div class="applicable-header-desc__date">有效期：2018-08-01 至 2018-08-30</div>
-        <div class="applicable-store">
+        <div class="applicable-header-desc__title">以下商品可使用满{{applyGoodsInfo.eliyibility}}元减{{applyGoodsInfo.couponMoney}}元的优惠券</div>
+        <div class="applicable-header-desc__date">有效期：{{applyGoodsInfo.startDate}} 至 {{applyGoodsInfo.stopDate}}</div>
+        <div class="applicable-store" @click="navToApplicableStore">
           <span>查看适用门店</span>
-          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/coupon_goods_right.png" class="applicable-store__icon" alt="">
+          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/coupon_goods_right.png" class="applicable-store__icon" alt="">
         </div>
       </div>
 
@@ -33,8 +33,14 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import { Api } from '@/http/api'
 import CartIcon from "@/components/CartIcon"
 import GoodsItem from "@/components/GoodsRowItem"
+import CouponModel from '../../../model/coupon'
+
+const couponModel = new CouponModel()
+
 export default {
    components:{
      CartIcon,
@@ -42,13 +48,48 @@ export default {
    },
    data () {
      return {
-       applicableGoodsList: [
-         {"goodsId":"6578537564871860224","goodsName":"进口南非橙4个约0.95kg","goodsSellDesc":"","goodsImage":"http://bucketlejia.oss-cn-shenzhen.aliyuncs.com/1568445471913.jpg","onlinePrice":10.80,"onlineScribingPrice":22.80,"goodsTagStatus":0,"goodsTagImage":"","isGroup":false,"groupPartner":0,"activityId":null,"activityType":null,"activityPrice":null,"points":null,"id":null,"tagList":[]},
-         {"goodsId":"6588360964196802560","goodsName":"海南玫珑瓜约2.5斤","goodsSellDesc":"","goodsImage":"https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/1570787614009.jpg","onlinePrice":16.80,"onlineScribingPrice":22.80,"goodsTagStatus":0,"goodsTagImage":"","isGroup":false,"groupPartner":0,"activityId":null,"activityType":null,"activityPrice":null,"points":null,"id":null,"tagList":[]},
-         {"goodsId":"6578537564871860224","goodsName":"进口南非橙4个约0.95kg","goodsSellDesc":"","goodsImage":"http://bucketlejia.oss-cn-shenzhen.aliyuncs.com/1568445471913.jpg","onlinePrice":10.80,"onlineScribingPrice":22.80,"goodsTagStatus":0,"goodsTagImage":"","isGroup":false,"groupPartner":0,"activityId":null,"activityType":null,"activityPrice":null,"points":null,"id":null,"tagList":[]},
-         {"goodsId":"6588360964196802560","goodsName":"海南玫珑瓜约2.5斤","goodsSellDesc":"","goodsImage":"https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/1570787614009.jpg","onlinePrice":16.80,"onlineScribingPrice":22.80,"goodsTagStatus":0,"goodsTagImage":"","isGroup":false,"groupPartner":0,"activityId":null,"activityType":null,"activityPrice":null,"points":null,"id":null,"tagList":[]}
-       ]
+       applicableGoodsList: [], //使用商品列表
+       applyGoodsInfo: {} //适用商品相关信息
      }
+   },
+
+   computed: {
+     ...mapState(['storeId'])
+   },
+
+   mounted () {
+     this.getApplyGoods()
+   },
+
+   methods: {
+     /**
+      * @description 获取可使用商品
+      */
+     async getApplyGoods() {
+
+        wx.showLoading({
+          title: '加载中'
+        })
+        const res = await couponModel.getApplyGoods({
+          systemCode: this.$root.$mp.query.couponCode,
+          storeId: this.storeId
+        })
+         wx.hideLoading()
+        if(res.code == Api.CODES.SUCCESS) {
+          console.log('this.$root.$mp.query.couponCode',res)
+          this.applyGoodsInfo = res.data.shopCoupon
+          this.applicableGoodsList = res.data.goods
+       }
+      },
+
+       /**
+       * @description  跳转可使用门店
+       */
+      navToApplicableStore () {
+        wx.navigateTo({
+          url: `/pages/coupon/applicableStores/main?couponCode=${this.applyGoodsInfo.systemCode}`
+        })
+      }
    }
 
 }

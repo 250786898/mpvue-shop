@@ -1,6 +1,6 @@
 <template>
  <div class="result">
-    <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/pay-success-icon.png" class="result-icon">
+    <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/pay-success-icon.png" class="result-icon">
     <div class="result-text">支付成功</div>
 
     <div class="btn-group">

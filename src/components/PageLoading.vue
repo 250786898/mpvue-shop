@@ -2,8 +2,8 @@
   <div class="loading" v-if="show">
     <!-- <lj-loading /> -->
     <div class="loading-main">
-      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/pull_down_refresh_icon.gif" mode="aspectFit">
-      <div class="loading-text">{{loadingText}}</div>
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/pull_down_refresh_icon.gif" mode="aspectFit">
+      <!-- <div class="loading-text">{{loadingText}}</div> -->
     </div>
 
   </div>

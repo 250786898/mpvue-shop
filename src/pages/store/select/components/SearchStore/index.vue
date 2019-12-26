@@ -4,7 +4,7 @@
 
       <div class="search-main">
         <label class="search-label" @click="selectSearchAddesss">
-          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/commom_search_png.png" alt="" class="search-icon">
+          <img src="/static/images/common_icon_serch.png" alt="" class="search-icon">
           <div class="search-placeholder">请输入提货地址</div>
         </label>
       </div>
@@ -12,7 +12,7 @@
   <!-- <div class="search-bar">
     <div class="search-item">
       <div class="search-city" @click="navToSelectCity">{{cityName}}</div>
-      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_icon_dropdown.png" alt="" class="dropdown-icon">
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/common_icon_dropdown.png" alt="" class="dropdown-icon">
       <div class="search-main">
         <label class="search-label" @click="selectSearchAddesss">
           <div class="search-placeholder">请输入提货地址</div>
@@ -88,10 +88,7 @@ export default {
 }
 .search-icon{
   width: 25rpx;
-  height: 23rpx;
-  position: relative;
-  top: 5rpx;
-  margin-left: 10rpx;
+  height: 25rpx;
 }
 .search-main{
   display: flex;
@@ -114,7 +111,7 @@ export default {
   color: #929292;
   height: 100%;
   width: 100%;
-  margin-left: 15rpx;
+  margin-left: 40rpx;
   // &::before{
   //   content: ' ';
   //   width:2rpx;
@@ -127,7 +124,7 @@ export default {
     font-size:30rpx;
   }
   .icon-search{
-    margin-right: 14rpx;
+    margin-right: 15rpx;
     width: 28rpx;
     height: 28rpx;
   }

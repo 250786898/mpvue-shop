@@ -2,7 +2,7 @@
    <!-- 配送中 -->
     <div v-if="order.state === 30 && order.deliveryType === 1 && order.shippingCompany" class="order-map">
       <!-- @TODO: 经纬度信息 order.riderLng -->
-      <map :longitude="order.riderLng" :latitude="order.riderLat" :markers="[{iconPath: 'https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/markers.png',id: 0,latitude: order.riderLat,longitude: order.riderLng,width: 30, height: 30}]">
+      <map :longitude="order.riderLng" :latitude="order.riderLat" :markers="[{iconPath: 'https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/markers.png',id: 0,latitude: order.riderLat,longitude: order.riderLng,width: 30, height: 30}]">
       </map>
       <cover-view class="order-countdown">
         <cover-view class="order-countdown__bg-left">
@@ -21,13 +21,13 @@
 
     <!-- 待支付、待配送、订单已关闭-->
     <div style="position: relative;" v-else>
-      <img class="BackImg" src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/background_icon.png" alt="">
+      <img class="BackImg" src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/background_icon.png" alt="">
       <div class="order-status ">
 
         <!-- 待支付 -->
         <template v-if="order.state === 10">
           <div class="unpa">
-            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/unpaid_icon.png" alt="">
+            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/unpaid_icon.png" alt="">
             <p class="unpaid">待支付</p><br>
             <span v-if="true">{{timers}}秒后自动取消订单</span>
           </div>
@@ -41,7 +41,7 @@
             </div>
           </template>
           <template v-else>
-             <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/orderdetail.png" alt="">
+             <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/orderdetail.png" alt="">
             <div style="margin-left:31rpx;">
               待提货
               <!-- <div class="desc">提货时间 ：{{  order.pickTime }}</div> -->
@@ -62,17 +62,17 @@
         </template>
         <!-- 订单已关闭 -->
         <template v-else-if="order.state === 50">
-           <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/close_icon.png" alt="">
+           <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/close_icon.png" alt="">
             <p style="margin-left:32rpx;">订单已关闭</p>
 
         </template>
         <template v-else-if="order.state === 0 && !isAssemble">
-           <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/close_icon.png" alt="">
+           <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/close_icon.png" alt="">
          <p style="margin-left:32rpx;">订单已取消</p>
         </template>
         <!-- 订单已签收 改 交易成功 -->
         <template v-else-if="order.state === 40 || order.state === 49">
-           <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/success_icon.png" alt="">
+           <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/success_icon.png" alt="">
            <p style="margin-left:32rpx;">交易成功</p>
 
         </template>
@@ -117,7 +117,7 @@
           </div>
           <!-- <div class="weui-cell__ft weui-cell__ft_in-access"></div> -->
         </div>
-         <img class="addborder" src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/order_dividingline@2x.png">
+         <img class="addborder" src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/order_dividingline@2x.png">
       </div>
     </div>
 
@@ -190,7 +190,7 @@
         </div>
         <div class="weui-form-preview__item" v-if="order.redPacketAmount">
           <div class="weui-form-preview__label">
-            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/orderdetails_icon_redenvelopes@2x.png" class="redpack">
+            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/orderdetails_icon_redenvelopes@2x.png" class="redpack">
             {{ order.redPacketAmount }}元红包
           </div>
           <div class="weui-form-preview__value">-￥{{ order.redPacketAmount }}</div>
@@ -240,7 +240,7 @@
               <!-- XXX: 骑手详情不用做 -->
               <div class="text-green" @click="callRider">
                 联系骑手
-                <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/orderdetails_icon_phone@2x.png" class="tel-icon">
+                <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/orderdetails_icon_phone@2x.png" class="tel-icon">
               </div>
             </div>
           </div>

@@ -3,7 +3,7 @@
     <div class="cart-container"  v-if="(cartItemResultList && cartItemResultList.length) || (failureGoodsList && failureGoodsList.length)">
 
         <!-- 优惠券模块 -->
-        <coupon-wrap />
+        <coupon-wrap :goods-list="goodsListByCoupon" :coupon-list="myCouponList" />
 
         <!-- 正常商品列表 -->
         <base-cart
@@ -16,11 +16,11 @@
           v-if="cartItemResultList && cartItemResultList.length"
         />
 
-        <!-- 失效商品列表 -->
+        <!-- 失效商品列表  -->
         <failure-cart
           :failureGoodsList="failureGoodsList"
           @updateCartList="updateCartList"
-          v-if="failureGoodsList && failureGoodsList.length"
+           v-if="failureGoodsList && failureGoodsList.length"
         />
 
         <!-- 占位符 -->
@@ -53,7 +53,8 @@
   import EmptyCart from './components/EmptyCart/index'
   import Suspension from './components/Suspension/index'
   import  CartModel from '@/model/cart'
-
+  import CouponModel from '@/model/coupon'
+  const couponModel = new CouponModel()
   const cartModel = new CartModel()
 
   export default {
@@ -71,9 +72,15 @@
         cartItemResultList: [], //正常商品购物车列表
         preSaleGoodList: [], //预售商品列表
         failureGoodsList: [], //失效商品购物车列表
+        goodsListByCoupon: [], //优惠券推荐商品列表
+        myCouponList: [], //我的优惠券列表
         totalAmount: 0, //合计购物车价格
         promisAmount: 0 //已优惠价格
       }
+    },
+
+    computed: {
+      ...mapState(['storeId','sessionId'])
     },
 
     onLoad() {
@@ -99,7 +106,7 @@
         mask: true,
         title: '加载中'
       })
-      this.getCartList() //获取购物车列表
+      this.loadCartData()
     },
 
 
@@ -107,11 +114,56 @@
       this.getCartList()  //下拉更新购物车列表
     },
 
-    computed: {
-      ...mapState(['storeId','sessionId'])
-    },
+
 
     methods: {
+
+      /**
+       * @description 加载购物车相关数据
+       */
+      loadCartData () {
+        Promise.all([this.getCartList(),this.loadCouponInfo()])
+        .then(res => {
+          //所有请求完毕隐藏加载提示
+           wx.hideLoading()
+           wx.stopPullDownRefresh()
+        })
+          //获取购物车列表
+      },
+
+       /**
+       * @description 初始化，加载购物车列表
+       */
+      getCartList() {
+        return Api.cart.cartList({
+          storeId: this.storeId,
+          carts: 'all'
+        }).then(res => {
+          if (res.code == Api.CODES.SUCCESS) {
+            this.cartItemResultList = res.data.cartItemResultList
+            this.failureGoodsList = res.data.failureGoodsList
+            this.totalAmount = res.data.totalAmount //合计购物车价格
+            this.promisAmount = res.data.promisAmount //已优惠价格
+          }
+        })
+        .catch(e => console.log(e))
+        this.$store.dispatch('syncCartTabbarBadge') //设置tab徽章
+      },
+
+       /**
+       * @description 加载优惠券列表
+       */
+       loadCouponInfo () {
+        return couponModel.getCartCouponInfo({
+          storeId: this.storeId
+        }).then(res => {
+          if(res.code == Api.CODES.SUCCESS) {
+            this.goodsListByCoupon = res.data.goods
+             this.myCouponList = res.data.goods
+             this.myCouponList= res.data.shopCoupons
+          }
+        })
+      },
 
       /**
        * @description 获取购物车id集合
@@ -283,28 +335,7 @@
         .then(() => wx.hideLoading())
       },
 
-      /**
-       * @description 初始化，加载购物车列表
-       */
-      getCartList() {
-        Api.cart.cartList({
-          storeId: this.storeId,
-          carts: 'all'
-        }).then(res => {
-          if (res.code == Api.CODES.SUCCESS) {
-            this.cartItemResultList = res.data.cartItemResultList
-            this.failureGoodsList = res.data.failureGoodsList
-            this.totalAmount = res.data.totalAmount //合计购物车价格
-            this.promisAmount = res.data.promisAmount //已优惠价格
-          }
-        })
-        .catch(e => console.log(e))
-        .then(() => {
-          wx.hideLoading()
-          wx.stopPullDownRefresh()
-        })
-        this.$store.dispatch('syncCartTabbarBadge') //设置tab徽章
-      },
+
     }
 
 

@@ -2,26 +2,26 @@
   <div class="bar">
     <div class="orders">
       <div class="orders-item" @click="makeEmit('obligation')">
-        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/payment_icon.png" class="orders-item__icon">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/payment_icon.png" class="orders-item__icon">
         <span class="orders-item__status">待付款</span>
       </div>
       <div class="orders-item" @click="makeEmit('toPickUp')">
-        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/mention_icon.png" class="orders-item__icon">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/mention_icon.png" class="orders-item__icon">
         <span class="orders-item__status">待提货</span>
       </div>
       <div class="orders-item" @click="makeEmit('pickUp')" >
-        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/evaluate_icon.png" class="orders-item__icon">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/evaluate_icon.png" class="orders-item__icon">
         <span class="orders-item__status">已提货</span>
       </div>
       <div class="orders-item" @click="makeEmit('salesReturn')">
-        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/after-sell_icon.png" class="orders-item__icon">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/after-sell_icon.png" class="orders-item__icon">
         <span class="orders-item__status">售后/退款</span>
       </div>
     </div>
     <div class="all-order">
-      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/all-order-border.png" class="all-order__border">
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/all-order-border.png" class="all-order__border">
       <div class="all-order-main" @click="makeEmit('allOrder')">
-        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/after-sell_icon.png" class="all-order-main__icon">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/after-sell_icon.png" class="all-order-main__icon">
         <span class="all-order-main__status">全部订单</span>
       </div>
     </div>
@@ -42,7 +42,7 @@ export default {
 <style lang="scss" scoped>
 .bar{
   width:100%;
-  height:205rpx;
+  height:175rpx;
   background:rgba(255,255,255,1);
   border:1px solid rgba(255,255,255,1);
   border-radius:20rpx;

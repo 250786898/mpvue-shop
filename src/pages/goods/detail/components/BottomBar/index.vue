@@ -66,6 +66,8 @@ export default {
   box-shadow:0px -3rpx 10rpx 0px rgba(240,241,243,0.45);
   box-sizing: border-box;
   display: flex;
+  justify-content: space-between;
+  padding-right: 20rpx;
   align-items: center;
   z-index: 19;
   .cart-box{
@@ -98,14 +100,11 @@ export default {
   button {
     display: inline-block;
     vertical-align: middle;
-    width: 75%;
-    height: 90rpx;
-    line-height: 90rpx;
+    width: 550rpx;
+    height: 80rpx;
+    line-height: 80rpx;
     font-size:32rpx;
     border-radius: 10rpx;
-  }
-  .add-cart-btn {
-    background:#01BD9F;
   }
 }
 </style>

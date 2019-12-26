@@ -1,6 +1,6 @@
 <template>
   <div class="empty-container">
-      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/empty-time-activity.png" class="empty-icon">
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/empty-time-activity.png" class="empty-icon">
       <div class="empty-tip__text_main">{{title}}</div>
       <div class="empty-tip__text">我们正在为您精选优质的商品</div>
   </div>

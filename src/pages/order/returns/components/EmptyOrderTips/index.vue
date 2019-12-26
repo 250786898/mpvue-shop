@@ -1,7 +1,7 @@
 <template>
   <div class="empty-order-tips">
     <img
-      src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/empty_order_tips.png"
+      src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/empty_order_tips.png"
       class="empty-order-tips__img"
     />
     <div class="empty-order-tips__text">暂时没有订单哦</div>

@@ -32,6 +32,7 @@ import OnlinePrice from '@/components/OnlinePrice'
 .goods-row-item__price {
   display: flex;
   align-items: flex-end;
+  line-height: 1;
   .secondary{
     color: #3D3C3C;
     font-size: 24rpx;

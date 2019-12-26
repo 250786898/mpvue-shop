@@ -11,7 +11,7 @@
       <div class="card-main-content">
         <OnlinePrice :price="item.goodsPayPrice" />
         <div class="goods-num">
-          ×{{ item.goodsNum || 0 }}
+         数量 ×{{ item.goodsNum || 0 }}
         </div>
       </div>
     </div>
@@ -38,7 +38,7 @@ export default {
   padding: 30rpx;
   box-sizing: border-box;
   display: flex;
-  border-bottom: 1px solid #E4E4E4;
+  border-bottom: 1rpx solid #E4E4E4;
   .goods-img {
     width: 192rpx;
     height: 192rpx;
@@ -55,7 +55,6 @@ export default {
     width: 100%;
     .goodsName{
       font-size: 32rpx;
-      font-weight:bold;
       line-height: 45rpx;
       width: 425rpx;
       margin-bottom: 2rpx;

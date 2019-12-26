@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/signin_bg_logo_big@2x.png">
+    <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/signin_bg_logo_big@2x.png">
     <div class="auth-desc">乐家生鲜</div>
 
     <div class="auth-tip-content">

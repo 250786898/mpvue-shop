@@ -1,6 +1,6 @@
 <template>
   <div class="cart">
-    <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/empry-carticon.png" class="empty-icon">
+    <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/empry-carticon.png" class="empty-icon">
       <div class="empty-tip__text">购物车啥都没有哟</div>
       <div class="empty-tip__text">给自已定一个小目标，先下一单~</div>
       <button type="primary" class="radius" @click="toIndex">
@@ -34,7 +34,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 103rpx;
+  padding-top: 167rpx;
   .empty-icon{
     width: 468rpx;
     height: 355rpx;

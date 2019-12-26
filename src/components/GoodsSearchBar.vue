@@ -3,14 +3,14 @@
      <div class="weui-search-bar" id="ex">
       <!-- 位置 -->
       <div class="location" @click="selectStore">
-        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/scancodepurchase_icon_location.png@2x.png" />
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/scancodepurchase_icon_location.png@2x.png" />
         <div class="location__text">
           <div class="location__text__content" v-if="shopDetail.storeName">{{shopDetail.storeName}}</div>
         </div>
       </div>
       <div class="search-bar__form" @click="toSearch">
         <div class="search-bar__box">
-          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_nav_icon_serve.n@2x.png" />
+          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/common_nav_icon_serve.n@2x.png" />
           <text>搜索商品</text>
           <!-- <input
             type="text"
@@ -24,14 +24,14 @@
       </div>
       <!-- 首页会员码 -->
       <!-- <navigator url="/pages/qrcode/index/main" class="weui-search-bar__cancel-btn">
-        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/home_img_qrcode.png@2x.png">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/home_img_qrcode.png@2x.png">
       </navigator>-->
 
     <!-- //占位符 -->
 
     </div>
     <div class="occupation">
-        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/pull_down_refresh_icon.gif" mode="aspectFit">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/pull_down_refresh_icon.gif" mode="aspectFit">
     </div>
   </div>
 

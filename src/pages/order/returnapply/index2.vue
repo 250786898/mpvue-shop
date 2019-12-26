@@ -33,7 +33,7 @@
     <div class="lj-form">
 
         <div class="weui-cell">
-          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/icon_arrow.png" alt="">
+          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/icon_arrow.png" alt="">
           <div  style="font-size:30rpx; width:300rpx;" class="weui-cell__hd">
            <p style="float:left;">退货原因： </p> <span style="color:#999;"> 请选填</span>
 

@@ -1,16 +1,16 @@
 <template>
   <div class="card">
      <div class="card-img">
-       <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/1576138884874.jpg" mode="aspectFit" />
+       <img :src="item.goodsImage" mode="aspectFit" />
      </div>
      <div class="card-main">
-       <div class="goods-name">鸡大胸 1kg 出口日本级 烧 烤食材清真食品</div>
+       <div class="goods-name">{{ item.goodsName }}</div>
        <div class="goods-content">
          <div class="price-wrap">
-           <OnlinePrice :signSize="24" :beforeSize="34" :afterSize="24" />
-           <div class="scribing-price">￥38.00</div>
+           <OnlinePrice :price="item.discountedPrice" :signSize="24" :beforeSize="34" :afterSize="24" />
+           <div class="scribing-price">￥{{item.scribingPrice}}</div>
          </div>
-         <GoodsNumHandle :iconSize="54" />
+         <GoodsNumHandle :iconSize="54" :goodsInfo="item" />
        </div>
      </div>
   </div>
@@ -23,6 +23,12 @@ export default {
   components: {
     OnlinePrice,
     GoodsNumHandle
+  },
+  props:{
+    item: { //商品信息对象
+      type: Object,
+      default: () => ({})
+    }
   }
 }
 </script>
@@ -33,7 +39,7 @@ export default {
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  border: 1px solid #D6D6D6;
+  border: 1px solid #F1F1F1;
   border-radius:10rpx;
   width:311rpx;
   height:150rpx;
@@ -49,10 +55,11 @@ export default {
   &-main{
     width: 100%;
     margin-left: 9rpx;
+    font-size: 0;
     .goods-name{
       color: #353535;
       font-size: 26rpx;
-      line-height: 30rpx;
+      line-height: 32rpx;
       width: 159rpx;
       @include ellipsis;
     }

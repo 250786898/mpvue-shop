@@ -1,29 +1,29 @@
 <template>
-  <div class="card">
+  <div class="card" @click="tabGoods">
     <div class="goods-img">
-       <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/1576056769198.jpg"  mode="aspectFit" >
-       <div class="sell-gone-tag" v-if="isSellOut">已抢光</div>
+       <img :src="item.goodsImage"  mode="aspectFit" >
+       <div class="sell-gone-tag" v-if="item.activityStock == 0">已抢光</div>
     </div>
 
-    <div class="goods-name">美国进口车厘子新鲜...</div>
-    <div class="goods-desc">新鲜礼盒水果 家庭装</div>
-    <div class="limit-label">限购1件</div>
+    <div class="goods-name">{{ item.goodsName }}</div>
+    <div class="goods-desc" v-if="item.shareDescription">{{item.shareDescription}}</div>
+    <div class="limit-label" v-if="item.activityLimitNum">限购{{item.activityLimitNum}}件</div>
     <div class="card-footer">
       <div class="card-footer-main">
         <div class="price-wrap">
           <div class="online-price">
-            <OnlinePrice :signSize="20" :beforeSize="32" :afterSize="24"/>
+            <OnlinePrice :price="item.discountedPrice" :signSize="20" :beforeSize="32" :afterSize="24"/>
           </div>
-          <div class="scribing-price">￥299.00</div>
+          <div class="scribing-price">￥{{item.scribingPrice}}</div>
         </div>
-        <div class="sell-null">已售4738份</div>
+        <div class="sell-null">已售0份</div>
       </div>
       <div class="add-cart">
-        <GoodsNumHandle />
+        <GoodsNumHandle :goodsInfo="item" />
       </div>
 
     </div>
-    <div class="card-mask"  v-if="isSellOut"></div>
+    <div class="card-mask"  v-if="item.activityStock == 0"></div>
   </div>
 </template>
 
@@ -36,10 +36,19 @@ export default {
     GoodsNumHandle
   },
   props:{
-    // 是否抢光
-    isSellOut: {
-      type: Boolean,
-      default: false
+    item: { //商品信息对象
+      type: Object,
+      default: () => ({})
+    }
+  },
+  methods: {
+    /**
+     * @description 点击了商品，正常商品跳转商品详情
+     */
+    tabGoods () {
+      wx.navigateTo({
+        url: `/pages/goods/detail/main?id=${this.item.id}&activityId=${this.item.activityId}&activityGoodsId=${this.item.id}`
+      })
     }
   }
 }
@@ -93,7 +102,8 @@ export default {
   .goods-name{
     color: #101010;
     font-size: 30rpx;
-    width:292px;
+    padding-bottom: 2rpx;
+    width:292rpx;
     @include ellipsis;
     margin: 13rpx 0 11rpx 0;
   }

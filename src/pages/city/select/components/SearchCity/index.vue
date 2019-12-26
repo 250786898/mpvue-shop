@@ -1,7 +1,7 @@
 <template>
   <div class="search">
     <div class="search-input">
-      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/search_icon.png" class="search-icon" mode="aspectFit" alt="">
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/search_icon.png" class="search-icon" mode="aspectFit" alt="">
       <span class="search-placeholder">请输入城市名</span>
     </div>
     <div class="search-btn">搜索</div>

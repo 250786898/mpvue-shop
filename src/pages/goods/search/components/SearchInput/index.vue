@@ -1,9 +1,9 @@
 <template>
   <div class="bar">
     <div class="bar-input">
-      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/commom_search_png.png" class="search-icon">
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/commom_search_png.png" class="search-icon">
       <input placeholder="请输入商品名称" class="search-input">
-      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_icon_close.png" class="cancel-icon">
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/common_icon_close.png" class="cancel-icon">
     </div>
     <div class="search-btn">
       <span>搜索</span>

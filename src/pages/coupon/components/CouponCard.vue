@@ -6,36 +6,38 @@
         <div class="card-left">
 
           <div class="card-left-main">
-            <div class="coupon-price-box">￥<span class="price">99</span></div>
-            <div class="coupon-condition">满199使用</div>
+            <div class="coupon-price-box">￥<span class="price">{{item.shopCoupon.couponMoney}}</span></div>
+            <div class="coupon-condition">满{{item.shopCoupon.eliyibility}}元减</div>
           </div>
 
         </div>
         <div class="card-right">
           <div class="card-right-desc">
-            <div class="coupon-title">新人专享满199减99</div>
+            <div class="coupon-title">{{item.shopCoupon.couponName}}</div>
           </div>
-          <div class="coupon-date">2019.10.19 - 2019.0.19</div>
+          <div class="coupon-date">{{item.receivingDate}} - {{item.dueDate}}</div>
         </div>
       </div>
       <div class="coupon-card-buttom">
         <div class="coupon-footer">
-          <div class="coupon-desc">指定商品满199.00元减129.00元</div>
+          <div class="coupon-desc">指定商品满{{item.shopCoupon.eliyibility}}元减{{item.shopCoupon.couponMoney}}元</div>
           <div class="applicable" v-if="type == 'base' || type ==  'select' ">
-            <span>查看可用商品</span>
-            <!-- <span>查看适用门店</span> -->
-            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/deliverycode_icon_arrow.png" alt="">
+            <span v-if="item.shopCoupon.applyGoods != 0" @click="navToApplicableGoods">查看可用商品</span>
+            <span v-if="item.shopCoupon.applyStore != 0" @click="navToApplicableStore">查看适用门店</span>
+            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/deliverycode_icon_arrow.png" v-if="item.shopCoupon.applyGoods != 0 || item.shopCoupon.applyStore != 0">
           </div>
         </div>
       </div>
 
-      <div class="expire-label" v-if="type == 'base' ">即将到期</div>
-      <div class="expire-icon" v-else>
-        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/pictuer_used_png.png" alt="" v-if=" type  == 'used'">
-        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/picture_expired_png.png" v-if=" type  == 'expire'">
-        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/coupon-collected_png.png" v-if=" type  == 'use'">
+      <div class="expire-label" v-if="type == 'base' && item.expireSoon ">
+        <span>即将到期</span>
       </div>
-      <div class="handle-btn">
+      <div class="expire-icon" v-else>
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/pictuer_used_png.png" alt="" v-if=" type  == 'used'">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/picture_expired_png.png" v-if=" type  == 'expire'">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/coupon-collected_png.png" v-if=" type  == 'use'">
+      </div>
+      <div class="handle-btn" v-if="type == 'fetch' || type == 'use'">
         <div class="fetch-btn" v-if="type == 'fetch'">立即领取</div>
         <div class="use-btn"  v-if="type == 'use'">立即使用</div>
       </div>
@@ -43,6 +45,7 @@
       <radio class="item-radio" color="#01BD9F" v-if="type == 'select'"></radio>
       <div class="cirle cirle-left"></div>
       <div class="cirle cirle-right"></div>
+      <div class="failure-mask" v-if=" type  == 'used' ||  type  == 'expire'"></div>
 
     </div>
 
@@ -58,8 +61,29 @@
       },
       type: { //优惠券类型: base(正常) used(已使用) expire（过期） fetch（立即领取）  use（立即使用） select(选择优惠券)
         type: String,
-        default: 'use'
+        default: 'base'
       }
+    },
+
+    methods: {
+      /**
+       * @description  跳转可使用商品
+       */
+      navToApplicableGoods () {
+        wx.navigateTo({
+          url: `/pages/coupon/applicableGoods/main?couponCode=${this.item.couponCode}`
+        })
+      },
+
+      /**
+       * @description  跳转可使用门店
+       */
+      navToApplicableStore () {
+        wx.navigateTo({
+          url: `/pages/coupon/applicableStores/main?couponCode=${this.item.couponCode}`
+        })
+      }
+
     }
   }
 </script>
@@ -68,7 +92,6 @@
   .coupon-card {
     vertical-align: middle;
     width:710rpx;
-    min-height:246rpx;
     border-radius:10rpx;
     position: relative;
     margin-bottom: 20rpx;
@@ -221,7 +244,7 @@
      }
    }
    .expire-text div{
-    color: #CCCCCC !important;
+    color: #999999 !important;
    }
    .expire-icon{
      width: 89rpx;
@@ -240,5 +263,14 @@
       top: 10rpx;
       width: 146rpx;
       height: 146rpx;
+    }
+    .failure-mask{
+      position: absolute;
+      top: 0rpx;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      background:rgba(255,255,255,1);
+      opacity:0.5;
     }
 </style>

@@ -13,7 +13,7 @@
           <div class="list-item-city" v-for="(cityItem,cityIndex) in item" v-bind:key="cityIndex">
             <span>{{cityItem.name}}</span>
             <!-- <image
-              src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_choice_big_s.png"
+              src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/common_choice_big_s.png"
               mode="scaleToFill"
               lazy-load="false"
               class="current-select-city-icon"

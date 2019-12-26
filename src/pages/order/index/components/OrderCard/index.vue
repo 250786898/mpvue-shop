@@ -18,7 +18,7 @@
       </div>
       <div class="card-main-right">
         <div class="goods-num">共{{item.goodsNum}}件</div>
-        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/order-right-icon.png" class="right-icon">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/order-right-icon.png" class="right-icon">
       </div>
     </div>
     <div class="card-footer">
@@ -28,7 +28,7 @@
         </div>
         <div class="total-price">
            <span class="total-title">合计:</span>
-           <OnlinePrice :price="item.payment" :color="'#333'" :signSize="22" :beforeSize="32" :afterSize="24" :isBlod="true" />
+           <OnlinePrice :price="item.payment" :signSize="22" :beforeSize="32" :afterSize="24" :isBlod="true" />
         </div>
       </div>
       <div class="btn-group" v-if="item.state == 20 || item.state == 10">
@@ -139,7 +139,7 @@ export default {
     display: flex;
     justify-content: space-between;
     font-size: 28rpx;
-    border-bottom: 1px solid #CCCCCC;
+    border-bottom: 1rpx solid #CCCCCC;
     .order-state{
       .wait-pickup{
         color: #FF0000;
@@ -152,7 +152,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid #CCCCCC;
+    border-bottom: 1rpx solid #CCCCCC;
     .goods-list{
       display: flex;
       .goods-img{

@@ -1,6 +1,6 @@
 <template>
   <div class="status" style>
-    <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/order-status-bg.png" alt />
+    <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/order-status-bg.png" alt />
     <p class="status__text" v-if="status==1||status==2||status==3" >申请成功，待商家处理</p>
     <p class="status__text" v-if="status==4||status==5" >请将退货商品退还给门店，待商家退款</p>
     <p class="status__text" v-if="status==6" >拒绝申请</p>

@@ -7,13 +7,13 @@
       <div>
         <div class="goodsName">{{ item.goodsName }}</div>
         <div class="pickup-time">
-          <span class="already-pickup" v-if="true">09月30日已提货</span>
-          <span class="wait-pickup" v-else>×月×日可提货</span>
+          <!-- <span class="already-pickup" v-if="true">09月30日已提货</span> -->
+          <!-- <span class="wait-pickup" v-else>×月×日可提货</span> -->
         </div>
       </div>
-      <div class="after-sell">
+      <!-- <div class="after-sell">
         <div class="after-sell-btn">查看售后</div>
-      </div>
+      </div> -->
 
       <div class="card-main-content">
         <OnlinePrice :price="item.onlinePrice" />
@@ -44,7 +44,7 @@ export default {
 .card{
   box-sizing: border-box;
   display: flex;
-  border-bottom: 1px solid #E4E4E4;
+  border-bottom: 1rpx solid #E8E8E8;
   padding: 30rpx 0;
   .goods-img {
     width: 192rpx;
@@ -77,7 +77,6 @@ export default {
     width: 100%;
     .goodsName{
       font-size: 32rpx;
-      font-weight:bold;
       line-height: 45rpx;
       width: 425rpx;
       margin-bottom: 2rpx;

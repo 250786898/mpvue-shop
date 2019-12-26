@@ -14,12 +14,12 @@
           <div class="all-count__price">
             <div class="all-count__desc">合计:</div><OnlinePrice :price="totalAmount" />
           </div>
-          <p>已优惠:-￥{{ promisAmount || 0 }}</p>
+          <p v-if="totalAmount">已优惠:-￥{{ promisAmount || 0 }}</p>
         </div>
       </div>
       <div class="btn-box">
         <button class="footer-bar-btn radius bg-gradient settlement-btn"  @click="checkout" v-if="totalAmount">结算</button>
-        <button class="footer-bar-btn radius bg-gradient disable-btn"  disabled v-else>结算</button>
+        <button class="footer-bar-btn radius bg-gradient disable-btn" v-else>结算</button>
       </div>
     </div>
   </div>
@@ -129,7 +129,7 @@ export default {
   line-height: 80rpx;
   text-align: center;
   color: #fff;
-  background: #666;
+  background: #AAAAAA;
   &::after{
     border: none;
   }

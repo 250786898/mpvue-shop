@@ -1,30 +1,30 @@
 <template>
-  <div class="container">
+  <navigator url="/pages/cart/main" open-type="switchTab" class="container">
      <div class="cart" v-if="type == 'white'">
-      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/icon_shopping_png.png" class="cart-icon"  alt="">
-      <div class="cart-num" v-if="num <10">{{num}}</div>
-      <div class="cart-num circle-radius" v-else>{{num}}</div>
+      <img src="/static/images/icon_shopping_png.png" class="cart-icon"  alt="">
+      <div class="cart-num" v-if="cartNum <10">{{cartNum}}</div>
+      <div class="cart-num circle-radius" v-else>{{cartNum}}</div>
     </div>
     <div class="black-cart" v-else>
-      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/icon_shopping car_png.png" class="cart-icon"  alt="">
-      <div class="cart-num" v-if="num < 100">{{num}}</div>
-      <div class="cart-num circle-radius" v-else>{{num}}</div>
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/icon_shopping car_png.png" class="cart-icon"  alt="">
+      <div class="cart-num" v-if="cartNum < 100">{{cartNum}}</div>
+      <div class="cart-num circle-radius" v-else>{{cartNum}}</div>
     </div>
-  </div>
+  </navigator>
 
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   props: {
-    num: { //购物车数量
-      type: Number,
-      default: 15
-    },
     type: { //icon类型 white black
       type: String,
       default: 'white'
     }
+  },
+  computed: {
+     ...mapState(['cartNum'])
   }
 }
 </script>
@@ -47,7 +47,7 @@ export default {
     height:32rpx;
     line-height: 32rpx;;
     background:linear-gradient(90deg,rgba(255,70,40,1),rgba(254,38,38,1));
-    border:3rpx solid rgba(255, 255, 255, 0.45);
+    // border:3rpx solid rgba(255, 255, 255, 0.45);
     border-radius: 50%;
     color: #FFFFFF;
     font-size: 22rpx;
@@ -76,7 +76,7 @@ export default {
     height:29rpx;
     line-height: 29rpx;;
     background:linear-gradient(90deg,rgba(255,70,40,1),rgba(254,38,38,1));
-    border:3rpx solid rgba(255, 255, 255, 0.45);
+    // border:3rpx solid rgba(255, 255, 255, 0.45);
     border-radius: 50%;
     color: #FFFFFF;
     font-size: 22rpx;

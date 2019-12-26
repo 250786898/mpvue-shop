@@ -60,7 +60,7 @@ export default {
   margin-bottom: 20rpx;
   .detail-info {
     padding: 30rpx 0;
-    border-bottom: 1px solid #E8E8E8;
+    border-bottom: 1rpx solid #E8E8E8;
     &-item{
       width: 100%;
       display: flex;

@@ -1,9 +1,9 @@
 <template>
   <div class="search">
     <div class="search-input">
-      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/search_icon.png" mode="aspectFit" class="search-icon" alt="">
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/search_icon.png" mode="aspectFit" class="search-icon" alt="">
       <input class="search-placeholder" placeholder="请输入城市名" />
-      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_icon_close.png" mode="aspectFit" class="cancel-icon" alt="">
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/common_icon_close.png" mode="aspectFit" class="cancel-icon" alt="">
     </div>
     <div class="search-btn">搜索</div>
   </div>

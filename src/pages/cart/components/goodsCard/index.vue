@@ -102,7 +102,6 @@ export default {
   display: flex;
   padding: 20rpx;
   box-sizing: border-box;
-  min-height: 240rpx;
   align-items: center;
   border-bottom: 1rpx solid #F4F4F4;
   &-left{
@@ -144,7 +143,6 @@ export default {
   }
   .good-name{
     font-size:32rpx;
-    font-weight:bold;
     line-height: 40rpx;
     padding-right: 72rpx;
     padding-bottom: 10rpx;

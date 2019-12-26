@@ -25,7 +25,7 @@
       </div>
       <div class="weui-search-bar__cancel-btn" :hidden="!inputShowed" @click="hideInput">取消</div>
       <navigator open-type="switchTab" url="/pages/cart/main" class="cartentry" :hidden="inputShowed || !resultShowed">
-        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_tab_icon_shopcart_n@2x.png">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/common_tab_icon_shopcart_n@2x.png">
         <span class="weui-badge" style="position: absolute;top: -.4em;right: -.4em;">
           {{ cartNum || '0'}}
         </span>
@@ -43,7 +43,7 @@
       <div class="tag-block">
         <div class="tag-block__title">
           搜索历史
-          <img class="tag-block__title__icon" src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/search_icon_delete@2x.png" @click="clearSearchHistory()">
+          <img class="tag-block__title__icon" src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/search_icon_delete@2x.png" @click="clearSearchHistory()">
         </div>
         <div class="tag-block__bd">
           <span v-for="item in histories" :key="item" @click="search(item)">{{ item }}</span>

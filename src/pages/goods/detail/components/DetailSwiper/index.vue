@@ -10,8 +10,8 @@
         </swiper-item>
     </swiper>
     <div class="indicator">
-      <div class="indicator-item" :class="{'indicator-item-activity' : currentSwiperType == 'video' }" @click="changeSwiper('video')">视频</div>
-      <div class="indicator-item" :class="{'indicator-item-activity' : currentSwiperType == 'image' }" @click="changeSwiper('image')">图片</div>
+      <div class="indicator-item" :class="{'indicator-item-activity video-item-activity' : currentSwiperType == 'video' }" @click="changeSwiper('video')">视频</div>
+      <div class="indicator-item" :class="{'indicator-item-activity image-item-activity' : currentSwiperType == 'image' }" @click="changeSwiper('image')">图片</div>
     </div>
   </div>
 </template>
@@ -84,10 +84,10 @@ export default {
     width:190rpx;
     height:44rpx;
     line-height: 44rpx;
-    color: #FFFFFF;
+    color: rgb(143, 143, 143);
     font-size: 24rpx;
-    background:rgba(67,67,67,0.4);
     border-radius:22rpx;
+    background:rgba(205,205,205,0.6);
     &-item{
       width:95rpx;
       height:44rpx;
@@ -103,10 +103,17 @@ export default {
       width:105rpx;
       height:44rpx;
       line-height: 44rpx;
-      background:rgba(67,67,67,0.4);
-      color: #FFFFFF;
+      background:rgba(255,255,255,1);
+      border:1px solid #dbdbdb;
+      color: #2D2D2D;
       border-radius:22rpx;
       z-index: 9;
+    }
+    .video-item-activity{
+      // border-right:1px solid rgba(86, 86, 86, 1);
+    }
+    .image-item-activity{
+      // border-left:1px solid rgba(86, 86, 86, 1);
     }
   }
 }

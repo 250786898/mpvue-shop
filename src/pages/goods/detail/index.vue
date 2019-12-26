@@ -195,7 +195,7 @@
         const path = await this.getLocationImg(goodsImgUrl)
         console.log('path',path)
         ctx.drawImage( path , 20 , 0, 140, 140)
-        ctx.drawImage( 'https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/goods-detail-bar__bg.png' , 0, 140, 200, 40)
+        ctx.drawImage( 'https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/goods-detail-bar__bg.png' , 0, 140, 200, 40)
         ctx.setFillStyle('white')
         ctx.setFontSize(20)
         ctx.fillText( `￥${this.goodsDetailInfo.onlinePrice}`, 30 , 160, 100, 100)
