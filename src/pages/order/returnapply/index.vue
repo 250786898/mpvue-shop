@@ -18,21 +18,11 @@ export default {
   },
   data() {
     return {
-      orderId: "6598224525651873792",
       goodList: [],
       proof: {}
     };
   },
   methods: {
-    /**
-     * @description 获取商品列表
-     */
-    async getGoodList() {
-      let data = await Api.order.detail({
-        orderId: this.orderId
-      });
-      this.goodList = data.data.orderGoodsList;
-    },
 
     /**
      * @description 获取凭证信息
@@ -93,6 +83,7 @@ export default {
     if (e.id) {
       this.orderId = e.id;
       this.goodList = JSON.parse(e.list);
+      console.log(this.goodList);
     }
   }
 };

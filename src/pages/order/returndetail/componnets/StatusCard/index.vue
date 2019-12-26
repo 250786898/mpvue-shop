@@ -27,11 +27,6 @@ export default {
     getStatus() {
           return "退款成功";
 
-      // switch (this.state) {
-      //   case 7:
-      //     return "退款成功";
-      //     break;
-      // }
     }
   }
 };

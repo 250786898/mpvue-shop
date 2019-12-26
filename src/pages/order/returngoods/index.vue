@@ -1,6 +1,6 @@
 <template>
   <div class>
-    <goods-card :goodList="goodList" @getChooseList="getChooseList" />
+    <goods-card :goodList="goodList" @changeGoodsStatus="changeGoodsStatus" />
     <button type="primary" class="sure-button" @click="submit">确认退货商品</button>
   </div>
 </template>
@@ -17,7 +17,7 @@ export default {
     return {
       orderId: '',
       goodList: [],
-      chooseList: []
+      chooseList: [] //勾选的商品列表
     };
   },
   methods: {
@@ -30,7 +30,10 @@ export default {
       });
       console.log('==getGoodList==',Api.CODES.SUCCESS)
       if(res.code == Api.CODES.SUCCESS) {
-        this.goodList = res.data.orderGoodsList;
+        this.goodList = res.data.orderGoodsList.map(item => ({
+        ...item,
+        checked: false
+      }));
         wx.hideLoading()
       }
 
@@ -39,19 +42,22 @@ export default {
     /**
      * @description 获取选择的商品
      */
-    getChooseList(val) {
-      this.chooseList = val;
+    changeGoodsStatus(val) {
+      this.goodList[val.index].checked = val.checked;
     },
 
     /**
      * @description 提交所选择的商品
      */
     submit() {
-      if (this.chooseList.length) {
+      let checkedGoodsList = JSON.stringify(this.goodList.filter((item)=>{
+          return item.checked
+          }))
+      if (checkedGoodsList.length) {
         wx.navigateTo({
           url: `/pages/order/returnapply/main?id=${
             this.orderId
-          }&list=${JSON.stringify(this.goodList)}`
+          }&list=${checkedGoodsList}`
         });
       }else{
         wx.showToast({
