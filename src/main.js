@@ -16,7 +16,7 @@ onNetworkStatusChange()
 onLoginStatus()
 
 //引入mixin
-Vue.mixin(mixin)
+// Vue.mixin(mixin)
 
 //全局注册组件
 Vue.component('page-loading',PageLoading)

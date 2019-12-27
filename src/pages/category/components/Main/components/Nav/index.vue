@@ -8,7 +8,7 @@
       class="nav-list"
     >
     <!--  display: inline-block-->
-      <div class="nav-list-item"  @click="tabCategory(-1)" id="item-1" :class="{ 'active-item' : currentIndex == -1  }">
+      <div class="nav-list-item"  @click="tabCategory('',-1)" id="item-1" :class="{ 'active-item' : currentIndex == -1  }">
         全部
       </div>
       <div
@@ -17,9 +17,9 @@
         v-bind:key="index"
         :class="{ 'active-item' : index == currentIndex }"
         :id="'item'+index"
-        @click="tabCategory(index)"
+        @click="tabCategory(item,index)"
       >
-        {{item}}
+        {{item.gcName}}
       </div>
     </scroll-view>
 
@@ -35,7 +35,7 @@
           <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/cate-upward-icon.png" alt="" class="upward-icon" @click="handleCategoryShow" />
         </div>
         <div class="category-list">
-          <div class="category-list-item"  @click="tabCategory(-1)" :class="{ 'active-item' : currentIndex == -1  }">
+          <div class="category-list-item"  @click="tabCategory('',-1)" :class="{ 'active-item' : currentIndex == -1  }">
           全部
           </div>
           <div
@@ -43,9 +43,9 @@
             v-for="(item, index) in categoryList"
             v-bind:key="index"
             :class="{ 'active-item' : index == currentIndex }"
-            @click="tabCategory(index)"
+            @click="tabCategory(item,index)"
           >
-            {{item}}
+            {{item.gcName}}
           </div>
         </div>
         <div class="category-mask">
@@ -95,7 +95,10 @@ export default {
     /**
      * @description 点击了栏目
      */
-    tabCategory (index) {
+    tabCategory (item,index) {
+      if(item){
+        this.$emit('getSecondaryCate',item.id)
+      }
       this.currentIndex = index //设置当前索引
     },
 
@@ -127,6 +130,7 @@ export default {
     box-sizing: border-box;
     overflow: hidden;
     position: relative;
+    padding-right: 50rpx;
     &-item{
       width:120rpx;
       height:50rpx;
@@ -216,7 +220,7 @@ export default {
       background: #000000;
       opacity:0.25;
       height: 100%;
-      width: 100%;
+      width: calc(100vw - 168rpx);
     }
   }
 

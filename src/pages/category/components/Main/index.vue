@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <template v-if="true">
-      <MainNav />
+      <MainNav :categoryList="secondaryCategoryList" @getSecondaryCate="getSecondaryCate" v-if="secondaryCategoryList.length" />
       <GoodsList />
     </template>
     <template v-else>
@@ -16,11 +16,31 @@
 import MainNav from './components/Nav'
 import GoodsList from './components/GoodsList'
 import EmptyGoodsTip from "@/components/EmptyGoodsTip"
+import CategoryModel from '@/model/category'
+const categoryModel = new CategoryModel()
+
 export default {
+  props:{
+    secondaryCategoryList:{
+      type:Array,
+      default:()=>{
+        return []
+      }
+    }//分类列表
+  },
   components: {
     MainNav,
     GoodsList,
     EmptyGoodsTip
+  },
+
+  methods:{
+    getSecondaryCate(val){
+      this.$emit('getSecondaryCate',val)
+    }
+  },
+
+  created(){
   }
 }
 </script>
