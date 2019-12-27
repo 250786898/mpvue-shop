@@ -139,6 +139,33 @@ export default {
     })
   },
 
+   /**
+     * @description 兑换领取优惠券
+     */
+  async exchangeOrFetchCoupon ({ state, commit, dispatch },exchangeCouponNO) {
+    if(!exchangeCouponNO) {
+      wx.showToast({
+        title: '兑换码为空~', //提示的内容,
+        icon: 'none' //图标,
+      })
+      return false
+    }
+    const res = await couponModel.receiveCoupon({
+      systemCode: this.exchangeCouponNO
+    })
+    if(res.code == Api.CODES.SUCCESS) {
+      wx.showToast({
+        title: '恭喜你，抢到了~', //提示的内容,
+        icon: 'none' //图标,
+      })
+    }else{
+        wx.showToast({
+        title: res.message, //提示的内容,
+        icon: 'none' //图标,
+      })
+    }
+  },
+
   /**
    * @description 获取活动优惠券
    */

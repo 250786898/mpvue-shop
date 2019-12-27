@@ -36,6 +36,12 @@ export default {
       type: Object,
       default: () => ({})
     }
+  },
+  computed: {
+    useList () {
+      // let arr = []
+      // console.log('useList',couponInfo.useList)
+    }
   }
 }
 </script>

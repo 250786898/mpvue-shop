@@ -21,6 +21,9 @@
 <script>
 import CartIcon from "@/components/CartIcon"
 import GoodsItem from "@/components/GoodsRowItem"
+import CouponModel from '@/model/coupon'
+import { Api } from '@/http/api'
+const couponModel = new CouponModel()
 export default {
    components:{
      CartIcon,
@@ -28,13 +31,35 @@ export default {
    },
    data () {
      return {
-       applicableGoodsList: [
-         {"goodsId":"6578537564871860224","goodsName":"进口南非橙4个约0.95kg","goodsSellDesc":"","goodsImage":"http://bucketlejia.oss-cn-shenzhen.aliyuncs.com/1568445471913.jpg","onlinePrice":10.80,"onlineScribingPrice":22.80,"goodsTagStatus":0,"goodsTagImage":"","isGroup":false,"groupPartner":0,"activityId":null,"activityType":null,"activityPrice":null,"points":null,"id":null,"tagList":[]},
-         {"goodsId":"6588360964196802560","goodsName":"海南玫珑瓜约2.5斤","goodsSellDesc":"","goodsImage":"https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/1570787614009.jpg","onlinePrice":16.80,"onlineScribingPrice":22.80,"goodsTagStatus":0,"goodsTagImage":"","isGroup":false,"groupPartner":0,"activityId":null,"activityType":null,"activityPrice":null,"points":null,"id":null,"tagList":[]},
-         {"goodsId":"6578537564871860224","goodsName":"进口南非橙4个约0.95kg","goodsSellDesc":"","goodsImage":"http://bucketlejia.oss-cn-shenzhen.aliyuncs.com/1568445471913.jpg","onlinePrice":10.80,"onlineScribingPrice":22.80,"goodsTagStatus":0,"goodsTagImage":"","isGroup":false,"groupPartner":0,"activityId":null,"activityType":null,"activityPrice":null,"points":null,"id":null,"tagList":[]},
-         {"goodsId":"6588360964196802560","goodsName":"海南玫珑瓜约2.5斤","goodsSellDesc":"","goodsImage":"https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/1570787614009.jpg","onlinePrice":16.80,"onlineScribingPrice":22.80,"goodsTagStatus":0,"goodsTagImage":"","isGroup":false,"groupPartner":0,"activityId":null,"activityType":null,"activityPrice":null,"points":null,"id":null,"tagList":[]}
-       ]
+       applicableGoodsList: [ ] //可用商品列表
      }
+   },
+
+   mounted () {
+     this.getCartCouponGoodsList()
+   },
+
+   methods: {
+     /**
+      * @description 获取优惠券商品列表
+      */
+     getCartCouponGoodsList () {
+       wx.showLoading({
+         title: '加载中',
+         mask: true,
+         complete: ()=>{}
+       })
+      console.log('getCartCouponGoodsListgetCartCouponGoodsListgetCartCouponGoodsList222')
+      couponModel.getCartCouponGoodsList({
+        storeId: 1,
+        restricted: 0
+      }).then(res => {
+        if(res.code == Api.CODES.SUCCESS) {
+          wx.hideLoading()
+          this.applicableGoodsList = res.data.goods
+        }
+      }).catch(() => wx.hideLoading())
+    },
    }
 
 }

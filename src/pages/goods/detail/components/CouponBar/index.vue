@@ -16,7 +16,7 @@
       </scroll-view>
     </div>
 
-    <div class="grayarrow-icon">
+    <div class="grayarrow-icon" @click="fetchCoupon">
       <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/downward-bg-icon.png" class="grayarrow-icon__bg" alt="">
       <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/common_icon_grayarrow.png.png" class="grayarrow-icon__main" mode="aspectFit">
     </div>
@@ -33,6 +33,15 @@ export default {
     list: { //优惠券列表
       type: Array,
       default: () => []
+    }
+  },
+
+  methods: {
+    /**
+     * @description 跳转领取优惠券
+     */
+    fetchCoupon () {
+      this.$emit('fetchCoupon')
     }
   }
 }
@@ -63,7 +72,8 @@ export default {
     padding: 0;
     align-items: center;
     font-size: 0;
-    padding-right: 70rpx;
+    // padding-right: 70rpx;
+    box-sizing: border-box;
   }
   .grayarrow-icon{
     width:77rpx;

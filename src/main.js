@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App'
 import store from './store/index'
-import mixin from './utils/mixin'
+import mixin from './mixin/common'
 import PageLoading from "@/components/PageLoading"
 import { checkUpdateApp, onNetworkStatusChange, onLoginStatus } from './utils'
 

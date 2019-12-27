@@ -2,13 +2,13 @@
   <div class="current-store-card">
     <div class="card-main">
         <div class="card-main__title">当前门店</div>
-        <img :src="item.storeLogoImg" alt="" class="store-logo" mode="aspectFit" >
-        <div class="manager-name">团长：{{item.franchiseeName || item.shopIsName}}</div>
-        <div class="manager-mobile">电话：{{item.franchiseeTel}}</div>
-        <div class="store-name">{{item.storeName}}</div>
-        <div class="detail-address">{{item.storeAddress}}</div>
+        <img :src="shopDetail.storeLogoImg" alt="" class="store-logo" mode="aspectFit" >
+        <div class="manager-name">团长：{{shopDetail.franchiseeName || shopDetail.shopIsName}}</div>
+        <div class="manager-mobile">电话：{{shopDetail.franchiseeTel}}</div>
+        <div class="store-name">{{shopDetail.storeName}}</div>
+        <div class="detail-address">{{shopDetail.storeAddress}}</div>
     </div>
-    <div class="distance">距离您100m</div>
+    <div class="distance" v-if="storeDistance">距离您{{storeDistance}}</div>
     <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/common_icon_grayarrow.png.png" class="icon-grayarrow" alt="" mode="aspectFit">
     <!-- <div class="select-store-card__title">当前门店</div> -->
     <!-- <store-card :item="item" :showLine="false" :is-click="true" /> -->
@@ -16,12 +16,23 @@
 </template>
 
 <script>
+import { mapState } from "vuex"
 import StoreCard from '../../../components/StoreCard/index'
 export default {
   props: {
     item: {
       type: Object,
       default: () => ({})
+    }
+  },
+  computed: {
+    ...mapState(['shopDetail']),
+    storeDistance () {
+      if(this.shopDetail.storeDistance && this.shopDetail.storeDistance != 'undefined') {
+        return this.shopDetail.storeDistance < 1 ? this.shopDetail.storeDistance * 1000 + 'm' : `${this.shopDetail.storeDistance}km`
+      }else{
+        return ''
+      }
     }
   },
   mounted () {

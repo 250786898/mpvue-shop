@@ -32,7 +32,7 @@
     <limit-purchase v-if="true" :num="goodsDetailInfo.activityLimitNum" />
 
     <!-- 优惠券 -->
-    <CouponBar :list="couponList" />
+    <CouponBar :list="couponList" @fetchCoupon="fetchCoupon" />
 
 
 
@@ -240,6 +240,15 @@
           if(res.code == Api.CODES.SUCCESS) {
             this.couponList = res.data
           }
+        },
+
+        /**
+         * @description 跳转领取优惠券
+         */
+        fetchCoupon () {
+          wx.navigateTo({
+            url: `/pages/coupon/fetch/main?id=${this.$mp.page.options.id}`
+          })
         },
 
       /**

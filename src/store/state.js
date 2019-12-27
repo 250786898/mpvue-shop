@@ -5,7 +5,7 @@ export default {
   location: {}, //用户定位的相关信息
   wxUserInfo: {}, //微信用户信息
   wxPhoneNumber: '', //微信用户电话信息
-  storeId: null, // 当前门店 ID null
+  storeId: 1, // 当前门店 ID null
   shopDetail:{},  //当前门店详细信息
   shareStoreId: null, // 从分享进来的门店 ID
   shareStoreInfo: {}, //分享的门店信息
