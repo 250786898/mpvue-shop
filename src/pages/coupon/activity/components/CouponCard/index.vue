@@ -3,20 +3,20 @@
     <div class="card-left">
       <div class="card-left-main">
         <div class="online-price">
-          <OnlinePrice :signSize="30" :beforeSize="66" :showAfterSign="false" />
+          <OnlinePrice :price="item.couponMoney" :signSize="30" :beforeSize="66" :showAfterSign="false" />
         </div>
-        <div class="coupon-desc">满1990元减</div>
+        <div class="coupon-desc">满{{item.eliyibility}}元减{{item.couponMoney}}</div>
         </div>
      </div>
     <div class="card-right">
-      <div class="coupon-title">周黑鸭满减券优惠券券</div>
-      <div class="coupon-date">2019.10.19 - 2019.0.19</div>
+      <div class="coupon-title">{{item.couponName}}</div>
+      <div class="coupon-date">{{item.startDate}} - {{item.stopDate}}</div>
     </div>
 
     <div class="cirle cirle-left"></div>
     <div class="cirle cirle-right"></div>
     <div class="coupon-icon">
-      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/coupon-activityt-used.png" class="used-icon">
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/coupon-activityt-used.png" class="used-icon" v-if="item.isReceived == 0">
     </div>
   </div>
 </template>
@@ -26,6 +26,12 @@ import OnlinePrice from '@/components/OnlinePrice'
 export default {
   components: {
     OnlinePrice
+  },
+  props: {
+    item: { //优惠券对象
+      type: Object,
+      default: {}
+    }
   }
 }
 </script>

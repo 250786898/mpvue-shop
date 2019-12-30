@@ -17,10 +17,10 @@
 
 <script>
 import StoreCard from '../../../components/StoreCard/index'
-import { storeMinxin } from '../../../minxin/index'
+import storeMinxin  from '@/mixin/store'
 import NoAvailabeServie from '../NoAvailabeServie/index'
 export default {
-  minxins: [storeMinxin],
+  mixins: [storeMinxin],
   props: {
     storeList: {
       type: Array,

@@ -641,34 +641,14 @@ export default {
     /**
      * @description 获取活动优惠券
      */
-    async fetchActivityCoupon () {
-      const res = await couponModel.receiveCouponByActivityId({
-        activityId : this.activityCouponInfo.id
-      })
-      if(res.code === Api.CODES.SUCCESS) {
-        if(res.data === 200001) {
-          wx.showToast({
-            title: '恭喜你，抢到了!', //提示的内容,
-            icon: 'none', //图标,
-            duration: 1500, //延迟时间,
-          })
-          setTimeout(() => {
-            //领取成功跳转我的优惠券
-            wx.navigateTo({
-              url: '/pages/coupon/index/main'
-            })
-          },1500)
-        }else if(res.data === 200002) {
-          wx.showToast({
-            title: '您来晚了，优惠券已被抢光~', //提示的内容,
-            icon: 'none', //图标,
-            duration: 1500, //延迟时间,
+    fetchActivityCoupon () {
+      this.$store.dispatch('fetchActivityCoupon', this.activityCouponInfo.id).then(code => {
+        if(code == 200001) {
+          wx.navigateTo({
+            url: '/pages/coupon/index/main'
           })
         }
-      }else if (res.code === 40001) {
-        console.log('跳转登录')
-        resgiterOrLogin() //跳转登录
-      }
+      })
     },
 
     /**

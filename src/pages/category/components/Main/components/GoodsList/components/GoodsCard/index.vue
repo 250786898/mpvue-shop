@@ -12,8 +12,7 @@
         </div>
         <div class="goods-desc" v-if="item.shareDescription">{{ item.shareDescription || '' }}</div>
         <div class="limit">
-           <div class="limit-tag" >限购</div>
-           <!-- v-if="item.activityLimitNum" -->
+           <div class="limit-tag" v-if="item.activityLimitNum" >限购</div>
         </div>
 
       </div>
@@ -21,14 +20,11 @@
          <div class="card-main-bottom-left">
            <div class="price-area">
               <div class="current-price">
-                <span class="current-price__sign">￥</span>
-                <span class="current-price-before-point">13</span>
-                <span class="current-price__point">.</span>
-                <span class="current-price-after-point">80</span>
+                <online-price :color="'#ff0000'" :signSize="20" :beforeSize="34" :afterSize="24" :price="item.discountedPrice" />
               </div>
-              <div class="line-price">￥38.00</div>
+              <div class="line-price" v-if="item.scribingPrice">￥{{item.scribingPrice}}</div>
            </div>
-           <div class="sell-num">已售4738份</div>
+           <div class="sell-num">已售{{item.salesNum+item.virtualSalesNum?item.virtualSalesNum:0}}份</div>
          </div>
          <div class="card-main-bottom-right">
             <NumHandle :count="count"  />
@@ -41,6 +37,7 @@
 
 <script>
 import NumHandle from '@/components/GoodsNumHandle.vue'
+import OnlinePrice from '@/components/OnlinePrice.vue'
 export default {
   props: {
     item: {
@@ -57,7 +54,8 @@ export default {
     },
   },
   components: {
-    NumHandle
+    NumHandle,
+    OnlinePrice
   },
 
   methods: {
@@ -85,7 +83,7 @@ export default {
     height: 170rpx;
     margin-right: 12rpx;
     position: relative;
-    border: 1px solid $theme-color;
+    // border: 1px solid $theme-color;
     .sell-gone-tag{
       width: 140rpx;
       height: 140rpx;

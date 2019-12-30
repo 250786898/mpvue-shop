@@ -32,7 +32,7 @@
     <limit-purchase v-if="true" :num="goodsDetailInfo.activityLimitNum" />
 
     <!-- 优惠券 -->
-    <CouponBar />
+    <CouponBar :list="couponList" @fetchCoupon="fetchCoupon" />
 
 
 
@@ -87,8 +87,10 @@
   import ComfirmStoreDialog from "@/components/ComfirmStoreDialog"
   import SelectStoreDialog from "@/components/SelectStoreDialog"
   import StoreModel from '@/model/store'
+  import CouponModel from '@/model/coupon'
   import config from "@/config"
 
+  const couponModel = new CouponModel()
   const storeModel = new StoreModel()
   export default {
     components: {
@@ -111,8 +113,9 @@
 
     data() {
       return {
-        goodsDetailInfo: {},
-        commendGoodsList: [],
+        goodsDetailInfo: {}, //商品详情
+        couponList: [] , //优惠券列表
+        commendGoodsList: [], //推荐商品列表
         popupShow: false, //popup是否显示
         isShowRestStorePopup: false, //是否显示休息门店
         showSelectStoreDialog: false, //选择门店弹窗显示
@@ -146,6 +149,7 @@
           this.loadDataByIsAuthLocate()
         }else{
           this.getDetail()
+          this.getGoodsDetailsCoupon()
         }
     },
 
@@ -160,6 +164,7 @@
           this.hideComfirmStoreDialog()
           this.hideSelectStoreDialog()
           this.getDetail()
+          this.getGoodsDetailsCoupon()
         }
       },
     },
@@ -184,6 +189,67 @@
     },
 
     methods: {
+       /**
+         * @description 获取详情页面具体的数据
+         */
+        getDetail() {
+          console.log('option',this.$mp.page)
+          console.log('getGoodsDetailOptions',this.getGoodsDetailOptions())
+          let options = this.$mp.page == null ?this.getGoodsDetailOptions() : this.$mp.page.options  //获取商品相关参数,如果是从切换门店页面返回则从缓存中读取
+          console.log('获取详情页面具体的数据',options)
+          // if (!options.id) {
+          //   return wx.showToast({
+          //     title: '参数错误',
+          //     icon: 'none'
+          //   })
+          // }
+
+          this.showPageLoading = true //页面加载组件开启
+          let params = {
+            goodsId: options.id,
+            storeId: this.storeId
+          }
+
+          Api.goods.goodsDetail(params)
+          .then(res => {
+            if (res.code == Api.CODES.SUCCESS) {
+              this.goodsDetailInfo = res.data.goodsDetailInfo
+              this.commendGoodsList = res.data.commendGoodsList
+              // this.createShareImg()
+            } else {
+              this.popupShow = true //库存不足或则下架显示
+            }
+          })
+          .catch(e => console.log(e))
+          .then(e => {
+            setTimeout(() => { //定时器避免关闭太快出现闪烁状态
+              this.showPageLoading = false //页面加载组件关闭
+            },1000)
+
+          })
+        },
+
+        /**
+         * @description 获取优惠券
+         */
+        async getGoodsDetailsCoupon () {
+          const res = await couponModel.getGoodsDetailsCoupon({
+            goodsId: this.$mp.page.options.id,
+            storeId: this.storeId
+          })
+          if(res.code == Api.CODES.SUCCESS) {
+            this.couponList = res.data
+          }
+        },
+
+        /**
+         * @description 跳转领取优惠券
+         */
+        fetchCoupon () {
+          wx.navigateTo({
+            url: `/pages/coupon/fetch/main?id=${this.$mp.page.options.id}`
+          })
+        },
 
       /**
        * @description 生成分享图片
@@ -618,47 +684,6 @@
         getGoodsDetailOptions() {
           return wx.getStorageSync('gooodsDetailOptions')
         },
-
-        /**
-         * @description 获取详情页面具体的数据
-         */
-        getDetail() {
-          console.log('option',this.$mp.page)
-          console.log('getGoodsDetailOptions',this.getGoodsDetailOptions())
-          let options = this.$mp.page == null ?this.getGoodsDetailOptions() : this.$mp.page.options  //获取商品相关参数,如果是从切换门店页面返回则从缓存中读取
-          console.log('获取详情页面具体的数据',options)
-          // if (!options.id) {
-          //   return wx.showToast({
-          //     title: '参数错误',
-          //     icon: 'none'
-          //   })
-          // }
-
-          this.showPageLoading = true //页面加载组件开启
-          let params = {
-            goodsId: options.id,
-            storeId: this.storeId
-          }
-
-          Api.goods.goodsDetail(params)
-          .then(res => {
-            if (res.code == Api.CODES.SUCCESS) {
-              this.goodsDetailInfo = res.data.goodsDetailInfo
-              this.commendGoodsList = res.data.commendGoodsList
-              this.createShareImg()
-            } else {
-              this.popupShow = true //库存不足或则下架显示
-            }
-          })
-          .catch(e => console.log(e))
-          .then(e => {
-            setTimeout(() => { //定时器避免关闭太快出现闪烁状态
-              this.showPageLoading = false //页面加载组件关闭
-            },1000)
-
-          })
-        },
-
 
         setStore () {
           if(this.$mp.page.options.shareStoreId){

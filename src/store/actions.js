@@ -1,8 +1,10 @@
 import Vue from 'vue'
 import { Api } from '../http/api'
 import StoreModel from '@/model/store'
+import CouponModel from '@/model/coupon'
 import {resgiterOrLogin} from '../utils/index'
 
+const couponModel = new CouponModel()
 const storeModel = new StoreModel()
 
 export default {
@@ -135,5 +137,74 @@ export default {
     .catch(e => {
       return Promise.reject(e)
     })
+  },
+
+   /**
+     * @description 兑换领取优惠券
+     */
+  async exchangeOrFetchCoupon ({ state, commit, dispatch },exchangeCouponNO) {
+    if(!exchangeCouponNO) {
+      wx.showToast({
+        title: '兑换码为空~', //提示的内容,
+        icon: 'none' //图标,
+      })
+      return false
+    }
+    const res = await couponModel.receiveCoupon({
+      systemCode: this.exchangeCouponNO
+    })
+    if(res.code == Api.CODES.SUCCESS) {
+      wx.showToast({
+        title: '恭喜你，抢到了~', //提示的内容,
+        icon: 'none' //图标,
+      })
+    }else{
+        wx.showToast({
+        title: res.message, //提示的内容,
+        icon: 'none' //图标,
+      })
+    }
+  },
+
+  /**
+   * @description 获取活动优惠券
+   */
+  async fetchActivityCoupon ({ state, commit, dispatch },activityIdOfCoupon) {
+    wx.showLoading({
+      title: '领取中',
+      mask: true
+    })
+    const res = await couponModel.receiveCouponByActivityId({
+      activityId : activityIdOfCoupon
+    })
+    return new Promise((resolve,reject) => {
+      if(res.code === Api.CODES.SUCCESS) {
+        if(res.data === 200001) {
+          wx.showToast({
+            title: '恭喜你，抢到了!', //提示的内容,
+            icon: 'none', //图标,
+            duration: 1500, //延迟时间,
+          })
+          setTimeout(() => {
+            //领取成功跳转我的优惠券
+            resolve(200001) //领取成功后的操作
+          },1500)
+        }else if(res.data === 200002) {
+          wx.showToast({
+            title: '您来晚了，优惠券已被抢光~', //提示的内容,
+            icon: 'none', //图标,
+            duration: 1500, //延迟时间,
+          })
+          setTimeout(() => {
+            //领取成功跳转我的优惠券
+            resolve(200002) //领取成功后的操作
+          },1500)
+        }
+      }else if (res.code === 40001) {
+        console.log('跳转登录')
+        resgiterOrLogin() //跳转登录
+      }
+    })
+
   }
 }

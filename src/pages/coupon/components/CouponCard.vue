@@ -6,25 +6,25 @@
         <div class="card-left">
 
           <div class="card-left-main">
-            <div class="coupon-price-box">￥<span class="price">{{item.shopCoupon.couponMoney}}</span></div>
-            <div class="coupon-condition">满{{item.shopCoupon.eliyibility}}元减</div>
+            <div class="coupon-price-box">￥<span class="price">{{item.couponMoney}}</span></div>
+            <div class="coupon-condition">满{{item.eliyibility}}元减</div>
           </div>
 
         </div>
         <div class="card-right">
           <div class="card-right-desc">
-            <div class="coupon-title">{{item.shopCoupon.couponName}}</div>
+            <div class="coupon-title">{{item.couponName}}</div>
           </div>
-          <div class="coupon-date">{{item.receivingDate}} - {{item.dueDate}}</div>
+          <div class="coupon-date">{{item.startDate}} - {{item.stopDate}}</div>
         </div>
       </div>
       <div class="coupon-card-buttom">
         <div class="coupon-footer">
-          <div class="coupon-desc">指定商品满{{item.shopCoupon.eliyibility}}元减{{item.shopCoupon.couponMoney}}元</div>
+          <div class="coupon-desc">指定商品满{{item.eliyibility}}元减{{item.couponMoney}}元</div>
           <div class="applicable" v-if="type == 'base' || type ==  'select' ">
-            <span v-if="item.shopCoupon.applyGoods != 0" @click="navToApplicableGoods">查看可用商品</span>
-            <span v-if="item.shopCoupon.applyStore != 0" @click="navToApplicableStore">查看适用门店</span>
-            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/deliverycode_icon_arrow.png" v-if="item.shopCoupon.applyGoods != 0 || item.shopCoupon.applyStore != 0">
+            <span v-if="item.applyGoods != 0" @click="navToApplicableGoods">查看可用商品</span>
+            <span v-if="item.applyGoods == 0 && item.applyStore != 0" @click="navToApplicableStore">查看适用门店</span>
+            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/deliverycode_icon_arrow.png" v-if="item.applyGoods != 0 || item.applyStore != 0">
           </div>
         </div>
       </div>
@@ -38,8 +38,8 @@
         <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/coupon-collected_png.png" v-if=" type  == 'use'">
       </div>
       <div class="handle-btn" v-if="type == 'fetch' || type == 'use'">
-        <div class="fetch-btn" v-if="type == 'fetch'">立即领取</div>
-        <div class="use-btn"  v-if="type == 'use'">立即使用</div>
+        <div class="fetch-btn" v-if="type == 'fetch'" @click="fetchCoupon">立即领取</div>
+        <div class="use-btn"  v-if="type == 'use'" @click="useCoupon">立即使用</div>
       </div>
 
       <radio class="item-radio" color="#01BD9F" v-if="type == 'select'"></radio>
@@ -73,6 +73,20 @@
         wx.navigateTo({
           url: `/pages/coupon/applicableGoods/main?couponCode=${this.item.couponCode}`
         })
+      },
+
+      /**
+       * @description 使用优惠券
+       */
+      useCoupon () {
+        this.$emit('useCoupon',this.item.id)
+      },
+
+      /**
+       * @description 获取优惠券
+       */
+      fetchCoupon () {
+        this.$emit('fetchCoupon',this.item.id)
       },
 
       /**

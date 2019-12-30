@@ -72,7 +72,7 @@
         cartItemResultList: [], //正常商品购物车列表
         preSaleGoodList: [], //预售商品列表
         failureGoodsList: [], //失效商品购物车列表
-        goodsListByCoupon: [], //优惠券推荐商品列表
+        goodsListByCoupon: [], //优惠券推荐商品列表格
         myCouponList: [], //我的优惠券列表
         totalAmount: 0, //合计购物车价格
         promisAmount: 0 //已优惠价格
@@ -122,13 +122,25 @@
        * @description 加载购物车相关数据
        */
       loadCartData () {
-        Promise.all([this.getCartList(),this.loadCouponInfo()])
+        Promise.all([this.getCartList(),this.loadCouponInfo(),this.getCartCouponGoodsList()])
         .then(res => {
           //所有请求完毕隐藏加载提示
            wx.hideLoading()
            wx.stopPullDownRefresh()
         })
           //获取购物车列表
+      },
+
+      getCartCouponGoodsList () {
+        console.log('getCartCouponGoodsListgetCartCouponGoodsListgetCartCouponGoodsList222')
+        return couponModel.getCartCouponGoodsList({
+          storeId: this.storeId,
+          restricted: 1
+        }).then(res => {
+          if(res.code == Api.CODES.SUCCESS) {
+            this.goodsListByCoupon = res.data.goods
+          }
+        })
       },
 
        /**
@@ -150,6 +162,7 @@
         this.$store.dispatch('syncCartTabbarBadge') //设置tab徽章
       },
 
+
        /**
        * @description 加载优惠券列表
        */
@@ -158,8 +171,6 @@
           storeId: this.storeId
         }).then(res => {
           if(res.code == Api.CODES.SUCCESS) {
-            this.goodsListByCoupon = res.data.goods
-             this.myCouponList = res.data.goods
              this.myCouponList= res.data.shopCoupons
           }
         })

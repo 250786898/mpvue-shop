@@ -14,7 +14,7 @@
 export default {
   props: {
     price: { //价格
-       type: String,
+       type: String || Number,
        default: 24.00
     },
     color: { //价格颜色

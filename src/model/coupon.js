@@ -81,6 +81,41 @@ class CouponModel {
     })
   }
 
+  /**
+   * @param {string || number} storeId  门店id
+   * @param {number} restricted 0 限制 1不限制
+   * @description 获取购物车优惠券推荐商品列表
+   */
+  getCartCouponGoodsList({ storeId, restricted }) {
+    return get({
+      url: '/coupon/cartCouponGoodsList',
+      data: { storeId, restricted }
+    })
+  }
+
+  /**
+   * @param {string || number} activityId  优惠券活动id
+   * @description 获取活动优惠券
+   */
+  getActivityCoupon({ activityId }) {
+    return get({
+      url: '/couponAvtivity/activityCoupon',
+      data: { activityId }
+    })
+  }
+
+  /**
+   * @param {string || number} goodsId  商品id
+   * @param {string || number} storeId  门店id
+   * @description 获取活动优惠券
+   */
+  getGoodsDetailsCoupon({ goodsId, storeId }) {
+    return get({
+      url: '/coupon/goodsDetailsCoupon',
+      data: {  goodsId, storeId }
+    })
+  }
+
 
 }
 export default CouponModel

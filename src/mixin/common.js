@@ -1,4 +1,8 @@
-let MIXIN = {
+import { mapState } from 'vuex'
+export default {
+  computed: {
+    ...mapState(['storeId'])
+  },
   onShow () {
     console.log('canIUse',wx.canIUse('hideHomeButton'))
     if(wx.canIUse('hideHomeButton')) { //兼容低版本微信
@@ -41,4 +45,3 @@ let MIXIN = {
     }
   }
 }
-export default MIXIN

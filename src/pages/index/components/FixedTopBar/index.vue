@@ -16,9 +16,9 @@
             <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/pickup_appointment_icon.png" class="bar-label-item__icon" />
             <span class="bar-label-item__text">预约自提</span>
           </div>
-          <div class="bar-label-item">
+          <div class="bar-label-item" v-if="storeDistance">
             <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/distance-icon.png" class="bar-label-item__icon" />
-            <span class="bar-label-item__text">距离您100m</span>
+            <span class="bar-label-item__text">距离您{{storeDistance}}</span>
           </div>
         </div>
       </div>
@@ -49,7 +49,14 @@ export default {
   　}, 100)
   },
   computed: {
-    ...mapState(['shopDetail','indexBarHeight'])
+    ...mapState(['shopDetail','indexBarHeight']),
+    storeDistance () {
+       if(this.shopDetail.storeDistance && this.shopDetail.storeDistance != 'undefined') {
+        return this.shopDetail.storeDistance < 1 ? this.shopDetail.storeDistance * 1000 + 'm' : `${this.shopDetail.storeDistance}km`
+      }else{
+        return ''
+      }
+    }
   },
   data () {
     return {
