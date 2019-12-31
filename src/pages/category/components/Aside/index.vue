@@ -8,9 +8,9 @@
       v-for="(item, index) in categoryList"
       v-bind:key="index"
       :class="{ 'category-Activity' : index == currentIndex }"
-      @click="tabCategory(index)"
+      @click="tabCategory(item,index)"
     >
-      时令水果水果
+      {{item.gcName}}
     </div>
 
   </scroll-view>
@@ -36,7 +36,8 @@ export default {
     /**
      * @description 点击了栏目
      */
-    tabCategory (index) {
+    tabCategory (item,index) {
+      this.$emit('getCurrentCategory',item.id)
       this.currentIndex = index //设置当前索引
     }
   }

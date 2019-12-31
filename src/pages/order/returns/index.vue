@@ -38,13 +38,11 @@ export default {
      */
     async getList() {
       // this.loading = true;
-      console.log(1);
       let data = await Api.refund.list({
         pageNumber: this.pageNumber
       });
       if (data.code === Api.CODES.SUCCESS) {
         this.loading = false;
-        console.log(2);
         this.orderList = this.orderList.concat(data.data);
         this.allLoaded = data.data.length < PAGE_SIZE;
         wx.stopPullDownRefresh()

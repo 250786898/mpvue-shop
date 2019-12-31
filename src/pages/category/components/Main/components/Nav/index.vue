@@ -8,7 +8,7 @@
       class="nav-list"
     >
     <!--  display: inline-block-->
-      <div class="nav-list-item"  @click="tabCategory(-1)" id="item-1" :class="{ 'active-item' : currentIndex == -1  }">
+      <div class="nav-list-item"  @click="tabCategory('',-1)" id="item-1" :class="{ 'active-item' : currentIndex == -1  }">
         全部
       </div>
       <div
@@ -17,9 +17,9 @@
         v-bind:key="index"
         :class="{ 'active-item' : index == currentIndex }"
         :id="'item'+index"
-        @click="tabCategory(index)"
+        @click="tabCategory(item,index)"
       >
-        {{item}}
+        {{item.gcName}}
       </div>
     </scroll-view>
 
@@ -35,7 +35,7 @@
           <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/cate-upward-icon.png" alt="" class="upward-icon" @click="handleCategoryShow" />
         </div>
         <div class="category-list">
-          <div class="category-list-item"  @click="tabCategory(-1)" :class="{ 'active-item' : currentIndex == -1  }">
+          <div class="category-list-item"  @click="tabCategory('',-1)" :class="{ 'active-item' : currentIndex == -1  }">
           全部
           </div>
           <div
@@ -43,9 +43,9 @@
             v-for="(item, index) in categoryList"
             v-bind:key="index"
             :class="{ 'active-item' : index == currentIndex }"
-            @click="tabCategory(index)"
+            @click="tabCategory(item,index)"
           >
-            {{item}}
+            {{item.gcName}}
           </div>
         </div>
         <div class="category-mask">
@@ -67,7 +67,7 @@ export default {
          '时令水果','悠闲食品','安心乳品','酒饮冲调','肉蛋食材','放心蔬菜','粮油速食','美妆护肤','个人护肤'
        ]
       }
-    }
+    } //分类列表
   },
   data () {
     return {
@@ -81,6 +81,9 @@ export default {
       console.log('currentIndex')
       this.hideCategoryDialog()
     },
+    categoryList :function (){
+      this.currentIndex=-1;
+    }
   },
   components: {
     DownwardIcon
@@ -95,8 +98,10 @@ export default {
     /**
      * @description 点击了栏目
      */
-    tabCategory (index) {
+    tabCategory (item,index) {
+      this.$emit('getSecondaryCate',item.id)
       this.currentIndex = index //设置当前索引
+      item.id ? this.$emit('update:isAllGoods',false) : null
     },
 
     /**
@@ -127,6 +132,7 @@ export default {
     box-sizing: border-box;
     overflow: hidden;
     position: relative;
+    padding-right: 50rpx;
     &-item{
       width:120rpx;
       height:50rpx;
@@ -216,7 +222,7 @@ export default {
       background: #000000;
       opacity:0.25;
       height: 100%;
-      width: 100%;
+      width: calc(100vw - 168rpx);
     }
   }
 

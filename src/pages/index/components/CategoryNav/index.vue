@@ -1,7 +1,7 @@
 <template>
   <div class="category">
     <template v-for="(item,index) in list" >
-      <div class="category-item" :style="itemWidth" v-bind:key="index" >
+      <div class="category-item" :style="itemWidth" v-bind:key="index" @click="navToCategory" >
         <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/20191128092643.png" alt="">
         <span class="category-item__title">时令水果</span>
       </div>
@@ -33,7 +33,11 @@ export default {
   },
 
   methods: {
-
+    navToCategory(){
+      wx.navigateTo({
+        url: '/pages/category/main'
+      });
+    }
   }
 }
 </script>

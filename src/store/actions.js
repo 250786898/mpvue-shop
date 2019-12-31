@@ -128,7 +128,7 @@ export default {
       } else {
         wx.hideLoading()
         wx.showToast({
-          title: res.message,
+          title: res.message || '',
           icon: 'none'
         })
       }

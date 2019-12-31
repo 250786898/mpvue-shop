@@ -1,59 +1,63 @@
 <template>
-  <scroll-view
-    scroll-y
-    scroll-with-animation
-    class="list">
-    <div class="cate-item">
-      <div class="cate-item__title">全部</div>
-      <GoodsCard :count="1" />
-      <GoodsCard :count="2"  />
-      <GoodsCard />
-     </div>
-     <div class="cate-item">
-      <div class="cate-item__title">生鲜水果</div>
-      <GoodsCard />
-     </div>
-      <div class="cate-item">
-      <div class="cate-item__title">生鲜水果2</div>
-        <div class="empty-goods-tip">
-          <EmptyGoodsTip :title="'该分类无团购'" />
+  <scroll-view scroll-y scroll-with-animation @scrolltolower="getMoreGoodList" class="list">
+    <div v-if="isAllGoods">
+      <div class="cate-item" v-for="(item,index) in goodsList" :item="item" :key="index">
+        <div class="cate-item__title">{{item.title}}</div>
+        <GoodsCard v-for="(i,index2) in item.goodsList" :item="i" :key="index2" />
+        <div class="empty-goods-tip" v-if="!item.goodsList.length">
+          <EmptyGoodsTip :title="'该分类无团购'"/>
         </div>
-     </div>
-     <div class="cate-item">
-      <div class="cate-item__title">哈哈水果</div>
-      <GoodsCard />
-      <GoodsCard />
-      <GoodsCard />
-      <GoodsCard />
-     </div>
+      </div>
+    </div>
+
+    <div class="cate-item" v-else>
+      <GoodsCard v-for="(item,index) in goodsList" :item="item" :key="index" />
+    </div>
   </scroll-view>
 </template>
 
 <script>
-import GoodsCard from "./components/GoodsCard/index"
-import EmptyGoodsTip from "@/components/EmptyGoodsTip"
+import GoodsCard from "./components/GoodsCard/index";
+import EmptyGoodsTip from "@/components/EmptyGoodsTip";
 export default {
+  props: {
+    goodsList: {
+      type: Array,
+      default: () => {
+        return [];
+      }
+    }, //商品列表
+    isAllGoods: {
+      type: Boolean,
+      default: true
+    } //是否是全部商品页面
+  },
   components: {
     GoodsCard,
     EmptyGoodsTip
+  },
+  methods: {
+    getMoreGoodList(e) {
+      this.$emit("getMore");
+    }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
-.list{
+.list {
   padding-left: 12rpx;
-  height:calc(100vh - 204rpx);
+  height: calc(100vh - 204rpx);
   box-sizing: border-box;
-  .cate-item{
-    &__title{
+  .cate-item {
+    &__title {
       color: #727272;
       font-size: 28rpx;
       padding: 19rpx 0 19rpx;
-      border-bottom: 1px solid #E6E6E6;
+      border-bottom: 1px solid #e6e6e6;
     }
   }
-  .empty-goods-tip{
+  .empty-goods-tip {
     padding: 94rpx 0 130rpx;
   }
 }
