@@ -5,7 +5,7 @@
       v-for="item in couponList"
       v-bind:key="item.id"
       :item="item"
-      :type="item.isReceived == 0 ? 'use' : 'fetch' "
+      :type="item.isReceived == 1 ? 'fetch' : 'use' "
       @useCoupon="useCoupon"
       @fetchCoupon="fetchCoupon"
     />
@@ -73,7 +73,29 @@ export default {
      * @description 激活优惠券
      */
     fetchCoupon (couponId) {
-      this.fetchCouponByCouponId(couponId)
+      console.log('fetchCoupon',couponId)
+       this.$store.dispatch('exchangeOrFetchCoupon', couponId).then(code => {
+        console.log('fetchCoupon',code)
+        if(code == 200001) {
+            wx.showToast({
+            title: '恭喜你，抢到了!', //提示的内容,
+            icon: 'none', //图标,
+            duration: 1500, //延迟时间,
+          })
+          setTimeout(() => {
+            //领取成功跳转我的优惠券
+            this.getGoodsDetailsCoupon() //领取成功后的操作
+          },1500)
+        }else {
+           wx.showToast({
+            title: '您来晚了，优惠券已被抢光~', //提示的内容,
+            icon: 'none', //图标,
+            duration: 1500, //延迟时间,
+          })
+        }
+      })
+
+
     }
   }
 }

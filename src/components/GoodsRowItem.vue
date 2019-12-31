@@ -7,7 +7,9 @@
 
     <div class="goods-name">{{ item.goodsName }}</div>
     <div class="goods-desc" v-if="item.shareDescription">{{item.shareDescription}}</div>
-    <div class="limit-label" v-if="item.activityLimitNum">限购{{item.activityLimitNum}}件</div>
+    <div class="limit">
+      <div class="limit-label" v-if="item.activityLimitNum">限购{{item.activityLimitNum}}件</div>
+    </div>
     <div class="card-footer">
       <div class="card-footer-main">
         <div class="price-wrap">
@@ -16,7 +18,7 @@
           </div>
           <div class="scribing-price" v-if="item.scribingPrice">￥{{item.scribingPrice}}</div>
         </div>
-        <div class="sell-null">已售0份</div>
+        <div class="sell-null">已售{{item.virtualSalesNum + item.salesNum}}份</div>
       </div>
       <div class="add-cart">
         <GoodsNumHandle :goodsInfo="item" />
@@ -111,18 +113,23 @@ export default {
     color: #999999;
     font-size: 24rpx;
   }
-  .limit-label{
+  .limit{
     width:93rpx;
     height:34rpx;
-    line-height: 34rpx;
-    text-align: center;
-    border:2rpx solid rgba(248,172,8,1);
-    border-radius:4rpx;
-    color: #F8AC08;
-    font-size: 20rpx;
     margin-top: 20rpx;
     margin-bottom: 20rpx;
+    &-label{
+      width:93rpx;
+      height:34rpx;
+      line-height: 34rpx;
+      text-align: center;
+      border:2rpx solid rgba(248,172,8,1);
+      border-radius:4rpx;
+      color: #F8AC08;
+      font-size: 20rpx;
+    }
   }
+
   .add-cart{
     width: 60rpx;
     height: 60rpx;

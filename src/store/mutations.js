@@ -121,6 +121,15 @@ export default {
     state.indexGoodsTop = payload
   },
 
+  /**
+   *
+   * @param {object} state vuex state
+   * @param {object} payload 选择的优惠券对象
+   */
+  setSubmitOrderCoupon(state,payload) {
+    state.selectCouponOfsubmitOrder = payload
+  },
+
 
   setRunTime(state,payload){
     state.runingtime = payload

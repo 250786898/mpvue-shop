@@ -59,6 +59,7 @@ export default {
     right: 39rpx;
     width:84rpx;
     height:44rpx;
+    box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: center;

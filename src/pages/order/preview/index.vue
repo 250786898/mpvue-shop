@@ -3,11 +3,11 @@
     <pickup-store-info />
      <!-- <pickup-time /> -->
     <submit-goods-list :list="orderInfo.cartOrderVoList" />
-    <CouponWrap />
+    <CouponWrap :orderInfo="orderInfo"/>
     <buyer-message v-model="buyerMessage " />
     <!-- 支付方式 -->
     <payways></payways>
-    <price-info />
+    <price-info :orderInfo="orderInfo" />
 
     <footer-bar :orderAmount="orderInfo.orderAmount" @submit="showComfirmDialog" />
     <payment-dialog :shown.sync="paymentDialogShowed" :amount="orderAmount" @complete="onComplete"></payment-dialog>
@@ -58,11 +58,14 @@
     },
 
     computed: {
-      ...mapState(['storeId','shopDetail'])
+      ...mapState(['storeId','shopDetail','selectCouponOfsubmitOrder'])
     },
 
     mounted () {
       Object.assign(this.$data, this.$options.data()) //解决mpvue初始化未清空状态问题
+    },
+
+    onShow () {
       this.getCheckoutData()
     },
 
@@ -79,7 +82,7 @@
           cartIds,
           storeId:  this.storeId,
           deliveryType: 2, //配送方式： 1-同城配送  2-门店自提
-          couponIds: ''
+          couponIds: this.selectCouponOfsubmitOrder.systemCode //选择的优惠券系统编码
         })
         .then(res => {
           if (res.code == Api.CODES.SUCCESS) {
@@ -120,7 +123,7 @@
           cartIds: this.getSubmitOrderCartId(),
           orderMessages: this.buyerMessage,
           addressId: '',
-          couponIds: '', // @TODO: 优惠券
+          couponIds: this.selectCouponOfsubmitOrder.systemCode, //选择的优惠券系统编码
           isPp: 0, //是否积分抵扣支付 0:否 1:是
           deliveryType: 2, //配送方式: 1-同城配送  2-门店自提
           paymentCode: 'weixinAppletPaymentPlugin', //支付方式: 1.weixinAppletPaymentPlugin 微信小程序支付 2.balancePaymentPlugin 余额支付

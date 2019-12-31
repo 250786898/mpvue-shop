@@ -21,7 +21,7 @@
               </div>
               <div class="line-price">￥{{item.scribingPrice}}</div>
            </div>
-           <div class="sell-num">已售0份</div>
+           <div class="sell-num">已售{{item.virtualSalesNum + item.salesNum}}份</div>
          </div>
          <div class="card-main-bottom-right">
             <NumHandle :goodsInfo="item" />
@@ -116,7 +116,7 @@ export default {
         line-height: 26rpx;
         width: 361rpx;
         @include ellipsis;
-        margin: 10rpx 0 15rpx;
+        margin: 10rpx 0 0rpx;
       }
       .limit-tag{
         width:67rpx;
@@ -127,6 +127,7 @@ export default {
         border-radius:4rpx;
         color: #F8AC08;
         font-size: 22rpx;
+        margin-top: 15rpx;
       }
     }
     &-bottom{

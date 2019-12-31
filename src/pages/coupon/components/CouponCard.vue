@@ -7,7 +7,7 @@
 
           <div class="card-left-main">
             <div class="coupon-price-box">￥<span class="price">{{item.couponMoney}}</span></div>
-            <div class="coupon-condition">满{{item.eliyibility}}元减</div>
+            <div class="coupon-condition">满{{item.eliyibility}}元减{{item.couponMoney}}</div>
           </div>
 
         </div>
@@ -42,7 +42,7 @@
         <div class="use-btn"  v-if="type == 'use'" @click="useCoupon">立即使用</div>
       </div>
 
-      <radio class="item-radio" color="#01BD9F" v-if="type == 'select'"></radio>
+      <radio class="item-radio" color="#01BD9F" v-if="type == 'select'" :checked="isSelect" @click="selectCoupon" ></radio>
       <div class="cirle cirle-left"></div>
       <div class="cirle cirle-right"></div>
       <div class="failure-mask" v-if=" type  == 'used' ||  type  == 'expire'"></div>
@@ -65,6 +65,12 @@
       }
     },
 
+    data () {
+      return {
+        isSelect: false //是否已经选中
+      }
+    },
+
     methods: {
       /**
        * @description  跳转可使用商品
@@ -79,14 +85,21 @@
        * @description 使用优惠券
        */
       useCoupon () {
-        this.$emit('useCoupon',this.item.id)
+        this.$emit('useCoupon',this.item.systemCode)
       },
 
       /**
        * @description 获取优惠券
        */
       fetchCoupon () {
-        this.$emit('fetchCoupon',this.item.id)
+        this.$emit('fetchCoupon',this.item.systemCode)
+      },
+
+      /**
+       * @description 选中优惠券
+       */
+      selectCoupon () {
+        this.$emit('selectCoupon',this.item)
       },
 
       /**
@@ -109,12 +122,12 @@
     border-radius:10rpx;
     position: relative;
     margin-bottom: 20rpx;
+    background:#fff;
     &__top {
       height: 166rpx;
       display: flex;
       align-items: center;
       font-size: 28rpx;
-      background:#fff;
       .card-left {
         box-sizing: border-box;
         text-align:center;
@@ -174,7 +187,6 @@
       text-align: center;
       padding: 0 24rpx;
       box-sizing: border-box;
-      background:#fff;
       .coupon-footer{
         border-top: 2rpx dashed #DDDDDD;
         width: 100%;

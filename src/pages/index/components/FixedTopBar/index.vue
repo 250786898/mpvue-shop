@@ -22,16 +22,18 @@
           </div>
         </div>
       </div>
-      <div class="bar-search" id="ex">
+
+
+       <div class="bar-search bar-fixed" v-if="fixedSearchBar" @click="navToSearchGoods">
         <div class="search-box">
-          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/search_icon.png" class="search_icon" alt="">
+          <img src="/static/images/common_icon_serch.png" class="search_icon" alt="">
           <span class="search_text">搜索商品</span>
         </div>
       </div>
 
-       <div class="bar-search bar-fixed"  v-if="fixedSearchBar">
+      <div class="bar-search" id="ex" @click="navToSearchGoods">
         <div class="search-box">
-          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/search_icon.png" class="search_icon" alt="">
+          <img src="/static/images/common_icon_serch.png" class="search_icon" alt="">
           <span class="search_text">搜索商品</span>
         </div>
       </div>
@@ -91,6 +93,15 @@ export default {
     selectStore () {
       wx.navigateTo({
         url: '/pages/store/select/main'
+      })
+    },
+
+    /**
+     * @description 跳转搜索商品组件
+     */
+    navToSearchGoods () {
+      wx.navigateTo({
+        url: '/pages/goods/search/main'
       })
     },
 
@@ -185,7 +196,7 @@ export default {
     }
   }
   &-search{
-    padding: 0 20rpx 20rpx;
+    padding: 0 20rpx 10rpx;
     background: #ffffff;
     box-sizing: border-box;
     .search-box{
@@ -195,11 +206,12 @@ export default {
       border-radius:15rpx;
       display: flex;
       align-items: center;
-      padding: 0 10rpx;
+      padding: 0 20rpx;
       box-sizing: border-box;
       .search_icon{
-        width: 45rpx;
-        height:45rpx;
+        width: 25rpx;
+        height:25rpx;
+        margin-right: 14rpx;
       }
       .search_text{
         color: #929292;

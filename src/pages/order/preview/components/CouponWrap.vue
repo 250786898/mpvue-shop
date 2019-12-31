@@ -1,16 +1,40 @@
 <template>
   <div class="card">
     <div class="card-title">优惠券</div>
-    <div class="card-content">
-      <span>满100减10元</span>
+    <div class="card-content" @click="selectCoupon">
+      <span v-if="selectCouponOfsubmitOrder.systemCode">满{{selectCouponOfsubmitOrder.eliyibility}}减{{selectCouponOfsubmitOrder.couponMoney}}元</span>
+      <span v-else>{{orderInfo.shopCouponNum}}张优惠券可用</span>
       <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/order-right-icon.png" class="right-icon" alt="">
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
+  props: {
+    orderInfo: { //确认订单的相关信息
+      type: Object,
+      default: {}
+    }
+  },
 
+  computed: {
+    ...mapState(['selectCouponOfsubmitOrder'])
+  },
+
+  methods: {
+    /**
+     * @description  选择优惠券
+     */
+    selectCoupon () {
+      const couponList = JSON.stringify(this.orderInfo.shopCoupons)
+      console.log('couponList',couponList)
+      wx.navigateTo({
+        url: `/pages/coupon/select/main?couponList=${couponList}`
+      })
+    }
+  }
 }
 </script>
 

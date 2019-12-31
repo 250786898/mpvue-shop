@@ -5,13 +5,13 @@
      <div class="bar-left">
        <div class="price-box">
         <div class="current-price"  v-if="currentPrice">
-          <online-price :color="'#ffffff'" :signSize="46" :beforeSize="72" :afterSize="50" />
+          <online-price :color="'#ffffff'" :signSize="46" :beforeSize="72" :afterSize="50" :price="currentPrice" />
         </div>
         <span class="original-price" v-if="originalPrice">￥{{originalPrice}}</span>
       </div>
 
       <div class="sell-null">
-        已售4578件
+        已售{{saleNum}}件
       </div>
      </div>
 
@@ -25,7 +25,7 @@
       </div>
      <div class="end-time-box sale-time-text" v-if="isSale == 0">
        <!-- {{saleTime}} -->
-         后天10:00开售
+         <!-- 后天10:00开售 -->
       </div>
 
 
@@ -57,6 +57,10 @@ export default {
     isSale: { //商品状态，0：处于预售中 1：正在售卖中 2：无状态都不显示
       type: Number,
       default: 2
+    },
+    saleNum: { //销售数量
+      type: Number,
+      default: 0
     }
 
   },

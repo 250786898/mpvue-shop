@@ -28,7 +28,7 @@
               </div>
               <div class="line-price">￥38.00</div>
            </div>
-           <div class="sell-num">已售4738份</div>
+           <div class="sell-num">已售{{item.virtualSalesNum + item.salesNum}}份</div>
          </div>
          <div class="card-main-bottom-right">
             <NumHandle :count="count"  />

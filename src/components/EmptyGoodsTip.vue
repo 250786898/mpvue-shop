@@ -25,20 +25,20 @@ export default {
   flex-direction: column;
   align-items: center;
   .empty-icon{
-    width: 380rpx;
-    height: 260rpx;
+    width: 468rpx;
+    height: 355rpx;
   }
   .empty-tip__text{
     color: #8E8D8D;
     font-size: 26rpx;
     line-height: 26rpx;
-    margin-top: 9rpx;
+    margin-top: 18rpx;
   }
   .empty-tip__text_main{
     color: #3C3C3C;
     font-size: 28rpx;
     line-height: 28rpx;
-    margin-bottom: 17rpx;
+    margin-top: 10rpx;
   }
 }
 </style>

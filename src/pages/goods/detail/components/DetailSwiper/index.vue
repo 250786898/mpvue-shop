@@ -2,7 +2,7 @@
   <div class="swiper-wrap">
     <swiper class="swiper" @change="onSwiperChange" :autoplay="false" :current="currentIndex">
         <swiper-item>
-          <VideoSwiper />
+          <VideoSwiper :videoSrc="videoSrc" />
         </swiper-item>
 
         <swiper-item>
@@ -24,6 +24,10 @@ export default {
     bannerList: { //banner数据列表
       type: Array,
       default: () => ([])
+    },
+    videoSrc: { //video 路径
+      type: String,
+      default: ''
     }
   },
   components: {
@@ -94,6 +98,7 @@ export default {
       line-height: 44rpx;
       text-align: center;
       border-radius:22rpx;
+      box-sizing: border-box;
       &:nth-of-type(2){
         position: absolute;
         right: 0;
@@ -109,12 +114,12 @@ export default {
       border-radius:22rpx;
       z-index: 9;
     }
-    .video-item-activity{
-      // border-right:1px solid rgba(86, 86, 86, 1);
-    }
-    .image-item-activity{
-      // border-left:1px solid rgba(86, 86, 86, 1);
-    }
+    // .video-item-activity{
+    //   // border-right:1px solid rgba(86, 86, 86, 1);
+    // }
+    // .image-item-activity{
+    //   // border-left:1px solid rgba(86, 86, 86, 1);
+    // }
   }
 }
 .swiper {

@@ -3,10 +3,12 @@
       <!-- 失效商品 -->
       <div class="group failure-goods"  v-if="failureGoodsList && failureGoodsList.length">
         <div class="group-header">
-          <div class="group-header__title">因售罄、下架原因导致失效商品</div>
-          <div class="group-header-right" @click="clearFailureCart">
-            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/commom_collection depot_png.png" class="delete-icon">
-            <span class="group-header-right__text">清空</span>
+          <div class="group-header-content">
+            <div class="group-header__title">因售罄、下架原因导致失效商品</div>
+            <div class="group-header-right" @click="clearFailureCart">
+              <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/commom_collection depot_png.png" class="delete-icon">
+              <span class="group-header-right__text">清空</span>
+            </div>
           </div>
         </div>
 
@@ -134,12 +136,14 @@ export default {
       text-align: center;
       font-size: 30rpx;
       color:#333333;
-      height: 110rpx;
-      line-height: 110rpx;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1rpx solid #E4E4E4;
+      &-content{
+        height: 110rpx;
+        line-height: 110rpx;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1rpx solid #E4E4E4;
+      }
       &-right{
         display: flex;
         align-items: center;

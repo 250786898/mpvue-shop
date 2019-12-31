@@ -1,17 +1,19 @@
 <template>
   <div class="card">
-    <div class="goods-img">
-      <img :src="item.goodsImage"  mode="aspectFit" >
-    </div>
-    <div class="card-main">
-      <div>
-        <div class="goodsName">{{ item.goodsName }}</div>
-        <div class="pickup-time">可提货</div>
+    <div class="card-content">
+       <div class="goods-img">
+        <img :src="item.goodsImage"  mode="aspectFit" >
       </div>
-      <div class="card-main-content">
-        <OnlinePrice :price="item.goodsPayPrice" />
-        <div class="goods-num">
-         数量 ×{{ item.goodsNum || 0 }}
+      <div class="card-main">
+        <div>
+          <div class="goodsName">{{ item.goodsName }}</div>
+          <!-- <div class="pickup-time">可提货</div> -->
+        </div>
+        <div class="card-main-content">
+          <OnlinePrice :price="item.goodsPayPrice" />
+          <div class="goods-num">
+          数量 ×{{ item.goodsNum || 0 }}
+          </div>
         </div>
       </div>
     </div>
@@ -35,10 +37,13 @@ export default {
 
 <style lang="scss" scoped>
 .card{
-  padding: 30rpx;
+  padding: 0 30rpx;
   box-sizing: border-box;
-  display: flex;
-  border-bottom: 1rpx solid #E4E4E4;
+  &-content{
+    padding: 30rpx 0rpx;
+    display: flex;
+    border-bottom: 1rpx solid #E4E4E4;
+  }
   .goods-img {
     width: 192rpx;
     height: 192rpx;

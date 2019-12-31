@@ -32,7 +32,7 @@
         </div>
       </div>
       <div class="btn-group" v-if="item.state == 20 || item.state == 10">
-        <button type="default" class="btn" v-if="item.state == 10" @click="cancelOrder">取消订单</button>
+        <!-- <button type="default" class="btn" v-if="item.state == 10" @click="cancelOrder">取消订单</button> -->
         <button type="primary" class="btn" v-if="item.state == 10" @click="payOrder">立即付款</button>
         <button type="primary" plain class="btn" v-if="item.state == 20" @click="showOrderCode">提货码</button>
       </div>
@@ -139,7 +139,7 @@ export default {
     display: flex;
     justify-content: space-between;
     font-size: 28rpx;
-    border-bottom: 1rpx solid #CCCCCC;
+    border-bottom: 2rpx solid rgba(204, 204, 204, 0.3);
     .order-state{
       .wait-pickup{
         color: #FF0000;
@@ -152,7 +152,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1rpx solid #CCCCCC;
+    border-bottom: 2rpx solid rgba(204, 204, 204, 0.3);
     .goods-list{
       display: flex;
       .goods-img{
