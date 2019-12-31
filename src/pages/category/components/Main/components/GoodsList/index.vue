@@ -1,12 +1,16 @@
 <template>
   <scroll-view scroll-y scroll-with-animation @scrolltolower="getMoreGoodList" class="list">
-
-      <div class="cate-item" v-if="goodsList" >
-        <GoodsCard v-for="(item,index) in goodsList" :item="item" :key="index" />
+    <div v-if="isAllGoods">
+      <div class="cate-item" v-for="(item,index) in goodsList" :item="item" :key="index">
+        <div class="cate-item__title">{{item.title}}</div>
+        <GoodsCard v-for="(i,index2) in item.goodsList" :item="i" :key="index2" />
+        <div class="empty-goods-tip" v-if="!item.goodsList.length">
+          <EmptyGoodsTip :title="'该分类无团购'"/>
+        </div>
       </div>
+    </div>
 
-    <div class="cate-item" v-if="allGoodsList">
-      <div class="cate-item__title">全部</div>
+    <div class="cate-item" v-else>
       <GoodsCard v-for="(item,index) in goodsList" :item="item" :key="index" />
     </div>
   </scroll-view>
@@ -23,12 +27,10 @@ export default {
         return [];
       }
     }, //商品列表
-    allGoodsList:{
-      type:Array,
-      default:()=>{
-        return []
-      }
-    }//所有商品列表
+    isAllGoods: {
+      type: Boolean,
+      default: true
+    } //是否是全部商品页面
   },
   components: {
     GoodsCard,

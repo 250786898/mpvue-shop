@@ -27,7 +27,7 @@
            <div class="sell-num">已售{{item.salesNum+item.virtualSalesNum?item.virtualSalesNum:0}}份</div>
          </div>
          <div class="card-main-bottom-right">
-            <NumHandle :count="count"  />
+            <NumHandle :count="count" :goodsInfo="item" />
          </div>
       </div>
     </div>
@@ -63,6 +63,7 @@ export default {
      * @description 点击了商品，正常商品跳转商品详情
      */
     tabGoods () {
+      console.log('点击');
       wx.navigateTo({
         url: `/pages/goods/detail/main?id=${this.item.id}&activityId=${this.item.activityId}&activityGoodsId=${this.item.id}`
       })

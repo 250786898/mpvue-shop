@@ -67,7 +67,7 @@ export default {
          '时令水果','悠闲食品','安心乳品','酒饮冲调','肉蛋食材','放心蔬菜','粮油速食','美妆护肤','个人护肤'
        ]
       }
-    }
+    } //分类列表
   },
   data () {
     return {
@@ -81,6 +81,9 @@ export default {
       console.log('currentIndex')
       this.hideCategoryDialog()
     },
+    categoryList :function (){
+      this.currentIndex=-1;
+    }
   },
   components: {
     DownwardIcon
@@ -96,10 +99,9 @@ export default {
      * @description 点击了栏目
      */
     tabCategory (item,index) {
-      if(item){
-        this.$emit('getSecondaryCate',item.id)
-      }
+      this.$emit('getSecondaryCate',item.id)
       this.currentIndex = index //设置当前索引
+      item.id ? this.$emit('update:isAllGoods',false) : null
     },
 
     /**

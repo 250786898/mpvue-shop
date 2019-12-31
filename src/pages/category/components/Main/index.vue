@@ -2,7 +2,7 @@
   <div class="main">
     <template v-if="secondaryCategoryList.length">
       <MainNav :categoryList="secondaryCategoryList" @getSecondaryCate="getSecondaryCate" />
-      <GoodsList :goodsList="goodsList" v-if="goodsList.length" @getMore="getMore" />
+      <GoodsList :goodsList="goodsList" v-if="goodsList.length" @getMore="getMore" :isAllGoods="isAllGoods" />
     </template>
     <template v-if="!goodsList.length">
       <div class="empty-goods-tip">
@@ -34,10 +34,10 @@ export default {
         return []
       }
     }, //商品列表
-    loading:{
+    isAllGoods:{
       type:Boolean,
       default:true
-    } //商品列表正在加载
+    } //是否是全部商品页面
   },
   components: {
     MainNav,
@@ -61,7 +61,10 @@ export default {
     }
   },
 
-  created(){
+  watch:{
+    isAllGoods:function(){
+      this.$emit('update:isAllGoods',false)
+    }
   }
 }
 </script>
