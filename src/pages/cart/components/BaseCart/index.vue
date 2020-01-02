@@ -1,20 +1,21 @@
 <template>
   <div class="cart-container">
     <div class="group">
-
       <div class="group-header">
-        <div class="group-header-left">
-          <label class="">
-              <switch type="checkbox" class="weui-check" :checked="allChecked" @change="onAllCheckedChange"></switch>
-              <div class="weui-check__hd_in-checkbox">
-                <icon class="weui-icon-checkbox_circle" type="circle" size="16" v-if="!allChecked"></icon>
-                <icon class="weui-icon-checkbox_success" type="success" color="#01bd9f" size="16" v-if="allChecked"></icon>
-              </div>
-            </label>
-            <span class="group-desc">门店自提</span>
-        </div>
-        <div class="group-header-right" @click="clearAllCart">
-          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/commom_collection depot_png.png" class="delete-icon" alt="">
+        <div class="group-header-content">
+          <div class="group-header-left">
+            <label class="">
+                <switch type="checkbox" class="weui-check" :checked="allChecked" @change="onAllCheckedChange"></switch>
+                <div class="weui-check__hd_in-checkbox">
+                  <icon class="weui-icon-checkbox_circle" type="circle" size="16" v-if="!allChecked"></icon>
+                  <icon class="weui-icon-checkbox_success" type="success" color="#01bd9f" size="16" v-if="allChecked"></icon>
+                </div>
+              </label>
+              <span class="group-desc">门店自提</span>
+          </div>
+          <div class="group-header-right" @click="clearAllCart">
+            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/commom_collection depot_png.png" class="delete-icon" alt="">
+          </div>
         </div>
       </div>
 
@@ -305,13 +306,15 @@ export default {
 
   /*正常商品样式*/
   .group-header{
-    display: flex;
-    height: 90rpx;
+    &-content{
+      display: flex;
+      height: 90rpx;
+      justify-content: space-between;
+      border-bottom: 1rpx solid #F4F4F4;
+      align-items: center;
+    }
     padding: 0 20rpx;
     box-sizing: border-box;
-    justify-content: space-between;
-    border-bottom: 1rpx solid #F4F4F4;
-    align-items: center;
     &-left{
       display: flex;
       font-size: 34rpx;

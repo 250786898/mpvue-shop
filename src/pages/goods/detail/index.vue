@@ -2,11 +2,14 @@
   <div v-if="goodsDetailInfo">
 
     <!-- fixed-top -->
-    <FixedTop />
+    <FixedTop
+      :current-price="goodsDetailInfo.onlinePrice"
+      :goodsBanner="goodsDetailInfo.goodsBanner"
+    />
 
 
     <!-- Swiper -->
-    <DetailSwiper :bannerList="goodsDetailInfo.goodsBanner" />
+    <DetailSwiper :bannerList="goodsDetailInfo.goodsBanner" :videoSrc="goodsDetailInfo.video" />
 
     <!-- 商品信息bar -->
     <goods-info
@@ -15,6 +18,7 @@
       :end-time="endTime"
       :start-time="goodsDetailInfo.startTime"
       :is-sale="goodsDetailInfo.isSale"
+      :saleNum="goodsDetailInfo.virtualSalesNum + goodsDetailInfo.salesNum"
     />
 
 
@@ -175,7 +179,7 @@
     onShareAppMessage() {
       let options = `id=${this.$mp.page.options.id}&shareStoreId=${this.storeId}`
       return {
-        title: this.goodsDetailInfo.goodsName,
+        title: this.goodsDetailInfo.shareDescription,
         path: `/pages/goods/detail/main?${options}`,
         imageUrl: this.goodsDetailInfo.goodsImage
       }

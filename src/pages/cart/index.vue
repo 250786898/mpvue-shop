@@ -3,7 +3,7 @@
     <div class="cart-container"  v-if="(cartItemResultList && cartItemResultList.length) || (failureGoodsList && failureGoodsList.length)">
 
         <!-- 优惠券模块 -->
-        <coupon-wrap :goods-list="goodsListByCoupon" :coupon-list="myCouponList" />
+        <coupon-wrap :goods-list="goodsListByCoupon" :coupon-list="myCouponList" v-if="goodsListByCoupon.length && myCouponList.length"/>
 
         <!-- 正常商品列表 -->
         <base-cart
@@ -125,6 +125,9 @@
         Promise.all([this.getCartList(),this.loadCouponInfo(),this.getCartCouponGoodsList()])
         .then(res => {
           //所有请求完毕隐藏加载提示
+           wx.hideLoading()
+           wx.stopPullDownRefresh()
+        }).catch(() => {
            wx.hideLoading()
            wx.stopPullDownRefresh()
         })

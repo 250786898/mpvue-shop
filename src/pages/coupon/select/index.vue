@@ -2,12 +2,14 @@
   <div class="container">
     <div class="header">
       <div class="header-title">不使用优惠券</div>
-      <radio class="header-radio" color="#01BD9F"></radio>
+      <radio class="header-radio" color="#01BD9F" @click="selectNonuseCoupon" :checked="isNonuseCoupon"></radio>
     </div>
 
     <div class="coupon-list">
-      <CouponCard type="select" />
-      <CouponCard type="select" />
+      <div class="coupon-itew" v-for="item in couponList" v-bind:key="item.id">
+        <CouponCard type="select" :item="item" @selectCoupon="selectCoupon" />
+      </div>
+
     </div>
 
   </div>
@@ -18,6 +20,47 @@ import CouponCard from '../components/CouponCard'
 export default {
   components: {
     CouponCard
+  },
+  data () {
+    return {
+      couponList: [], //优惠券列表
+      isNonuseCoupon: false //是否不适用优惠券
+    }
+  },
+
+  mounted () {
+    this.setCouponList()
+  },
+
+  methods: {
+    /**
+     * @description 加载优惠券列表
+     */
+    setCouponList () {
+      this.couponList = JSON.parse(this.$root.$mp.query.couponList)
+    },
+
+    /**
+     * @description 选择不适用优惠券
+     */
+    selectNonuseCoupon () {
+      this.isNonuseCoupon = !this.isNonuseCoupon
+      this.$store.commit('setSubmitOrderCoupon',{})
+      wx.navigateBack({
+        delta: 1 //返回的页面数，如果 delta 大于现有页面数，则返回到首页,
+      })
+      console.log('selectCoupon')
+    },
+
+    /**
+     * @description 选中使用的优惠券
+     */
+    selectCoupon (item) {
+      this.$store.commit('setSubmitOrderCoupon',item)
+      wx.navigateBack({
+        delta: 1 //返回的页面数，如果 delta 大于现有页面数，则返回到首页,
+      })
+    }
   }
 }
 </script>

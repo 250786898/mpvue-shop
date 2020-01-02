@@ -2,8 +2,15 @@
   <div class="applicable">
     <div class="applicable-main">
       <div class="goods-list">
-        <template v-for="item in applicableGoodsList">
-          <div class="goods-item" :key="item.goodsId">
+        <template v-for="(item,index) in applicableGoodsList">
+          <div class="goods-item" :key="item.goodsId" v-if="index % 2 ==0">
+            <GoodsItem :item="item"/>
+          </div>
+        </template>
+      </div>
+      <div class="goods-list">
+        <template v-for="(item,index)  in applicableGoodsList">
+          <div class="goods-item" :key="item.goodsId" v-if="index % 2 != 0">
             <GoodsItem :item="item"/>
           </div>
         </template>
@@ -103,11 +110,10 @@ page{
     }
   }
   &-main{
+    display: flex;
     .goods-list{
       width: 100%;
-      display: flex;
       flex-wrap: wrap;
-      justify-content: space-between;
       .goods-item{
         // flex:1;
       }

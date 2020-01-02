@@ -1,7 +1,7 @@
 <template>
   <div class="fixed-wrap" v-if="fiexedShow">
-    <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/1575880871268.jpg" mode="aspectFit" class="goods-img" >
-    <OnlinePrice />
+    <img :src="goodsBanner[0]" mode="aspectFit" class="goods-img" >
+    <OnlinePrice :price="currentPrice" />
   </div>
 </template>
 
@@ -10,6 +10,16 @@ import OnlinePrice from "@/components/OnlinePrice"
 export default {
   components: {
     OnlinePrice
+  },
+   props: {
+    currentPrice:{ //商品现在销售的价格
+      type: String,
+      default: ''
+    },
+    goodsBanner:{ //商品banner列表
+      type: Array,
+      default: []
+    }
   },
   data () {
     return {

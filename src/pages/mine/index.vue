@@ -4,7 +4,7 @@
     <UserInfo :userInfo="personCenter" @resgiterOrLogin="resgiterOrLogin" />
     <div class="mine-main">
       <OrderBar @obligation="obligation" @toPickUp="toPickUp" @pickUp="pickUp" @salesReturn="salesReturn" @allOrder="allOrder" />
-      <ServerBar @discount="discount" @toSettings="toSettings" />
+      <ServerBar @discount="discount" @toSettings="toSettings" :userInfo="personCenter" />
     </div>
   </div>
 </template>

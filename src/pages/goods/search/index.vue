@@ -1,10 +1,10 @@
 <template>
   <div class="container">
-    <search-input />
-    <history-keyword />
+    <search-input @search="search" @clear="clearSearch" />
+    <!-- <history-keyword v-if="!isShowSearchGoodsDialog"/> -->
     <!-- <hot-keyword /> -->
     <!-- <search-result /> -->
-    <!-- <searchGoodsList /> -->
+    <searchGoodsList :show="isShowSearchGoodsDialog" :list="searchGoodsList" />
   </div>
 </template>
 
@@ -21,6 +21,33 @@ export default {
     HotKeyword,
     SearchResult,
     searchGoodsList
+  },
+
+  data () {
+    return {
+      searchGoodsList: [], //搜索的商品列表
+      isShowSearchGoodsDialog: false //是否显示搜索商品结果弹窗
+    }
+  },
+
+  methods: {
+    /**
+     * @description 搜索商品
+     */
+    search (searchGoodsList) {
+      if(searchGoodsList) {
+        //搜索有结果才弹窗并且赋值商品列表数据
+        this.isShowSearchGoodsDialog = true
+        this.searchGoodsList = searchGoodsList
+      }
+    },
+
+    /**
+     * @description 清除搜索
+     */
+    clearSearch () {
+      this.isShowSearchGoodsDialog = false //关闭搜索结果弹窗
+    }
   }
 }
 </script>

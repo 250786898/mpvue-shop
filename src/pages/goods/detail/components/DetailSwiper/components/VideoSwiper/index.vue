@@ -6,7 +6,12 @@
 
 <script>
 export default {
-
+  props: {
+    videoSrc: { //video 路径
+      type: String,
+      default: ''
+    }
+  }
 }
 </script>
 

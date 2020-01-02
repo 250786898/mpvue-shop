@@ -143,6 +143,10 @@ export default {
      * @description 兑换领取优惠券
      */
   async exchangeOrFetchCoupon ({ state, commit, dispatch },exchangeCouponNO) {
+    wx.showLoading({
+      title: '领取中',
+      mask: true
+    })
     if(!exchangeCouponNO) {
       wx.showToast({
         title: '兑换码为空~', //提示的内容,
@@ -151,19 +155,17 @@ export default {
       return false
     }
     const res = await couponModel.receiveCoupon({
-      systemCode: this.exchangeCouponNO
+      systemCode: exchangeCouponNO
     })
-    if(res.code == Api.CODES.SUCCESS) {
-      wx.showToast({
-        title: '恭喜你，抢到了~', //提示的内容,
-        icon: 'none' //图标,
-      })
-    }else{
-        wx.showToast({
-        title: res.message, //提示的内容,
-        icon: 'none' //图标,
-      })
-    }
+    wx.hideLoading()
+    console.log('exchangeOrFetchCoupon',res)
+    return new Promise((resolve,reject) => {
+      if(res.code == Api.CODES.SUCCESS) {
+       resolve(res.data)
+      }else{
+        reject(res)
+      }
+    })
   },
 
   /**
@@ -177,6 +179,7 @@ export default {
     const res = await couponModel.receiveCouponByActivityId({
       activityId : activityIdOfCoupon
     })
+    wx.hideLoading()
     return new Promise((resolve,reject) => {
       if(res.code === Api.CODES.SUCCESS) {
         if(res.data === 200001) {

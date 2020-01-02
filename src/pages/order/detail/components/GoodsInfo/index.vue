@@ -13,7 +13,7 @@
           商品总价
         </div>
         <div class="detail-info-item__content">
-          <OnlinePrice :signSize="20" :beforeSize="28" :afterSize="22" :price="orderInfo.orderAmount" :color="'#333333'" />
+          <OnlinePrice :signSize="20" :beforeSize="28" :afterSize="22" :price="orderInfo.goodsAmount" :color="'#333333'" />
         </div>
       </div>
         <div class="detail-info-item coupon-price-wrap">
@@ -21,7 +21,7 @@
             优惠券
           </div>
           <div class="detail-info-item__content coupon-price">
-            -<OnlinePrice :signSize="20" :beforeSize="28" :afterSize="22" :price="0" :color="'#898989'" />
+            -<OnlinePrice :signSize="20" :beforeSize="28" :afterSize="22" :price="orderInfo.couponPrice" :color="'#898989'" />
           </div>
       </div>
     </div>

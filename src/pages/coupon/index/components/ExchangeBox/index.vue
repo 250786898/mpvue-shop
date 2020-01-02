@@ -38,6 +38,13 @@ export default {
           title: '兑换成功~', //提示的内容,
           icon: 'none' //图标,
         })
+        if(res.data == 200001) {
+            wx.showToast({
+              title: '恭喜你，抢到了!', //提示的内容,
+              icon: 'none', //图标,
+              duration: 1500, //延迟时间,
+           })
+       }
       }else{
          wx.showToast({
           title: res.message, //提示的内容,

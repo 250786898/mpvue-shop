@@ -6,7 +6,7 @@
       <div class="cart-num circle-radius" v-else>{{cartNum}}</div>
     </div>
     <div class="black-cart" v-else>
-      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/icon_shopping car_png.png" class="cart-icon"  alt="">
+      <img src="/static/images/black-cart-icon.png" class="cart-icon"  alt="">
       <div class="cart-num" v-if="cartNum < 100">{{cartNum}}</div>
       <div class="cart-num circle-radius" v-else>{{cartNum}}</div>
     </div>

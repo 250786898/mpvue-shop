@@ -1,18 +1,10 @@
 <template>
-  <div class="goods-wrap">
+  <div class="goods-wrap" v-if="show">
     <div class="list">
-      <div class="goods-item">
-        <GoodsRowItem />
+      <div class="goods-item" v-for="item in list" v-bind:key="item.id">
+        <GoodsRowItem :item="item" />
       </div>
-      <div class="goods-item">
-        <GoodsRowItem />
-      </div>
-      <div class="goods-item">
-        <GoodsRowItem />
-      </div>
-      <div class="goods-item">
-        <GoodsRowItem />
-      </div>
+
     </div>
     <p class="search-empty-tip">亲，您已经看到最后啦！</p>
   </div>
@@ -24,6 +16,16 @@ import GoodsRowItem from '@/components/GoodsRowItem'
 export default {
   components: {
     GoodsRowItem
+  },
+  props: {
+    show: { //是否显示
+      type: Boolean,
+      default: false
+    },
+    list: { //搜索出的商品列表
+      type: Array,
+      default: []
+    }
   }
 }
 </script>
