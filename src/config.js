@@ -3,7 +3,7 @@ export default {
   apiURL: 'http://192.168.2.167:10002/api/',
   apiURL: 'http://192.168.2.150:10002/api/',
   // apiURL: 'http://192.168.2.150:30002/api/',
-  // apiURL: 'https://shop.freshlejia.com/apitest/api/',
+  apiURL: 'https://shop.freshlejia.com/apitest/api/',
   // apiURL: 'https://shop.freshlejia.com/apiv-2.2.0/api/', //正式环境
   AMAP_KEY: '0928a875c2752ff132e36cfabb315fb0', //高德地图api使用key
 
