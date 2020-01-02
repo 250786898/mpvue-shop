@@ -13,10 +13,11 @@
       <div class="dialog-main-footer">
         <button
           class="btn back-cart-btn"
+          type="primary"
           :class="[ effectiveGoods.length ? 'back-cart-btn' : 'only-back-cart-btn' ]"
           @click="backToCartPage"
         >返回购物车</button>
-        <button class="btn keepon-orders-btn" @click="hideDialog" v-if="effectiveGoods.length">继续下单</button>
+        <button class="btn keepon-orders-btn" type="primary" @click="hideDialog" v-if="effectiveGoods.length">继续下单</button>
       </div>
     </div>
   </div>
@@ -105,7 +106,6 @@ export default {
   }
   &-footer {
     display: flex;
-    flex-direction: column;
     align-items: center;
     padding: 40rpx;
     box-sizing: border-box;
@@ -137,13 +137,11 @@ export default {
     .only-back-cart-btn {
       width: 440rpx;
       height: 74rpx;
-      background: rgba(1, 189, 159, 1);
       border-radius: 10rpx;
       margin-right: 0;
     }
 
     .keepon-orders-btn{
-      background:rgba(19,212,191,1);
       color: #ffffff;
     }
   }

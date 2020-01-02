@@ -2,11 +2,11 @@
 	<view class="goods-recommend min-contaner" id="goods-list">
 
         <!-- <goods-list-tab /> -->
-      <div class="goods-recommend__title" :class="{'fixed-tab' : isCeiling}" :style="isCeiling ? fixedTop : '' " v-if="tab.length == 1">
+      <!-- <div class="goods-recommend__title" :class="{'fixed-tab' : isCeiling}" :style="isCeiling ? fixedTop : '' " v-if="tab.length == 1">
         <span v-for="item in tab" :key="item.id">{{item.activityName}}</span>
-      </div>
+      </div> -->
 
-      <div v-else>
+      <div  v-if="tab.length">
 
         <van-tabs
           @tab="tabChange"
@@ -31,8 +31,8 @@
 
       </div>
 
-
-      <div class="goods-recommend__bd goods-list" :style="{ marginTop:isCeiling? '40px' : '0px' }"  v-if="goodsList && goodsList.length > 0">
+      <!--   -->
+      <div class="goods-recommend__bd goods-list" :style="{ marginTop:isCeiling? '50px' : '0px' }" v-if="goodsList && goodsList.length > 0">
         <template v-if="!tabLoading">
           <div class="goods-card" v-for="item in goodsList" :key="item.id">
             <goods-card :item="item" />
@@ -116,7 +116,7 @@
 
     //上触发加载分页数据
     onReachBottom: function(){
-      if (this.isAllLoaded || this.loading) return
+      if (this.tabLoading || this.isAllLoaded || this.loading ) return
       //还有数据，加载数据
       this.currentPage++
       this.getGoodsListByActivityId(this.storeId , this.activityId , this.currentPage )
@@ -187,6 +187,7 @@
       },
 
       getGoodsListByActivityId (storeId, activityId, pageNumber) {
+      this.tabLoading = true
       let promise
        return promise = goodsModel.findGoodsByActivity({
          storeId, activityId, pageNumber
@@ -203,7 +204,7 @@
               this.isAllLoaded = true
             }
           }
-        })
+        }).then(() => this.tabLoading = false)
       },
 
 
@@ -214,17 +215,11 @@
         if(this.isCeiling) {
           //如果已经处于吸顶状态切换到初始化相对应的滚动条
           const ceilingDistance =  this.indexGoodsTop - this.indexBarHeight
-          console.log(' //如果已经处于吸顶状态切换到初始化相对应的滚动条',ceilingDistance)
+          console.log(' //如果已经处于吸顶状态切换到初始化相对应的滚动条',this.indexBarHeight , this.indexGoodsTop ,ceilingDistance)
           wx.pageScrollTo({ scrollTop: ceilingDistance })
         }
         this.initTabData(index)
-        this.getGoodsListByActivityId(this.storeId , this.activityId , this.currentPage ).then(() => {
-          console.log('getGoodsListByActivityId')
-          setTimeout (() => {
-            this.tabLoading = false
-          },2000)
-
-        })
+        this.getGoodsListByActivityId(this.storeId , this.activityId , this.currentPage )
       },
 
       /**

@@ -11,6 +11,7 @@
 
     <footer-bar :orderAmount="orderInfo.orderAmount" @submit="showComfirmDialog" />
     <payment-dialog :shown.sync="paymentDialogShowed" :amount="orderAmount" @complete="onComplete"></payment-dialog>
+    <!--  -->
     <over-stock-popup :goods-list="orderInfo.limitCartOrderVoList" :show="isShowOverStockPopup" :effective-goods="orderInfo.cartOrderVoList"  />
     <ComfirmStoreDialog :show.sync="comfirmDialogShowed" @comfirmPay="submitOrder" />
 

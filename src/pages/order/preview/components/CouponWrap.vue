@@ -30,9 +30,12 @@ export default {
     selectCoupon () {
       const couponList = JSON.stringify(this.orderInfo.shopCoupons)
       console.log('couponList',couponList)
-      wx.navigateTo({
-        url: `/pages/coupon/select/main?couponList=${couponList}`
-      })
+      if(orderInfo.shopCouponNum) {
+         wx.navigateTo({
+          url: `/pages/coupon/select/main?couponList=${couponList}`
+        })
+      }
+
     }
   }
 }

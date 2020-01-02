@@ -5,9 +5,9 @@ export default {
   },
   onShow () {
     console.log('canIUse',wx.canIUse('hideHomeButton'))
-    if(wx.canIUse('hideHomeButton')) { //兼容低版本微信
-      wx.hideHomeButton({}) //隐藏返回首页按钮
-    }
+    // if(wx.canIUse('hideHomeButton')) { //兼容低版本微信
+    //   wx.hideHomeButton({}) //隐藏返回首页按钮
+    // }
 
   },
   onLoad () {

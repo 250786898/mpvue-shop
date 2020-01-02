@@ -177,13 +177,14 @@ export default {
    * @description  鉴定滚动事件，从而是否显示回到顶部按钮和当前定位显示
    * */
   onPageScroll(e) {
-    this.backToTopButtonShowed = e.scrollTop >= 200;
-    this.tipShown = e.scrollTop < 100;
+    console.log('onPageScroll',e.scrollTop)
+    // this.tipShown = e.scrollTop < 100;
     this.checkCeiling(e.scrollTop)
   },
 
    //向上刷新数据
   onPullDownRefresh() {
+    wx.showNavigationBarLoading()
     console.log('onPullDownRefresh')
     this.returnTop()
     this.updateStoreData()
@@ -211,6 +212,11 @@ export default {
       this.setIndexStoreData().then(res => {
         this.hidePageLoading()
         wx.stopPullDownRefresh()
+        wx.hideNavigationBarLoading()
+      }).catch (err => {
+        console.log('err',err)
+        wx.stopPullDownRefresh()
+        wx.hideNavigationBarLoading()
       })
       // this.setIndexStoreData() //banner数据
     },
@@ -749,6 +755,7 @@ export default {
      */
     checkCeiling (scrollTop) {
       const ceilingDistance = this.indexGoodsTop -  this.indexBarHeight
+      console.log('checkCeiling',this.indexGoodsTop,this.indexBarHeight,ceilingDistance)
       if(scrollTop >= ceilingDistance) {
         this.isCeiling = true  //滚动距离顶部吸顶
       }else{

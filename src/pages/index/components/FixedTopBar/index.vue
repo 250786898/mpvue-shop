@@ -23,20 +23,24 @@
         </div>
       </div>
 
+        <div class="bar-search" id="ex" @click="navToSearchGoods" v-if="!fixedSearchBar">
+          <div class="search-box">
+            <img src="/static/images/common_icon_serch.png" class="search_icon" alt="">
+            <span class="search_text">搜索商品1</span>
+          </div>
+        </div>
 
-       <div class="bar-search bar-fixed" v-if="fixedSearchBar" @click="navToSearchGoods">
+       <div class="bar-search bar-fixed" v-else="" @click="navToSearchGoods">
         <div class="search-box">
           <img src="/static/images/common_icon_serch.png" class="search_icon" alt="">
-          <span class="search_text">搜索商品</span>
+          <span class="search_text">搜索商品2</span>
         </div>
       </div>
 
-      <div class="bar-search" id="ex" @click="navToSearchGoods">
-        <div class="search-box">
-          <img src="/static/images/common_icon_serch.png" class="search_icon" alt="">
-          <span class="search_text">搜索商品</span>
-        </div>
-      </div>
+
+
+
+
 
   </div>
 </template>
@@ -70,7 +74,8 @@ export default {
    * @description  鉴定滚动事件，从而是否显示回到顶部按钮和当前定位显示
    * */
   onPageScroll(e) {
-    this.fixedSearchBar = e.scrollTop >= 60 // 超过悬浮搜索栏
+    console.log('scrollTop',e.scrollTop)
+    this.fixedSearchBar = e.scrollTop >= 50 // 超过悬浮搜索栏
   },
   methods: {
 
@@ -199,24 +204,24 @@ export default {
     padding: 0 20rpx 10rpx;
     background: #ffffff;
     box-sizing: border-box;
-    .search-box{
-      width:100%;
-      height: 74rpx;
-      background:rgba(246,246,246,1);
-      border-radius:15rpx;
-      display: flex;
-      align-items: center;
-      padding: 0 20rpx;
-      box-sizing: border-box;
-      .search_icon{
-        width: 25rpx;
-        height:25rpx;
-        margin-right: 14rpx;
-      }
-      .search_text{
-        color: #929292;
-        font-size: 30rpx;
-      }
+  }
+  .search-box{
+    width:100%;
+    height: 74rpx;
+    background:rgba(246,246,246,1);
+    border-radius:15rpx;
+    display: flex;
+    align-items: center;
+    padding: 0 20rpx;
+    box-sizing: border-box;
+    .search_icon{
+      width: 25rpx;
+      height:25rpx;
+      margin-right: 14rpx;
+    }
+    .search_text{
+      color: #929292;
+      font-size: 30rpx;
     }
   }
 }
