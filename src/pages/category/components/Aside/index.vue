@@ -40,6 +40,9 @@ export default {
       this.$emit('getCurrentCategory',item.id)
       this.currentIndex = index //设置当前索引
     }
+  },
+  onLoad(){
+    this.currentIndex = 0;
   }
 }
 </script>

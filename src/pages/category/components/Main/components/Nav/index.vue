@@ -48,7 +48,7 @@
             {{item.gcName}}
           </div>
         </div>
-        <div class="category-mask">
+        <div class="category-mask" @click="hiddenAllCategory">
 
         </div>
       </div>
@@ -116,7 +116,17 @@ export default {
      */
     hideCategoryDialog() {
       this.isshowAllCategory = false
+    },
+
+    /**
+     * @description
+     */
+    hiddenAllCategory(){
+      this.isshowAllCategory = false
     }
+  },
+  onLoad(){
+      this.isshowAllCategory = false
   }
 }
 </script>
