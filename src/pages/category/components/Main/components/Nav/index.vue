@@ -24,8 +24,9 @@
     </scroll-view>
 
      <div class="downward-icon" @click="handleCategoryShow">
-       <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/downward-bg-icon.png" alt="" class="downward-icon__bg">
-       <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/cate-downward-icon.png" alt="" class="downward-icon__main">
+       <img src="/static/images/downward-icon.png" alt="">
+       <!-- <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/downward-bg-icon.png" alt="" class="downward-icon__bg">
+       <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/cate-downward-icon.png" alt="" class="downward-icon__main"> -->
      </div>
 
     <template v-if="isshowAllCategory">
@@ -142,12 +143,13 @@ export default {
     box-sizing: border-box;
     overflow: hidden;
     position: relative;
-    padding-right: 50rpx;
+    padding-right: 75rpx;
+    font-size: 0;
     &-item{
       width:120rpx;
       height:50rpx;
       box-sizing: border-box;
-      line-height: 50rpx;
+      line-height: 46rpx;
       text-align: center;
       border:2rpx solid rgba(231,232,236,1);
       border-radius:8rpx;
@@ -169,17 +171,9 @@ export default {
     top: 0rpx;
     text-align: center;
     justify-content: center;
-    &__bg{
-      width: 100%;
-      height:100%;
-      position: absolute;
-      left: 0;
-      top: 0;
-    }
-    &__main{
-      width:28rpx;
-      height: 16rpx;
-      z-index: 10;
+    img{
+      width: 75rpx;
+      height: 100rpx;
     }
   }
 

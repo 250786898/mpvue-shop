@@ -1,10 +1,10 @@
 <template>
   <div class="main">
-    <template v-if="secondaryCategoryList.length">
-      <MainNav :categoryList="secondaryCategoryList" @getSecondaryCate="getSecondaryCate" />
-      <GoodsList :goodsList="goodsList" v-if="goodsList.length" @getMore="getMore" :isAllGoods="isAllGoods" />
+    <template v-if="goodsList.length">
+      <MainNav :categoryList="secondaryCategoryList" @getSecondaryCate="getSecondaryCate" v-if="secondaryCategoryList.length" />
+      <GoodsList :goodsList="goodsList" v-if="goodsList.length" @getMore="getMore" :isAllGoods="isAllGoods" :NavShow="secondaryCategoryList.length" />
     </template>
-    <template v-if="!goodsList.length">
+    <template v-else>
       <div class="empty-goods-tip">
         <EmptyGoodsTip :title="'该分类无团购'" />
       </div>
