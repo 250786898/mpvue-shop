@@ -46,6 +46,21 @@ class StoreModel {
     })
   }
 
+  /**
+   * @param {stirng} longitude 经度
+   * @param {stirng} latitude 纬度 116.397451,
+   * @description 核对门店是否无服务
+   */
+  checkStoreIsNoService ({ longitude, latitude }) {
+    return post({
+      url: '/store/data/findStore',
+      data: {
+        longitude,
+        latitude
+      }
+    })
+  }
+
 
 }
 

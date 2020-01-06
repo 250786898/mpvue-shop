@@ -51,6 +51,8 @@ export default {
     &__desc {
       color: #999999;
       font-size: 26rpx;
+      width: 578rpx;
+      @include ellipsis;
     }
     &__price {
       font-weight:bold;

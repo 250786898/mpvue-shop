@@ -23,10 +23,17 @@
         </div>
 
       </div>
-     <div class="end-time-box sale-time-text" v-if="isSale == 0">
+      <!-- isSale == 0" -->
+      <!-- <div class="end-time-box">
+       <div class="end-time-box__title">距离开始时间</div>
+       <div class="countdowner">
+         <countdowner :countdown="startTime"></countdowner>
+       </div>
+      </div> -->
+     <!-- <div class="end-time-box sale-time-text" v-if="false"> -->
        <!-- {{saleTime}} -->
          <!-- 后天10:00开售 -->
-      </div>
+      <!-- </div> -->
 
 
   </div>
@@ -67,7 +74,10 @@ export default {
   computed: {
     countDown () {
       return Math.floor(this.endTime / 1000) //毫秒转成秒
-   },
+    },
+    // startTime () {
+    //    return Math.floor(this.endTime / 1000) //毫秒转成秒
+    // },
     saleTime () { //显示的销售时间
       return this.startTime ? formatSaleDate(this.startTime) : ''
     }

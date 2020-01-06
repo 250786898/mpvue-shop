@@ -4,15 +4,30 @@
     <div class="result-text">支付成功</div>
 
     <div class="btn-group">
-      <button>订单详情</button>
-      <button>返回首页</button>
+      <button @click="toOrderDetail">订单详情</button>
+      <button @click="backToIndex">返回首页</button>
     </div>
  </div>
 </template>
 
 <script>
 export default {
+  methods: {
+    /**
+     * @description 返回首页
+     */
+    backToIndex () {
+      wx.switchTab({
+        url: '/pages/index/main',
+      })
+    },
 
+    toOrderDetail () {
+      wx.redirectTo({
+        url: `/pages/order/detail/main?id=${ this.$root.$mp.query.id }`
+      })
+    }
+  }
 }
 </script>
 

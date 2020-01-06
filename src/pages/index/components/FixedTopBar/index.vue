@@ -1,5 +1,5 @@
 <template>
-  <div class="bar">
+  <div class="bar" id="storeBar">
       <div class="store-bar">
         <div class="bar-top">
           <div class="store">
@@ -22,18 +22,19 @@
           </div>
         </div>
       </div>
-
-        <div class="bar-search" id="ex" @click="navToSearchGoods" v-if="!fixedSearchBar">
+      <!-- -->
+         <!-- -->
+        <div class="bar-search" id="ex" @click="navToSearchGoods" >
           <div class="search-box">
             <img src="/static/images/common_icon_serch.png" class="search_icon" alt="">
-            <span class="search_text">搜索商品1</span>
+            <span class="search_text">搜索商品</span>
           </div>
         </div>
 
-       <div class="bar-search bar-fixed" v-else="" @click="navToSearchGoods">
+      <div class="bar-search bar-fixed"   @click="navToSearchGoods"  v-if="fixedSearchBar">
         <div class="search-box">
           <img src="/static/images/common_icon_serch.png" class="search_icon" alt="">
-          <span class="search_text">搜索商品2</span>
+          <span class="search_text">搜索商品</span>
         </div>
       </div>
 
@@ -51,7 +52,8 @@ export default {
   mounted() {
     let _this = this
   　setTimeout(function(){
-  　  _this.setIndexBarElementHeight('#ex')
+  　  _this.setIndexBarElementHeight()
+      _this.setStoreBarElementHeight()
   　}, 100)
   },
   computed: {
@@ -66,7 +68,8 @@ export default {
   },
   data () {
     return {
-      fixedSearchBar: false //门店bar是否显示
+      fixedSearchBar: false, //门店bar是否显示
+      storeBarHeight: 0 //本组件高度
     }
   },
 
@@ -75,22 +78,31 @@ export default {
    * */
   onPageScroll(e) {
     console.log('scrollTop',e.scrollTop)
-    this.fixedSearchBar = e.scrollTop >= 50 // 超过悬浮搜索栏
+    this.fixedSearchBar = e.scrollTop >= this.storeBarHeight // 超过悬浮搜索栏
+    this.setIndexBarElementHeight('#ex')
   },
   methods: {
 
     /**
      * @description 设置bar栏目高度到vuex
      */
-    setIndexBarElementHeight(id = "") {
-　　　　 let _query = wx.createSelectorQuery();
-　　　　_query.select(id).boundingClientRect()
+    setIndexBarElementHeight() {
+　　　　 let _query = wx.createSelectorQuery()
+　　　　_query.select('#ex').boundingClientRect()
 　　　　_query.exec((res) =>{
 　　　　　 const tHeight = res[0] && res[0].height != null ? res[0].height : ''
           this.$store.commit('setIndexBarHeight',tHeight)
-            console.log('++++++++++++++++++++++++++#affix节点的上setIndexBarHeight+++++++',res); // #affix节点的上边界坐
 　　　　 })
 　　 },
+
+    setStoreBarElementHeight () {
+      let _query = wx.createSelectorQuery()
+　　　　_query.select('#storeBar').boundingClientRect()
+　　　　_query.exec((res) =>{
+　　　　　 const tHeight = res[0] && res[0].height != null ? res[0].height : ''
+          this.storeBarHeight = tHeight
+　　　　 })
+    },
 
     /**
      * @description 选择门店，先刷新用户定位信息再进入选择门店组件

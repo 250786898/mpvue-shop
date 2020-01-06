@@ -9,7 +9,7 @@
      <div class="card-item">
       <div class="card-item__title">优惠券</div>
       <div class="card-item__content">
-        -￥{{orderInfo.couponPrice}}
+        -￥{{orderInfo.couponPrice || '0.00'}}
       </div>
     </div>
   </div>

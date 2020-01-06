@@ -18,7 +18,7 @@
           </div>
           <div class="scribing-price" v-if="item.scribingPrice">￥{{item.scribingPrice}}</div>
         </div>
-        <div class="sell-null">已售{{item.virtualSalesNum + item.salesNum}}份</div>
+        <div class="sell-null" v-if="item.virtualSalesNum">已售{{item.virtualSalesNum + item.salesNum}}份</div>
       </div>
       <div class="add-cart">
         <GoodsNumHandle :goodsInfo="item" />

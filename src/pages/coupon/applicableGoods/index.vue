@@ -1,35 +1,43 @@
 <template>
   <div class="applicable">
-    <div class="applicable-header">
 
-      <div class="applicable-header-desc">
-        <div class="applicable-header-desc__title">以下商品可使用满{{applyGoodsInfo.eliyibility}}元减{{applyGoodsInfo.couponMoney}}元的优惠券</div>
-        <div class="applicable-header-desc__date">有效期：{{applyGoodsInfo.startDate}} 至 {{applyGoodsInfo.stopDate}}</div>
-        <div class="applicable-store" @click="navToApplicableStore">
-          <span>查看适用门店</span>
-          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/coupon_goods_right.png" class="applicable-store__icon" alt="">
+     <div v-if="applicableGoodsList && applicableGoodsList.length">
+        <div class="applicable-header">
+
+        <div class="applicable-header-desc">
+          <div class="applicable-header-desc__title">以下商品可使用满{{applyGoodsInfo.eliyibility}}元减{{applyGoodsInfo.couponMoney}}元的优惠券</div>
+          <div class="applicable-header-desc__date">有效期：{{applyGoodsInfo.startDate}} 至 {{applyGoodsInfo.stopDate}}</div>
+          <div class="applicable-store" @click="navToApplicableStore">
+            <span>查看适用门店</span>
+            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/coupon_goods_right.png" class="applicable-store__icon" alt="">
+          </div>
+        </div>
+
+
+      </div>
+
+      <div class="applicable-main">
+        <div class="goods-list">
+          <template v-for="(item,index) in applicableGoodsList">
+            <div class="goods-item" :key="item.goodsId" v-if="index % 2 == 0">
+              <goods-item :item="item"/>
+            </div>
+          </template>
+        </div>
+        <div class="goods-list">
+          <template v-for="(item,index) in applicableGoodsList">
+            <div class="goods-item" :key="item.goodsId" v-if="index % 2 != 0">
+              <goods-item :item="item"/>
+            </div>
+          </template>
         </div>
       </div>
+     </div>
 
+      <div v-else>
+       <EmptyGoodsTip />
+     </div>
 
-    </div>
-
-    <div class="applicable-main">
-      <div class="goods-list">
-        <template v-for="(item,index) in applicableGoodsList">
-          <div class="goods-item" :key="item.goodsId" v-if="index % 2 == 0">
-            <goods-item :item="item"/>
-          </div>
-        </template>
-      </div>
-      <div class="goods-list">
-        <template v-for="(item,index) in applicableGoodsList">
-          <div class="goods-item" :key="item.goodsId" v-if="index % 2 != 0">
-            <goods-item :item="item"/>
-          </div>
-        </template>
-      </div>
-    </div>
 
     <div class="cart-icon">
       <cart-icon :type="'black'"/>
@@ -44,6 +52,7 @@ import { mapState } from 'vuex'
 import { Api } from '@/http/api'
 import CartIcon from "@/components/CartIcon"
 import GoodsItem from "@/components/GoodsRowItem"
+import EmptyGoodsTip from '../components/EmptyGoodsTip'
 import CouponModel from '../../../model/coupon'
 
 const couponModel = new CouponModel()
@@ -51,7 +60,8 @@ const couponModel = new CouponModel()
 export default {
    components:{
      CartIcon,
-     GoodsItem
+     GoodsItem,
+     EmptyGoodsTip
    },
    data () {
      return {

@@ -26,6 +26,9 @@ export default {
       current: 0, //当前banner索引
     }
   },
+  onLoad () {
+    Object.assign(this.$data, this.$options.data()) //解决mpvue初始化未清空状态问题
+  },
   methods: {
     /**
      * @description 切换swiper

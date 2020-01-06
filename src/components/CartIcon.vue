@@ -2,13 +2,13 @@
   <navigator url="/pages/cart/main" open-type="switchTab" class="container">
      <div class="cart" v-if="type == 'white'">
       <img src="/static/images/icon_shopping_png.png" class="cart-icon"  alt="">
-      <div class="cart-num" v-if="cartNum <10">{{cartNum}}</div>
-      <div class="cart-num circle-radius" v-else>{{cartNum}}</div>
+      <div class="cart-num" v-if="cartNum && cartNum <10">{{cartNum}}</div>
+      <div class="cart-num circle-radius" v-if="cartNum && cartNum >= 10">{{cartNum}}</div>
     </div>
     <div class="black-cart" v-else>
       <img src="/static/images/black-cart-icon.png" class="cart-icon"  alt="">
       <div class="cart-num" v-if="cartNum < 100">{{cartNum}}</div>
-      <div class="cart-num circle-radius" v-else>{{cartNum}}</div>
+      <div class="cart-num circle-radius" v-if="cartNum && cartNum >= 10">{{cartNum}}</div>
     </div>
   </navigator>
 

@@ -18,8 +18,6 @@
         wx.showLoading()
         wx.getNetworkType({
           success: function(res) {
-            console.log('refresh',res)
-            console.log('netword',res)
             if(res.networkType != 'none'){
               //监听到有网络跳转回上一个页面
               console.log('监听到有网络跳转回上一个页面')
@@ -37,7 +35,7 @@
       },
 
       change (e) {
-        console.log('e',e)
+
       }
     }
   }

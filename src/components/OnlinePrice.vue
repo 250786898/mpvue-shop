@@ -47,7 +47,6 @@ export default {
   computed: {
     priceBeforeSign () { //符号前价格数量
       if(this.price) {
-        console.log('this.price',this.price)
         let priceaArr = this.price.toString().split('.')
        return priceaArr[0] ? priceaArr[0] : ''
       }else{

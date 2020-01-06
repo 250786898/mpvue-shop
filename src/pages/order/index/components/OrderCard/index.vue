@@ -33,8 +33,8 @@
       </div>
       <div class="btn-group" v-if="item.state == 20 || item.state == 10">
         <!-- <button type="default" class="btn" v-if="item.state == 10" @click="cancelOrder">取消订单</button> -->
-        <button type="primary" class="btn" v-if="item.state == 10" @click="payOrder">立即付款</button>
-        <button type="primary" plain class="btn" v-if="item.state == 20" @click="showOrderCode">提货码</button>
+        <button type="primary" class="btn" v-if="item.state == 10" @click.stop="payOrder">立即付款</button>
+        <button type="primary" plain class="btn" v-if="item.state == 20" @click.stop="showOrderCode">提货码</button>
       </div>
     </div>
   </div>
@@ -95,6 +95,12 @@ export default {
             ...params,
             success: () => {
               wx.showLoading({ mask: true, title: '请稍等' })
+              setTimeout(() => {
+                wx.hideLoading()
+                wx.redirectTo({
+                  url: `/pages/order/detail/main?id=${ this.item.orderId }`
+                })
+              }, 3000)
             }
           })
         } else {

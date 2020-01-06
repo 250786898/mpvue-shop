@@ -26,6 +26,9 @@ export default {
       fiexedShow: false //悬浮是否显示
     }
   },
+  onLoad () {
+    Object.assign(this.$data, this.$options.data())
+  },
   onPageScroll (e) {
     if(e.scrollTop >= 375) {
       this.fiexedShow = true

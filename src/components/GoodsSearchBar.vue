@@ -78,13 +78,9 @@ export default {
   methods: {
 
     setIndexBarElementHeight(id = "") {
-
 　　　　 let _query = wx.createSelectorQuery();
-
 　　　　_query.select(id).boundingClientRect()
-
 　　　　_query.exec((res) =>{
-          console.log('#affix节点的上边界坐3332',res); // #affix节点的上边界坐
 　　　　　 const tHeight = res[0] && res[0].height != null ? res[0].height : ''
           this.$store.commit('setIndexBarHeight',tHeight)
 　　　　 })

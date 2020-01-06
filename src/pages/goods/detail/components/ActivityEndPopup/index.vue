@@ -48,7 +48,7 @@ export default {
     position: fixed;
     z-index: 100;
     top: 50%;
-    left: 100rpx;
+    left: 80rpx;
     right: 100rpx;
     -webkit-transform: translate(0, -50%);
     transform: translate(0, -50%);

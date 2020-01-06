@@ -58,10 +58,8 @@ fly.interceptors.response.use(res => {
   return res.data
 },
   err => {
-    console.log('err',err)
         wx.getNetworkType({
           success: function(res) {
-            console.log('netword',res)
             if(res.networkType == 'none'){
               wx.redirectTo({
                 url: '/pages/network/exceptions/main'

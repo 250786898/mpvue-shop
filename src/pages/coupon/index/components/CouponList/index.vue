@@ -1,8 +1,8 @@
 <template>
  <div class="coupons-list-container">
     <!-- v-if="list.length > 0" -->
-    <div v-if="true" >
-      <div class="coupons-list-header">
+    <div v-if="couponInfo.normalList.length && couponInfo.useList.length &&  ouponInfo.expiredList.length ">
+      <div class="coupons-list-header" v-if="couponInfo.expireSoonNum">
           <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/common_remind_png.png" alt="" class="remind_png">
           <span>您有<span class="totol-coupons-num">{{couponInfo.expireSoonNum}}</span>张优惠券即将到期</span>
       </div>

@@ -42,8 +42,12 @@ export default {
   },
   watch: {
     location: function () {
-      console.log('监听到重新定位')
-      this.initLoadStoreData()
+      const pageList = getCurrentPages()
+      const currentPage = pageList[pageList.length - 1].route
+      if(currentPage == 'pages/store/select/main') {
+        this.initLoadStoreData()
+      }
+
     },
   },
   mounted (e) {

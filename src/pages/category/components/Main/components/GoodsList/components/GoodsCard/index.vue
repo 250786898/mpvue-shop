@@ -24,7 +24,7 @@
               </div>
               <div class="line-price" v-if="item.scribingPrice">￥{{item.scribingPrice}}</div>
            </div>
-           <div class="sell-num">已售{{item.salesNum+item.virtualSalesNum?item.virtualSalesNum:0}}份</div>
+           <div class="sell-num" v-if="item.virtualSalesNum">已售{{item.salesNum+item.virtualSalesNum?item.virtualSalesNum:0}}份</div>
          </div>
          <div class="card-main-bottom-right">
             <NumHandle :count="count" :goodsInfo="item" />

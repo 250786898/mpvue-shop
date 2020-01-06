@@ -20,9 +20,9 @@ import TopBg from './components/TopBg'
 import CouponList from './components/CouponList/index'
 import toCoupon from './components/ToCoupon'
 import toHome from './components/toHome'
-import EmptyIcon from '../components//EmptyCouponTip'
+import EmptyIcon from './components/EmptyGoodsTip'
 import CouponModel from '@/model/coupon'
-import { Api } from '../../../http/api'
+import { Api } from '@/http/api'
 const couponModel = new CouponModel()
 export default {
   components: {

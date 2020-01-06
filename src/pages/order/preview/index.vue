@@ -9,7 +9,7 @@
     <payways></payways>
     <price-info :orderInfo="orderInfo" />
 
-    <footer-bar :orderAmount="orderInfo.orderAmount" @submit="showComfirmDialog" />
+    <footer-bar :orderAmount="orderInfo.orderAmount" @submit="submitOrder" />
     <payment-dialog :shown.sync="paymentDialogShowed" :amount="orderAmount" @complete="onComplete"></payment-dialog>
     <!--  -->
     <over-stock-popup :goods-list="orderInfo.limitCartOrderVoList" :show="isShowOverStockPopup" :effective-goods="orderInfo.cartOrderVoList"  />
@@ -173,17 +173,17 @@
             wx.requestPayment({
               ...params,
               success: () => {
-                // 延时以等待后端状态改变
+                // 支付成功：延时以等待后端状态改变
                 wx.showLoading({ mask: true, title: '请稍等' })
                 setTimeout(() => {
                   wx.hideLoading()
                   wx.redirectTo({
-                    url: `/pages/order/detail/main?id=${ order.orderId }`
+                    url: `/pages/order/payResult/main?id=${ order.orderId }`
                   })
                 }, 3000)
               },
-              complete: () => {
-                // 延时以等待后端状态改变
+              fail: () => {
+                // 取消订单：延时以等待后端状态改变
                 wx.showLoading({ mask: true, title: '请稍等' })
                 setTimeout(() => {
                   wx.hideLoading()

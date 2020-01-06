@@ -1,6 +1,6 @@
 <template>
   <div class="swiper-wrap">
-    <swiper class="swiper" @change="onSwiperChange" :autoplay="false" :current="currentIndex">
+    <swiper class="swiper" @change="onSwiperChange" :autoplay="false" :current="videoSrc ? currentIndex : 1">
         <swiper-item>
           <VideoSwiper :videoSrc="videoSrc" />
         </swiper-item>
@@ -9,7 +9,7 @@
           <ImageSwiper :bannerList="bannerList" />
         </swiper-item>
     </swiper>
-    <div class="indicator">
+    <div class="indicator" v-if="videoSrc">
       <div class="indicator-item" :class="{'indicator-item-activity video-item-activity' : currentSwiperType == 'video' }" @click="changeSwiper('video')">视频</div>
       <div class="indicator-item" :class="{'indicator-item-activity image-item-activity' : currentSwiperType == 'image' }" @click="changeSwiper('image')">图片</div>
     </div>
@@ -30,6 +30,9 @@ export default {
       default: ''
     }
   },
+  onLoad () {
+    Object.assign(this.$data, this.$options.data())
+  },
   components: {
     VideoSwiper,
     ImageSwiper
@@ -39,7 +42,10 @@ export default {
      * @description 当前轮播索引
      */
     currentIndex () {
-      return this.currentSwiperType == 'video' ? 0 : 1
+      if(this.videoSrc && this.videoSrc.length) {
+         console.log('this.videoSrc',this.videoSrc)
+         return this.currentSwiperType == 'video' ? 0 : 1
+      }
     }
   },
   data () {

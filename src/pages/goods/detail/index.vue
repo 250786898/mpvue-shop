@@ -31,12 +31,17 @@
 
     <!-- Type end; -->
 
-    <!-- 限购 -->
-    <!-- goodsDetailInfo.activityLimitNum -->
-    <limit-purchase v-if="true" :num="goodsDetailInfo.activityLimitNum" />
 
-    <!-- 优惠券 -->
-    <CouponBar :list="couponList" @fetchCoupon="fetchCoupon" />
+    <!--  -->
+    <div style="margin-top:20rpx;">
+      <!-- 限购 -->
+      <limit-purchase v-if="goodsDetailInfo.activityLimitNum" :num="goodsDetailInfo.activityLimitNum" />
+       <!-- 优惠券 -->
+     <CouponBar :list="couponList" @fetchCoupon="fetchCoupon" />
+    </div>
+
+
+
 
 
 
@@ -130,13 +135,13 @@
     },
 
 
-    onShow () {
+    onLoad () {
       // this.goodsDetailInfo = {} //初始化商品详情信息
+      Object.assign(this.$data, this.$options.data())
     },
 
     async mounted () {
       Object.assign(this.$data, this.$options.data()) //解决mpvue初始化未清空状态问题
-      console.log('goodDetailmounted',this.$mp.page.options.shareStoreId)
        this.hidePopup()
        this.saveGoodsDetailOptions()
        const shareStoreId = this.$mp.page.options.shareStoreId
@@ -148,7 +153,6 @@
 
         if(shareStoreId) {
           //从分享商品进来
-          console.log('从分享商品进来')
           this.setShareStoreId(shareStoreId)
           this.loadDataByIsAuthLocate()
         }else{
@@ -159,7 +163,6 @@
 
     watch: {
       storeId: function () {
-        console.log('监听到门店Id修改')
         if(this.getCurrentPageUrl() != 'pages/index/main'){  //只有当前页面发生才触发
           //确认门店开启分享功能
           wx.showShareMenu({
@@ -197,10 +200,7 @@
          * @description 获取详情页面具体的数据
          */
         getDetail() {
-          console.log('option',this.$mp.page)
-          console.log('getGoodsDetailOptions',this.getGoodsDetailOptions())
           let options = this.$mp.page == null ?this.getGoodsDetailOptions() : this.$mp.page.options  //获取商品相关参数,如果是从切换门店页面返回则从缓存中读取
-          console.log('获取详情页面具体的数据',options)
           // if (!options.id) {
           //   return wx.showToast({
           //     title: '参数错误',
@@ -263,7 +263,6 @@
         var ctx = wx.createCanvasContext('shareCanvas')
         const goodsImgUrl = this.getHtppsImgUrl(this.goodsDetailInfo.goodsImage)
         const path = await this.getLocationImg(goodsImgUrl)
-        console.log('path',path)
         ctx.drawImage( path , 20 , 0, 140, 140)
         ctx.drawImage( 'https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/goods-detail-bar__bg.png' , 0, 140, 200, 40)
         ctx.setFillStyle('white')
@@ -279,7 +278,6 @@
             destHeight: 220,            // 输出的图片的高度
             canvasId: 'shareCanvas',    // 指定canvas的id
             success(res) {    //  res.tempFilePath :  生成文件的临时路径
-                console.log('canvasToTempFilePath',res.tempFilePath)
                 that.uploadImages(res.tempFilePath)
             }
           })
@@ -295,19 +293,17 @@
       getLocationImg (imgPath)  {
           return new Promise(function (resolve, reject) {   // 异步处理返回数据
               // 将网络图片缓存至本地
-              wx.getImageInfo({
-                  src: imgPath,
-                  success: function (res) {
-                    console.log('getLocationImg',res)
-                      resolve(res.path);
-                  }
-              })
+            wx.getImageInfo({
+                src: imgPath,
+                success: function (res) {
+                    resolve(res.path);
+                }
+            })
           })
       },
 
       uploadImages(tempFilePaths) {
         var that = this
-        console.log('uploadImages1',tempFilePaths)
           if (tempFilePaths) {
             wx.uploadFile({
               url: UPLOAD_URL, // 仅为示例，非真实的接口地址
@@ -316,7 +312,6 @@
               formData: {},
               success: res => {
                 const data =  JSON.parse(res.data)
-                console.log('成功后返回得图片',data.data.result)
                 that.shareImg = data.data.result
                 // res.data =
               }
@@ -392,9 +387,7 @@
           this.hideComfirmStoreDialog()
           this.hideSelectStoreDialog()
           this.$store.commit("setStoreId",storeId) //设置确认门店Id
-          console.log('comfirmStoreStoreId',storeId)
           const shareStoreItem = await this.getOneStoreInfoByStoreId(storeId)
-          console.log('storeId',shareStoreItem)
           this.$store.commit('setCurrentStoreInfo',shareStoreItem)
           this.$store.dispatch('confirmOrSwitchStore', {
             storeId
@@ -414,8 +407,6 @@
               location = await this.setUserLocationInfo() //设置用户相关定位信息：经纬度，详情地址
               this.$store.commit('setLocationInfo',location)  //已经授权从缓存中存定位信息到vuex，方便其他组件使用
           }
-
-          console.log('location',location)
         },
 
         /**
@@ -427,28 +418,20 @@
 
 
           const usuallyStoreId = await this.getUsuallyStoreId()
-          console.log('usuallyStoreId',usuallyStoreId)
-          console.log('shareStoreId',this.shareStoreId)
           if(this.shareStoreId == usuallyStoreId) { //判断用户当前所在门店是否跟分享商品门店一致
             //一致：直接设置分享门店id为当前门店
-            console.log('一致：直接设置分享门店id为当前门店')
             if(this.storeId == usuallyStoreId){
                 //已经设置过门店Id，第二次访问相同门店不会触发watch，应该直接获取详情数据
                 this.getDetail()
             }else{
               this.setStoreId(usuallyStoreId)
             }
-
-
           }else{
-            console.log('shareStoreId和usuallyStoreId不一致')
             if(usuallyStoreId) {
               //不一致：选择门店弹窗
               //设置当前门店和经常访问门店相关信息
-              console.log('不一致2：选择门店弹窗')
               await this.setCurrentStoreInfo(this.shareStoreId)
               await this.setUsuallyStoreInfo()
-              console.log('usuallyStoreInfo And shareStoreInfo 2',this.usuallyStoreInfo,this.shareStoreInfo)
               if(this.usuallyStoreInfo.isBusiness == 0 && this.shareStoreInfo.isBusiness == 0 ) {
                 //当前门店和经常访问都休息弹出休息弹窗
                 this.showRestStorePopup()
@@ -458,10 +441,8 @@
 
             }else {
               //usuallyStoreId为空，第一次访问为空，直接弹出确认门店弹窗
-              console.log('usuallyStoreId不存在')
               const storeInfo =  await this.getOneStoreInfoByStoreId(this.shareStoreId)
               this.setStoreItemInfo(storeInfo) //设置当前门店
-               console.log('+++++++++++++分享门店信息+++++++++++++++++++++++++++++++',storeInfo.isBusiness)
               if(storeInfo.isBusiness == 0){
                 //分享的休息弹出休息弹出
                 this.showRestStorePopup()
@@ -477,21 +458,15 @@
          * @description 未授权定位确认门店
          */
         async comfirmStoreForNoAuthLocate() {
-          console.log('未授权定位')
             const locationInfo = await this.setUserLocationInfo() //显示定位授权弹窗设置用户相关定位信息：经纬度，详情地址
-            console.log('locationInfo',locationInfo)
             if(locationInfo) {
               //同意授权
-              console.log('同意授权')
               const storeInfo =  await this.getOneStoreInfoByStoreId(this.shareStoreId)
-              console.log('未授权定位2',storeInfo)
               this.setStoreItemInfo(storeInfo) //设置当前门店
               this.shownComfirmStoreDialog()//确认门店弹窗显示
             }else{
               //拒绝授权
-              console.log('拒绝授权')
               const storeInfo =  await this.getOneStoreInfoByStoreId(this.shareStoreId)
-              console.log('未授权定位2',storeInfo)
               this.setStoreItemInfo(storeInfo) //设置当前门店
               this.shownComfirmStoreDialog()//确认门店弹窗显示
             }
@@ -504,7 +479,6 @@
           const isAuthLocate = await this.isAuthorizedLocation() //获取定位授权情况
           if(isAuthLocate) {
             //已经授权定位
-            console.log('已经授权定位')
             this.comfirmStoreForAuthedLocate()
           }else{
           //未授权定位
@@ -518,9 +492,7 @@
        * @description 设置当前门店相关信息： 当前门店即分享门店
        */
       async setCurrentStoreInfo (currentStoreId) {
-        console.log('setCurrentStoreInfo',currentStoreId)
         const shareStoreItem = await this.findStoreItemByStoreId(currentStoreId)
-        console.log('setCurrentStoreInfo2222222222',shareStoreItem)
         this.$store.commit('setShareStoreInfo',shareStoreItem)
         this.$store.commit('setShareStoreId',currentStoreId) //存储分享分店Id到全局vuex
       },
@@ -530,7 +502,6 @@
        */
       async setUsuallyStoreInfo () {
         const usuallyStoreId = await this.getUsuallyStoreId()
-        console.log('getUsuallyStoreId',usuallyStoreId)
         const usuallyStoreItem = await this.findStoreItemByStoreId(usuallyStoreId)
         this.$store.commit('setUsuallyStoreInfo',usuallyStoreItem)
       },
@@ -541,7 +512,6 @@
           longitude: this.location.longitude,
           latitude: this.location.latitude
         })
-        console.log('findStoreItemByStoreId',res)
         if(res.code == Api.CODES.SUCCESS) {
             return res.data
         }
@@ -555,8 +525,6 @@
         //判断是否存在登录状态，已登录从api获取经常访问门店，未登录从缓存中读取
         if(this.$store.state.sessionId) {
           const res = await Api.index.queryStoreByLastest()
-          console.log('getUsuallyStoreId',res)
-
           if(res.code === Api.CODES.SUCCESS) {
             return res.data.storeId
           }else{
@@ -564,7 +532,6 @@
           }
         }else{
           //未登录
-        console.log('未登录',storeModel.getLatestStoreOFNoLogin())
         return storeModel.getLatestStoreOFNoLogin()
         }
 
@@ -574,29 +541,23 @@
        * @description 设置用户相关定位信息(经纬度，所在地详情等)
        */
       setUserLocationInfo () {
-        console.log('config',config)
         let amap = new AMapWX({ key: config.AMAP_KEY })
-        console.log('amap',amap)
         return new Promise ((resolve, reject) => {
           amap.getPoiAround({
             success: res => { //用户成功授权
               const locationInfo = res.markers[0] //当前用户定位定位相关信息
               const cityName =  res.poisData[0].cityname //用户定位当前城市
-              console.log('AMapWX',res)
-              console.log('cityname',cityName)
               this.longitude =locationInfo.longitude
               this.latitude = locationInfo.latitude
               this.$store.commit("setLocationInfo",locationInfo)  //用户定位相关信息存到vuex
               this.$store.commit("setcityname",cityName)
               this.$store.commit("setLocateCity",cityName)
-              console.log('cityname',this.locateCity)
               this.saveLocationToStorage(locationInfo)
               resolve(locationInfo)
             },
             // 引导用户设置定位权限
             fail: e => { //用户授权取消
               if ( e.errMsg === "getLocation:fail auth deny" || "getLocation:fail:auth denied") {
-                console.log('拒绝授权定位')
                 resolve(false)
               }else{
                 reject(e)
@@ -631,9 +592,7 @@
             longitude: this.location.longitude,
             latitude: this.location.latitude,
           })
-          console.log('getOneStoreInfoByStoreId',res)
            if(res.code == Api.CODES.SUCCESS) {
-              console.log('getOneStoreInfoByStoreId2',res.data.isBusiness)
               return res.data
           }
         },

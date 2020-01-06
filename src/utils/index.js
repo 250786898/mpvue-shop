@@ -166,7 +166,6 @@ export function checkUpdateApp() {
   if (wx.canIUse('getUpdateManager')) {
     const updateManager = wx.getUpdateManager()
     updateManager.onCheckForUpdate(function (res) {
-      console.log('onCheckForUpdate====', res)
       // 请求完新版本信息的回调
       if (res.hasUpdate) {
         console.log('res.hasUpdate====')
@@ -176,7 +175,6 @@ export function checkUpdateApp() {
             content: '升级至新版本，享受最新最全的活动内容',
             showCancel: false,
             success: function (res) {
-              console.log('success====', res)
               // res: {errMsg: "showModal: ok", cancel: false, confirm: true}
               if (res.confirm) {
                 // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启

@@ -34,10 +34,10 @@
     "pages/coupon/applicableGoods/main",
     "pages/coupon/fetch/main",
     "pages/coupon/select/main",
-    "pages/coupon/activity/main"
+    "pages/activity/main"
   ],
   "window": {
-    "backgroundTextStyle": "light",
+    "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "乐家生鲜",
     "navigationBarTextStyle": "black",

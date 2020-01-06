@@ -107,9 +107,11 @@
     },
     watch: {
       storeId: function () {
-        console.log('goodlostStoreId修改了aaaaaaaaaaaaaaaaaaa',this.storeId)
-        this.initData()
-        this.setTabsList()
+        console.log('goodlostStoreId修改了aaaaaaaaaaaaaaaaaaa')
+        if(this.storeId) {
+          this.initData()
+          this.setTabsList()
+        }
       }
     },
 
@@ -118,6 +120,7 @@
     onReachBottom: function(){
       if (this.tabLoading || this.isAllLoaded || this.loading ) return
       //还有数据，加载数据
+      this.loading =  true
       this.currentPage++
       this.getGoodsListByActivityId(this.storeId , this.activityId , this.currentPage )
     },
@@ -131,18 +134,22 @@
       this.setTabsList()
     },
 
+    /**
+     * @description  鉴定滚动事件，从而是否显示回到顶部按钮和当前定位显示
+     * */
+    onPageScroll(e) {
+      // this.getElementHeight('#goods-list')
+    },
+
 
     mounted() {
       let _this = this
-
-  　　setTimeout(function(){
+  　　 setTimeout(function(){
   　    　_this.getElementHeight('#goods-list')
-  　　}, 100)
-
-        if(this.storeId) {
-          this.setTabsList()
-          this.getGoodsListByActivityId()
-        }
+  　　 }, 100)
+      if(this.storeId) {
+        this.setTabsList()
+      }
     },
 
     methods: {
@@ -151,7 +158,6 @@
 　　　　 let _query = wx.createSelectorQuery();
 　　　　_query.select(id).boundingClientRect()
 　　　　_query.exec((res) =>{
-          console.log('#affix节点的上边界坐2222222222',res); // #affix节点的上边界坐
           const tTop = res[0] && res[0].top != null ? res[0].top : ''
           this.$store.commit('setIndexGoodsTop',tTop)
 　　　　 })
@@ -166,7 +172,6 @@
         const res = await goodsModel.findActivityByStoreId({
           storeId: this.storeId || ''
         })
-        console.log('res.code11111111111111111',res.code)
         if(res.code == Api.CODES.SUCCESS) {
           this.tab = res.data.activityList
           this.activityId = this.tab[0].id  //设置默认活动Id
@@ -187,24 +192,23 @@
       },
 
       getGoodsListByActivityId (storeId, activityId, pageNumber) {
-      this.tabLoading = true
       let promise
        return promise = goodsModel.findGoodsByActivity({
          storeId, activityId, pageNumber
         }).then(res => {
           if(res.code == Api.CODES.SUCCESS){
             var data = res.data
-            console.log('数据条用成功了',data.goodsList == null)
             if(data.goodsList != null) {
-              console.log('//有可以加载的数据了',data.goodsList)
               this.goodsList = this.goodsList.concat(data.goodsList)
             } else {
               //没有可以加载的数据了，显示到底
-              console.log('//没有可以加载的数据了，显示到底')
               this.isAllLoaded = true
             }
           }
-        }).then(() => this.tabLoading = false)
+        }).then(() => {
+          this.tabLoading = false
+          this.loading = false
+        })
       },
 
 
@@ -219,6 +223,7 @@
           wx.pageScrollTo({ scrollTop: ceilingDistance })
         }
         this.initTabData(index)
+        this.tabLoading = true
         this.getGoodsListByActivityId(this.storeId , this.activityId , this.currentPage )
       },
 

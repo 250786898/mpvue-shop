@@ -22,7 +22,6 @@ export default {
     box-sizing: border-box;
     background-color: #fff;
     align-items: flex-start;
-    margin-top: 20rpx;
     display: flex;
     align-items: center;
     border-bottom: 1px solid #eeeeee;
