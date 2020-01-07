@@ -2,7 +2,7 @@
   <div class="categoty">
     <category-header />
     <div class="main">
-      <category-aside :categoryList="primaryCateList" @getCurrentCategory="getPrimaryCateId" />
+      <category-aside :categoryList="primaryCateList" @getCurrentCategory="getPrimaryCateId" :currentIndex.sync="primaryCateIndex" />
       <category-main
         :secondaryCategoryList="SecondaryCateList"
         @getSecondaryCate="getSecondaryCateId"
@@ -43,7 +43,8 @@ export default {
       cateIndex: 0, //二级分类索引
       allGoodsList: [], //全部商品列表
       loadingAllGoods: true, //是否是加载全部商品
-      lock: true //加载
+      lock: true, //加载
+      primaryCateIndex:0//当前一级分页索引值
     };
   },
 
@@ -66,7 +67,19 @@ export default {
       const res = await categoryModel.findPrimaryCategory();
       console.log("所有一级分类", res.data);
       this.primaryCateList = res.data;
-      this.currentPrimaryId = this.primaryCateList[0].id;
+      if (this.$mp.page.options.id) {
+        console.log(this.$mp.page.options.id);
+        this.currentPrimaryId = this.$mp.page.options.id;
+        for(let i = 0;i<this.primaryCateList.length;i++){
+          if(this.primaryCateList[i].id==this.currentPrimaryId){
+            this.primaryCateIndex = i;
+            break;
+          }
+        }
+      } else {
+        this.primaryCateIndex = 0;
+        this.currentPrimaryId = this.primaryCateList[0].id;
+      }
       this.getSecondaryCateList();
     },
 
@@ -82,14 +95,14 @@ export default {
       if (res.data.length) {
         this.getAllCateGoodsList();
       } else {
-        console.log('没有二级分类');
+        console.log("没有二级分类");
         this.init();
-        this.currentSecondaryId="";
-        this.loadingAllGoods=false;
-        this.getGoodsData().then(res=>{
+        this.currentSecondaryId = "";
+        this.loadingAllGoods = false;
+        this.getGoodsData().then(res => {
           this.goodsList = res.data;
-        wx.hideLoading();
-        })
+          wx.hideLoading();
+        });
       }
     },
 
@@ -133,14 +146,16 @@ export default {
      * @description 点击一级分类获取当前一级分类id
      */
     getPrimaryCateId(val) {
-      wx.showLoading({
-        title: "加载中"
-      });
-      this.init();
       console.log("当前点击的一级id", val);
-      this.currentPrimaryId = val;
-      this.loadingAllGoods = true;
-      this.getSecondaryCateList();
+      if (this.currentPrimaryId !== val) {
+        wx.showLoading({
+          title: "加载中"
+        });
+        this.init();
+        this.currentPrimaryId = val;
+        this.loadingAllGoods = true;
+        this.getSecondaryCateList();
+      }
     },
 
     /**
@@ -222,8 +237,9 @@ export default {
   },
 
   onLoad() {
-    // Object.assign(this.$data, this.$options.data());
     this.getCategoryList();
+    console.log(this);  
+    console.log('id',this.$mp.page.options.id);
   }
 };
 </script>

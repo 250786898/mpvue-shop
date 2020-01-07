@@ -24,11 +24,15 @@ export default {
       default: () => {
        return [1,2,3,4,5]
       }
+    },
+    currentIndex:{
+      type:Number,
+      default:0
     }
   },
   data () {
     return {
-      currentIndex: 0 //当前所在栏目索引
+      // currentIndex: 0 //当前所在栏目索引
     }
   },
   methods: {
@@ -38,12 +42,12 @@ export default {
      */
     tabCategory (item,index) {
       this.$emit('getCurrentCategory',item.id)
-      this.currentIndex = index //设置当前索引
+      this.$emit('update:currentIndex',index)//设置当前索引
     }
   },
-  onLoad(){
-    this.currentIndex = 0;
-  }
+  // onLoad(){
+  //   this.currentIndex = 0;
+  // }
 }
 </script>
 
