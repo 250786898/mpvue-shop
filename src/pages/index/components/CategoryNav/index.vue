@@ -1,9 +1,9 @@
 <template>
   <div class="category">
     <template v-for="item in list" >
-      <div class="category-item" :style="itemWidth" v-bind:key="item.id" @click="navToCategory" >
-        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/20191128092643.png" alt="">
-        <span class="category-item__title">时令水果</span>
+      <div class="category-item" :style="itemWidth" v-bind:key="item.turId" @click="navToCategory(item.turnPage,item.turId)" >
+        <img :src="item.iconUrl" alt="">
+        <span class="category-item__title">{{item.iconTitle}}</span>
       </div>
     </template>
   </div>
@@ -33,9 +33,9 @@ export default {
   },
 
   methods: {
-    navToCategory(){
+    navToCategory(turnPage,turId){
       wx.navigateTo({
-        url: '/pages/category/main'
+        url: `/${turnPage}?id=${turId}`
       });
     }
   }

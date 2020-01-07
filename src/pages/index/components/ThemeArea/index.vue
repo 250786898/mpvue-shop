@@ -2,8 +2,8 @@
   <div class="theme">
 
      <!-- swiper -->
-     <IndexSwiper v-if="themeType == 'swiper'" />
-     <ADTheme v-else :ad-type="themeType" />
+     <IndexSwiper v-if="themeType == 'swiper'" :list="list"/>
+     <ADTheme v-else :ad-type="themeType" :list="list"/>
   </div>
 </template>
 
@@ -14,7 +14,11 @@ export default {
   props: {
     themeType: { //主题类型： swiper(轮播主题)  ADOne(左边仅一广告图类型) ADTwo(左边两张广告图类型)
       type: String,
-      default: 'ADOne'
+      default: 'swiper'
+    },
+    list: { //主题数据列表
+      type: Array,
+      dafault: () => ([])
     }
   },
 

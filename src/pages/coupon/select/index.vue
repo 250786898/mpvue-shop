@@ -7,7 +7,7 @@
 
     <div class="coupon-list">
       <div class="coupon-itew" v-for="item in couponList" v-bind:key="item.id">
-        <CouponCard type="select" :item="item" @selectCoupon="selectCoupon" />
+        <CouponCard type="select" :item="item" @selectCoupon="selectCoupon" :selectItem="selectCouponOfsubmitOrder" />
       </div>
 
     </div>
@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import CouponCard from '../components/CouponCard'
 export default {
   components: {
@@ -24,8 +25,12 @@ export default {
   data () {
     return {
       couponList: [], //优惠券列表
-      isNonuseCoupon: false //是否不适用优惠券
+      isNonuseCoupon: false //是否不使用用优惠券
     }
+  },
+
+  computed: {
+    ...mapState(['selectCouponOfsubmitOrder'])
   },
 
   mounted () {
@@ -56,6 +61,7 @@ export default {
      * @description 选中使用的优惠券
      */
     selectCoupon (item) {
+      this.isNonuseCoupon = false //修改不使用优惠券状态
       this.$store.commit('setSubmitOrderCoupon',item)
       wx.navigateBack({
         delta: 1 //返回的页面数，如果 delta 大于现有页面数，则返回到首页,

@@ -42,7 +42,7 @@
         <div class="use-btn"  v-if="type == 'use'" @click="useCoupon">立即使用</div>
       </div>
 
-      <radio class="item-radio" color="#01BD9F" v-if="type == 'select'" :checked="isSelect" @click="selectCoupon" ></radio>
+      <radio class="item-radio" color="#01BD9F" v-if="type == 'select'" :checked="item.historysId == selectItem.historysId" @click="selectCoupon" ></radio>
       <div class="cirle cirle-left"></div>
       <div class="cirle cirle-right"></div>
       <div class="failure-mask" v-if=" type  == 'used' ||  type  == 'expire'"></div>
@@ -62,14 +62,13 @@
       type: { //优惠券类型: base(正常) used(已使用) expire（过期） fetch（立即领取）  use（立即使用） select(选择优惠券)
         type: String,
         default: 'base'
+      },
+      selectItem: {
+        type: Object,
+        default: () => ({})
       }
     },
 
-    data () {
-      return {
-        isSelect: false //是否已经选中
-      }
-    },
 
     methods: {
       /**

@@ -7,14 +7,16 @@
       class="swiper-box"
       :style="swiperHeightStyle"
       indicator-color="rgba(255, 255, 255, .6)"
-      indicator-active-color="#FFFFFF">
-        <swiper-item
-          v-for="item in bannerList"
-          :key="item.activityId"
-        >
-          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/1574759383332.png" class="slide-image" mode="" />
-
+      indicator-active-color="#FFFFFF"
+    >
+      <block
+        v-for="item in list"
+        :key="item.turnId"
+      >
+        <swiper-item  v-if="item.state"  >
+          <img :src="item.bannerUrl" class="slide-image" mode="" @click="navToDetail(item.turnType,item.turnPage,item.turnId)"/>
         </swiper-item>
+      </block>
 
     </swiper>
   </div>
@@ -23,10 +25,15 @@
 <script>
 export default {
   props: {
-    bannerList: {
+    list: { //主题数据列表
       type: Array,
-      default: () => ([1,2,3,4])
+      dafault: () => ([])
     }
+  },
+
+
+  mounted () {
+    console.log('swiper',this.storeData)
   },
   data () {
     return {
@@ -38,7 +45,22 @@ export default {
       return this.swiperHeight ? `height: ${ this.swiperHeight }rpx;` : ''
     },
     showIndicatorDots () { //是否显示面板指示点
-      return this.bannerList && this.bannerList.length > 1 ? true : false
+      if(this.list) {
+         return this.list && this.list.length > 1 ? true : false
+      }
+    }
+  },
+   methods: {
+    /**
+     * @param {string} turnType 跳转的类型
+     * @param {string} turnUrl 跳转的链接
+     * @param {string} turnId 跳转的参数id
+     * @description 跳转详情
+     */
+    navToDetail (turnType,turnUrl,turnId) {
+      wx.navigateTo({
+        url: `/${turnUrl}?id=${turnId}`
+      })
     }
   }
 }

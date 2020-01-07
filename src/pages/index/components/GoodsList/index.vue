@@ -89,7 +89,6 @@
         isAllLoaded: false, //是否全部加载完毕
         tabLoading: false, //tab切换更新数据中状态
         loading: false, //是否向上触发更新数据中状态
-
       }
     },
     components: {
@@ -145,19 +144,21 @@
     mounted() {
       let _this = this
   　　 setTimeout(function(){
-  　    　_this.getElementHeight('#goods-list')
+  　    　_this.getElementHeight()
   　　 }, 100)
       if(this.storeId) {
         this.setTabsList()
       }
+      this.$bus.$on('setTimeActivityHeight', this.getElementHeight)
     },
 
     methods: {
 
-      getElementHeight(id = "") {
-　　　　 let _query = wx.createSelectorQuery();
-　　　　_query.select(id).boundingClientRect()
+      getElementHeight() {
+　　　　 let _query = wx.createSelectorQuery()
+　　　　_query.select('#goods-list').boundingClientRect()
 　　　　_query.exec((res) =>{
+          console.log('getElementHeight',res)
           const tTop = res[0] && res[0].top != null ? res[0].top : ''
           this.$store.commit('setIndexGoodsTop',tTop)
 　　　　 })

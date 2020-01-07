@@ -2,7 +2,7 @@
   <div class="bar">
     <div class="bar-input">
       <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/commom_search_png.png" class="search-icon">
-      <input placeholder="请输入商品名称" class="search-input" v-model="keyword">
+      <input placeholder="请输入商品名称" class="search-input" v-model="keyword" :auto-focus="true">
       <div class="cancel-icon" @click="clearSearch" v-if="keyword">
         <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/common_icon_close.png" >
       </div>
@@ -35,7 +35,10 @@ export default {
       default: false
     }
   },
-
+  onLoad () {
+    console.log('mixin',this.$data,typeof this.$options.data())
+    Object.assign(this.$data, this.$options.data()) //解决mpvue初始化未清空状态问题
+  },
   computed: {
 
   },
