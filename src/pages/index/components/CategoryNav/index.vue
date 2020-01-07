@@ -1,7 +1,7 @@
 <template>
   <div class="category">
     <template v-for="item in list" >
-      <div class="category-item" :style="itemWidth" v-bind:key="item.turId" @click="navToCategory(item.turnPage,item.turId)" >
+      <div class="category-item" :style="itemWidth" v-bind:key="item.turId" @click="navToCategory(item.turnPage,item.turnId)" >
         <img :src="item.iconUrl" alt="">
         <span class="category-item__title">{{item.iconTitle}}</span>
       </div>
@@ -33,9 +33,9 @@ export default {
   },
 
   methods: {
-    navToCategory(turnPage,turId){
+    navToCategory(turnPage,turnId){
       wx.navigateTo({
-        url: `/${turnPage}?id=${turId}`
+        url: `/${turnPage}?id=${turnId}`
       });
     }
   }
