@@ -8,12 +8,12 @@
     <!-- <goods-search-bar :location="location" :showtip="tipShown && !isCeiling"> </goods-search-bar> -->
 
     <div v-if="!showPageLoading" class="container-main">
-      <!-- <template v-if="isStoreStatusShow || showNoServiceStoreStatus">
+      <template v-if="isStoreStatusShow || showNoServiceStoreStatus">
            <StoreStatusShow  type="rest" v-if="showRestStoreStatus"/>
            <StoreStatusShow  type="noService" v-if="showNoServiceStoreStatus"/>
-      </template>-->
+      </template>
 
-      <!-- <template v-else> -->
+      <template v-else>
       <!-- Swiper -->
       <theme-area
         :theme-type="bannerThemeType"
@@ -39,7 +39,7 @@
         <goods-list :isCeiling="isCeiling" />
       </div>
 
-      <!-- </template> -->
+      </template>
     </div>
 
     <page-loading :show="showPageLoading" />
@@ -626,6 +626,8 @@ export default {
         .dispatch('fetchActivityCoupon', this.activityCouponInfo.id)
         .then(code => {
           if (code == 200001) {
+            // 领取成功
+            this.showActivityCouponDialog = false //隐藏优惠券弹窗
             wx.navigateTo({
               url: '/pages/coupon/index/main'
             })

@@ -69,6 +69,11 @@ export default {
     Object.assign(this.$data, this.$options.data()) //解决mpvue初始化未清空状态问题
   },
 
+  onUnload () {
+    console.log('onUnload')
+    this.$store.commit('setSubmitOrderCoupon',{}) //提交清空使用优惠券对象
+  },
+
   onShow() {
     this.getCheckoutData()
   },

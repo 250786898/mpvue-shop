@@ -1,7 +1,7 @@
 <template>
   <div class="goods-detail">
     <div class="goods-detail__title">商品详情</div>
-    <rich-text :nodes="detailInfo"></rich-text>
+    <rich-text :nodes="detailContent"></rich-text>
   </div>
 </template>
 
@@ -11,6 +11,13 @@ export default {
     detailInfo: {
       type:String,
       value: ''
+    }
+  },
+  computed: {
+    detailContent () {
+      if(this.detailInfo) {
+        return this.detailInfo.replace(/\<img/gi,'<img style="max-width:100%;height:auto" ')
+      }
     }
   }
 }

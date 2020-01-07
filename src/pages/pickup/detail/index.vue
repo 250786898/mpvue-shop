@@ -241,6 +241,7 @@
       padding-top: 86rpx;
       position: relative;
       z-index: 2;
+      line-height: 1.5;
     }
 
     &__barcode {
