@@ -10,8 +10,8 @@
         <span class="original-price" v-if="originalPrice">￥{{originalPrice}}</span>
       </div>
 
-      <div class="sell-null">
-        已售{{saleNum}}件
+      <div class="sell-null" v-if="virtualSalesNum">
+        已售{{saleNum+virtualSalesNum}}件
       </div>
      </div>
 
@@ -66,6 +66,10 @@ export default {
       default: 2
     },
     saleNum: { //销售数量
+      type: Number,
+      default: 0
+    },
+    virtualSalesNum: { //虚拟销售起始值
       type: Number,
       default: 0
     }

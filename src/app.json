@@ -41,7 +41,7 @@
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "乐家生鲜",
     "navigationBarTextStyle": "black",
-    "backgroundColor": "#0FD7C0"
+    "backgroundColor": "#f5f5f5"
   },
   "tabBar": {
     "color": "#CACACA",

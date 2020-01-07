@@ -18,7 +18,8 @@
       :end-time="endTime"
       :start-time="goodsDetailInfo.startTime"
       :is-sale="goodsDetailInfo.isSale"
-      :saleNum="goodsDetailInfo.virtualSalesNum + goodsDetailInfo.salesNum"
+      :saleNum="goodsDetailInfo.salesNum"
+      :virtualSalesNum="goodsDetailInfo.virtualSalesNum"
     />
 
 

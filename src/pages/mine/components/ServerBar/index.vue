@@ -6,7 +6,7 @@
         <span class="item-left__desc">我的优惠券</span>
       </div>
       <div class="item-right">
-        <span class="item-right__content">{{userInfo.couponNum}}张优惠券可用</span>
+        <span class="item-right__content" v-if="userInfo.couponNum">{{userInfo.couponNum}}张优惠券可用</span>
         <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/me_icon_blackarrow.png.png" alt="">
       </div>
     </div>

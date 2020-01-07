@@ -81,6 +81,7 @@ export default {
   },
 
   onPullDownRefresh() {
+    wx.showNavigationBarLoading()
     this.reloadOrderList()
   },
   methods: {
@@ -108,6 +109,7 @@ export default {
       .then(() => {
         this.loading = false
         wx.stopPullDownRefresh()
+        wx.hideNavigationBarLoading()
       })
     },
 

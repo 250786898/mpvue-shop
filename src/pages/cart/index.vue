@@ -111,7 +111,8 @@
 
 
     onPullDownRefresh() {
-      this.getCartList()  //下拉更新购物车列表
+      wx.showNavigationBarLoading()
+      this.loadCartData()  //下拉更新购物车列表
     },
 
 
@@ -126,12 +127,13 @@
         .then(res => {
           //所有请求完毕隐藏加载提示
            wx.hideLoading()
+           wx.hideNavigationBarLoading()
            wx.stopPullDownRefresh()
         }).catch(() => {
            wx.hideLoading()
+           wx.hideNavigationBarLoading()
            wx.stopPullDownRefresh()
         })
-          //获取购物车列表
       },
 
       getCartCouponGoodsList () {
