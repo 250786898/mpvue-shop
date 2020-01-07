@@ -1,5 +1,5 @@
 <template>
-  <scroll-view scroll-y scroll-with-animation @scrolltolower="getMoreGoodList" class="list">
+  <scroll-view scroll-y scroll-with-animation @scrolltolower="getMoreGoodList" :class="['list', [NavShow? '': 'full-list']]">
     <div v-if="isAllGoods">
       <div class="cate-item" v-for="(item,index) in goodsList" :item="item" :key="index">
         <div class="cate-item__title">{{item.title}}</div>
@@ -30,7 +30,11 @@ export default {
     isAllGoods: {
       type: Boolean,
       default: true
-    } //是否是全部商品页面
+    }, //是否是全部商品页面
+    NavShow:{
+      type:Boolean,
+      default:true
+    } //导航栏高度是否显示
   },
   components: {
     GoodsCard,
@@ -60,5 +64,8 @@ export default {
   .empty-goods-tip {
     padding: 94rpx 0 130rpx;
   }
+}
+.full-list{
+  height: calc(100vh - 104rpx);
 }
 </style>

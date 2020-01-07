@@ -54,9 +54,9 @@ export default {
     init() {
       this.goodsList = [];
       this.allGoodsList = [];
-      this.pageNumber=1;
+      this.pageNumber = 1;
       this.lock = true;
-      this.cateIndex=0;
+      this.cateIndex = 0;
     },
 
     /**
@@ -79,7 +79,18 @@ export default {
       });
       console.log("根据一级分类查询所有二级分类", res.data);
       this.SecondaryCateList = res.data;
-      this.getAllCateGoodsList();
+      if (res.data.length) {
+        this.getAllCateGoodsList();
+      } else {
+        console.log('没有二级分类');
+        this.init();
+        this.currentSecondaryId="";
+        this.loadingAllGoods=false;
+        this.getGoodsData().then(res=>{
+          this.goodsList = res.data;
+        wx.hideLoading();
+        })
+      }
     },
 
     /**
@@ -87,7 +98,6 @@ export default {
      */
     async getAllCateGoodsList() {
       if (this.cateIndex <= this.primaryCateList.length) {
-
         this.currentSecondaryId = this.SecondaryCateList.length
           ? this.SecondaryCateList[this.cateIndex].id
           : "";
@@ -106,10 +116,9 @@ export default {
             this.cateIndex++;
             this.getAllCateGoodsList();
           }
-
         });
       }
-    wx.hideLoading();
+      wx.hideLoading();
     },
 
     /**
@@ -153,7 +162,6 @@ export default {
         this.getAllCateGoodsList();
       }
     },
-
 
     /**
      * @description 请求商品列表数据
