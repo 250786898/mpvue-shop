@@ -10,14 +10,14 @@
         <div class="goods-name">
           {{ item.goodsName }}
         </div>
-        <div class="goods-desc" v-if="item.shareDescription">{{ item.shareDescription || '' }}</div>
+        <div class="goods-desc" v-if="item.goodsSellDesc">{{ item.goodsSellDesc || '' }}</div>
         <div class="limit-tag" v-if="item.activityLimitNum">限购</div>
       </div>
        <div class="card-main-bottom">
          <div class="card-main-bottom-left">
            <div class="price-area">
               <div class="current-price">
-                  <OnlinePrice :price="item.discountedPrice" />
+                  <OnlinePrice :price="item.discountedPrice" :signSize="24" :beforeSize="38" :afterSize="38"/>
               </div>
               <div class="line-price">￥{{item.scribingPrice}}</div>
            </div>

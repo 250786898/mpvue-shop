@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <!-- 0已取消 10待付款 20待提货 40已提货 -->
-    <pay-bar :orderId="this.order.orderId" v-if="order.state == 10"  @cancelOrder="cancelOrder" @payOrder="payOrder" />
+    <pay-bar :orderId="this.order.orderId" v-if="order.state == 10" :timeRemaining="order.times"  @cancelOrder="cancelOrder" @payOrder="payOrder" />
 
     <status-info :status="order.state" v-if="order.state != 10" />
 

@@ -1,7 +1,7 @@
 <template>
   <div class="goods-row-item__price">
     <div class="primary" :class="{ 'failure-price' : isFailure  }">
-      <OnlinePrice :signSize="24" :beforeSize="38" :afterSize="28" :price="item.onlinePrice" />
+      <OnlinePrice :signSize="24" :beforeSize="38" :afterSize="38" :price="item.onlinePrice" />
     </div>
     <div class="secondary" v-if="item.onlineScribingPrice">￥{{ item.onlineScribingPrice }}</div>
   </div>

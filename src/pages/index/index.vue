@@ -44,17 +44,18 @@
 
     <page-loading :show="showPageLoading" />
 
-    <!--  -->
     <SelectStoreDialog :show="showSelectStoreDialog" @comfirmStore="comfirmStore" />
-
-    <!--  -->
     <ComfirmStoreDialog :show="showComfirmStoreDialog" @comfirmStore="comfirmStore" />
 
-    <CouponDialog
-      :shown.sync="showActivityCouponDialog"
-      :imgSrc="activityCouponInfo.activityImg"
-      @fetchCoupon="fetchActivityCoupon"
-    />
+    <block v-for="(item,index) in activityCouponList" v-bind:key="item.id">
+      <CouponDialog
+        :shown="activityCouponDialogsStauts[index]"
+        :index="index"
+        :imgSrc="item.activityImg"
+        @close="closeActivityCouponDialog"
+        @fetchCoupon="fetchActivityCoupon"
+      />
+    </block>
   </div>
 </template>
 
@@ -105,7 +106,8 @@ export default {
       tipShown: true, //搜索栏是否显示
       isCeiling: false, //商品列表组件是否吸顶
       storeData: {}, //门店相关数据，banner，分类等
-      activityCouponInfo: '', //优惠券活动信息
+      activityCouponList: [], //优惠券活动列表
+      activityCouponDialogsStauts: {}, //优惠券活动弹窗列表显示状态
       storeList: [] //门店列表
     }
   },
@@ -610,24 +612,37 @@ export default {
         storeId: this.storeId
       })
       if (res.code === Api.CODES.SUCCESS) {
-        const activityCouponImg = res.data.shopCouponActivitys[0].activityImg
-        if (activityCouponImg) {
-          this.activityCouponInfo = res.data.shopCouponActivitys[0]
-          this.showActivityCouponDialog = true //优惠券弹窗显示
-        }
+        this.activityCouponList = res.data.shopCouponActivitys //获取赋值活动优惠券列表
+        let defaultCouponDialogStatus = [] //定义默认优惠券弹窗状态
+        this.activityCouponList.forEach( (item,index) => { //默认全部显示
+          this.$set(this.activityCouponDialogsStauts,index,true)
+          defaultCouponDialogStatus.push(true)
+        })
+
+        //  = defaultCouponDialogStatus
       }
     },
 
     /**
+     * @param {number} couponDialogIndex 优惠券弹窗操作的的索引
+     * @description 关闭优惠券弹窗
+     */
+    closeActivityCouponDialog (couponDialogIndex) {
+      // this.$set(this.activityCouponDialogsStauts,couponDialogIndex,false)
+      this.activityCouponDialogsStauts[couponDialogIndex] = false
+    },
+
+    /**
+     * @param {number} couponDialogIndex 优惠券弹窗操作的的索引
      * @description 获取活动优惠券
      */
-    fetchActivityCoupon() {
+    fetchActivityCoupon(couponDialogIndex) {
       this.$store
-        .dispatch('fetchActivityCoupon', this.activityCouponInfo.id)
+        .dispatch('fetchActivityCoupon', this.activityCouponList[couponDialogIndex].id)
         .then(code => {
           if (code == 200001) {
             // 领取成功
-            this.showActivityCouponDialog = false //隐藏优惠券弹窗
+           this.activityCouponDialogsStauts[couponDialogIndex] = false //隐藏当前优惠券弹窗
             wx.navigateTo({
               url: '/pages/coupon/index/main'
             })

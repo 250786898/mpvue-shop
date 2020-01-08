@@ -1,12 +1,12 @@
 <template>
   <div class="container">
-    <Top-bg :imgSrc="activityInfo.activityImg" />
+    <Top-bg :imgSrc="activityInfo ? activityInfo.activityBanner : '' " />
     <div class="container-main">
       <template v-if="couponList && couponList.length > 0">
         <coupon-list :list="couponList" />
       </template>
       <template v-else>
-        <EmptyIcon />
+        <EmptyIcon :title="'您来晚了,优惠券已枪光~'"/>
       </template>
     </div>
     <to-home />
@@ -20,7 +20,7 @@ import TopBg from './components/TopBg'
 import CouponList from './components/CouponList/index'
 import toCoupon from './components/ToCoupon'
 import toHome from './components/toHome'
-import EmptyIcon from './components/EmptyGoodsTip'
+import EmptyIcon from './components/EmptyCouponTip'
 import CouponModel from '@/model/coupon'
 import { Api } from '@/http/api'
 const couponModel = new CouponModel()
@@ -55,7 +55,7 @@ export default {
         title: '加载中'
       })
       const res = await couponModel.getActivityCoupon({
-        activityId: '6615598898796830720'
+        activityId: this.$mp.page.options.id ? this.$mp.page.options.id : ''
       })
       wx.hideLoading()
       console.log('1', res.data.shopCoupons)

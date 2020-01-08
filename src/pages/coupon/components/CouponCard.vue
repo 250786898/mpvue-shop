@@ -7,7 +7,7 @@
 
           <div class="card-left-main">
             <div class="coupon-price-box">￥<span class="price">{{item.couponMoney}}</span></div>
-            <div class="coupon-condition">满{{item.eliyibility}}元减{{item.couponMoney}}</div>
+            <div class="coupon-condition">{{item.couponEliyibilityName}}</div>
           </div>
 
         </div>
@@ -15,7 +15,8 @@
           <div class="card-right-desc">
             <div class="coupon-title">{{item.couponName}}</div>
           </div>
-          <div class="coupon-date">{{item.startDate}} - {{item.stopDate}}</div>
+          <div class="coupon-date" v-if="item.applyDateStatus == 0">{{item.startDate}} - {{item.stopDate}}</div>
+          <div class="coupon-date" v-else>有效期{{item.applyDays}}天</div>
         </div>
       </div>
       <div class="coupon-card-buttom">
@@ -131,7 +132,7 @@
         box-sizing: border-box;
         text-align:center;
         width: 202rpx;
-        justify-content: center;
+        justify-content: space-between;
         font-size:38rpx;
         margin-right:20rpx;
         display: flex;
@@ -141,7 +142,10 @@
           border-right:2rpx dashed #DDDDDD;
           content: ' ';
           display: block;
-          margin-left: 28rpx;
+        }
+        &-main{
+          width: 100%;
+          justify-content: center;
         }
         .coupon-price-box{
           color: #FF7200;

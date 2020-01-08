@@ -28,7 +28,7 @@
         </div>
         <div class="total-price">
            <span class="total-title">合计:</span>
-           <OnlinePrice :price="item.payment" :signSize="22" :beforeSize="32" :afterSize="24" :isBlod="true" />
+           <OnlinePrice :price="item.payment" :color="'#333333'" :signSize="22" :beforeSize="32" :afterSize="32" :isBlod="true" />
         </div>
       </div>
       <div class="btn-group" v-if="item.state == 20 || item.state == 10">

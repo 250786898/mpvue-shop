@@ -1,6 +1,6 @@
 <template>
   <div class="coupon-item">
-    <div>满{{item.eliyibility}}减{{item.couponMoney}}元</div>
+    <div>{{item.couponEliyibilityName}}</div>
     <div class="coupon-item-circle"></div>
   </div>
 </template>

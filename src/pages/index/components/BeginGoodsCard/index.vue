@@ -8,7 +8,7 @@
     </div>
 
     <div class="weui-media-box__title">{{ item.goodsName }}</div>
-    <div class="weui-media-box__desc" v-if="item.shareDescription">{{ item.shareDescription || '' }}</div>
+    <div class="weui-media-box__desc" v-if="item.goodsSellDesc">{{ item.goodsSellDesc || '' }}</div>
 
     <div class="goods-item-main">
       <div class="counter" v-if="currentGoodsCartNum > 0">

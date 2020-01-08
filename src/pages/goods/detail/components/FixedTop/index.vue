@@ -1,7 +1,7 @@
 <template>
   <div class="fixed-wrap" v-if="fiexedShow">
     <img :src="goodsBanner[0]" mode="aspectFit" class="goods-img" >
-    <OnlinePrice :price="currentPrice" />
+    <OnlinePrice :price="currentPrice" :signSize="38" :beforeSize="60" :afterSize="60" />
   </div>
 </template>
 

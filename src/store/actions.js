@@ -10,6 +10,7 @@ const storeModel = new StoreModel()
 export default {
 
   login({ commit, dispatch }, payload) {
+    console.log('login',payload)
     commit('setSessionId', payload)
     // dispatch('setUsuallyStoreId')
     dispatch('updateCartNum')

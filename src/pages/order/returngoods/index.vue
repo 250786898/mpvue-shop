@@ -1,7 +1,7 @@
 <template>
   <div class>
     <goods-card :goodList="goodList" @changeGoodsStatus="changeGoodsStatus" />
-    <button type="primary" class="sure-button" @click="submit">确认退货商品</button>
+    <button type="primary" class="sure-button" @click="submit">确定退货商品</button>
   </div>
 </template>
 

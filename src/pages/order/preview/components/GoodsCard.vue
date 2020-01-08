@@ -10,7 +10,7 @@
           <!-- <div class="pickup-time">可提货</div> -->
         </div>
         <div class="card-main-content">
-          <OnlinePrice :price="item.goodsPayPrice" />
+          <OnlinePrice :price="item.goodsPayPrice" :signSize="20" :beforeSize="32" :afterSize="32" />
           <div class="goods-num">
           数量 ×{{ item.goodsNum || 0 }}
           </div>

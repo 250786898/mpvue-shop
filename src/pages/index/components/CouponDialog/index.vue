@@ -13,9 +13,13 @@
 <script>
   export default {
     props: {
-      shown: {
+      shown: {//当前弹窗是否显示
         type: Boolean,
         default: true
+      },
+      index: { //当前优惠券弹窗索引
+        type: Number,
+        default: 0
       },
       imgSrc: { //优惠券图片
         type: String,
@@ -29,7 +33,7 @@
        */
       hide() {
         console.log('hide')
-        this.$emit('update:shown',false)
+        this.$emit('close',this.index)
       },
 
       /**
@@ -37,7 +41,7 @@
        */
       fetchCoupon () {
         console.log('fetchCoupon')
-        this.$emit('fetchCoupon')
+        this.$emit('fetchCoupon',this.index)
       }
     }
   }
@@ -64,18 +68,18 @@
     justify-content: center;
     &-img{
       position: relative;
-      width: 600rpx;
-      height: 800rpx;
+      // width: 600rpx;
+      // height: 800rpx;
     }
     img {
-      width: 100%;
-      height: 100%;
+      // width: 100%;
+      // height: 100%;
     }
     &__footer {
       position:absolute;
       right:20rpx;
       text-align:center;
-      top:-24rpx;
+      top:-70rpx;
     }
   }
 </style>

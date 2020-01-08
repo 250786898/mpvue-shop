@@ -23,7 +23,12 @@
 
     data () {
       return {
-        couponInfo: {} //优惠券相关信息
+        couponInfo: {//优惠券相关信息
+          expireSoonNum: 0,
+          normalList: [],
+          useList: [],
+          expiredList: []
+        }
       }
     },
 

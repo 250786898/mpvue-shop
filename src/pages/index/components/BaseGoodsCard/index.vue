@@ -14,7 +14,7 @@
       <div class="weui-media-box__bd weui-media-box__bd_in-appmsg">
         <div class="goods-maim-content">
           <div class="weui-media-box__title">{{ item.goodsName }}</div>
-          <div class="weui-media-box__desc" v-if="item.shareDescription">{{ item.shareDescription || '' }}</div>
+          <div class="weui-media-box__desc" v-if="item.goodsSellDesc">{{ item.goodsSellDesc || '' }}</div>
           <div class="limit-tag" v-if="item.activityLimitNum">限购</div>
         </div>
 

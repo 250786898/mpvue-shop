@@ -33,6 +33,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import { resgiterOrLogin } from '@/utils/index'
 export default {
   props: {
     adType:{ //广告类型： ADOne(左边单独一张AD，两边两张) ADTwo(左右各两张AD)
@@ -45,6 +47,10 @@ export default {
     }
   },
 
+  computed: {
+    ...mapState(['sessionId'])
+  },
+
   methods: {
     /**
      * @param {string} turnType 跳转的类型
@@ -52,10 +58,28 @@ export default {
      * @param {string} turnId 跳转的参数id
      * @description 跳转详情
      */
-    navToDetail (turnType,turnUrl,turnId) {
-      wx.navigateTo({
-        url: `/${turnUrl}?id=${turnId}`
-      })
+     navToDetail(turnType, turnUrl, turnId) {
+      if (turnType == 1) {
+        //跳转商品详情类型
+        wx.navigateTo({
+          url: `/${turnUrl}?id=${turnId}&type=2`
+        })
+      } else if (turnType == 2) {
+        //跳转活动界面
+        if (!this.sessionId) {
+          //未登录
+          resgiterOrLogin()
+          return
+        }
+        wx.navigateTo({
+          url: `/${turnUrl}?id=${turnId}`
+        })
+      } else {
+        //其他类型
+        wx.navigateTo({
+          url: `/${turnUrl}?id=${turnId}`
+        })
+      }
     }
   }
 }

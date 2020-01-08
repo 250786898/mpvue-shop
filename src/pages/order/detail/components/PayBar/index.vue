@@ -2,7 +2,7 @@
   <div class="bar">
     <div class="pay-time-remaining">
       <span >支付剩余时间</span>
-      <span class="timer"> 300S</span>
+      <span class="timer">{{timeRemaining}}S</span>
     </div>
     <div class="bar-tip">请在订单提交后，尽快付款，超时订单将自动取消</div>
     <div class="btn-group">
@@ -14,7 +14,42 @@
 
 <script>
 export default {
+  props: {
+    timeRemaining: { //支付剩余时间
+      type: Number,
+      default: 300
+    }
+  },
+
+  data () {
+    return {
+      countdownTimer: null //倒计时定时器
+    }
+  },
+
+  mounted() {
+    console.log('payTime',this.timeRemaining)
+    this.startCountdown()
+  },
+
   methods: {
+
+    /**
+     * @description 开始倒计时支付时间
+     */
+    startCountdown () {
+      if(this.timeRemaining <=0 ) return false
+      clearInterval(this.countdownTimer)
+      this.countdownTimer = setInterval(() => {
+        this.timeRemaining--
+        if (this.timeRemaining === 0) {
+          this.$emit('cancelOrder')
+          clearInterval(this.countdownTimer)
+        }
+      }, 1000)
+
+    },
+
     /**
      * @description 取消订单
      */

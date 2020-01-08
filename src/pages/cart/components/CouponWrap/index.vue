@@ -15,7 +15,7 @@
           <div class="grayarrow-icon-box">
             <span class="grayarrow-icon__text">去凑单</span>
             <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/cart-coupon-scrollbg.png" class="grayarrow-icon__bg" alt="">
-            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/cart-coupon_icon_arrow.png.png" class="grayarrow-icon__main" mode="aspectFit">
+            <image src="/static/images/right-cart@coupon.png" class="grayarrow-icon__main" mode="aspectFit" />
           </div>
         </div>
     </div>
@@ -78,8 +78,8 @@ export default {
   height:264rpx;
   background:rgba(255,255,255,1);
   border-radius:10rpx;
-  margin-bottom: 20rpx;
   box-sizing: border-box;
+  margin-top: 20rpx;
   &-coupon{
     padding-left: 20rpx;
     height: 72rpx;
