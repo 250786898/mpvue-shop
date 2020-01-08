@@ -1,17 +1,18 @@
-<!--
- * @description:
- -->
-<!--
- * @description:底部撤销售后
- -->
+
 <template>
   <div class="bar">
-    <button type="default" class="bar-button">撤销售后</button>
+    <button type="default" class="bar-button" @click="cancel">撤销售后</button>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  methods:{
+    cancel(){
+      this.$emit('cancel')
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped >

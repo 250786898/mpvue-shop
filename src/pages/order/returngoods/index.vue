@@ -50,14 +50,14 @@ export default {
      * @description 提交所选择的商品
      */
     submit() {
-      let checkedGoodsList = JSON.stringify(this.goodList.filter((item)=>{
+      let checkedGoodsList = this.goodList.filter((item)=>{
           return item.checked
-          }))
+          })
       if (checkedGoodsList.length) {
         wx.navigateTo({
           url: `/pages/order/returnapply/main?id=${
             this.orderId
-          }&list=${checkedGoodsList}`
+          }&list=${JSON.stringify(checkedGoodsList)}`
         });
       }else{
         wx.showToast({

@@ -3,7 +3,6 @@
     <div class="proof-item">
       <span class="proof-item__label">退货/退款原因</span>
       <div class="proof-item-option">
-        <!-- <span>请选择</span> -->
         <picker
           @change="onReasonChange"
           :value="reason"
@@ -21,6 +20,7 @@
     <div class="proof-item">
       <span class="proof-item__label">退货说明</span>
       <!-- <span class="proof-item__text">说明</span> -->
+      <input type="text" placeholder="选填" v-model="explanation" class="proof-item__text">
     </div>
     <div class="proof-item proof-upload">
       <span class="proof-item__label">上传凭证</span>
@@ -43,7 +43,8 @@ export default {
     return {
       reasonArray: [], //原因列表
       reason: "", //原因
-      image: "" //上传图片列表
+      image: "", //上传图片列表
+      explanation:"" //退货说明
     };
   },
   methods: {
@@ -123,6 +124,7 @@ export default {
     &__text {
       font-size: 30rpx;
       color: #828282;
+      text-align: right;
     }
     &__upload {
       margin-top: 30rpx;

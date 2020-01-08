@@ -77,7 +77,7 @@ export default {
   display: flex;
   align-items: center;
   padding: 40rpx 15rpx;
-  border-bottom: 2rpx solid #ccc;
+  border-bottom: 2rpx solid #E4E4E4;
   &:nth-last-of-type(1) {
     border-bottom: none;
   }

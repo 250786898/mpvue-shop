@@ -4,7 +4,7 @@
     <navigator :url="'/pages/order/returndetail/main?id=' + orderInfo.refundId">
       <div class="order-card-goods">
         <div class="order-card-goods__img">
-          <img v-for="(item,index) in  orderInfo.goodsImage" :src="item" alt :key="index" />
+          <img v-for="(item,index) in  imgList" :src="item" alt :key="index" />
         </div>
         <div class="order-card-goods__more">
           <span>共{{orderInfo.goodsImage.length}}件</span>
@@ -28,6 +28,12 @@ export default {
         return {};
       }
     } //订单基本信息
+  },
+  computed:{
+    imgList(){
+      const imgList = this.orderInfo.goodsImage.slice(0,4);
+      return imgList
+    }
   }
 };
 </script>
