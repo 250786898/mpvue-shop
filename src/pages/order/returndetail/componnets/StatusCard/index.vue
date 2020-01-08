@@ -22,13 +22,8 @@ export default {
       type: String,
       default: ""
     } //订单时间
-  },
-  methods: {
-    getStatus() {
-          return "退款成功";
-
-    }
   }
+  
 };
 </script>
 

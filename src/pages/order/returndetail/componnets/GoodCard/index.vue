@@ -9,7 +9,7 @@
           <online-price
             :signSize="22"
             :beforeSize="32"
-            :afterSize="24"
+            :afterSize="32"
             :price="item.onlinePrice"
           />
           <span>数量：x{{item.goodsNum}}</span>

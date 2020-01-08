@@ -4,7 +4,7 @@
     <div class="amount-total amount-card">
       <div class="amount-total__text amount-card__text">申请退款总金额</div>
       <div class="amount-total__info amount-card__info">
-        <online-price :signSize="22" :beforeSize="34" :afterSize="24" :price="amount" />
+        <online-price :signSize="22" :beforeSize="34" :afterSize="34" :price="amount" />
       </div>
     </div>
     <div class="amount-wechat amount-card">
@@ -13,8 +13,8 @@
         <online-price
           :signSize="30"
           :beforeSize="30"
-          :afterSize="24"
-          :price="113"
+          :afterSize="30"
+          :price="wechatAmount"
           color="#333"
           :isbold="false"
         />
@@ -26,8 +26,8 @@
         <online-price
           :signSize="30"
           :beforeSize="30"
-          :afterSize="24"
-          :price="113"
+          :afterSize="30"
+          :price="couponsAmount"
           color="#333"
           :isbold="false"
         />
@@ -43,7 +43,15 @@ export default {
     amount:{
       type:Number,
       default:0
-    }//默认总金额
+    },//默认总金额
+    wechatAmount:{
+      type:Number,
+      default:0
+    }, //微信金额
+    couponsAmount:{
+      type:Number,
+      default:0
+    } //优惠券金额
   },
   components: {
     OnlinePrice

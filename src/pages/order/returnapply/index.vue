@@ -23,7 +23,6 @@ export default {
     };
   },
   methods: {
-
     /**
      * @description 获取凭证信息
      */
@@ -35,47 +34,47 @@ export default {
      * @description 提交当前申请
      */
     async submit() {
-      if (!this.proof.refundReason) {
+      if (this.proof.refundReason && this.proof.goodsImageMore) {
+        let list = this.goodList.map(item => ({
+          id: item.id,
+          goodsNum: item.goodsNum
+        }));
+
+        wx.showLoading({ title: "提交中" });
+
+        let data = await Api.refund.applyReturn({
+          orderId: this.orderId,
+          refundReason: this.proof.refundReason,
+          goodsImageMore: this.proof.goodsImageMore,
+          goodsJson: JSON.stringify(list)
+        });
+
+        wx.hideLoading();
+        if (data.code === Api.CODES.SUCCESS) {
+          wx.showToast({
+            title: "申请成功"
+          });
+
+          setTimeout(() => {
+            wx.redirectTo({
+              url: `/pages/order/returns/main`
+            });
+          }, 1500);
+        } else if (data.code === 5010329) {
+          wx.showModal({
+            title: "提示",
+            content: "订单签收超过7天，不能为您提供售后退款服务",
+            showCancel: false,
+            cancelText: "知道了"
+          });
+        } else {
+          wx.showToast({ title: data.message, icon: "none" });
+        }
+      } else {
         return wx.showToast({
-          title: "请选择退货原因",
+          title: "请完整退货信息",
           icon: "none"
         });
-      }
-
-      let list = this.goodList.map(item => ({
-        id: item.id,
-        goodsNum: item.goodsNum
-      }));
-
-      wx.showLoading({ title: "提交中" });
-
-      let data = await Api.refund.applyReturn({
-        orderId: this.orderId,
-        refundReason: this.proof.refundReason,
-        goodsImageMore: this.proof.goodsImageMore,
-        goodsJson: JSON.stringify(list)
-      });
-
-      wx.hideLoading();
-      if (data.code === Api.CODES.SUCCESS) {
-        wx.showToast({
-          title: "申请成功"
-        });
-
-        setTimeout(() => {
-          wx.redirectTo({
-            url: `/pages/order/returns/main`
-          });
-        }, 1500);
-      } else if (data.code === 5010329) {
-        wx.showModal({
-          title: "提示",
-          content: "订单签收超过7天，不能为您提供售后退款服务",
-          showCancel: false,
-          cancelText: "知道了"
-        });
-      } else {
-        wx.showToast({ title: data.message, icon: "none" });
       }
     }
   },
@@ -83,7 +82,6 @@ export default {
     if (e.id) {
       this.orderId = e.id;
       this.goodList = JSON.parse(e.list);
-      console.log(this.goodList);
     }
   }
 };
