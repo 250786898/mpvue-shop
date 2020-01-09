@@ -6,8 +6,9 @@
     <!-- 退款明细 -->
     <total-amount
       :amount="details.refundAmount"
-      :wechatAmount="details.refundCouponAmount"
-      :couponsAmount="details.refundRealAmount"
+      :wechatAmount="details.refundRealAmount"
+      :couponsAmount="details.refundCouponAmount"
+      :amountDetailShow="details.state==7"
     />
 
     <!-- 订单商品 -->

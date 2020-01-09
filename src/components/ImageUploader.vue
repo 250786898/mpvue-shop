@@ -112,10 +112,11 @@
       }
       &__icon {
         position: absolute;
-        top: -12rpx;
-        right: -12rpx;
-        width: 36rpx!important;
-        height: 36rpx!important;
+        top: -10rpx;
+        right: -10rpx;
+        width: 20rpx!important;
+        height: 20rpx!important;
+        opacity: .5;
       }
     }
   }

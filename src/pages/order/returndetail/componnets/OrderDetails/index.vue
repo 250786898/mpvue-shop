@@ -5,18 +5,18 @@
       <span class="details-content__label">申请时间：</span>
       <span class="details-content__con">{{time}}</span>
     </div>
-      <div class="details-content" v-if="number" >
-        <span class="details-content__label">退款编号：</span>
-        <span class="details-content__con">{{number}}</span>
-      </div>
-      <div class="details-content" v-if="reason">
-        <span class="details-content__label">退款原因：</span>
-        <span class="details-content__con">{{reason}}</span>
-      </div>
-      <div class="details-content" v-if="count">
-        <span class="details-content__label">申请件数：</span>
-        <span class="details-content__con">{{count}}</span>
-      </div>
+    <div class="details-content" v-if="number">
+      <span class="details-content__label">退款编号：</span>
+      <span class="details-content__con">{{number}}</span>
+    </div>
+    <div class="details-content" v-if="reason">
+      <span class="details-content__label">退款原因：</span>
+      <span class="details-content__con">{{reason}}</span>
+    </div>
+    <div class="details-content" v-if="count">
+      <span class="details-content__label">申请件数：</span>
+      <span class="details-content__con">{{count}}</span>
+    </div>
   </div>
 </template>
 

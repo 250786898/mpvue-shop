@@ -13,7 +13,7 @@
       </div>
     </navigator>
     <div class="order-card-status">
-      <!-- <span class="order-card-status__operation">退货/退款</span> -->
+      <span class="order-card-status__operation" v-if="orderInfo.state==1 || orderInfo.state==4 || orderInfo.state==7">退货/退款</span>
       <span>{{orderInfo.stateInfo}}</span>
     </div>
   </div>
