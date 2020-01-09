@@ -15,7 +15,7 @@
           <div class="card-right-desc">
             <div class="coupon-title">{{item.couponName}}</div>
           </div>
-          <div class="coupon-date" v-if="item.applyDateStatus == 0">{{item.startDate}} - {{item.stopDate}}</div>
+          <div class="coupon-date" v-if="item.startDate">{{item.startDate}} - {{item.stopDate}}</div>
           <div class="coupon-date" v-else>有效期{{item.applyDays}}天</div>
         </div>
       </div>
@@ -77,7 +77,7 @@
        */
       navToApplicableGoods () {
         wx.navigateTo({
-          url: `/pages/coupon/applicableGoods/main?couponCode=${this.item.couponCode}`
+          url: `/pages/coupon/applicableGoods/main?couponCode=${this.item.historysId}`
         })
       },
 

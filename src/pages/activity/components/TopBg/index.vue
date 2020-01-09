@@ -17,7 +17,7 @@ export default {
 .activity-bg{
   position: absolute;
   width: 750rpx;
-  height: 595rpx;
+  height: 466rpx;
   top: 0;
   left: 0;
 }

@@ -82,14 +82,17 @@ export default {
 
 
   updateCartNum({ state, commit, dispatch }) {
-    Api.cart.count({
-      storeId: state.storeId
-    }).then(res => {
-      if (res.code == Api.CODES.SUCCESS) {
-        commit('setCartNum', res.data)
-        dispatch('syncCartTabbarBadge')
-      }
-    })
+    if(state.storeId) { //存在门店才更新购物车数量
+      Api.cart.count({
+        storeId: state.storeId
+      }).then(res => {
+        if (res.code == Api.CODES.SUCCESS) {
+          commit('setCartNum', res.data)
+          dispatch('syncCartTabbarBadge')
+        }
+      })
+    }
+
   },
 
   // 商品图标

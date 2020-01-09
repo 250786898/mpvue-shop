@@ -43,6 +43,17 @@ export default {
 
   mounted() {
     console.log('getActivityCouponList')
+    wx.showLoading({
+      title: '加载中'
+    })
+    this.getActivityCouponList()
+  },
+
+  onPullDownRefresh() {
+    wx.showLoading({
+      title: '加载中'
+    })
+    wx.showNavigationBarLoading()
     this.getActivityCouponList()
   },
 
@@ -51,9 +62,7 @@ export default {
      * @description 加载活动优惠券列表
      */
     async getActivityCouponList() {
-      wx.showLoading({
-        title: '加载中'
-      })
+      wx.showNavigationBarLoading()
       const res = await couponModel.getActivityCoupon({
         activityId: this.$mp.page.options.id ? this.$mp.page.options.id : ''
       })
@@ -63,6 +72,8 @@ export default {
         this.isShowFetchBtn = res.data.oneKeyCollection == 0 ? true : false
         this.activityInfo = res.data.shopCouponActivity
         this.couponList = res.data.shopCoupons
+        wx.hideNavigationBarLoading()
+        wx.stopPullDownRefresh()
         wx.setNavigationBarTitle({
           title: res.data.shopCouponActivity.activityName
         })
@@ -77,6 +88,7 @@ export default {
         .dispatch('fetchActivityCoupon', this.activityInfo.id)
         .then(code => {
           if (code == 200002) {
+            this.getActivityCouponList()
             this.isShowFetchBtn = false //隐藏领取按钮
           }
         })
@@ -91,9 +103,12 @@ export default {
   box-sizing: border-box;
   background: #fe4662;
   position: relative;
-  padding: 426rpx 20rpx 120rpx;
+  padding: 486rpx 20rpx 120rpx;
   &-main {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   .fetch-btn {
     position: fixed;

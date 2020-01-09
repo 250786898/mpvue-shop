@@ -1,5 +1,5 @@
 <template>
-  <div class="current-store-card">
+  <div class="current-store-card" @click="navToIndex">
     <div class="card-main">
         <div class="card-main__title">当前门店</div>
         <img :src="shopDetail.storeLogoImg" alt="" class="store-logo" mode="aspectFit" >
@@ -37,6 +37,16 @@ export default {
   },
   mounted () {
     console.log('storeInfo',this.storeInfo)
+  },
+  methods: {
+    /**
+     * @description 回到首页
+     */
+    navToIndex () {
+      wx.switchTab({
+        url: '/pages/index/main'
+      })
+    }
   },
   components: {
     StoreCard

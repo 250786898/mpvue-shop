@@ -37,20 +37,20 @@ class CouponModel {
   }
 
   /**
-   * @param {number} systemCode 优惠券编码
+   * @param {number} historyId 优惠券编码
    * @param {string} storeId 门店Id
    * @description 获取可使用商品
    */
-  getApplyGoods({ systemCode, storeId }) {
+  getApplyGoods({ historyId, storeId }) {
     return get({
       url: '/coupon/applyGoods',
-      data: { systemCode, storeId }
+      data: { historyId, storeId }
     })
   }
 
   /**
    * @param {number} systemCode 优惠券编码
-   * @description 获取可使用商品
+   * @description 获取可使用门店
    */
   getApplyStore({ systemCode }) {
     return get({

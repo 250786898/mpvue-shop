@@ -5,11 +5,12 @@
           <div class="store">
             <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/locate_icon.png" class="locate-icon" />
             <div class="store-main" @click="selectStore">
-              <span class="store-name">{{shopDetail.storeName}}</span>
+              <span class="store-name" v-if="shopDetail && shopDetail.storeName">{{shopDetail.storeName}}</span>
+              <span class="store-name" v-else>{{locateCity}}</span>
               <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/right_arrows_icon.png" class="right-arrows-icon" />
             </div>
           </div>
-          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/to_pick_up_icon.png" class="pickup-icon" alt="">
+          <!-- <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/to_pick_up_icon.png" class="pickup-icon" alt=""> -->
         </div>
         <div class="bar-label">
           <div class="bar-label-item">
@@ -24,7 +25,7 @@
       </div>
       <!-- -->
          <!-- -->
-        <div class="bar-search" id="ex" @click="navToSearchGoods" >
+        <div class="bar-search bar-search-top" id="ex" @click="navToSearchGoods" >
           <div class="search-box">
             <img src="/static/images/common_icon_serch.png" class="search_icon" alt="">
             <span class="search_text">搜索商品</span>
@@ -57,15 +58,16 @@ export default {
   　}, 100)
   },
   computed: {
-    ...mapState(['shopDetail','indexBarHeight']),
+    ...mapState(['shopDetail','indexBarHeight','locateCity']),
     storeDistance () {
-       if(this.shopDetail.storeDistance && this.shopDetail.storeDistance != 'undefined') {
+       if(this.shopDetail && this.shopDetail.storeDistance && this.shopDetail.storeDistance != 'undefined') {
         return this.shopDetail.storeDistance < 1 ? this.shopDetail.storeDistance * 1000 + 'm' : `${this.shopDetail.storeDistance}km`
       }else{
         return ''
       }
     }
   },
+
   data () {
     return {
       fixedSearchBar: false, //门店bar是否显示
@@ -73,11 +75,25 @@ export default {
     }
   },
 
+  onLoad () {
+    if (typeof this.$options.data === 'function') {
+      try {
+        Object.assign(this.$data, this.$options.data()) //解决mpvue初始化未清空状态问题
+      } catch (e) {
+        console.log(e)
+      }
+    }
+    let _this = this
+  　setTimeout(function(){
+  　  _this.setIndexBarElementHeight()
+      _this.setStoreBarElementHeight()
+  　}, 100)
+  },
+
   /**
    * @description  鉴定滚动事件，从而是否显示回到顶部按钮和当前定位显示
    * */
   onPageScroll(e) {
-    console.log('scrollTop',e.scrollTop)
     this.fixedSearchBar = e.scrollTop >= this.storeBarHeight // 超过悬浮搜索栏
     this.setIndexBarElementHeight('#ex')
   },
