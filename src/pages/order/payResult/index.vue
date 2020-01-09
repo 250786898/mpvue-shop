@@ -48,9 +48,12 @@ export default {
   button{
     width:470rpx;
     height:80rpx;
-    border:1rpx solid rgba(121,121,121,1);
+    line-height: 80rpx;
+    background: #ffffff;
+    border:1rpx solid #797979;
     border-radius:10rpx;
     color: #797979;
+    font-weight: bold;
     font-size: 34rpx;
     &:nth-of-type(1) {
       margin-bottom: 30rpx;

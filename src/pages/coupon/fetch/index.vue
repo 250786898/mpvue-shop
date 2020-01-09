@@ -50,7 +50,8 @@ export default {
       });
       const res = await couponModel.getGoodsDetailsCoupon({
         goodsId: this.$mp.page.options.id,
-        storeId: this.storeId
+        storeId: this.storeId,
+        restricted: 1
       })
       wx.hideLoading()
       if(res.code == Api.CODES.SUCCESS) {

@@ -16,7 +16,7 @@
       <div class="goods-info">
         <p class="goods-info__title">{{item.goodsName}}</p>
         <div class="goods-info-number">
-          <OnlinePrice :price="item.onlinePrice" :signSize="24" :beforeSize="38" :afterSize="28" />
+          <OnlinePrice :price="item.onlinePrice" :signSize="24" :beforeSize="38" :afterSize="38" />
           <span :style="getNumberColor">{{item.goodsNum}}</span>
         </div>
       </div>

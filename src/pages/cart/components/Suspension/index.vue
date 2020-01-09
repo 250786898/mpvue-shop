@@ -12,7 +12,7 @@
       <div class="weui-flex__item all-count-box">
         <div class="all-count">
           <div class="all-count__price">
-            <div class="all-count__desc">合计:</div><OnlinePrice :price="totalAmount" />
+            <div class="all-count__desc">合计:</div><OnlinePrice :price="totalAmount" :signSize="24" :beforeSize="38" :afterSize="38" />
           </div>
           <p v-if="totalAmount">已优惠:-￥{{ promisAmount || 0 }}</p>
         </div>
@@ -129,7 +129,7 @@ export default {
   line-height: 80rpx;
   text-align: center;
   color: #fff;
-  background: #AAAAAA;
+  background: #cccccc;
   &::after{
     border: none;
   }

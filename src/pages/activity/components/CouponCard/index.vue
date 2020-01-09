@@ -48,6 +48,7 @@ export default {
   margin-bottom: 20rpx;
   box-sizing: border-box;
   position: relative;
+  overflow: hidden;
   &-left{
     display: flex;
     margin-right: 30rpx;

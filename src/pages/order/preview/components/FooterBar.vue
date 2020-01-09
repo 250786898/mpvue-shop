@@ -3,7 +3,7 @@
   <div class="footer-bar">
     <div class="footer-bar-left">
        <span>应付款:</span>
-       <div class="price"><online-price :price="orderAmount" :signSize="29" :beforeSize="43" :afterSize="34" /></div>
+       <div class="price"><online-price :price="orderAmount" :signSize="29" :beforeSize="44" :afterSize="44" /></div>
     </div>
 
     <form report-submit @submit="uploadFormId" >

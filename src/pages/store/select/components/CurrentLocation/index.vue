@@ -30,7 +30,6 @@ export default {
     }
   },
   onLoad () {
-    console.log('currentShowcurrentShowcurrentShowcurrentShow2')
      this.amap = new AMapWX({ key: config.AMAP_KEY }) //初始化高德地图对象
      this.resetLocate()
   },
@@ -56,8 +55,6 @@ export default {
      * @description 重新定位当前位置
      */
     resetLocate () {
-      console.log('resetLocate')
-      console.log('amap',this.amap)
       this.relocationing = true //定位中
       this.amap.getPoiAround({
         success: res => {

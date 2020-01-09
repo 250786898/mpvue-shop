@@ -6,7 +6,7 @@
     </div>
 
     <div class="goods-name">{{ item.goodsName }}</div>
-    <div class="goods-desc" v-if="item.shareDescription">{{item.shareDescription}}</div>
+    <div class="goods-desc" v-if="item.goodsSellDesc">{{item.goodsSellDesc}}</div>
     <div class="limit">
       <div class="limit-label" v-if="item.activityLimitNum">限购{{item.activityLimitNum}}件</div>
     </div>
@@ -14,7 +14,7 @@
       <div class="card-footer-main">
         <div class="price-wrap">
           <div class="online-price">
-            <OnlinePrice :price="item.discountedPrice" :signSize="20" :beforeSize="32" :afterSize="24"/>
+            <OnlinePrice :price="item.discountedPrice" :signSize="20" :beforeSize="32" :afterSize="32"/>
           </div>
           <div class="scribing-price" v-if="item.scribingPrice">￥{{item.scribingPrice}}</div>
         </div>

@@ -1,10 +1,9 @@
 <template>
-  <div>
-    <div class="cart-container"  v-if="(cartItemResultList && cartItemResultList.length) || (failureGoodsList && failureGoodsList.length)">
+  <div  class="cart-container">
+    <!-- 优惠券模块 -->
+    <coupon-wrap :goods-list="goodsListByCoupon" :coupon-list="myCouponList" v-if="goodsListByCoupon.length && myCouponList.length"/>
 
-        <!-- 优惠券模块 -->
-        <coupon-wrap :goods-list="goodsListByCoupon" :coupon-list="myCouponList" v-if="goodsListByCoupon.length && myCouponList.length"/>
-
+    <div v-if="(cartItemResultList && cartItemResultList.length) || (failureGoodsList && failureGoodsList.length)">
         <!-- 正常商品列表 -->
         <base-cart
           :cartItemResultList="cartItemResultList"
@@ -366,7 +365,7 @@
 .cart-container{
   display: flex;
   flex-direction: column;
-  padding: 20rpx 0;
+  padding: 0rpx 0 20rpx;
   box-sizing: border-box;
   align-items: center;
 }

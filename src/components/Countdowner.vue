@@ -47,13 +47,13 @@
     },
 
     created () {
-     console.log('倒计时created')
+     console.log('倒计时created',this.countdown)
      this.startCountdown()
      this.startMsecDown()
     },
 
     mounted () {
-      console.log('倒计时mounted')
+      console.log('倒计时mounted',this.countdown)
     },
 
     onShow () { //mpvue框架第一次不会执行，第二次访问开始会一直执行
@@ -67,6 +67,7 @@
        * @description开始倒计时
        */
       startCountdown() {
+        console.log('startCountdown',this.countdown)
         if(this.countdown <= 0) return false
         clearInterval(this.countdownTimer)
         this.countdownTimer = setInterval(() => {

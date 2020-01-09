@@ -7,7 +7,7 @@
        <div class="goods-name">{{ item.goodsName }}</div>
        <div class="goods-content">
          <div class="price-wrap">
-           <OnlinePrice :price="item.discountedPrice" :signSize="24" :beforeSize="34" :afterSize="24" />
+           <OnlinePrice :price="item.discountedPrice" :signSize="22" :beforeSize="30" :afterSize="30" />
            <div class="scribing-price">￥{{item.scribingPrice}}</div>
          </div>
          <GoodsNumHandle :iconSize="54" :goodsInfo="item" />

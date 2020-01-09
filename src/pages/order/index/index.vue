@@ -61,14 +61,11 @@ export default {
       loading: false //数据正在加载中
     }
   },
-  // mounted () {
-  //   this.getOrderList()
-  //   console.log('getOrderList')
-  // },
-   onLoad(e) {
-    console.log('onLoad',e.status)
-    if (e.status) {
-      this.activeIndex = this.tabs.findIndex(item => item.status == e.status)
+
+   onShow() {
+     const options = this.$mp.page.options
+    if (options.status) {
+      this.activeIndex = this.tabs.findIndex(item => item.status == options.status)
     } else {
       this.activeIndex = 0
     }
