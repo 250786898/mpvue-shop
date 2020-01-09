@@ -12,15 +12,19 @@
           <view v-if="reason">{{ reasonArray[reason] && reasonArray[reason].reasonInfo }}</view>
           <view class="proof-item-option__arrow" v-else>
             请选择
-            <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/cate-downward-icon.png" alt />
+            <img
+              src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/cate-downward-icon.png"
+              alt
+            />
           </view>
         </picker>
       </div>
     </div>
     <div class="proof-item">
       <span class="proof-item__label">退货说明</span>
-      <!-- <span class="proof-item__text">说明</span> -->
-      <input type="text" placeholder="选填" v-model="explanation" class="proof-item__text">
+      <div class="proof-item__text">
+        <input type="text" placeholder="选填" v-model="explanation" placeholder-class="placeholder" />
+      </div>
     </div>
     <div class="proof-item proof-upload">
       <span class="proof-item__label">上传凭证</span>
@@ -44,7 +48,7 @@ export default {
       reasonArray: [], //原因列表
       reason: "", //原因
       image: "", //上传图片列表
-      explanation:"" //退货说明
+      explanation: "" //退货说明
     };
   },
   methods: {
@@ -68,7 +72,7 @@ export default {
      */
     getInfo() {
       this.$emit("getProof", {
-        refundReason: this.reasonArray[this.reason].id,
+        refundReason: this.reason ? this.reasonArray[this.reason].id : "",
         goodsImageMore: this.image
       });
     }
@@ -125,6 +129,15 @@ export default {
       font-size: 30rpx;
       color: #828282;
       text-align: right;
+      height: 30rpx;
+      line-height: 30rpx;
+      min-height: 30rpx;
+      border: none;
+      display: flex;
+      align-items: center;
+    }
+    input::-webkit-input-placeholder {
+      line-height: 1em;
     }
     &__upload {
       margin-top: 30rpx;

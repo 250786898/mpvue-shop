@@ -65,6 +65,7 @@ export default {
     &__price {
       display: flex;
       justify-content: space-between;
+      line-height: 26rpx;
       span {
         font-size: 28rpx;
         font-weight: 500;

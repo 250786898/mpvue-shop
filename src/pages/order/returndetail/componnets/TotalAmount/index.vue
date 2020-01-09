@@ -51,7 +51,11 @@ export default {
     couponsAmount:{
       type:Number,
       default:0
-    } //优惠券金额
+    }, //优惠券金额
+    amountDetailShow:{
+      type:Boolean,
+      default:false
+    } //总金额明细是否显示
   },
   components: {
     OnlinePrice
@@ -68,6 +72,7 @@ export default {
   &-card {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     &__text {
       font-size: 30rpx;
       font-weight: 500;
@@ -76,6 +81,7 @@ export default {
     }
     &__info {
       margin-right: 30rpx;
+      line-height: 30rpx;
     }
   }
   &-total {
