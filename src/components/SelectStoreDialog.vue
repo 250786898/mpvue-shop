@@ -12,7 +12,7 @@
     <radio-group  class="store-list" @change="checkoutStoreType">
 
        <label class="select-store-item">
-        <radio class="select-store-item-radio" :disabled="shareStoreInfo.isBusiness == 0" value="current" color="#0FD7C0" />
+        <radio class="select-store-item-radio" :disabled="shareStoreInfo.isBusiness == 0" value="current" color="#01BD9F" />
         <div class="select-store-item-main">
           <div class="select-store-item-header">
 
@@ -40,7 +40,7 @@
       </label>
 
         <label class="select-store-item">
-        <radio class="select-store-item-radio" value="usually" color="#0FD7C0" :disabled="usuallyStoreInfo.isBusiness == 0" />
+        <radio class="select-store-item-radio" value="usually" color="#01BD9F" :disabled="usuallyStoreInfo.isBusiness == 0" />
         <div class="select-store-item-main">
           <div class="select-store-item-header">
             <div class="select-store-item-header-main">

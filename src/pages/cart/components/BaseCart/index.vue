@@ -73,7 +73,7 @@ export default {
         //如果每一购物车商品都勾选则勾选
         return (
           this.cartItemResultList &&
-          this.cartItemResultList.every(item => item.isSelect)
+          this.cartItemResultList.filter(item => item.isSale).every(item => item.isSelect)
         )
       }
     }

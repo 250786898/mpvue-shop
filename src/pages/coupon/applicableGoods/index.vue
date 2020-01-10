@@ -88,7 +88,7 @@ export default {
           title: '加载中'
         })
         const res = await couponModel.getApplyGoods({
-          systemCode: this.$root.$mp.query.couponCode,
+          historyId: this.$root.$mp.query.couponCode,
           storeId: this.storeId
         })
          wx.hideLoading()
@@ -154,12 +154,6 @@ page{
     margin-top: 20rpx;
     .goods-list{
       width: 100%;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      .goods-item{
-        // flex:1;
-      }
     }
   }
   .goods-tabs__tip {

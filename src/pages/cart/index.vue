@@ -136,7 +136,6 @@
       },
 
       getCartCouponGoodsList () {
-        console.log('getCartCouponGoodsListgetCartCouponGoodsListgetCartCouponGoodsList222')
         return couponModel.getCartCouponGoodsList({
           storeId: this.storeId,
           restricted: 1
@@ -145,6 +144,7 @@
             this.goodsListByCoupon = res.data.goods
           }
         })
+
       },
 
        /**

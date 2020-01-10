@@ -4,7 +4,7 @@
     <search-store :city-name="cityName" />
     <current-store
       :item="currentStoreInfo"
-      v-if="currentStoreInfo.storeName && (storeId || shareStoreId)"
+      v-if="( storeId ) && currentStoreInfo.storeName"
     />
     <current-location />
     <nearby-stores

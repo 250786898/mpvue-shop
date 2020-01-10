@@ -11,9 +11,9 @@
           <!-- <span class="wait-pickup" v-else>×月×日可提货</span> -->
         </div>
       </div>
-      <!-- <div class="after-sell">
+      <div class="after-sell" v-if="item.refundState == 1 || item.refundState == 3" @click="navToAfterSell">
         <div class="after-sell-btn">查看售后</div>
-      </div>-->
+      </div>
 
       <div class="card-main-content">
         <OnlinePrice :price="item.onlinePrice" :signSize="22" :beforeSize="32" :afterSize="32" />
@@ -33,6 +33,16 @@ export default {
     item: {
       type: Object,
       default: () => ({})
+    }
+  },
+  methods: {
+    /**
+     * @description 查看售后
+     */
+    navToAfterSell () {
+      wx.navigateTo({
+        url: `/pages/order/returndetail/main?id='${this.item.refundId}`
+      })
     }
   }
 }

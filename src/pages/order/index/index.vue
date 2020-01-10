@@ -62,7 +62,7 @@ export default {
     }
   },
 
-   onShow() {
+   onLoad() {
      const options = this.$mp.page.options
     if (options.status) {
       this.activeIndex = this.tabs.findIndex(item => item.status == options.status)

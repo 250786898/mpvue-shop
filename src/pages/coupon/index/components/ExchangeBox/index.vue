@@ -18,6 +18,16 @@ export default {
       exchangeCouponNO: '' //优惠券兑换码
     }
   },
+  onUnload() {
+    console.log('onUnload')
+    if (typeof this.$options.data === 'function') {
+      try {
+        Object.assign(this.$data, this.$options.data());
+      } catch (e) {
+        console.log(e)
+      }
+    }
+  },
   methods: {
     /**
      * @description 兑换优惠券
@@ -63,6 +73,10 @@ export default {
   display: flex;
   align-items: center;
   box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9;
   .input-wrap{
     width:618rpx;
     height:74rpx;

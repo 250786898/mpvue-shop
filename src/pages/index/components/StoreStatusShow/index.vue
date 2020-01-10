@@ -1,9 +1,9 @@
 <template>
   <div class="empty-container">
       <img src="/static/images/store-status-icon.png" class="empty-icon">
-      <div class="empty-tip__text" v-if="rest">休息中，请到其他店铺逛逛吧~</div>
+      <div class="empty-tip__text" v-if="status == 'rest'">休息中，请到其他店铺逛逛吧~</div>
       <div class="empty-tip__text" v-else>当前定位不在服务范围内~</div>
-      <button type="primary" plain class="select-store-btn">随便逛逛</button>
+      <button type="primary" plain class="select-store-btn" @click="selectStore">随便逛逛</button>
   </div>
 </template>
 
@@ -13,6 +13,16 @@ export default {
     status: { //门店状态 rest(休息) noService(无服务)
       type: String,
       default: 'rest'
+    }
+  },
+  methods: {
+    /**
+     * @description 选择门店
+     */
+    selectStore () {
+      wx.navigateTo({
+        url: '/pages/store/select/main'
+      })
     }
   }
 }

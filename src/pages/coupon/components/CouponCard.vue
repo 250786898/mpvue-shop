@@ -15,13 +15,13 @@
           <div class="card-right-desc">
             <div class="coupon-title">{{item.couponName}}</div>
           </div>
-          <div class="coupon-date" v-if="item.applyDateStatus == 0">{{item.startDate}} - {{item.stopDate}}</div>
+          <div class="coupon-date" v-if="item.startDate">{{item.startDate}} - {{item.stopDate}}</div>
           <div class="coupon-date" v-else>有效期{{item.applyDays}}天</div>
         </div>
       </div>
       <div class="coupon-card-buttom">
         <div class="coupon-footer">
-          <div class="coupon-desc">指定商品满{{item.eliyibility}}元减{{item.couponMoney}}元</div>
+          <div class="coupon-desc">{{item.couponLimitStr}}</div>
           <div class="applicable" v-if="type == 'base' || type ==  'select' ">
             <span v-if="item.applyGoods != 0" @click="navToApplicableGoods">查看可用商品</span>
             <span v-if="item.applyGoods == 0 && item.applyStore != 0" @click="navToApplicableStore">查看适用门店</span>
@@ -77,7 +77,7 @@
        */
       navToApplicableGoods () {
         wx.navigateTo({
-          url: `/pages/coupon/applicableGoods/main?couponCode=${this.item.couponCode}`
+          url: `/pages/coupon/applicableGoods/main?couponCode=${this.item.historysId}`
         })
       },
 
@@ -107,7 +107,7 @@
        */
       navToApplicableStore () {
         wx.navigateTo({
-          url: `/pages/coupon/applicableStores/main?couponCode=${this.item.couponCode}`
+          url: `/pages/coupon/applicableStores/main?couponCode=${this.item.systemCode}`
         })
       }
 

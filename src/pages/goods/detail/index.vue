@@ -165,7 +165,7 @@ export default {
 
   watch: {
     storeId: function() {
-      if (this.getCurrentPageUrl() != 'pages/index/main') {
+      if (this.getCurrentPageUrl() == 'pages/goods/detail/main') {
         //只有当前页面发生才触发
         //确认门店开启分享功能
         wx.showShareMenu({
@@ -259,7 +259,8 @@ export default {
       const res = await couponModel.getGoodsDetailsCoupon({
         goodsId: this.$mp.page.options.id,
         storeId: this.storeId,
-        restricted: 0
+        restricted: 0,
+        typeNum: this.$mp.page.options.type ? 1 : 0
       })
       if (res.code == Api.CODES.SUCCESS) {
         this.couponList = res.data

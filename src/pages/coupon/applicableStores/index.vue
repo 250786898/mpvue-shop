@@ -60,7 +60,7 @@ page{
     padding: 40rpx 30rpx 20rpx;
     box-sizing: border-box;
     &:after{
-      border-bottom: 1px solid #929292;
+      border-bottom: 1rpx solid #F4F4F4;
       content: ' ';
       display: block;
       height: 1px;

@@ -37,20 +37,20 @@ class CouponModel {
   }
 
   /**
-   * @param {number} systemCode 优惠券编码
+   * @param {number} historyId 优惠券编码
    * @param {string} storeId 门店Id
    * @description 获取可使用商品
    */
-  getApplyGoods({ systemCode, storeId }) {
+  getApplyGoods({ historyId, storeId }) {
     return get({
       url: '/coupon/applyGoods',
-      data: { systemCode, storeId }
+      data: { historyId, storeId }
     })
   }
 
   /**
    * @param {number} systemCode 优惠券编码
-   * @description 获取可使用商品
+   * @description 获取可使用门店
    */
   getApplyStore({ systemCode }) {
     return get({
@@ -110,10 +110,10 @@ class CouponModel {
    * @param {number} restricted 是否限制优惠券条件名称
    * @description 获取活动优惠券
    */
-  getGoodsDetailsCoupon({ goodsId, storeId, restricted }) {
+  getGoodsDetailsCoupon({ goodsId, storeId, restricted, typeNum = 0 }) {
     return get({
       url: '/coupon/goodsDetailsCoupon',
-      data: {  goodsId, storeId, restricted }
+      data: {  goodsId, storeId, restricted, typeNum }
     })
   }
 

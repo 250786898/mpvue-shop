@@ -10,7 +10,7 @@
      </div>
     <div class="card-right">
       <div class="coupon-title">{{item.couponName}}</div>
-      <div class="coupon-date" v-if="item.applyDateStatus == 0">{{item.startDate}} - {{item.stopDate}}</div>
+      <div class="coupon-date" v-if="item.startDate">{{item.startDate}} - {{item.stopDate}}</div>
       <div class="coupon-date" v-else>有效期{{item.applyDays}}天</div>
     </div>
 
@@ -41,6 +41,7 @@ export default {
 .card{
   background: #ffffff;
   height:187rpx;
+  width: 650rpx;
   background:rgba(255,255,255,1);
   border-radius:10rpx;
   display: flex;

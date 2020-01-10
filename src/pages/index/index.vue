@@ -8,37 +8,36 @@
     <!-- <goods-search-bar :location="location" :showtip="tipShown && !isCeiling"> </goods-search-bar> -->
 
     <div v-if="!showPageLoading" class="container-main">
-      <template v-if="isStoreStatusShow || showNoServiceStoreStatus">
-           <StoreStatusShow  type="rest" v-if="showRestStoreStatus"/>
-           <StoreStatusShow  type="noService" v-if="showNoServiceStoreStatus"/>
+      <template v-if="showRestStoreStatus || showNoServiceStoreStatus">
+        <StoreStatusShow status="rest" v-if="showRestStoreStatus" />
+        <StoreStatusShow status="noService" v-if="showNoServiceStoreStatus" />
       </template>
 
       <template v-else>
-      <!-- Swiper -->
-      <theme-area
-        :theme-type="bannerThemeType"
-        :list="storeData.bannerList"
-        v-if="storeData && storeData.bannerShow"
-      />
+        <!-- Swiper -->
+        <theme-area
+          :theme-type="bannerThemeType"
+          :list="storeData.bannerList"
+          v-if="storeData && storeData.bannerShow"
+        />
 
-      <!-- 分类导航栏  -->
-      <category-nav
-        :list="storeData.classList"
-        :numOfRow="storeData.goodsClassType + 2"
-        v-if="storeData && storeData.goodsClassShow"
-      />
+        <!-- 分类导航栏  -->
+        <category-nav
+          :list="storeData.classList"
+          :numOfRow="storeData.goodsClassType + 2"
+          v-if="storeData && storeData.goodsClassShow"
+        />
 
-      <theme-area
-        :theme-type="adverThemeType"
-        :list="storeData.advertisementList"
-        v-if="storeData && storeData.advertisementShow"
-      />
+        <theme-area
+          :theme-type="adverThemeType"
+          :list="storeData.advertisementList"
+          v-if="storeData && storeData.advertisementShow"
+        />
 
-      <!-- 商品列表 -->
-      <div class="goods-list-container">
-        <goods-list :isCeiling="isCeiling" />
-      </div>
-
+        <!-- 商品列表 -->
+        <div class="goods-list-container">
+          <goods-list :isCeiling="isCeiling" />
+        </div>
       </template>
     </div>
 
@@ -64,7 +63,7 @@ import { mapState } from 'vuex'
 import { Api } from '@/http/api'
 import { AMapWX } from '@/utils/amap-wx'
 import config from '@/config'
-import { resgiterOrLogin } from '@/utils'
+import { resgiterOrLogin, getCurrentRouter } from '@/utils'
 import FixedTopBar from './components/FixedTopBar'
 import GoodsSearchBar from '@/components/GoodsSearchBar'
 import CategoryNav from './components/CategoryNav'
@@ -143,13 +142,14 @@ export default {
   watch: {
     storeId: function() {
       //确认门店开启分享功能
+      console.log('watch storeId change')
       wx.showShareMenu({
         withShareTicket: true
       })
       this.loadAndShowCouponDialog() //加载显示优惠券弹窗
+      this.$store.dispatch('updateCartNum')
       this.updateStoreInfo() //更新门店相关信息
       this.updateStoreData() //更新新的门店数据
-      this.hidePageLoading()
       this.hideComfirmStoreDialog()
       this.hideSelectStoreDialog()
     },
@@ -169,7 +169,7 @@ export default {
 
   async mounted() {
     wx.showTabBar()
-    this.initPageShowHide()
+    this.initPageData()
 
     const isAuthLocate = await this.isAuthorizedLocation() //获取定位授权情况
 
@@ -184,7 +184,7 @@ export default {
       this.setShareStoreId(shareStoreId)
     }
     if (this.storeId) {
-      this.hidePageLoading()
+      //防止已经确定门店继续执行下面确定门店逻辑
       return false
     }
 
@@ -196,6 +196,7 @@ export default {
       this.authLocateAndcomfirmStore() //授权定位并且确认门店
     }
   },
+
 
   /**
    * @description  鉴定滚动事件，从而是否显示回到顶部按钮和当前定位显示
@@ -216,8 +217,10 @@ export default {
     /**
      * @description 初始化页面显示隐藏
      */
-    initPageShowHide() {
-      this.isCeiling = false //设置时段活动商品不吸顶
+    initPageData() {
+      ;(this.showRestStoreStatus = false), //休息门店状态卡片不显示
+        (this.showNoServiceStoreStatus = false), //无服务门店状态卡片不显示
+        (this.isCeiling = false) //设置时段活动商品不吸顶
       this.shownPageLoading() //显示页面加载组件
       this.hideComfirmStoreDialog()
       this.hideSelectStoreDialog()
@@ -229,7 +232,6 @@ export default {
         2.更新门店相关数据（banner，商品数据）
      */
     updateStoreData() {
-      // this.shownPageLoading()
       this.setIndexStoreData()
         .then(res => {
           this.hidePageLoading()
@@ -251,6 +253,7 @@ export default {
      */
     async updateStoreInfo() {
       const storeInfo = await this.getStoreInfoByStoreId(this.storeId)
+      console.log('updateStoreInfo', storeInfo)
       if (!storeInfo.isBusiness) {
         //如果该门店休息中，弹窗提示跳转选择其他门店
         this.showRestStoreStatus = true
@@ -358,6 +361,7 @@ export default {
       const checkRes = await this.checkStoreIsNoService()
       if (checkRes.totalPage == 200002) {
         this.showNoServiceStoreStatus = true
+        this.hidePageLoading() //隐藏页面加载
       }
       let storeInfo = null
       if (this.shareStoreId) {
@@ -368,7 +372,10 @@ export default {
         storeInfo = await this.getRecommendStoreByLocation() //获取根据定位推荐门店
       }
       this.setStoreItemInfo(storeInfo) //设置当前门店
-      this.shownComfirmStoreDialog() //确认门店弹窗显示
+      if (storeInfo.isBusiness) {
+        //门店正在营业才弹窗
+        this.shownComfirmStoreDialog() //确认门店弹窗显示
+      }
     },
 
     /**
@@ -414,8 +421,9 @@ export default {
             //用户成功授权
             const locationInfo = res.markers[0] //当前用户定位定位相关信息
             const cityName = res.poisData[0].cityname //用户定位当前城市
-            this.longitude = locationInfo.longitude
-            this.latitude = locationInfo.latitude
+            // this.longitude = locationInfo.longitude
+            // this.latitude = locationInfo.latitude
+            console.log('setUserLocationInfo', locationInfo)
             this.$store.commit('setLocationInfo', locationInfo) //用户定位相关信息存到vuex
             this.$store.commit('setcityname', cityName)
             this.$store.commit('setLocateCity', cityName)
@@ -452,14 +460,15 @@ export default {
      */
     getRecommendStoreByLocation() {
       return new Promise((resolve, reject) => {
-        Api.index
-          .storeList({ longitude: this.longitude, latitude: this.latitude })
-          .then(res => {
-            const storeList = res.data.storeList
-            const storeInfo = storeList[0]
-            this.setStoreList(storeList)
-            resolve(storeInfo)
+        storeModel
+          .getRecommendStoreByLocate({
+            longitude: this.location.longitude,
+            latitude: this.location.latitude
           })
+          .then(res => {
+            resolve(res.data)
+          })
+          .catch(err => reject(err))
       })
     },
 
@@ -467,11 +476,13 @@ export default {
      * @description 获取一个门店相关信息
      */
     async getStoreInfoByStoreId(storeId) {
+      console.log('getStoreInfoByStoreId', storeId)
       const storeInfo = await storeModel.getOneStoreInfoByStoreId({
         storeId: storeId,
         longitude: this.location.longitude,
         latitude: this.location.latitude
       })
+      console.log('getStoreInfoByStoreId2', storeInfo)
       return storeInfo.data
     },
 
@@ -534,10 +545,7 @@ export default {
      * @description 隐藏页面加载loading
      */
     hidePageLoading() {
-      setTimeout(() => {
-        //定时器避免关闭太快出现闪烁状态
-        this.showPageLoading = false //关闭页面加载Loading
-      }, 1000)
+      this.showPageLoading = false //关闭页面加载Loading
     },
 
     /**
@@ -596,6 +604,7 @@ export default {
      * @description 确认门店，加载门店相关数据
      */
     comfirmStore(storeId) {
+      console.log('comfirmStorestoreId', storeId)
       this.hideComfirmStoreDialog()
       this.hideSelectStoreDialog()
       this.$store.commit('setStoreId', storeId) //设置确认门店Id
@@ -614,8 +623,9 @@ export default {
       if (res.code === Api.CODES.SUCCESS) {
         this.activityCouponList = res.data.shopCouponActivitys //获取赋值活动优惠券列表
         let defaultCouponDialogStatus = [] //定义默认优惠券弹窗状态
-        this.activityCouponList.forEach( (item,index) => { //默认全部显示
-          this.$set(this.activityCouponDialogsStauts,index,true)
+        this.activityCouponList.forEach((item, index) => {
+          //默认全部显示
+          this.$set(this.activityCouponDialogsStauts, index, true)
           defaultCouponDialogStatus.push(true)
         })
 
@@ -627,7 +637,7 @@ export default {
      * @param {number} couponDialogIndex 优惠券弹窗操作的的索引
      * @description 关闭优惠券弹窗
      */
-    closeActivityCouponDialog (couponDialogIndex) {
+    closeActivityCouponDialog(couponDialogIndex) {
       // this.$set(this.activityCouponDialogsStauts,couponDialogIndex,false)
       this.activityCouponDialogsStauts[couponDialogIndex] = false
     },
@@ -638,11 +648,14 @@ export default {
      */
     fetchActivityCoupon(couponDialogIndex) {
       this.$store
-        .dispatch('fetchActivityCoupon', this.activityCouponList[couponDialogIndex].id)
+        .dispatch(
+          'fetchActivityCoupon',
+          this.activityCouponList[couponDialogIndex].id
+        )
         .then(code => {
           if (code == 200001) {
             // 领取成功
-           this.activityCouponDialogsStauts[couponDialogIndex] = false //隐藏当前优惠券弹窗
+            this.activityCouponDialogsStauts[couponDialogIndex] = false //隐藏当前优惠券弹窗
             wx.navigateTo({
               url: '/pages/coupon/index/main'
             })
@@ -707,7 +720,6 @@ export default {
      */
     checkCeiling(scrollTop) {
       const ceilingDistance = this.indexGoodsTop - this.indexBarHeight
-      console.log('checkCeiling', this.indexGoodsTop, this.indexBarHeight)
       if (scrollTop >= ceilingDistance) {
         this.isCeiling = true //滚动距离顶部吸顶
       } else {

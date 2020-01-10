@@ -3,7 +3,9 @@
 export default {
   // @XXX: 可能需要改用 action 逆地址解析
   setLocationInfo(state, payload) {
+    console.log('setLocationInfo',payload)
     state.location = payload
+    // state.location = {"latitude":39.9088230000,"longitude":116.3974700000,"width":22,"height":32,"id":0,"name":"北京美林海岸逸江湾10区2座","address":"天府路1附近"}
   },
 
   setWxUserInfo(state, payload) {

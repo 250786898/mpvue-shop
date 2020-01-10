@@ -83,7 +83,6 @@ export default {
 
     },
     scroll(e) {
-      console.log(e.mp.detail.scrollTop)
     },
     //to首页
     toHome(name,numID){
