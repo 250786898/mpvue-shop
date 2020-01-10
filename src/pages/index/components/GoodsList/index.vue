@@ -5,7 +5,14 @@
         <span v-for="item in tab" :key="item.id">{{item.activityName}}</span>
     </div>-->
 
-    <div v-if="tab.length">
+    <img
+      src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/pull_down_refresh_icon.gif"
+      alt
+      class="tab-loading-icon"
+      v-if="mountedLoading"
+    />
+
+    <div v-if="tab.length && !mountedLoading">
       <van-tabs
         @tab="tabChange"
         :active="activeIndex"
@@ -26,7 +33,7 @@
       </van-tabs>
     </div>
 
-    <!--   -->
+    <!--  商品列表 -->
     <div
       class="goods-recommend__bd goods-list"
       :style="{ marginTop:isCeiling? '50px' : '0px' }"
@@ -50,7 +57,7 @@
       v-if="tabLoading"
     />
 
-    <div class="empty-goods-tip" v-if="!tabLoading && goodsList.length == 0 && !loading">
+    <div class="empty-goods-tip" v-if="!mountedLoading && !tabLoading && goodsList.length == 0 && !loading">
       <EmptyGoods />
     </div>
   </view>
@@ -87,8 +94,9 @@ export default {
       activeIndex: 0, //当前分类索引
       goodsList: [], //商品列表
       isAllLoaded: false, //是否全部加载完毕
+      mountedLoading: true, //初始化挂载
       tabLoading: false, //tab切换更新数据中状态
-      loading: false //是否向上触发更新数据中状态
+      reachBottomLoading: false //是否向上触发更新数据中状态
     }
   },
   components: {
@@ -116,10 +124,11 @@ export default {
 
   //上触发加载分页数据
   onReachBottom: function() {
-    if(!this.tab.length) return false
-    if (this.tabLoading || this.isAllLoaded || this.loading) return false
+    if (!this.tab.length) return false
+    if (this.tabLoading || this.isAllLoaded || this.reachBottomLoading)
+      return false
     //还有数据，加载数据
-    this.loading = true
+    this.reachBottomLoading = true
     this.currentPage++
     this.getGoodsListByActivityId(
       this.storeId,
@@ -138,11 +147,13 @@ export default {
   },
 
   mounted() {
+    console.log('goodlistMounted')
     let _this = this
     setTimeout(function() {
       _this.getElementHeight()
     }, 100)
     if (this.storeId) {
+      console.log('goodlistMounted2')
       this.setTabsList()
     }
     this.$bus.$on('setTimeActivityHeight', this.getElementHeight)
@@ -169,12 +180,22 @@ export default {
       })
       if (res.code == Api.CODES.SUCCESS) {
         this.tab = res.data.activityList
-        this.activityId = this.tab[0].id //设置默认活动Id
+        console.log('goodlistMounted3')
+        this.activityId = this.tab && this.tab.length ? this.tab[0].id : '' //设置默认活动Id
+        console.log('goodlistMounted33')
+        if(!this.activityId) {
+          //不存在活动就不继续加载活动商品
+          this.mountedLoading = false //挂载加载完毕
+          return
+        }
         this.getGoodsListByActivityId(
           this.storeId,
           this.tab[0].id,
           this.currentPage
-        )
+        ).then(res => {
+          console.log('goodlistMounted4')
+          this.mountedLoading = false //挂载加载完毕
+        })
       }
     },
 
@@ -209,7 +230,7 @@ export default {
         })
         .then(() => {
           this.tabLoading = false
-          this.loading = false
+          this.reachBottomLoading = false
         }))
     },
 
@@ -262,7 +283,7 @@ export default {
       this.goodsList = [] //商品数据
       this.activeIndex = 0 //恢复默认索引
       this.isAllLoaded = false //是否全部加载数据,
-      this.loading = false //是否向上更新
+      this.reachBottomLoading = false //是否向上更新
     }
   }
 }
@@ -281,6 +302,7 @@ export default {
 .min-contaner {
   min-height: 1300rpx;
 }
+
 
 //tab栏样式
 .fixed-tab {
@@ -355,7 +377,8 @@ export default {
 .goods-recommend {
   width: 710rpx;
   box-sizing: border-box;
-  border-radius: 14rpx;
+  border-radius: 10rpx;
+  overflow: hidden;
   .goods-list {
     padding: 0 20rpx;
   }

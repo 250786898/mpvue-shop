@@ -8,9 +8,9 @@
       <h3 class="dialog-main-desc">订单需要您到如下门店自提,请仔细确认地址!</h3>
       <div class="store-info">
           <div class="store-info-header" v-if="shopDetail">
-            <span class="store-name" >自提门店:{{shopDetail.storeName}}<span v-if="shopDetail && !shopDetail.isBusiness"> 休息中</span></span>
+            <div class="store-name" >自提门店:{{shopDetail.storeName}}<span v-if="shopDetail && !shopDetail.isBusiness"> 休息中</span></div>
             <div class="distance" v-if="shopDetail && shopDetail.storeDistance">
-              <span v-if="storeDistance && shopDetail && shopDetail.isBusiness">{{storeDistance}}</span>
+              <span v-if="storeDistance && shopDetail && shopDetail.isBusiness">距离您{{storeDistance}}</span>
             </div>
           </div>
           <div class="detain-address" v-if="shopDetail">{{shopDetail.storeAddress}}</div>
@@ -113,12 +113,14 @@
           color: #090909;
           line-height: 45rpx;
           font-size: 32rpx;
+          width: 400rpx;
         }
       }
       .distance{
         color: #FF6600;
         display: flex;
         align-items: center;
+        white-space: nowrap;
         line-height: 45rpx;
         margin-left: 12rpx;
         font-size: 26rpx;

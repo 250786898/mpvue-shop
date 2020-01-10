@@ -110,10 +110,10 @@ class CouponModel {
    * @param {number} restricted 是否限制优惠券条件名称
    * @description 获取活动优惠券
    */
-  getGoodsDetailsCoupon({ goodsId, storeId, restricted }) {
+  getGoodsDetailsCoupon({ goodsId, storeId, restricted, typeNum = 0 }) {
     return get({
       url: '/coupon/goodsDetailsCoupon',
-      data: {  goodsId, storeId, restricted }
+      data: {  goodsId, storeId, restricted, typeNum }
     })
   }
 

@@ -49,7 +49,7 @@ export default {
     allChecked: {
       get () {
         //如果每一购物车商品都勾选则勾选
-        return this.cartItemResultList && this.cartItemResultList.every(item => item.isSelect)
+        return this.cartItemResultList && this.cartItemResultList.filter(item => item.isSale).every(item =>  item.isSelect)
       }
     }
   },

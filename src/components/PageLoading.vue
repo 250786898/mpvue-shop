@@ -18,7 +18,7 @@ export default {
   props: {
     show: {
       type: Boolean,
-      default: false
+      default: true
     },
     loadingText: {
       type: String,

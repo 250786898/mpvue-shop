@@ -143,18 +143,15 @@ export default {
     storeId: function() {
       //确认门店开启分享功能
       console.log('watch storeId change')
-      if (getCurrentRouter() != 'pages/goods/detail/main') {
-        wx.showShareMenu({
-          withShareTicket: true
-        })
-        this.loadAndShowCouponDialog() //加载显示优惠券弹窗
-        this.$store.dispatch('updateCartNum')
-        this.updateStoreInfo() //更新门店相关信息
-        this.updateStoreData() //更新新的门店数据
-        this.hidePageLoading()
-        this.hideComfirmStoreDialog()
-        this.hideSelectStoreDialog()
-      }
+      wx.showShareMenu({
+        withShareTicket: true
+      })
+      this.loadAndShowCouponDialog() //加载显示优惠券弹窗
+      this.$store.dispatch('updateCartNum')
+      this.updateStoreInfo() //更新门店相关信息
+      this.updateStoreData() //更新新的门店数据
+      this.hideComfirmStoreDialog()
+      this.hideSelectStoreDialog()
     },
     showSelectStoreDialog: function(val) {
       if (val) {
@@ -172,7 +169,7 @@ export default {
 
   async mounted() {
     wx.showTabBar()
-    this.initPageShowHide()
+    this.initPageData()
 
     const isAuthLocate = await this.isAuthorizedLocation() //获取定位授权情况
 
@@ -187,7 +184,7 @@ export default {
       this.setShareStoreId(shareStoreId)
     }
     if (this.storeId) {
-      this.hidePageLoading()
+      //防止已经确定门店继续执行下面确定门店逻辑
       return false
     }
 
@@ -199,6 +196,7 @@ export default {
       this.authLocateAndcomfirmStore() //授权定位并且确认门店
     }
   },
+
 
   /**
    * @description  鉴定滚动事件，从而是否显示回到顶部按钮和当前定位显示
@@ -219,8 +217,10 @@ export default {
     /**
      * @description 初始化页面显示隐藏
      */
-    initPageShowHide() {
-      this.isCeiling = false //设置时段活动商品不吸顶
+    initPageData() {
+      ;(this.showRestStoreStatus = false), //休息门店状态卡片不显示
+        (this.showNoServiceStoreStatus = false), //无服务门店状态卡片不显示
+        (this.isCeiling = false) //设置时段活动商品不吸顶
       this.shownPageLoading() //显示页面加载组件
       this.hideComfirmStoreDialog()
       this.hideSelectStoreDialog()
@@ -232,7 +232,6 @@ export default {
         2.更新门店相关数据（banner，商品数据）
      */
     updateStoreData() {
-      // this.shownPageLoading()
       this.setIndexStoreData()
         .then(res => {
           this.hidePageLoading()
@@ -546,10 +545,7 @@ export default {
      * @description 隐藏页面加载loading
      */
     hidePageLoading() {
-      setTimeout(() => {
-        //定时器避免关闭太快出现闪烁状态
-        this.showPageLoading = false //关闭页面加载Loading
-      }, 1000)
+      this.showPageLoading = false //关闭页面加载Loading
     },
 
     /**
@@ -608,6 +604,7 @@ export default {
      * @description 确认门店，加载门店相关数据
      */
     comfirmStore(storeId) {
+      console.log('comfirmStorestoreId', storeId)
       this.hideComfirmStoreDialog()
       this.hideSelectStoreDialog()
       this.$store.commit('setStoreId', storeId) //设置确认门店Id

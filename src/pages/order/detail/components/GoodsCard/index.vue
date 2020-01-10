@@ -41,7 +41,7 @@ export default {
      */
     navToAfterSell () {
       wx.navigateTo({
-        url: `/pages/order/returndetail/main?id='${item.refundId}`
+        url: `/pages/order/returndetail/main?id='${this.item.refundId}`
       })
     }
   }

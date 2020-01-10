@@ -3,7 +3,7 @@ import qs from 'qs'
 import config from '../config'
 import store from '../store/index'
 import md5 from 'js-md5/src/md5'
-import {resgiterOrLogin} from '../utils/index'
+import { resgiterOrLogin } from '../utils/index'
 
 const fly = new Fly
 
@@ -12,7 +12,7 @@ const { apiURL, appKey, appid } = config;
 const objKeySort = function (obj) {//排序的函数
   var newkey = Object.keys(obj).sort(); //先用Object内置类的keys方法获取要排序对象的属性名，再利用Array原型上的sort方法对获取的属性名进行排序，newkey是一个数组
   var newObj = {};//创建一个新的对象，用于存放排好序的键值对
-  for (var i = 0; i < newkey.length; i++) {//遍历newkey数组
+  for (var i = 0;i < newkey.length;i++) {//遍历newkey数组
     newObj[newkey[i]] = obj[newkey[i]];//向新创建的对象中按照排好的顺序依次增加键值对
   }
   return newObj;//返回排好序的新对象
@@ -20,11 +20,11 @@ const objKeySort = function (obj) {//排序的函数
 
 
 
-// fly.config.timeout = 20000
-fly.config.baseURL = apiURL
+fly.config.timeout = 0 //设置请求超时无限制
+fly.config.baseURL = apiURL //配置请求的基本路径
 
 fly.interceptors.request.use(req => {
-  if(!req.body){
+  if (!req.body) {
     req.body = {}
   }
   //产生随机数
@@ -36,7 +36,7 @@ fly.interceptors.request.use(req => {
   param.apiSign = apiSign;
 
   req.headers.sessionId = store.state.sessionId
-  req.body = qs.stringify(Object.assign(param, {apiSign:param.apiSign}))
+  req.body = qs.stringify(Object.assign(param, { apiSign: param.apiSign }))
   return req
 })
 
@@ -58,33 +58,26 @@ fly.interceptors.response.use(res => {
   return res.data
 },
   err => {
-        wx.getNetworkType({
-          success: function(res) {
-            if(res.networkType == 'none'){
-              wx.redirectTo({
-                url: '/pages/network/exceptions/main'
-              })
-            }else{
-              //一般为服务器API出现出错情况
-              // wx.showToast({
-              //   title: '我们出现了个错误',
-              //   icon: 'none'
-              // })
-            }
-
-          }
-        })
+    wx.getNetworkType({
+      success: function (res) {
+        if (res.networkType == 'none') {
+          wx.redirectTo({
+            url: '/pages/network/exceptions/main'
+          })
+        }
+      }
+    })
 
   }
 )
 
 export const get = (params) => {
-  return fly.get(`${ params.url }`, params.data)
+  return fly.get(`${params.url}`, params.data)
 }
 
 // 通用的post请求
 export const post = (params) => {
-  return fly.post(`${ params.url }`,params.data)
+  return fly.post(`${params.url}`, params.data)
 }
 
 export const DELIVERY_TYPE = {
@@ -118,8 +111,8 @@ export const ORDER_STATE = {
   UNRECEIVED: 30,
   FINISHED: 40,
   UNVERIFICATION: 50,
-  RETURNS: 60 ,
-  POHYD:31
+  RETURNS: 60,
+  POHYD: 31
 }
 
 export const ORDER_STATE_TEXT = {
@@ -133,7 +126,7 @@ export const ORDER_STATE_TEXT = {
   [ORDER_STATE.POHYD]: '待提货',
 }
 
-export const UPLOAD_URL = `${ apiURL }common/upload`
+export const UPLOAD_URL = `${apiURL}common/upload`
 
 export const Api = {
   CODES: {
@@ -281,10 +274,10 @@ export const Api = {
 
 
     // 5.9. 门店列表-自提订单切换店铺//门店定位列表 city:城市名
-    storeList({ longitude, latitude , activityId, city}) {
+    storeList({ longitude, latitude, activityId, city }) {
       return post({
         url: '/index/storeList',
-        data: { longitude, latitude , activityId, city }
+        data: { longitude, latitude, activityId, city }
       })
     },
 
@@ -300,10 +293,10 @@ export const Api = {
 
 
     // 传id获取首页商品信息
-    storeGoodsListByshopId({storeId}) {
+    storeGoodsListByshopId({ storeId }) {
       return post({
         url: '/index/storeGoodsListByshopId',
-        data: {storeId}
+        data: { storeId }
       })
     },
 
@@ -331,9 +324,9 @@ export const Api = {
       })
     },
 
-     /**
-     * @description 门店切换历史门店
-     */
+    /**
+    * @description 门店切换历史门店
+    */
     queryStoreByLastest() {
       return post({
         url: '/index/queryStoreByLastest',
@@ -397,10 +390,10 @@ export const Api = {
 
   user: {
     //添加formId用于推送模板
-    addFormId ({ formId }) {
+    addFormId({ formId }) {
       return post({
-        url:'user/addFormId',
-        data:{
+        url: 'user/addFormId',
+        data: {
           formId
         }
       })
@@ -481,7 +474,7 @@ export const Api = {
     },
 
     // 8.13. 修改支付密码
-    modifyPayPwd({  newPassword, checkNewPassword }) {
+    modifyPayPwd({ newPassword, checkNewPassword }) {
       return post({
         url: '/user/modifyPayPwd',
         data: { newPassword, checkNewPassword }
@@ -550,7 +543,7 @@ export const Api = {
     },
 
     // 积分明细 1-积分明细列表 2-兑换明细列表
-    pointsDetail({ listType=1, pageNumber, pageSize }) {
+    pointsDetail({ listType = 1, pageNumber, pageSize }) {
       return post({
         url: '/user/pointsDetail',
         data: { listType, pageNumber, pageSize }
@@ -558,11 +551,11 @@ export const Api = {
     },
 
     //特权
-    vipPrivilege ({ storeId ,pageNumber }) {
+    vipPrivilege({ storeId, pageNumber }) {
       return post({
         url: 'user/vipPrivilege',
         data: {
-          storeId ,
+          storeId,
           pageNumber
         }
       })
@@ -619,10 +612,10 @@ export const Api = {
     },
 
     //9.6 领取优惠券
-    getCoupon({ activityId,formId }) {
+    getCoupon({ activityId, formId }) {
       return post({
         url: '/coupon/getCoupon',
-        data: { activityId,formId }
+        data: { activityId, formId }
       })
     }
   },
@@ -708,10 +701,10 @@ export const Api = {
     },
 
     // 11.5. 加入购物车
-    add({ goodsId, activityId, activityType, count, storeId ,activityGoodsId }) {
+    add({ goodsId, activityId, activityType, count, storeId, activityGoodsId }) {
       return post({
         url: '/cart/add',
-        data: { goodsId, activityId, activityType, count, storeId ,activityGoodsId}
+        data: { goodsId, activityId, activityType, count, storeId, activityGoodsId }
       })
     },
 
@@ -724,14 +717,14 @@ export const Api = {
     },
 
     // 获取配送时间
-    times({ storeId,activityGoodsId }) {
+    times({ storeId, activityGoodsId }) {
       return post({
         url: '/cart/times',
         data: { storeId, activityGoodsId }
       })
     },
 
-    getCoupons ( { storeId,goodsAmountJson }) {
+    getCoupons({ storeId, goodsAmountJson }) {
       return post({
         url: '/cart/getCoupons',
         data: {
@@ -742,7 +735,7 @@ export const Api = {
     },
 
     // 去拼团,拼团,秒杀
-    buyNow ( { goodsId,activityId,activityType,count,storeId,groupOrderId,activityGoodsId ,deliveryType }) {
+    buyNow({ goodsId, activityId, activityType, count, storeId, groupOrderId, activityGoodsId, deliveryType }) {
       return post({
         url: '/cart/buyNow.json',
         data: {
@@ -770,7 +763,7 @@ export const Api = {
     },
 
     // 订单列表
-    list({ pageSize, pageNumber, orderStatus, deliveryType}) {
+    list({ pageSize, pageNumber, orderStatus, deliveryType }) {
       return post({
         url: '/order/list',
         data: { pageSize, pageNumber, orderStatus }
@@ -792,7 +785,7 @@ export const Api = {
       deliveryEndTime,
       // weixinAppletPaymentPlugin 微信
       // balancePaymentPlugin 会员卡
-      paymentCode='weixinAppletPaymentPlugin',
+      paymentCode = 'weixinAppletPaymentPlugin',
       storeId,
       activityGoodsId,
       goodsId,
@@ -999,18 +992,18 @@ export const Api = {
 
 
     //14.1 添加提醒
-    addRemindMsg({ formId, activityId, goodsId, activityGoodsId}) {
+    addRemindMsg({ formId, activityId, goodsId, activityGoodsId }) {
       return post({
         url: '/remindMsg/addRemindMsg.json',
-        data: { formId, activityId, goodsId , activityGoodsId}
+        data: { formId, activityId, goodsId, activityGoodsId }
       })
     },
 
     //14.2 删除提醒
-    cancelRemindMsg({ formId,id }) {
+    cancelRemindMsg({ formId, id }) {
       return post({
         url: '/remindMsg/cancelRemindMsg.json',
-        data: { formId,id }
+        data: { formId, id }
       })
     },
 
@@ -1057,7 +1050,7 @@ export const Api = {
     /**
      * 总换码
      */
-    exchangeVipCard ({ cardNo }) {
+    exchangeVipCard({ cardNo }) {
       return post({
         url: '/shopActivity/exchangeVipCard',
         data: { cardNo }

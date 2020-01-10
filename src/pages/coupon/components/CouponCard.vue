@@ -21,7 +21,7 @@
       </div>
       <div class="coupon-card-buttom">
         <div class="coupon-footer">
-          <div class="coupon-desc">指定商品满{{item.eliyibility}}元减{{item.couponMoney}}元</div>
+          <div class="coupon-desc">{{item.couponLimitStr}}</div>
           <div class="applicable" v-if="type == 'base' || type ==  'select' ">
             <span v-if="item.applyGoods != 0" @click="navToApplicableGoods">查看可用商品</span>
             <span v-if="item.applyGoods == 0 && item.applyStore != 0" @click="navToApplicableStore">查看适用门店</span>
@@ -107,7 +107,7 @@
        */
       navToApplicableStore () {
         wx.navigateTo({
-          url: `/pages/coupon/applicableStores/main?couponCode=${this.item.couponCode}`
+          url: `/pages/coupon/applicableStores/main?couponCode=${this.item.systemCode}`
         })
       }
 
