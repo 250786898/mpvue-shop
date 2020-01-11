@@ -48,6 +48,11 @@ export default {
         title: '加载中',
         mask: true
       });
+      console.log({
+        goodsId: this.$mp.page.options.id,
+        storeId: this.storeId,
+        restricted: 1
+      });
       const res = await couponModel.getGoodsDetailsCoupon({
         goodsId: this.$mp.page.options.id,
         storeId: this.storeId,
