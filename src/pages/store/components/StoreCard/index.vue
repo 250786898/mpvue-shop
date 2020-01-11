@@ -4,7 +4,7 @@
     <div class="card-main">
       <div class="card-main-top">
         <h3 class="store-name">{{item.storeName}} </h3>
-        <span class="distance" v-if="showDistance && item.storeDistance">您{{storeDistance}}</span>
+        <span class="distance" v-if="showDistance && item.storeDistance">距离您{{storeDistance}}</span>
       </div>
       <div class="card-main-content">
         <p class="detail-address">{{item.storeAddress}}</p>
