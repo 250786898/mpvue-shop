@@ -2,7 +2,11 @@
   <div class="categoty">
     <category-header />
     <div class="main">
-      <category-aside :categoryList="primaryCateList" @getCurrentCategory="getPrimaryCateId" :currentIndex.sync="primaryCateIndex" />
+      <category-aside
+        :categoryList="primaryCateList"
+        @getCurrentCategory="getPrimaryCateId"
+        :currentIndex.sync="primaryCateIndex"
+      />
       <category-main
         :secondaryCategoryList="SecondaryCateList"
         @getSecondaryCate="getSecondaryCateId"
@@ -44,7 +48,7 @@ export default {
       allGoodsList: [], //全部商品列表
       loadingAllGoods: true, //是否是加载全部商品
       lock: true, //加载
-      primaryCateIndex:0//当前一级分页索引值
+      primaryCateIndex: 0 //当前一级分页索引值
     };
   },
 
@@ -64,14 +68,17 @@ export default {
      * @description 获取分类和商品
      */
     async getCategoryList() {
+      wx.showLoading({
+          title: "加载中"
+        });
       const res = await categoryModel.findPrimaryCategory();
       console.log("所有一级分类", res.data);
       this.primaryCateList = res.data;
       if (this.$mp.page.options.id) {
         console.log(this.$mp.page.options.id);
         this.currentPrimaryId = this.$mp.page.options.id;
-        for(let i = 0;i<this.primaryCateList.length;i++){
-          if(this.primaryCateList[i].id==this.currentPrimaryId){
+        for (let i = 0; i < this.primaryCateList.length; i++) {
+          if (this.primaryCateList[i].id == this.currentPrimaryId) {
             this.primaryCateIndex = i;
             break;
           }
@@ -162,19 +169,21 @@ export default {
      * @description 点击二级分类获取二级分类id
      */
     getSecondaryCateId(val) {
-      wx.showLoading({
-        title: "加载中"
-      });
-      this.init();
-      if (val) {
-        this.currentSecondaryId = val;
-        this.loadingAllGoods = false;
-        console.log("当前点击的二级分类", val);
-        this.getGoodList();
-      } else {
-        this.currentSecondaryId = "";
-        this.loadingAllGoods = true;
-        this.getAllCateGoodsList();
+      if (val !== this.currentSecondaryId) {
+        wx.showLoading({
+          title: "加载中"
+        });
+        this.init();
+        if (val) {
+          this.currentSecondaryId = val;
+          this.loadingAllGoods = false;
+          console.log("当前点击的二级分类", val);
+          this.getGoodList();
+        } else {
+          this.currentSecondaryId = "";
+          this.loadingAllGoods = true;
+          this.getAllCateGoodsList();
+        }
       }
     },
 
@@ -238,8 +247,6 @@ export default {
 
   onLoad() {
     this.getCategoryList();
-    console.log(this);  
-    console.log('id',this.$mp.page.options.id);
   }
 };
 </script>

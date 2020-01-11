@@ -79,6 +79,7 @@ export default {
     }
   },
   onLoad(e) {
+    Object.assign(this.$data, this.$options.data());
     if (e.id) {
       this.orderId = e.id;
       this.goodList = JSON.parse(e.list);

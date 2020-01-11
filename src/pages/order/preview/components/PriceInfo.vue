@@ -3,7 +3,7 @@
     <div class="card-item">
       <div class="card-item__title">商品总价</div>
       <div class="card-item__content">
-        <online-price :color="'#999999'" :signSize="20" :beforeSize="28" :afterSize="24" :isbold="false" :price="orderInfo.goodsAmount" />
+        <online-price :color="'#999999'" :signSize="20" :beforeSize="28" :afterSize="28" :isbold="false" :price="orderInfo.goodsAmount" />
       </div>
     </div>
      <div class="card-item">
