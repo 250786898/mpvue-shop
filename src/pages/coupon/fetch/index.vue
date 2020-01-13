@@ -44,6 +44,7 @@ export default {
      * @description 获取优惠券
      */
     async getGoodsDetailsCoupon () {
+      console.log('this.$mp.page.options.type ? 1 : 0',this.$mp.page.options.type)
       wx.showLoading({
         title: '加载中',
         mask: true
@@ -56,7 +57,8 @@ export default {
       const res = await couponModel.getGoodsDetailsCoupon({
         goodsId: this.$mp.page.options.id,
         storeId: this.storeId,
-        restricted: 1
+        restricted: 1,
+        typeNum: this.$mp.page.options.type && this.$mp.page.options.type != 'undefined' ? 1 : 0
       })
       wx.hideLoading()
       if(res.code == Api.CODES.SUCCESS) {

@@ -260,7 +260,7 @@ export default {
         goodsId: this.$mp.page.options.id,
         storeId: this.storeId,
         restricted: 0,
-        typeNum: this.$mp.page.options.type ? 1 : 0
+        typeNum: this.$mp.page.options.type && this.$mp.page.options.type != 'undefined' ? 1 : 0
       })
       if (res.code == Api.CODES.SUCCESS) {
         this.couponList = res.data
@@ -272,7 +272,7 @@ export default {
      */
     fetchCoupon() {
       wx.navigateTo({
-        url: `/pages/coupon/fetch/main?id=${this.$mp.page.options.id}`
+        url: `/pages/coupon/fetch/main?id=${this.$mp.page.options.id}&type=${this.$mp.page.options.type}`
       })
     },
 
