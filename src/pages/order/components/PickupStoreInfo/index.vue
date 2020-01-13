@@ -6,7 +6,7 @@
     <div class="info-content">
       <div class="info-main">
         <div class="store-name">{{ storeInfo.receiverName || shopDetail.storeName }}</div>
-        <div class="manager-mobile">{{ storeInfo.franchiseeTel || shopDetail.franchiseeTel }}</div>
+        <div class="manager-mobile" @click="makePhone">{{ storeInfo.franchiseeTel || shopDetail.franchiseeTel }}</div>
       </div>
       <div class="detail-address">
         {{ storeInfo.receiverAddress || shopDetail.storeAddress }}
@@ -27,6 +27,16 @@ export default {
   },
   computed: {
    ...mapState(['shopDetail'])
+  },
+  methods: {
+    /**
+     * @description 拨打改门店电话
+     */
+    makePhone () {
+      wx.makePhoneCall({
+        phoneNumber: this.storeInfo.franchiseeTel || this.shopDetail.franchiseeTel
+      })
+    }
   }
 }
 </script>

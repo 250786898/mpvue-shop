@@ -36,7 +36,7 @@
     <!--  商品列表 -->
     <div
       class="goods-recommend__bd goods-list"
-      :style="{ marginTop:isCeiling? '50px' : '0px' }"
+      :style="{ marginTop:isCeiling? '100rpx' : '0rpx' }"
       v-if="goodsList && goodsList.length > 0"
     >
       <template v-if="!tabLoading">

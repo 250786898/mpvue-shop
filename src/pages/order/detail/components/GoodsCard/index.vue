@@ -11,7 +11,7 @@
           <!-- <span class="wait-pickup" v-else>×月×日可提货</span> -->
         </div>
       </div>
-      <div class="after-sell" v-if="item.refundState == 1 || item.refundState == 3" @click="navToAfterSell">
+      <div class="after-sell" v-if="item.refundState != 0" @click="navToAfterSell">
         <div class="after-sell-btn">查看售后</div>
       </div>
 
