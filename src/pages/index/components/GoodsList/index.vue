@@ -9,10 +9,10 @@
       src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/pull_down_refresh_icon.gif"
       alt
       class="tab-loading-icon"
-      v-if="mountedLoading"
+      v-if="loading"
     />
 
-    <div v-if="tab.length && !mountedLoading">
+    <div v-if="tab.length && !loading">
       <van-tabs
         @tab="tabChange"
         :active="activeIndex"
@@ -57,7 +57,7 @@
       v-if="tabLoading"
     />
 
-    <div class="empty-goods-tip" v-if="!mountedLoading && !tabLoading && goodsList.length == 0 && !loading">
+    <div class="empty-goods-tip" v-if="!loading && !tabLoading && goodsList.length == 0 && !loading">
       <EmptyGoods />
     </div>
   </view>
@@ -94,7 +94,7 @@ export default {
       activeIndex: 0, //当前分类索引
       goodsList: [], //商品列表
       isAllLoaded: false, //是否全部加载完毕
-      mountedLoading: true, //初始化挂载
+      loading: true, //数据加载中
       tabLoading: false, //tab切换更新数据中状态
       reachBottomLoading: false //是否向上触发更新数据中状态
     }
@@ -142,6 +142,7 @@ export default {
    */
   onPullDownRefresh() {
     console.log('onPullDownRefresh')
+    this.loading = true
     this.initData()
     this.setTabsList()
   },
@@ -185,7 +186,7 @@ export default {
         console.log('goodlistMounted33')
         if(!this.activityId) {
           //不存在活动就不继续加载活动商品
-          this.mountedLoading = false //挂载加载完毕
+          this.loading = false //挂载加载完毕
           return
         }
         this.getGoodsListByActivityId(
@@ -194,7 +195,7 @@ export default {
           this.currentPage
         ).then(res => {
           console.log('goodlistMounted4')
-          this.mountedLoading = false //挂载加载完毕
+          this.loading = false //挂载加载完毕
         })
       }
     },

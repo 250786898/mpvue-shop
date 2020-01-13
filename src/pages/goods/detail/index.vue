@@ -472,6 +472,7 @@ export default {
             this.shareStoreId
           )
           this.setStoreItemInfo(storeInfo) //设置当前门店
+          console.log('+++++分享的门店信息++++',storeInfo)
           if (storeInfo.isBusiness == 0) {
             //分享的休息弹出休息弹出
             this.showRestStorePopup()
@@ -487,17 +488,14 @@ export default {
      */
     async comfirmStoreForNoAuthLocate() {
       const locationInfo = await this.setUserLocationInfo() //显示定位授权弹窗设置用户相关定位信息：经纬度，详情地址
-      if (locationInfo) {
-        //同意授权
-        const storeInfo = await this.getOneStoreInfoByStoreId(this.shareStoreId)
-        this.setStoreItemInfo(storeInfo) //设置当前门店
-        this.shownComfirmStoreDialog() //确认门店弹窗显示
-      } else {
-        //拒绝授权
-        const storeInfo = await this.getOneStoreInfoByStoreId(this.shareStoreId)
-        this.setStoreItemInfo(storeInfo) //设置当前门店
-        this.shownComfirmStoreDialog() //确认门店弹窗显示
+      const storeInfo = await this.getOneStoreInfoByStoreId(this.shareStoreId)
+      this.setStoreItemInfo(storeInfo) //设置当前门店
+      if (storeInfo.isBusiness == 0) {
+        //分享的休息弹出休息弹出
+        this.showRestStorePopup()
+        return false
       }
+      this.shownComfirmStoreDialog() //确认门店弹窗显示
     },
 
     /**

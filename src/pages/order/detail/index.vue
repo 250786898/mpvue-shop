@@ -11,7 +11,7 @@
 
     <order-info :orderInfo="order" />
 
-    <fixed-footer :orderId="this.order.orderId" :orderstate="order.state" v-if="order.state > 10"  @cancelOrder="cancelOrder" />
+    <fixed-footer :orderId="this.order.orderId" :orderstate="order.state" :orderInfo="order" v-if="order.state == 10 || order.state == 20 || order.isContinueRefund"  @cancelOrder="cancelOrder" />
 
     <payment-dialog
       :shown.sync="paymentDialogShowed"

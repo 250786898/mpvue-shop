@@ -1,6 +1,6 @@
 <template>
   <div class="bar">
-    <div class="bar-btn" @click="applyReturns" v-if="orderstate == 40">申请售后</div>
+    <div class="bar-btn" @click="applyReturns" v-if="orderInfo.isContinueRefund">申请售后</div>
     <div class="bar-btn" @click="cancelOrder" v-if="orderstate == 10 || orderstate == 20">取消订单</div>
     <div class="bar-btn pickup-btn" @click="showOrderCode" v-if="orderstate == 20">提货码</div>
   </div>
@@ -16,6 +16,10 @@ export default {
     orderstate: { //订单状态
       type: Number,
       default: 0
+    },
+    orderInfo: { //订单信息
+      type: Object,
+      default: () => ({})
     }
   },
   methods: {

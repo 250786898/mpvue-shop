@@ -36,6 +36,7 @@ import SubmitGoodsList from './components/SubmitGoodsList'
 import BuyerMessage from './components/BuyerMessage'
 import PriceInfo from './components/PriceInfo'
 import FooterBar from './components/FooterBar'
+import { getCurrentRouter } from '@/utils'
 
 export default {
   components: {
@@ -67,6 +68,7 @@ export default {
 
   mounted() {
     Object.assign(this.$data, this.$options.data()) //解决mpvue初始化未清空状态问题
+    this.getCheckoutData()
   },
 
   onUnload () {
@@ -74,9 +76,17 @@ export default {
     this.$store.commit('setSubmitOrderCoupon',{}) //提交清空使用优惠券对象
   },
 
-  onShow() {
-    this.getCheckoutData()
+  watch: {
+    selectCouponOfsubmitOrder: function () {
+      console.log('selectCouponOfsubmitOrder')
+      if(getCurrentRouter() == 'pages/coupon/select/main') {
+        //只有选择优惠券页面组件选择优惠券才重新渲染数据
+        this.getCheckoutData()
+      }
+
+    }
   },
+
 
   methods: {
     /**

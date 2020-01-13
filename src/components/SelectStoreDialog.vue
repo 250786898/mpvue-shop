@@ -12,7 +12,7 @@
     <radio-group  class="store-list" @change="checkoutStoreType">
 
        <label class="select-store-item">
-        <radio class="select-store-item-radio" :disabled="shareStoreInfo.isBusiness == 0" value="current" color="#01BD9F" />
+        <radio class="select-store-item-radio" :disabled="shareStoreInfo && shareStoreInfo.isBusiness == 0" value="current" color="#01BD9F" />
         <div class="select-store-item-main">
           <div class="select-store-item-header">
 
@@ -68,11 +68,11 @@
       </label>
 
     </radio-group >
-      <div class="change-box"  @click="checkoutStore" v-if="shareStoreInfo.isBusiness || usuallyStoreInfo.isBusiness">
+      <div class="change-box"  @click="checkoutStore" v-if="(shareStoreInfo && shareStoreInfo.isBusiness) || (usuallyStoreInfo && usuallyStoreInfo.isBusiness)">
         <span>切换其他门店</span>
         <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/order-right-icon.png" alt="">
       </div>
-      <button type="primary"  class="comfirm-btn" @click="checkoutStore"  v-if="!shareStoreInfo.isBusiness && !usuallyStoreInfo.isBusiness">切换其他门店</button>
+      <button type="primary"  class="comfirm-btn" @click="checkoutStore"  v-if="shareStoreInfo && !shareStoreInfo.isBusiness && usuallyStoreInfo &&!usuallyStoreInfo.isBusiness">切换其他门店</button>
       <button type="primary"  class="comfirm-btn" @click="comfirmStore" v-else>确定</button>
     </div>
   </div>

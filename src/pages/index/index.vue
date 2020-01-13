@@ -142,6 +142,8 @@ export default {
   watch: {
     storeId: function() {
       //确认门店开启分享功能
+      console.log('shownPageLoadingshownPageLoadingshownPageLoadingshownPageLoading')
+      this.shownPageLoading() //初始化显示页面lading
       console.log('watch storeId change')
       wx.showShareMenu({
         withShareTicket: true
@@ -197,6 +199,7 @@ export default {
     }
   },
 
+
   /**
    * @description  鉴定滚动事件，从而是否显示回到顶部按钮和当前定位显示
    * */
@@ -217,10 +220,9 @@ export default {
      * @description 初始化页面显示隐藏
      */
     initPageData() {
-      ;(this.showRestStoreStatus = false), //休息门店状态卡片不显示
-        (this.showNoServiceStoreStatus = false), //无服务门店状态卡片不显示
-        (this.isCeiling = false) //设置时段活动商品不吸顶
-      this.shownPageLoading() //显示页面加载组件
+      (this.showRestStoreStatus = false), //休息门店状态卡片不显示
+      (this.showNoServiceStoreStatus = false), //无服务门店状态卡片不显示
+      (this.isCeiling = false); //设置时段活动商品不吸顶
       this.hideComfirmStoreDialog()
       this.hideSelectStoreDialog()
     },
@@ -233,7 +235,9 @@ export default {
     updateStoreData() {
       this.setIndexStoreData()
         .then(res => {
+          console.log('++++++++++++++++++++++++updateStoreData++++++++++++++++++++++',this.showPageLoading)
           this.hidePageLoading()
+           console.log('++++++++++++++++++++++++updateStoreData++++++++++++++++++++++2',this.showPageLoading)
           wx.stopPullDownRefresh()
           wx.hideNavigationBarLoading()
           console.log('updateStoreData', this.storeData)
