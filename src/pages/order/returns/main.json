@@ -1,3 +1,4 @@
 {
-  "navigationBarTitleText": "售后订单"
+  "navigationBarTitleText": "售后订单",
+  "enablePullDownRefresh": true
 }
