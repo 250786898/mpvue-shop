@@ -45,8 +45,7 @@ export default {
     position: fixed;
     z-index: 9999;
     top: 50%;
-    left: 100rpx;
-    right: 100rpx;
+    left: 80rpx;
     -webkit-transform: translate(0, -50%);
     transform: translate(0, -50%);
     background-color: #FFFFFF;
