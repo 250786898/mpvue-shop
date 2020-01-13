@@ -65,6 +65,7 @@ export default {
      */
     onReasonChange(e) {
       this.reason = e.mp.detail.value;
+      this.getInfo();
     },
 
     /**
@@ -78,9 +79,6 @@ export default {
     }
   },
   watch: {
-    reason: function() {
-      this.getInfo();
-    },
     image: function() {
       this.getInfo();
     }
