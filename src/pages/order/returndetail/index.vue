@@ -97,6 +97,7 @@ export default {
     }
   },
   onLoad(e) {
+    console.log('订单',e);
     if (e.id) {
       this.id = e.id;
       this.getDetails({id:e.id});

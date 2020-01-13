@@ -7,7 +7,7 @@
         <online-price :signSize="22" :beforeSize="34" :afterSize="34" :price="amount" />
       </div>
     </div>
-    <div class="amount-wechat amount-card">
+    <div class="amount-wechat amount-card" v-if="amountDetailShow">
       <div class="amount-card__text">退回微信</div>
       <div class="amount-card__info">
         <online-price
@@ -20,7 +20,7 @@
         />
       </div>
     </div>
-    <div class="amount-coupons amount-card">
+    <div class="amount-coupons amount-card" v-if="amountDetailShow">
       <div class="amount-card__text">退回优惠券</div>
       <div class="amount-card__info">
         <online-price
