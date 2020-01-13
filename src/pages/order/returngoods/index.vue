@@ -54,7 +54,7 @@ export default {
           return item.checked
           })
       if (checkedGoodsList.length) {
-        wx.navigateTo({
+        wx.redirectTo({
           url: `/pages/order/returnapply/main?id=${
             this.orderId
           }&list=${JSON.stringify(checkedGoodsList)}`
@@ -68,12 +68,16 @@ export default {
     }
   },
   onLoad({ id }) {
+    Object.assign(this.$data, this.$options.data()); //解决mpvue初始化未清空状态问题
     console.log('onLoad',id)
     wx.showLoading({ title: "加载中" });
     if (id) {
       this.orderId = id;
       this.getGoodList();
     }
+  },
+  onShow(){
+    
   }
 };
 </script>

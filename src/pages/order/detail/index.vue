@@ -52,13 +52,15 @@
     },
 
 
-    onLoad(e) {
-      Object.assign(this.$data, this.$options.data()) //解决mpvue初始化未清空状态问题
-      if (e.id) {
-        this.id = e.id
-        this.getDetail({ orderId: e.id })
+    onShow() {
+      if (this.$root.$mp.query.id) {
+        this.getDetail({ orderId: this.$root.$mp.query.id })
       }
 
+    },
+
+    onUnload(){
+      Object.assign(this.$data, this.$options.data()) //解决mpvue初始化未清空状态问题
     },
 
     methods: {
