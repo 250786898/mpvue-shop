@@ -14,9 +14,9 @@
       <div class="card-footer-main">
         <div class="price-wrap">
           <div class="online-price">
-            <OnlinePrice :price="item.discountedPrice" :signSize="20" :beforeSize="32" :afterSize="32"/>
+            <OnlinePrice :price="item.discountedPrice || item.onlinePrice" :signSize="20" :beforeSize="32" :afterSize="32"/>
           </div>
-          <div class="scribing-price" v-if="item.scribingPrice">￥{{item.scribingPrice}}</div>
+          <div class="scribing-price" v-if="item.scribingPrice || item.onlineScribingPrice">￥{{item.scribingPrice || item.onlineScribingPrice}}</div>
         </div>
         <div class="sell-null" v-if="item.virtualSalesNum">已售{{item.virtualSalesNum + item.salesNum}}份</div>
       </div>
