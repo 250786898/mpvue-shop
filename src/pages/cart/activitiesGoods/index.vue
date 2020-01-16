@@ -62,7 +62,7 @@ export default {
       couponModel
         .getCartCouponGoodsList({
           storeId: this.storeId,
-          restricted: 0
+          restricted: 1
         })
         .then(res => {
           if (res.code == Api.CODES.SUCCESS) {

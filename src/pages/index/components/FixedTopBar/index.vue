@@ -95,7 +95,6 @@ export default {
    * */
   onPageScroll(e) {
     this.fixedSearchBar = e.scrollTop >= this.storeBarHeight // 超过悬浮搜索栏
-    this.setIndexBarElementHeight('#ex')
   },
   methods: {
 

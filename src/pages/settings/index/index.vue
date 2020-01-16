@@ -37,6 +37,17 @@
       </button>
     </div>
 
+    <div class="card">
+      <button class="feedback-btn" open-type="feedback">
+      <div class="card-left">
+        <span>版本号</span>
+      </div>
+      <div class="card-right">
+       V2.3.4
+      </div>
+      </button>
+    </div>
+
     <div class="btn-bar">
       <button type="primary" hover-class="button-hover" @click="logout">退出登录</button>
     </div>

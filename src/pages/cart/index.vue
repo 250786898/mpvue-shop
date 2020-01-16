@@ -106,6 +106,7 @@
         title: '加载中'
       })
       this.loadCartData()
+      this.$store.dispatch('syncCartTabbarBadge') //更新购物车数量标签
     },
 
 
@@ -138,7 +139,7 @@
       getCartCouponGoodsList () {
         return couponModel.getCartCouponGoodsList({
           storeId: this.storeId,
-          restricted: 1
+          restricted: 0
         }).then(res => {
           if(res.code == Api.CODES.SUCCESS) {
             this.goodsListByCoupon = res.data.goods

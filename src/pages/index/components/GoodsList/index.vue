@@ -45,9 +45,13 @@
         </div>
       </template>
     </div>
+
+    <!-- 触底刷新loading -->
+    <LjLoading v-if="reachBottomLoading"/>
+
     <!-- 加载更多 -->
     <div class="goods-recommend__footer">
-      <div class="goods-tabs__tip" v-if="!tabLoading && goodsList.length">我是有底线的！</div>
+      <div class="goods-tabs__tip" v-if="!reachBottomLoading && !tabLoading && goodsList.length && isAllLoaded">我是有底线的！</div>
     </div>
 
     <img
@@ -57,7 +61,7 @@
       v-if="tabLoading"
     />
 
-    <div class="empty-goods-tip" v-if="!loading && !tabLoading && goodsList.length == 0 && !loading">
+    <div class="empty-goods-tip" v-if="!reachBottomLoading && !loading && !tabLoading && goodsList.length == 0 && !loading">
       <EmptyGoods />
     </div>
   </view>
@@ -125,7 +129,7 @@ export default {
   //上触发加载分页数据
   onReachBottom: function() {
     if (!this.tab.length) return false
-    if (this.tabLoading || this.isAllLoaded || this.reachBottomLoading)
+    if (this.tabLoading || this.isAllLoaded || this.reachBottomLoading || this.loading)
       return false
     //还有数据，加载数据
     this.reachBottomLoading = true

@@ -16,6 +16,7 @@ import { Api, ORDER_STATE, ORDER_STATE_TEXT } from '@/http/api'
 import LjTabs from './components/LjTabs'
 import OrderListWrap from './components/OrderList'
 import EmptyOrder from './components/EmptyOrder'
+var mta = require('@/utils/mta_analysis.js')
 const PAGE_SIZE = 10 //定义订单每一页加载的数量
 export default {
   components: {
@@ -64,6 +65,7 @@ export default {
 
    onLoad() {
      const options = this.$mp.page.options
+     mta.Page.init() //第三方mta数据统计
     if (options.status) {
       this.activeIndex = this.tabs.findIndex(item => item.status == options.status)
     } else {

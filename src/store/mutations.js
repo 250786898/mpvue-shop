@@ -72,6 +72,7 @@ export default {
 
 
   setCartNum(state, cartNum) {
+    console.log('setCartNum',cartNum)
     state.cartNum = cartNum
   },
 

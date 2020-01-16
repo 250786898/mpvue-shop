@@ -15,6 +15,8 @@
 
       <template v-else>
         <!-- Swiper -->
+
+
         <theme-area
           :theme-type="bannerThemeType"
           :list="storeData.bannerList"
@@ -76,7 +78,8 @@ import CouponDialog from './components/CouponDialog'
 import StoreStatusShow from './components/StoreStatusShow'
 import StoreModel from '@/model/store'
 import CouponModel from '../../model/coupon'
-
+import LjLoading from '@/components/LjLoading'
+var mta = require('../../utils/mta_analysis.js')
 const storeModel = new StoreModel()
 const couponModel = new CouponModel()
 
@@ -91,7 +94,8 @@ export default {
     CategoryNav,
     ThemeArea,
     CouponDialog,
-    StoreStatusShow
+    StoreStatusShow,
+    LjLoading
   },
 
   data() {
@@ -124,14 +128,14 @@ export default {
       return `height: ${this.indexBarHeight}px`
     },
     bannerThemeType() {
-      const bannerTypeArr = ['swiper', 'swiper', 'ADOne', 'ADTwo']
+      const bannerTypeArr = ['image', 'swiper', 'ADOne', 'ADTwo']
       if (this.storeData) {
         const typeIndex = this.storeData.bannerType - 1 //主题类型数组索引
         return bannerTypeArr[typeIndex] //轮播类型 1-单张 2-单张轮播 3-左一右二 4-左二右二
       }
     },
     adverThemeType() {
-      const bannerTypeArr = ['swiper', 'swiper', 'ADOne', 'ADTwo']
+      const bannerTypeArr = ['image', 'swiper', 'ADOne', 'ADTwo']
       if (this.storeData) {
         const typeIndex = this.storeData.advertisementType - 1 //主题类型数组索引
         return bannerTypeArr[typeIndex] //轮播类型 1-单张 2-单张轮播 3-左一右二 4-左二右二
@@ -170,6 +174,7 @@ export default {
   },
 
   async mounted() {
+
     wx.showTabBar()
     this.initPageData()
 
@@ -197,6 +202,15 @@ export default {
       //未授权定位
       this.authLocateAndcomfirmStore() //授权定位并且确认门店
     }
+  },
+
+  onLoad () {
+    console.log('this.$mp.page.options',this.$mp.page.options,this.$mp.page.options.mtaCount)
+    mta.Page.init() //第三方mta数据统计
+    if(this.$mp.page.options.mtaCount) { //统计特定二维码访问数据
+      mta.Event.stat("10001", {});
+    }
+
   },
 
 

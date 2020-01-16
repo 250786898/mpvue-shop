@@ -6,7 +6,7 @@
         <coupon-list :list="couponList" />
       </template>
       <template v-else>
-        <EmptyIcon :title="'您来晚了,优惠券已枪光~'"/>
+        <EmptyIcon :title="'您来晚了,优惠券已抢光~'"/>
       </template>
     </div>
     <to-home />

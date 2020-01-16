@@ -101,6 +101,7 @@ import SelectStoreDialog from '@/components/SelectStoreDialog'
 import StoreModel from '@/model/store'
 import CouponModel from '@/model/coupon'
 import config from '@/config'
+var mta = require('@/utils/mta_analysis.js')
 
 const couponModel = new CouponModel()
 const storeModel = new StoreModel()
@@ -140,6 +141,7 @@ export default {
   onLoad() {
     // this.goodsDetailInfo = {} //初始化商品详情信息
     Object.assign(this.$data, this.$options.data())
+    mta.Page.init() //第三方mta数据统计
   },
 
   async mounted() {

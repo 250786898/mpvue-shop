@@ -81,6 +81,10 @@ export default {
   },
 
 
+  /**
+   *
+   * @description 更新购物车的数量
+   */
   updateCartNum({ state, commit, dispatch }) {
     if(state.storeId) { //存在门店才更新购物车数量
       Api.cart.count({
@@ -95,12 +99,18 @@ export default {
 
   },
 
-  // 商品图标
+  /**
+   *
+   * @param {object} state state对象
+   * 为 购物车tabBar 某一项的右上角更新购物车数量
+   */
   syncCartTabbarBadge({ state }) {
+    console.log('syncCartTabbarBadge',state.cartNum)
     if (state.cartNum) {
+      console.log('syncCartTabbarBadge2',state.cartNum.toString())
       wx.setTabBarBadge({
         index: 1,
-        text: '' + state.cartNum
+        text: state.cartNum.toString()
       })
     } else {
       wx.removeTabBarBadge({

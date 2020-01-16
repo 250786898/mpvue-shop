@@ -104,14 +104,16 @@ export default {
   .goods-name{
     color: #101010;
     font-size: 30rpx;
-    padding-bottom: 2rpx;
+    padding-bottom: 4rpx;
     width:292rpx;
     @include ellipsis;
-    margin: 13rpx 0 11rpx 0;
+    margin: 13rpx 0 8rpx 0;
   }
   .goods-desc {
     color: #999999;
     font-size: 24rpx;
+    width:292rpx;
+    @include ellipsis;
   }
   .limit{
     width:93rpx;
