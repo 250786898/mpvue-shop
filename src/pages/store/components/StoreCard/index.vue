@@ -4,7 +4,7 @@
     <div class="card-main">
       <div class="card-main-top">
         <h3 class="store-name">{{item.storeName}} </h3>
-        <span class="distance" v-if="showDistance && item.storeDistance">距离{{storeDistance}}</span>
+        <span class="distance" v-if="showDistance && item.storeDistance">距离您{{storeDistance}}</span>
       </div>
       <div class="card-main-content">
         <p class="detail-address">{{item.storeAddress}}</p>
@@ -14,7 +14,7 @@
         </div>
 
       </div>
-      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/arrows.png" class="arrows" alt="">
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/arrows.png" class="arrows" alt="">
     </div>
   </div>
 </template>
@@ -112,7 +112,7 @@ export default {
         font-weight:bold;
       }
       .distance{
-        font-size: 28rpx;
+        font-size: 26rpx;
         color: #FF6600;
         white-space: nowrap;
         position: relative;
@@ -122,8 +122,8 @@ export default {
     .card-main-content{
       font-size: 28rpx;
       color: #7F7F7F;
-      margin-top: 10rpx;
-      line-height: 38rpx;
+      margin-top: 12rpx;
+      line-height: 45rpx;
       .phone-box{
         display: flex;
         align-items: center;

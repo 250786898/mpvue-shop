@@ -1,7 +1,7 @@
 <template>
   <div class="goods-detail">
     <div class="goods-detail__title">商品详情</div>
-    <rich-text :nodes="detailInfo"></rich-text>
+    <rich-text :nodes="detailContent"></rich-text>
   </div>
 </template>
 
@@ -12,6 +12,13 @@ export default {
       type:String,
       value: ''
     }
+  },
+  computed: {
+    detailContent () {
+      if(this.detailInfo) {
+        return this.detailInfo.replace(/\<img/gi,'<img style="max-width:100%;height:auto" ')
+      }
+    }
   }
 }
 </script>
@@ -20,12 +27,12 @@ export default {
 .goods-detail {
   background-color: #fff;
   margin-top: 20rpx;
-  padding: 0 30rpx;
   &__title {
-    padding-top: 39rpx;
-    padding-bottom: 39rpx;
+    padding-top: 32rpx;
+    padding-bottom: 32rpx;
+    padding-left: 20rpx;
     text-align: left;
-    font-size: 30rpx;
+    font-size: 38rpx;
     font-weight: bold;
     color: $text-black;
   }

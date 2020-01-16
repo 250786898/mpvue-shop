@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App'
 import store from './store/index'
-import mixin from './utils/mixin'
+import mixin from './mixin/common'
 import PageLoading from "@/components/PageLoading"
 import { checkUpdateApp, onNetworkStatusChange, onLoginStatus } from './utils'
 
@@ -10,9 +10,8 @@ require('./styles/common.scss')
 require('./styles/variable.scss')
 require('./styles/mixin.scss')
 
-var mta= require('./utils/mta_analysis')
 
-wx.hideTabBar() //隐藏tab
+// wx.hideTabBar() //隐藏tab
 checkUpdateApp()
 onNetworkStatusChange()
 onLoginStatus()

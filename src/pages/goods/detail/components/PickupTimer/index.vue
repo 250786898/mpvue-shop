@@ -2,11 +2,11 @@
   <div class="flashsale">
     <div class="weui-cells">
       <div class="weui-cell" v-if="isSale">
-        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/details_icon_clock@2x.png" class="clock-icon">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/details_icon_clock@2x.png" class="clock-icon">
         <span class="take-goods-time">现在下单,</span><span class="take-goods-time-color">&nbsp;&nbsp;{{showPickUpTime}}&nbsp;&nbsp;</span> 可提货
       </div>
       <div class="weui-cell" v-else>
-        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/details_icon_clock@2x.png" class="clock-icon">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/details_icon_clock@2x.png" class="clock-icon">
         <span class="take-goods-time">预计提货时间:</span><span class="take-goods-time-color">&nbsp;&nbsp;{{showPickUpTime}}&nbsp;&nbsp;</span>
       </div>
     </div>

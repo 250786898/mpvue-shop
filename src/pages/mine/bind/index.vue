@@ -1,12 +1,12 @@
 <template>
   <div class="container">
-    <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/signin_bg_logo_big@2x.png" class="logo">
+    <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/signin_bg_logo_big@2x.png" class="logo">
     <div class="auth-desc">乐家生鲜</div>
 
     <div class="button-bar">
       <form report-submit @submit="uploadFormId">
         <button type="primary" form-type="submit" open-type="getPhoneNumber" @getphonenumber="getPhoneNumber" hover-class="button-hover">
-          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/signin_icon_wechat@2x.png" class="icon-wx">
+          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/signin_icon_wechat@2x.png" class="icon-wx">
           微信用户手机号授权快捷登录
         </button>
       </form>
@@ -109,7 +109,6 @@
                   this.login({
                     openid: res.data.openid,
                     mobile: res.data.mobile,
-
                   })
                 }
               })
@@ -118,6 +117,7 @@
               wx.login({
                 success: ({ code }) => {
                   this.code = code
+                  this.getPhoneNumber(detail)
                 }
               })
             }
@@ -125,16 +125,16 @@
 
 
         } else if (detail.errMsg !== 'getPhoneNumber:获取手机号失败') {
-          // wx.showModal({
-          //   title: '获取手机号码失败',
-          //   content: detail.errMsg
-          // })
-          //  wx.navigateTo({ url: '/pages/mine/auth/main' })
-              // wx.navigateBack({
-              // delta: 1
-              // })
+            wx.showModal({
+              title: '获取手机号码失败',
+              content: detail.errMsg
+            })
+              wx.navigateTo({ url: '/pages/mine/auth/main' })
+              wx.navigateBack({
+                delta: 1
+              })
           }
-          },
+        },
 
         toRegister() {
           wx.navigateTo({ url: '/pages/mine/register/main' })
@@ -161,10 +161,10 @@
               this.setUsuallyStoreId()
               wx.navigateBack({
                 delta: 2 //返回的页面数，如果 delta 大于现有页面数，则返回到首页,
-              });
+              })
             }
           })
-          // this.$store.commit('setSessionId', res.data.sessionId)
+
 
 
           // wx.switchTab({ url: '/pages/mine/main' })
@@ -182,9 +182,6 @@
           this.code = code
         }
       })
-    },
-
-    onUnload () {
     }
   }
 </script>

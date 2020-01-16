@@ -32,6 +32,16 @@ class GoodsModel {
     })
   }
 
+  /**
+   * @description 搜索商品
+  */
+  goodsSearch({ storeId, keyword, pageNumber, pageSize }) {
+    return post({
+      url: '/goods/goodsSearch',
+      data: { storeId, keyword, pageNumber, pageSize }
+    })
+  }
+
 
 
 }

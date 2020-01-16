@@ -37,12 +37,39 @@ class StoreModel {
   }
 
   /**
+   * @param {stirng} longitude 经度
+   * @param {stirng} latitude 纬度
+   * @description 根据定位获取推荐十公里门店
+   */
+  getRecommendStoreByLocate ({ longitude, latitude }) {
+    return post({
+      url: '/store/data/recommend',
+      data: { longitude, latitude }
+    })
+  }
+
+  /**
    * @description 获取最新的经常访问门店Id
    */
   getLastestUsuallyStoreId() {
     return post({
       url: '/index/queryStoreByLastest',
       data: {}
+    })
+  }
+
+  /**
+   * @param {stirng} longitude 经度
+   * @param {stirng} latitude 纬度 116.397451,
+   * @description 核对门店是否无服务
+   */
+  checkStoreIsNoService ({ longitude, latitude }) {
+    return post({
+      url: '/store/data/findStore',
+      data: {
+        longitude,
+        latitude
+      }
     })
   }
 

@@ -3,7 +3,7 @@
     <div class="lj-tabs" :class="{ 'lj-tabs_flex': flex }">
       <block v-for="(item, index) in tabs" :key="index">
         <div :id="index" class="lj-tabs__item" :class="{ 'lj-tabs__item_on': activeIndex == index }"  @click="select(index)">
-          {{ item.title }}{{ item.pcName }}
+          {{ item.title }}
           <span class="weui-badge" v-if="item.badge">{{ item.badge }}</span>
         </div>
       </block>
@@ -16,7 +16,14 @@
     props: {
       tabs: {
         type: Array,
-        default: () => []
+        default: () => [
+          {
+           title: '标题一'
+          },
+          {
+           title: '标题二'
+          },
+        ]
       },
       activeIndex: {
         type: Number,
@@ -42,7 +49,7 @@
 <style lang="scss" scoped>
 .lj-tabs__item{
   flex: 1;
-  justify-content:center; 
+  justify-content:center;
   text-align: center;
 }
   .lj-tabs-scroll {

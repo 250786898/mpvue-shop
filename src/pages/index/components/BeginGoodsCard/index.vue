@@ -8,7 +8,7 @@
     </div>
 
     <div class="weui-media-box__title">{{ item.goodsName }}</div>
-    <div class="weui-media-box__desc" v-if="item.shareDescription">{{ item.shareDescription || '' }}</div>
+    <div class="weui-media-box__desc" v-if="item.goodsSellDesc">{{ item.goodsSellDesc || '' }}</div>
 
     <div class="goods-item-main">
       <div class="counter" v-if="currentGoodsCartNum > 0">
@@ -16,7 +16,7 @@
       </div>
       <form report-submit="true" @submit="uploadFormId" v-else>
         <button hover-class="none" form-type="submit" class="hiddenBtn" @click.stop="addToCart(item.id)">
-          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_btn_shopcart_small.png@2x.png" class="icon-cart" @click.stop="addToCart(item.id)">
+          <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/common_btn_shopcart_small.png@2x.png" class="icon-cart" @click.stop="addToCart(item.id)">
         </button>
       </form>
     </div>

@@ -3,7 +3,7 @@
     <div class="backdrop" @click="$emit('update:shown', false)"></div>
     <div class="lj-dialog">
       <div class="lj-dialog__hd">
-        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/membershipcard_icon_cancel@2x.png" class="lj-dialog__cancel-btn" @click="$emit('update:shown', false)">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/membershipcard_icon_cancel@2x.png" class="lj-dialog__cancel-btn" @click="$emit('update:shown', false)">
         <div class="lj-dialog__title">请选择支付方式</div>
       </div>
       <div class="lj-dialog_bd">
@@ -18,7 +18,7 @@
               <label class="weui-cell weui-check__label">
                 <!-- <radio class="weui-check" value="1" :checked="true"/> -->
                 <div class="weui-cell__hd">
-                  <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/membershipcode_icon_membershipcard@2x.png">
+                  <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/membershipcode_icon_membershipcard@2x.png">
                 </div>
                 <div class="weui-cell__bd">
                   会员卡支付（￥{{ balance }}）
@@ -28,7 +28,7 @@
               <label class="weui-cell weui-check__label">
                 <radio class="weui-check" value="1" :checked="false" color="red"/>
                 <div class="weui-cell__hd">
-                  <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/common_icon_wechat@2x.png">
+                  <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/common_icon_wechat@2x.png">
                 </div>
                 <div class="weui-cell__bd">
                   微信支付

@@ -4,31 +4,33 @@
       <label class="weui-cell weui-check__label">
         <switch type="checkbox" class="weui-check" :checked="allChecked" @change="onAllCheckedChange"></switch>
         <div class="weui-check__hd_in-checkbox">
-          <icon class="weui-icon-checkbox_circle" type="circle" size="20" v-if="!allChecked"></icon>
-          <icon class="weui-icon-checkbox_success" type="success" color="#0EDABC" size="20" v-if="allChecked"></icon>
+          <icon class="weui-icon-checkbox_circle" type="circle" size="16" v-if="!allChecked"></icon>
+          <icon class="weui-icon-checkbox_success" type="success" color="#01bd9f" size="16" v-if="allChecked"></icon>
         </div>
         <div class="all-chooice-text">全选</div>
       </label>
       <div class="weui-flex__item all-count-box">
         <div class="all-count">
-          <h4>
-            <span class="all-count__desc"></span>
-            <span class="all-count__total">合计:</span>
-            <span class="all-count__price">￥{{ totalAmount }}</span>
-          </h4>
-          <p>已优惠:-￥{{ promisAmount || 0 }}</p>
+          <div class="all-count__price">
+            <div class="all-count__desc">合计:</div><OnlinePrice :price="totalAmount" :signSize="24" :beforeSize="38" :afterSize="38" />
+          </div>
+          <p v-if="totalAmount">已优惠:-￥{{ promisAmount || 0 }}</p>
         </div>
       </div>
-      <div>
-        <button class="radius bg-gradient settlement-btn"  @click="checkout" v-if="totalAmount">结算</button>
-        <button class="radius bg-gradient disable-btn"  disabled v-else>结算</button>
+      <div class="btn-box">
+        <button class="footer-bar-btn radius bg-gradient settlement-btn"  @click="checkout" v-if="totalAmount">结算</button>
+        <button class="footer-bar-btn radius bg-gradient disable-btn" v-else>结算</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import OnlinePrice from '@/components/OnlinePrice'
 export default {
+  components: {
+    OnlinePrice
+  },
   props: {
     cartItemResultList: { //正常购物车列表
       type: Array,
@@ -47,7 +49,7 @@ export default {
     allChecked: {
       get () {
         //如果每一购物车商品都勾选则勾选
-        return this.cartItemResultList && this.cartItemResultList.every(item => item.isSelect)
+        return this.cartItemResultList && this.cartItemResultList.filter(item => item.isSale).every(item =>  item.isSelect)
       }
     }
   },
@@ -101,36 +103,49 @@ export default {
 /*悬浮操作区样式*/
 .all-chooice-text{
   font-size: 26rpx;
-  color: #333333;
+  color: #CCCCCC;
+}
+.btn-box {
+  height: 105rpx;
+  display:flex;
+  align-items: center;
 }
 .settlement-btn{
-  width:251rpx;
-  height:105rpx;
-  background:linear-gradient(-90deg,rgba(18,205,207,1),rgba(12,225,179,1));
-  line-height: 105rpx;
+  width:220rpx;
+  height:80rpx;
+  background:#01BD9F;
+  line-height: 80rpx;
+  font-size: 32rpx;
   text-align: center;
   color: #fff;
   &::after{
     border: none;
   }
 }
+
 .disable-btn{
-  width:251rpx;
-  height:105rpx;
-  line-height: 105rpx;
+  width:220rpx;
+  height:80rpx;
+  line-height: 80rpx;
   text-align: center;
   color: #fff;
-  background: #666;
+  background: #cccccc;
   &::after{
     border: none;
   }
 }
+
 .footer-bar {
   z-index: 101;
-  padding: 0px 0 0rpx 30rpx;
+  padding: 0px 20rpx 0rpx 37rpx;
   background-color: #fff;
   height: 105rpx;
   box-sizing: border-box;
+  &-btn{
+    width:220rpx;
+    height:80rpx;
+    border-radius:10rpx;
+  }
   .weui-check__label {
     padding-left: 0;
     padding-top: 0;
@@ -150,22 +165,14 @@ export default {
     line-height: 32rpx;
     font-size: 22rpx;
     color: $text-gray;
-    h4 {
-      font-size: 26rpx;
-      .all-count__desc {
-        font-size: 20rpx;
-        color: #999;
-      }
-      .all-count__total {
-        font-size: 36rpx;
-        font-weight:bold;
-        color: #333;
-      }
-      .all-count__price {
-        font-weight:bold;
-        color: #CC3333;
-        font-size: 36rpx;
-      }
+    .all-count__desc {
+      margin-right: 10rpx;
+    }
+    .all-count__price {
+      font-size: 36rpx;
+      font-weight:bold;
+      color: #333;
+      display: flex;
     }
   }
 

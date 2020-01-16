@@ -13,7 +13,7 @@
           <span class="price-sign">￥</span>
           <span>{{onlinePriceBeforeDecimals}}</span>
           <span>.</span>
-          <span class="current-price__decimals">{{onlinePriceAfterDecimals}}</span>
+          <span class="current-price__decimals">{{onlinePriceAfterDecimals || '00' }}</span>
           </div>
           <div class="line-price">￥{{item.onlineScribingPrice}}</div>
       </div>
@@ -53,6 +53,8 @@ export default {
  .goods-item{
   padding: 10rpx 0;
   display: flex;
+  height: 116rpx;
+  box-sizing: border-box;
   border-bottom: 1rpx solid #F3F3F3;
   &__img{
     position: relative;
@@ -83,7 +85,7 @@ export default {
   &__price{
     font-size: 23rpx;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     .price-sign{
       font-size: 20rpx;
     }

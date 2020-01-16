@@ -1,13 +1,16 @@
 import Vue from 'vue'
 import { Api } from '../http/api'
 import StoreModel from '@/model/store'
+import CouponModel from '@/model/coupon'
 import {resgiterOrLogin} from '../utils/index'
 
+const couponModel = new CouponModel()
 const storeModel = new StoreModel()
 
 export default {
 
   login({ commit, dispatch }, payload) {
+    console.log('login',payload)
     commit('setSessionId', payload)
     // dispatch('setUsuallyStoreId')
     dispatch('updateCartNum')
@@ -78,23 +81,36 @@ export default {
   },
 
 
+  /**
+   *
+   * @description 更新购物车的数量
+   */
   updateCartNum({ state, commit, dispatch }) {
-    Api.cart.count({
-      storeId: state.storeId
-    }).then(res => {
-      if (res.code == Api.CODES.SUCCESS) {
-        commit('setCartNum', res.data)
-        dispatch('syncCartTabbarBadge')
-      }
-    })
+    if(state.storeId) { //存在门店才更新购物车数量
+      Api.cart.count({
+        storeId: state.storeId
+      }).then(res => {
+        if (res.code == Api.CODES.SUCCESS) {
+          commit('setCartNum', res.data)
+          dispatch('syncCartTabbarBadge')
+        }
+      })
+    }
+
   },
 
-  // 商品图标
+  /**
+   *
+   * @param {object} state state对象
+   * 为 购物车tabBar 某一项的右上角更新购物车数量
+   */
   syncCartTabbarBadge({ state }) {
+    console.log('syncCartTabbarBadge',state.cartNum)
     if (state.cartNum) {
+      console.log('syncCartTabbarBadge2',state.cartNum.toString())
       wx.setTabBarBadge({
         index: 1,
-        text: '' + state.cartNum
+        text: state.cartNum.toString()
       })
     } else {
       wx.removeTabBarBadge({
@@ -126,7 +142,7 @@ export default {
       } else {
         wx.hideLoading()
         wx.showToast({
-          title: res.message,
+          title: res.message || '',
           icon: 'none'
         })
       }
@@ -135,5 +151,77 @@ export default {
     .catch(e => {
       return Promise.reject(e)
     })
+  },
+
+   /**
+     * @description 兑换领取优惠券
+     */
+  async exchangeOrFetchCoupon ({ state, commit, dispatch },exchangeCouponNO) {
+    wx.showLoading({
+      title: '领取中',
+      mask: true
+    })
+    if(!exchangeCouponNO) {
+      wx.showToast({
+        title: '兑换码为空~', //提示的内容,
+        icon: 'none' //图标,
+      })
+      return false
+    }
+    const res = await couponModel.receiveCoupon({
+      systemCode: exchangeCouponNO
+    })
+    wx.hideLoading()
+    console.log('exchangeOrFetchCoupon',res)
+    return new Promise((resolve,reject) => {
+      if(res.code == Api.CODES.SUCCESS) {
+       resolve(res.data)
+      }else{
+        reject(res)
+      }
+    })
+  },
+
+  /**
+   * @description 获取活动优惠券
+   */
+  async fetchActivityCoupon ({ state, commit, dispatch },activityIdOfCoupon) {
+    wx.showLoading({
+      title: '领取中',
+      mask: true
+    })
+    const res = await couponModel.receiveCouponByActivityId({
+      activityId : activityIdOfCoupon
+    })
+    wx.hideLoading()
+    return new Promise((resolve,reject) => {
+      if(res.code === Api.CODES.SUCCESS) {
+        if(res.data === 200001) {
+          wx.showToast({
+            title: '恭喜你，抢到了!', //提示的内容,
+            icon: 'none', //图标,
+            duration: 1500, //延迟时间,
+          })
+          setTimeout(() => {
+            //领取成功跳转我的优惠券
+            resolve(200001) //领取成功后的操作
+          },1500)
+        }else if(res.data === 200002) {
+          wx.showToast({
+            title: '您来晚了，优惠券已被抢光~', //提示的内容,
+            icon: 'none', //图标,
+            duration: 1500, //延迟时间,
+          })
+          setTimeout(() => {
+            //领取成功跳转我的优惠券
+            resolve(200002) //领取成功后的操作
+          },1500)
+        }
+      }else if (res.code === 40001) {
+        console.log('跳转登录')
+        resgiterOrLogin() //跳转登录
+      }
+    })
+
   }
 }

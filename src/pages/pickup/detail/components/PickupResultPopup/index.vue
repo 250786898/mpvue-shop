@@ -2,7 +2,7 @@
 <div v-if="shown" class="popup">
   <div class="mask"></div>
    <div class="popnp">
-    <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechat/popnp.png">
+    <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/popnp.png">
     <p class="confirm"  @click="confirm">确定</p>
   </div>
 </div>

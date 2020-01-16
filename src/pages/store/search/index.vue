@@ -6,11 +6,11 @@
 
     <div class="result-list" v-if="!searching && storeList.length > 0">
       <template v-for="item in storeList">
-        <store-card :key="item.id" :item="item" />
+        <SearchAddressItem :key="item.id" :item="item" />
       </template>
     </div>
 
-    <empty-search v-if="isEmpty && !searching" />
+    <!-- <empty-search v-if="isEmpty && !searching" /> -->
 
     <div class="loading" v-show="searching">
       <lj-loading />
@@ -26,6 +26,7 @@ import { Api } from '@/http/api'
 import TopBg from "../select/components/TopBg/index"
 import SearchBar from "./components/SearchBar/index"
 import StoreCard from "../components/StoreCard/index"
+import SearchAddressItem from "./components/SearchAddressItem/index"
 import LjLoading from "@/components/LjLoading"
 import EmptySearch from './components/EmptySearch/index'
 
@@ -36,7 +37,8 @@ export default {
     TopBg,
     StoreCard,
     LjLoading,
-    EmptySearch
+    EmptySearch,
+    SearchAddressItem
   },
   data () {
     return {
@@ -177,8 +179,7 @@ page{
     justify-content: center;
   }
   .result-list {
-    margin-top: 20rpx;
-    padding: 30rpx;
+    padding: 20rpx 30rpx;
     background: #fff;
     display: flex;
     flex-direction: column;

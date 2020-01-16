@@ -1,65 +1,64 @@
 <template>
-  <div>
-    <template  v-if="(cartItemResultList && cartItemResultList.length) || (failureGoodsList && failureGoodsList.length)">
+  <div  class="cart-container">
+    <!-- 优惠券模块 -->
+    <coupon-wrap :goods-list="goodsListByCoupon" :coupon-list="myCouponList" v-if="goodsListByCoupon.length && myCouponList.length"/>
 
-       <!-- 正常商品列表 -->
-      <base-cart
-        :cartItemResultList="cartItemResultList"
-        @onAllCheckedChange="onAllCheckedChange"
-        @updateCartNum="updateCartNum"
-        @updateActivityStatus="updateActivityStatus"
-        @updateCartList="refreshCartList"
-        @del="del"
-        v-if="cartItemResultList && cartItemResultList.length"
-      />
+    <div v-if="(cartItemResultList && cartItemResultList.length) || (failureGoodsList && failureGoodsList.length)">
+        <!-- 正常商品列表 -->
+        <base-cart
+          :cartItemResultList="cartItemResultList"
+          @onAllCheckedChange="onAllCheckedChange"
+          @updateCartNum="updateCartNum"
+          @updateActivityStatus="updateActivityStatus"
+          @updateCartList="refreshCartList"
+          @del="del"
+          v-if="cartItemResultList && cartItemResultList.length"
+        />
 
-      <!-- 失效商品列表 -->
-      <failure-cart
-        :failureGoodsList="failureGoodsList"
-        @updateCartList="updateCartList"
-        v-if="failureGoodsList && failureGoodsList.length"
-      />
+        <!-- 失效商品列表  -->
+        <failure-cart
+          :failureGoodsList="failureGoodsList"
+          @updateCartList="updateCartList"
+           v-if="failureGoodsList && failureGoodsList.length"
+        />
 
-       <!-- 占位符 -->
-      <div style="height: 120rpx;"></div>
+        <!-- 占位符 -->
+        <div style="height: 120rpx;"></div>
 
-      <!-- 悬浮区域 -->
-      <Suspension
-        :totalAmount="totalAmount"
-        :promisAmount="promisAmount"
-        :cartItemResultList="cartItemResultList"
-        @onAllCheckedChange="onAllCheckedChange"
-        v-if="cartItemResultList && cartItemResultList.length"
-      />
+        <!-- 悬浮区域 -->
+        <Suspension
+          :totalAmount="totalAmount"
+          :promisAmount="promisAmount"
+          :cartItemResultList="cartItemResultList"
+          @onAllCheckedChange="onAllCheckedChange"
+          v-if="cartItemResultList && cartItemResultList.length"
+        />
 
-    </template>
+    </div>
 
-    <template v-else >
+    <div class="empty-cart-container" v-else >
       <!-- 购物车为空的时候显示 -->
       <empty-cart />
-    </template>
-
-
-
-
+    </div>
   </div>
 </template>
 
 <script>
   import { Api } from '@/http/api'
   import { mapState } from 'vuex'
-  import GoodsRecommend from '@/components/GoodsRecommend'
+  import CouponWrap from './components/CouponWrap'
   import FailureCart from './components/FailureCart/index'
   import BaseCart from './components/BaseCart/index'
   import EmptyCart from './components/EmptyCart/index'
   import Suspension from './components/Suspension/index'
   import  CartModel from '@/model/cart'
-
+  import CouponModel from '@/model/coupon'
+  const couponModel = new CouponModel()
   const cartModel = new CartModel()
 
   export default {
     components: {
-      GoodsRecommend,
+      CouponWrap,
       FailureCart,
       BaseCart,
       EmptyCart,
@@ -72,9 +71,15 @@
         cartItemResultList: [], //正常商品购物车列表
         preSaleGoodList: [], //预售商品列表
         failureGoodsList: [], //失效商品购物车列表
+        goodsListByCoupon: [], //优惠券推荐商品列表格
+        myCouponList: [], //我的优惠券列表
         totalAmount: 0, //合计购物车价格
         promisAmount: 0 //已优惠价格
       }
+    },
+
+    computed: {
+      ...mapState(['storeId','sessionId'])
     },
 
     onLoad() {
@@ -100,19 +105,81 @@
         mask: true,
         title: '加载中'
       })
-      this.getCartList() //获取购物车列表
+      this.loadCartData()
+      this.$store.dispatch('syncCartTabbarBadge') //更新购物车数量标签
     },
 
 
     onPullDownRefresh() {
-      this.getCartList()  //下拉更新购物车列表
+      wx.showNavigationBarLoading()
+      this.loadCartData()  //下拉更新购物车列表
     },
 
-    computed: {
-      ...mapState(['storeId','sessionId'])
-    },
+
 
     methods: {
+
+      /**
+       * @description 加载购物车相关数据
+       */
+      loadCartData () {
+        Promise.all([this.getCartList(),this.loadCouponInfo(),this.getCartCouponGoodsList()])
+        .then(res => {
+          //所有请求完毕隐藏加载提示
+           wx.hideLoading()
+           wx.hideNavigationBarLoading()
+           wx.stopPullDownRefresh()
+        }).catch(() => {
+           wx.hideLoading()
+           wx.hideNavigationBarLoading()
+           wx.stopPullDownRefresh()
+        })
+      },
+
+      getCartCouponGoodsList () {
+        return couponModel.getCartCouponGoodsList({
+          storeId: this.storeId,
+          restricted: 0
+        }).then(res => {
+          if(res.code == Api.CODES.SUCCESS) {
+            this.goodsListByCoupon = res.data.goods
+          }
+        })
+
+      },
+
+       /**
+       * @description 初始化，加载购物车列表
+       */
+      getCartList() {
+        return Api.cart.cartList({
+          storeId: this.storeId,
+          carts: 'all'
+        }).then(res => {
+          if (res.code == Api.CODES.SUCCESS) {
+            this.cartItemResultList = res.data.cartItemResultList
+            this.failureGoodsList = res.data.failureGoodsList
+            this.totalAmount = res.data.totalAmount //合计购物车价格
+            this.promisAmount = res.data.promisAmount //已优惠价格
+          }
+        })
+        .catch(e => console.log(e))
+        this.$store.dispatch('syncCartTabbarBadge') //设置tab徽章
+      },
+
+
+       /**
+       * @description 加载优惠券列表
+       */
+       loadCouponInfo () {
+        return couponModel.getCartCouponInfo({
+          storeId: this.storeId
+        }).then(res => {
+          if(res.code == Api.CODES.SUCCESS) {
+             this.myCouponList= res.data.shopCoupons
+          }
+        })
+      },
 
       /**
        * @description 获取购物车id集合
@@ -284,28 +351,7 @@
         .then(() => wx.hideLoading())
       },
 
-      /**
-       * @description 初始化，加载购物车列表
-       */
-      getCartList() {
-        Api.cart.cartList({
-          storeId: this.storeId,
-          carts: 'all'
-        }).then(res => {
-          if (res.code == Api.CODES.SUCCESS) {
-            this.cartItemResultList = res.data.cartItemResultList
-            this.failureGoodsList = res.data.failureGoodsList
-            this.totalAmount = res.data.totalAmount //合计购物车价格
-            this.promisAmount = res.data.promisAmount //已优惠价格
-          }
-        })
-        .catch(e => console.log(e))
-        .then(() => {
-          wx.hideLoading()
-          wx.stopPullDownRefresh()
-        })
-        this.$store.dispatch('syncCartTabbarBadge') //设置tab徽章
-      },
+
     }
 
 
@@ -313,10 +359,23 @@
 </script>
 
 <style>
-  page { background-color: #F5F5F5;padding: 24rpx 0; }
+  page { background-color: #F5F5F5; }
 </style>
 
 <style lang="scss" scoped>
+.cart-container{
+  display: flex;
+  flex-direction: column;
+  padding: 0rpx 0 20rpx;
+  box-sizing: border-box;
+  align-items: center;
+}
+.empty-cart-container{
+  width: 100vw;
+  height: 100vh;
+  padding: 20rpx 20rpx 58rpx;
+  box-sizing: border-box;
+}
   .empty-tip {
     padding-top: 100rpx;
     padding-bottom: 220rpx;

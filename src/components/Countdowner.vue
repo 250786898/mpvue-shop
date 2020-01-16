@@ -47,13 +47,13 @@
     },
 
     created () {
-     console.log('倒计时created')
+     console.log('倒计时created',this.countdown)
      this.startCountdown()
      this.startMsecDown()
     },
 
     mounted () {
-      console.log('倒计时mounted')
+      console.log('倒计时mounted',this.countdown)
     },
 
     onShow () { //mpvue框架第一次不会执行，第二次访问开始会一直执行
@@ -67,6 +67,7 @@
        * @description开始倒计时
        */
       startCountdown() {
+        console.log('startCountdown',this.countdown)
         if(this.countdown <= 0) return false
         clearInterval(this.countdownTimer)
         this.countdownTimer = setInterval(() => {
@@ -104,15 +105,15 @@
     span {
       vertical-align: top;
       display: inline-block;
-      font-size: 26rpx;
-      color: #0C524D;
+      font-size: 28rpx;
+      color: #fff;
       &.num {
         text-align: center;
         color: #fff;
         width:40rpx;
         height:36rpx;
         line-height: 36rpx;
-        background:rgba(25,111,105,1);
+        background:#F1913E;
         border-radius:6rpx;
         font-weight:800;
       }

@@ -1,14 +1,20 @@
 <template>
-  <div class="search-bar">
-    <div class="search-city" @click="navToSelectCity" >{{cityName}}</div>
+<div class="search-bar">
+  <div class="search-item">
+    <div class="search-city" @click="navToSelectCity">{{cityName}}</div>
+    <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/common_icon_dropdown.png" alt="" class="dropdown-icon">
     <div class="search-main">
-      <label class="search-label">
-        <icon class="icon-search" type="search" size="14"></icon>
-        <input type="text" class="search-bar__text" v-model="inputVal" placeholder="请输入提货地址" auto-focus  @input="searchStore" />
+      <label class="search-label" @click="navToSearch">
+        <input class="search-placeholder" v-model="inputVal" placeholder="请输入提货地址" auto-focus @input="searchStore"/>
       </label>
-
+      <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/common_icon_close.png" class="cancel-search-icon" alt="" mode="aspectFit">
     </div>
+
   </div>
+   <div class="cancel-btn">
+    取消
+  </div>
+</div>
 </template>
 
 <script>
@@ -33,6 +39,7 @@ export default {
      * @description 监听键盘输入搜索事件emit
      */
     searchStore () {
+      console.log('searchStore')
       this.$emit('searchStore',this.inputVal)
     },
 
@@ -50,37 +57,80 @@ export default {
 
 <style lang="scss">
 .search-bar{
-  width:702rpx;
-  height:72rpx;
-  background:#F3F3F3;
-  border-radius:36rpx;
+  width:710rpx;
+  height:64rpx;
+  background:rgba(255,255,255,1);
+  border-radius:10rpx;
+  margin-top: 30rpx;
   z-index: 9;
+  font-size:24rpx;
+  line-height: 28rpx;
+  color: #929292;
   display: flex;
   align-items: center;
-  font-size:28rpx;
+}
+.search-item {
+  display: flex;
+  align-items: center;
+  background: #F6F6F6;
+  width: 630rpx;
+  height: 100%;
+  padding-right: 10rpx;
+  box-sizing: border-box;
+  margin-right: 24rpx;
+}
+
+.cancel-btn{
+  color: #01BD9F;
+  font-size: 28rpx;
+}
+
+.cancel-search-icon{
+  width: 28rpx;
+  height: 28rpx;
+}
+.dropdown-icon{
+  width:40rpx;
+  height: 30rpx;
+}
+.search-main{
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 100%;
 }
 .search-city{
-  color: #7F7F7F;
-  padding-left: 28rpx;
-   &:after {
-    content: '';
-    display: inline-block;
-    margin-left: 14rpx;
-    vertical-align: middle;
-    width: 0;
-    height: 0;
-    border-top: 10rpx solid #666;
-    border-left: 8rpx solid transparent;
-    border-right: 8rpx solid transparent;
-  }
+  color: #929292;
+  padding-left: 40rpx;
+  height: 100%;
+  font-size: 30rpx;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
 }
 .search-label{
   display: flex;
   align-items: center;
-  color: #7F7F7F;
-  padding-left: 26rpx;
+  color: #929292;
+  height: 100%;
+  width: 100%;
+  margin-left: 15rpx;
+  &::before{
+    content: ' ';
+    width:2rpx;
+    height:31rpx;
+    display: block;
+    background: #929292;
+  }
+  .search-placeholder{
+    margin-left: 29rpx;
+    font-size:24rpx;
+    width: 100%;
+  }
   .icon-search{
     margin-right: 14rpx;
+    width: 28rpx;
+    height: 28rpx;
   }
 }
 </style>

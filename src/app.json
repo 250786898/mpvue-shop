@@ -4,12 +4,13 @@
     "pages/store/select/main",
     "pages/store/search/main",
     "pages/city/select/main",
-    "pages/index/searchgoods/main",
+    "pages/city/search/main",
     "pages/cart/main",
+    "pages/cart/activitiesGoods/main",
     "pages/mine/main",
     "pages/location/main",
-    "pages/goods/index/main",
     "pages/goods/detail/main",
+    "pages/goods/search/main",
     "pages/order/preview/main",
     "pages/order/index/main",
     "pages/order/detail/main",
@@ -17,9 +18,11 @@
     "pages/order/returndetail/main",
     "pages/order/returngoods/main",
     "pages/order/returnapply/main",
+    "pages/order/payResult/main",
     "pages/mine/auth/main",
     "pages/mine/bind/main",
     "pages/mine/info/main",
+    "pages/category/main",
     "pages/mine/serviceAgreement/main",
     "pages/settings/index/main",
     "pages/pickup/index/main",
@@ -28,25 +31,28 @@
     "pages/network/exceptions/main",
     "pages/coupon/index/main",
     "pages/coupon/applicableStores/main",
-    "pages/coupon/applicableGoods/main"
+    "pages/coupon/applicableGoods/main",
+    "pages/coupon/fetch/main",
+    "pages/coupon/select/main",
+    "pages/activity/main"
   ],
   "window": {
-    "backgroundTextStyle": "light",
+    "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "乐家生鲜",
     "navigationBarTextStyle": "black",
-    "backgroundColor": "#0FD7C0"
+    "backgroundColor": "#f5f5f5"
   },
   "tabBar": {
-    "color": "#797979",
-    "selectedColor": "#00dec7",
+    "color": "#CACACA",
+    "selectedColor": "#06B3AE",
     "borderStyle": "white",
     "list": [
       {
         "pagePath": "pages/index/main",
         "text": "首页",
-        "iconPath": "static/images/homee_icon.png",
-        "selectedIconPath": "static/images/home_icon.png"
+        "iconPath": "static/images/home_icon.png",
+        "selectedIconPath": "static/images/homee_icon.png"
       },
 
       {
@@ -58,14 +64,14 @@
       {
         "pagePath": "pages/mine/main",
         "text": "我的",
-        "iconPath": "static/images/minee_icon.png",
-        "selectedIconPath": "static/images/mine_icon.png"
+        "iconPath": "static/images/mine_icon.png",
+        "selectedIconPath": "static/images/minee_icon.png"
       }
     ]
   },
   "usingComponents": {
-    "van-tab": "/static/vant/tab/index",
-    "van-tabs": "/static/vant/tabs/index"
+    "van-tab": "/static/vant-weapp/tab/index",
+    "van-tabs": "/static/vant-weapp/tabs/index"
   },
   "permission": {
     "scope.userLocation": {

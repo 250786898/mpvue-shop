@@ -1,8 +1,17 @@
 <template>
   <div class="goods-list">
       <!-- 失效商品 -->
-      <div class="group" v-if="failureGoodsList && failureGoodsList.length">
-        <div class="group__title">失效商品</div>
+      <div class="group failure-goods"  v-if="failureGoodsList && failureGoodsList.length">
+        <div class="group-header">
+          <div class="group-header-content">
+            <div class="group-header__title">因售罄、下架原因导致失效商品</div>
+            <div class="group-header-right" @click="clearFailureCart">
+              <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/commom_collection depot_png.png" class="delete-icon">
+              <span class="group-header-right__text">清空</span>
+            </div>
+          </div>
+        </div>
+
         <div v-for="(item, index) in failureGoodsList" :key="item.goodsId" class="group-item">
             <goods-card
               :item="item"
@@ -10,12 +19,16 @@
               :isFailure="true"
             />
         </div>
+
+        <div class="failure-mask"></div>
       </div>
 
       <!-- 清空失效商品 -->
-      <div class="group clear-invalid-goods-btn" v-if="failureGoodsList && failureGoodsList.length" @click="clearFailureCart">
+      <!-- <div class="group clear-invalid-goods-btn" v-if="failureGoodsList && failureGoodsList.length" @click="clearFailureCart">
         清空失效商品
-      </div>
+      </div> -->
+
+
   </div>
 </template>
 
@@ -37,6 +50,7 @@ export default {
      * @description 清除失效商品购物车
      */
     clearFailureCart () {
+      console.log('clearFailureCart')
       const cartIds =  this.getFailureCartIds()
       this.del(cartIds,true)
     },
@@ -91,26 +105,59 @@ export default {
 <style lang="scss" scoped>
  .goods-list{
    padding-top: 24rpx;
+   position: relative;
+ }
+ .failure-goods{
+   position: relative;
+ }
+ .failure-mask{
+   position: absolute;
+   top: 0;
+   left: 0;
+   z-index: 2;
+   background:rgba(255,255,255,0.4);
+   height: 100%;
+   width: 100%;
  }
  .group {
     width: 708rpx;
     margin: auto;
     overflow: hidden;
-    border-radius:14rpx;
+    border-radius:10rpx;
     background: $white-color;
     &-item{
       border-radius:14rpx;
       background: $white-color;
     }
-    &__title {
+    &-header {
       background-color: $white-color;
-      font-weight:800;
+      padding: 0 26rpx 0 30rpx;
+      box-sizing: border-box;
       text-align: center;
-      font-size: 32rpx;
-      color: $text-gray;
-      height: 90rpx;
-      line-height: 90rpx;
-      border-bottom: 1rpx solid #F4F4F4;
+      font-size: 30rpx;
+      color:#333333;
+      &-content{
+        height: 110rpx;
+        line-height: 110rpx;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1rpx solid #E4E4E4;
+      }
+      &-right{
+        display: flex;
+        align-items: center;
+        color: #858585;
+        font-size: 30rpx;
+        z-index: 99;
+        .delete-icon{
+          width: 46rpx;
+          height: 46rpx;
+        }
+        &__text{
+          line-height: 1;
+        }
+      }
     }
     + .group {
       margin-top: 20rpx;
@@ -166,9 +213,9 @@ export default {
     }
   }
  .clear-invalid-goods-btn{
-    height: 90rpx;
-    line-height: 90rpx;
+    height: 110rpx;
+    line-height:110rpx;
     text-align: center;
-    font-size:28rpx;
+    font-size:34rpx;
   }
 </style>

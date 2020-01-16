@@ -8,13 +8,13 @@
       <div class="weui-media-box__hd weui-media-box__hd_in-appmsg">
         <img class="weui-media-box__thumb" :src="item.goodsImage" mode="aspectFit"/>
         <img :src="item.goodsTagImage" class="marker" v-if="item.goodsTagStatus == 1">
-        <div class="sell-out-icon" v-if="isSellOut">已抢光</div>
+        <div class="sell-out-icon" v-if="!item.activityStock">已抢光</div>
       </div>
 
       <div class="weui-media-box__bd weui-media-box__bd_in-appmsg">
         <div class="goods-maim-content">
           <div class="weui-media-box__title">{{ item.goodsName }}</div>
-          <div class="weui-media-box__desc" v-if="item.shareDescription">{{ item.shareDescription || '' }}</div>
+          <div class="weui-media-box__desc" v-if="item.goodsSellDesc">{{ item.goodsSellDesc || '' }}</div>
           <div class="limit-tag" v-if="item.activityLimitNum">限购</div>
         </div>
 
@@ -34,11 +34,11 @@
             <counter  v-model="currentGoodsCartNum" :max="item.inventoryAmount" @change="onGoodsNumChange($event,item)"></counter>
           </div>
           <form report-submit="true" @submit="uploadFormId" v-else>
-            <button hover-class="none" form-type="submit" class="hiddenBtn"  v-if="isSellOut">
-              <img src="/static/images/common_btn_shopcart_sellout.png@2x.png" class="icon-cart">
+            <button hover-class="none" form-type="submit" class="hiddenBtn"  v-if="!item.activityStock">
+              <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/common_btn_shopcart_sellout.png@2x.png" class="icon-cart">
             </button>
             <button hover-class="none" form-type="submit" class="hiddenBtn" @click.stop="addToCart(item.id)" v-else >
-              <img src="/static/images/common_btn_shopcart_small.png@2x.png" class="icon-cart" >
+              <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/common_btn_shopcart_small.png@2x.png" class="icon-cart" >
             </button>
           </form>
 
@@ -48,7 +48,7 @@
       <div class="xian"></div>
 
     </navigator>
-    <navigator class="sell-out-mask" v-if="isSellOut"  :url="'/pages/goods/detail/main?id=' + item.id+ '&activityId=' + (item.activityId || '') + '&activityGoodsId=' + (item.id || '')"></navigator>
+    <navigator class="sell-out-mask" v-if="!item.activityStock"  :url="'/pages/goods/detail/main?id=' + item.id+ '&activityId=' + (item.activityId || '') + '&activityGoodsId=' + (item.id || '')"></navigator>
   </div>
 </template>
 
@@ -66,11 +66,6 @@
       item: {
         type: Object,
         default: () => ({})
-      },
-      // 是否抢光
-      isSellOut: {
-        type: Boolean,
-        default: false
       }
     },
     data () {

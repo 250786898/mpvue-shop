@@ -5,7 +5,7 @@ export default {
   location: {}, //用户定位的相关信息
   wxUserInfo: {}, //微信用户信息
   wxPhoneNumber: '', //微信用户电话信息
-  storeId: null, // 当前门店 ID
+  storeId: null, // 当前门店 ID null
   shopDetail:{},  //当前门店详细信息
   shareStoreId: null, // 从分享进来的门店 ID
   shareStoreInfo: {}, //分享的门店信息
@@ -17,5 +17,6 @@ export default {
   indexBarHeight: 0 , //首页顶部栏高度
   indexGoodsTop: 0, //首页时段活动距离顶部距离
   runingtime:0, //待支付倒计时时间
-  pickup:'' //提货
+  pickup:'', //提货
+  selectCouponOfsubmitOrder: {} //提交订单选择的优惠券
 }

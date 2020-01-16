@@ -1,7 +1,7 @@
 <template>
   <div class="service">
-    <img src="/static/images/service_not _available.jpg" class="service-icon" />
-    <div class="service-text">该城市暂未开通自提服务</div>
+    <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/service_not _available.png" class="service-icon" />
+    <div class="service-text">当前定位不在服务范围内~</div>
   </div>
 </template>
 
@@ -15,12 +15,13 @@ export default {
 .service{
   width: 100%;
   text-align: center;
-  font-size: 12px;
-  padding: 100px 0;
-  margin-bottom: 30rpx;
+  font-size: 26rpx;
+  padding: 61rpx 0 170rpx;
+  color: #8E8D8D;
   &-icon{
-    width: 400rpx;
-    height: 200rpx;
+    width: 468rpx;
+    height: 378rpx;
+    margin-bottom: 10rpx;
   }
 }
 

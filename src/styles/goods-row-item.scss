@@ -50,12 +50,10 @@
   }
 
   &__price {
-    line-height: 30rpx;
     .primary {
       font-weight: 700;
       font-size: 34rpx;
       color: #DA3535;
-      font-family: Arial;
       span {
         line-height: 40rpx;
         vertical-align: middle;
@@ -65,7 +63,6 @@
       padding-left: 4rpx;
       font-size: 24rpx;
       color: #999;
-      line-height: 32rpx;
       vertical-align: middle;
       text-decoration: line-through;
       // margin:10rpx 0;
