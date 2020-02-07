@@ -1,0 +1,32 @@
+.store-item {
+  padding: 20rpx;
+  background-color: #fff;
+  > h4 {
+    line-height: 40rpx;
+    font-size: 30rpx;
+    color: $text-black;
+    @include ellipsis;
+  } 
+  &__desc {
+    position: relative;
+    line-height: 40rpx;
+    font-size: 26rpx;
+    color: $text-gray;
+  }
+  &__address {
+    width: 400rpx;
+  }
+  &__distance {
+    position: absolute;
+    right: 0;
+    top: 0;
+    img {
+      vertical-align: top;
+      width: 40rpx;
+      height: 40rpx;
+    }
+  }
+  & + & {
+    border-top: 1rpx solid #DEDEDE;
+  }
+}
