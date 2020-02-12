@@ -10,6 +10,15 @@
         <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/me_icon_blackarrow.png.png" alt="">
       </div>
     </div>
+    <!-- <div class="item" @click="applyManager">
+      <div class="item-left">
+        <img src="/static/images/mine-manager-icon.png" class="item-left__icon mine-manager-icon">
+        <span class="item-left__desc">申请团长</span>
+      </div>
+      <div class="item-right">
+        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/me_icon_blackarrow.png.png" alt="">
+      </div>
+    </div> -->
     <div class="item">
       <button open-type="contact" class="contact-btn">
         <div class="item-left">
@@ -45,12 +54,24 @@ export default {
   methods: {
 
     /**
+     * @description 申请团长
+     */
+    applyManager () {
+      wx.navigateTo({
+        url: '/pages/manager/apply/main'
+      })
+    },
+
+    /**
      * @description 优惠券
      */
     discount() {
       this.$emit('discount')
     },
 
+    /**
+     * @description 去设置
+     */
     toSettings () {
       this.$emit('toSettings')
     }
@@ -91,6 +112,11 @@ export default {
         width: 42rpx;
         height: 42rpx;
         margin-right: 21rpx;
+      }
+      .mine-manager-icon{
+        width: 30rpx;
+        height: 38rpx;
+        margin-right: 31rpx;
       }
     }
     &-right{

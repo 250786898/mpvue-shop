@@ -34,7 +34,8 @@
     "pages/coupon/applicableGoods/main",
     "pages/coupon/fetch/main",
     "pages/coupon/select/main",
-    "pages/activity/main"
+    "pages/activity/main",
+    "pages/manager/apply/main"
   ],
   "window": {
     "backgroundTextStyle": "dark",

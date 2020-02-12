@@ -27,7 +27,7 @@
     />
 
     <!-- Type start: 提货时间 -->
-    <!-- <pickup-timer  :pickup-time="goodsDetailInfo.pickUpTime"  /> -->
+    <pickup-timer  :pickup-time="goodsDetailInfo.pickUpTime" :is-sale="goodsDetailInfo.isSale" :start-sale-time="goodsDetailInfo.startTime"  />
 
     <!-- Type end; -->
 
