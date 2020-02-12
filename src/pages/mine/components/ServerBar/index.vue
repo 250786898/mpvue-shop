@@ -10,7 +10,7 @@
         <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/me_icon_blackarrow.png.png" alt="">
       </div>
     </div>
-    <!-- <div class="item" @click="applyManager">
+    <div class="item" @click="applyManager">
       <div class="item-left">
         <img src="/static/images/mine-manager-icon.png" class="item-left__icon mine-manager-icon">
         <span class="item-left__desc">申请团长</span>
@@ -18,7 +18,7 @@
       <div class="item-right">
         <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/me_icon_blackarrow.png.png" alt="">
       </div>
-    </div> -->
+    </div>
     <div class="item">
       <button open-type="contact" class="contact-btn">
         <div class="item-left">
@@ -114,9 +114,9 @@ export default {
         margin-right: 21rpx;
       }
       .mine-manager-icon{
-        width: 30rpx;
-        height: 38rpx;
-        margin-right: 31rpx;
+        // width: 30rpx;
+        // height: 38rpx;
+        // margin-right: 31rpx;
       }
     }
     &-right{
