@@ -3,11 +3,11 @@
     <div class="weui-cells">
       <div class="weui-cell" v-if="isSale">
         <span class="weui-cell__title">提货</span>
-        <span class="take-goods-time">现在下单,<span class="take-goods-time-color">&nbsp;&nbsp;{{showPickUpTime}}&nbsp;&nbsp;</span>可提货</span>
+        <span class="take-goods-time">现在下单,<span class="take-goods-time-color">&nbsp;&nbsp;{{showPickUpTime}}</span>可提货</span>
       </div>
       <div class="weui-cell" v-else>
         <span class="weui-cell__title">提货</span>
-        <span class="take-goods-time">预计提货时间</span><span class="take-goods-time-color">&nbsp;&nbsp;{{showStartTime}}&nbsp;&nbsp;</span>
+        <span class="take-goods-time">预计提货时间</span><span class="take-goods-time-color">&nbsp;&nbsp;{{showPickUpTime}}</span>
       </div>
     </div>
   </div>
@@ -82,6 +82,9 @@ export default {
     font-size: 24rpx;
     color: $text-black;
   }
+  .weui-cell {
+    padding: 20rpx;
+  }
   .weui-cells__title {
     font-size:30rpx;
   }
@@ -99,6 +102,8 @@ export default {
 }
 .take-goods-time {
   font-size: 30rpx;
+  display: flex;
+  align-items: center;
   &-color{
     color: #FF9900;
     font-size: 30rpx;

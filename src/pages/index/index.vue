@@ -153,7 +153,6 @@ export default {
         withShareTicket: true
       })
       this.loadAndShowCouponDialog() //加载显示优惠券弹窗
-      this.$store.dispatch('updateCartNum')
       this.updateStoreInfo() //更新门店相关信息
       this.updateStoreData() //更新新的门店数据
       this.hideComfirmStoreDialog()

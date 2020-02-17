@@ -43,7 +43,7 @@
         <span>版本号</span>
       </div>
       <div class="card-right">
-       V2.3.5
+       V2.3.7
       </div>
       </button>
     </div>
