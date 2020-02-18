@@ -84,6 +84,7 @@ export default {
     }
   },
   onLoad(e) {
+    Object.assign(this.$data, this.$options.data());
     this.getReasonList();
   }
 };
