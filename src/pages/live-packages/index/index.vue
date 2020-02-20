@@ -1,11 +1,6 @@
 <template>
   <div>
-    <navigator
-      url="/pages/live-packages/index/main"
-      open-type="navigate"
-      hover-class="none">
-      123
-    </navigator>
+    直播间
   </div>
 </template>
 
