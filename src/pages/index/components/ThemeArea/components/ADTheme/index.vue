@@ -74,7 +74,12 @@ export default {
         wx.navigateTo({
           url: `/${turnUrl}?id=${turnId}`
         })
-      } else {
+      } else if (turnType == 3){
+        //跳转其他小程序
+        wx.navigateToMiniProgram({
+          appId: turnId
+        })
+      }else {
         //其他类型
         wx.navigateTo({
           url: `/${turnUrl}?id=${turnId}`

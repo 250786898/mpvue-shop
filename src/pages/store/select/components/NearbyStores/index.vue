@@ -4,13 +4,15 @@
       <div class="select-store-card__title">附近门店</div>
       <template v-if="storeList.length > 0">
         <div v-for="(item,index) in storeList" :key="index">
-          <store-card
+          <div v-if="item.storeDistance < 10">
+             <store-card
             :item="item"
             :showLine="isShowLine(index)"
             :showDistance="isCurrentLocateCity"
             :last-router="lastRouter"
             v-if="item.storeId != shopDetail.storeId"
-          />
+           />
+          </div>
         </div>
       </template>
       <template v-else>

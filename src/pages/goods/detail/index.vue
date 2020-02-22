@@ -27,7 +27,7 @@
     />
 
     <!-- Type start: 提货时间 -->
-    <!-- <pickup-timer  :pickup-time="goodsDetailInfo.pickUpTime"  /> -->
+    <pickup-timer  :pickup-time="goodsDetailInfo.pickUpTime" :is-sale="goodsDetailInfo.isSale" :start-sale-time="goodsDetailInfo.startTime"  />
 
     <!-- Type end; -->
 
@@ -38,12 +38,13 @@
         v-if="goodsDetailInfo.activityLimitNum"
         :num="goodsDetailInfo.activityLimitNum"
       />
-      <!-- 优惠券 -->
+      <!-- 优惠券 
       <CouponBar
         :list="couponList"
         @fetchCoupon="fetchCoupon"
         v-if="couponList && couponList.length"
       />
+      -->
     </div>
 
     <!-- 商品推荐 -->

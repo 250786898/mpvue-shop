@@ -34,7 +34,7 @@ export default {
      * @description 提交当前申请
      */
     async submit() {
-      if (this.proof.refundReason ) {
+      if (this.proof.refundReason) {
         let list = this.goodList.map(item => ({
           id: item.id,
           goodsNum: item.goodsNum
