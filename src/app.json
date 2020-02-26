@@ -64,7 +64,7 @@
       "root": "pages/goods/",
       "pages": [
         "detail/main",
-        "goods/search/main"
+        "search/main"
       ]
     },
     {
@@ -129,6 +129,12 @@
         "text": "首页",
         "iconPath": "static/images/home_icon.png",
         "selectedIconPath": "static/images/homee_icon.png"
+      },
+      {
+        "pagePath": "pages/live/main",
+        "text": "直播",
+        "iconPath": "static/images/cart_icon.png",
+        "selectedIconPath": "static/images/cartt_icon.png"
       },
       {
         "pagePath": "pages/cart/main",
