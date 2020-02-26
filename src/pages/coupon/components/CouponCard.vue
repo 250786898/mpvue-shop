@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 正常优惠券 -->
-    <div class="coupon-card " :class="{'expire-text' : ( type ==  'used' || type ==  'expire') }" >
+    <div class="coupon-card " :class="{'expire-text' : ( type ==  'used' || type ==  'expire') }"  @click="selectCoupon" >
       <div class="coupon-card__top">
         <div class="card-left">
 
@@ -43,7 +43,7 @@
         <div class="use-btn"  v-if="type == 'use'" @click="useCoupon">立即使用</div>
       </div>
 
-      <radio class="item-radio" color="#01BD9F" v-if="type == 'select'" :checked="item.historysId == selectItem.historysId" @click="selectCoupon" ></radio>
+      <radio class="item-radio" color="#01BD9F" v-if="type == 'select'" :checked="item.historysId == selectItem.historysId" ></radio>
       <div class="cirle cirle-left"></div>
       <div class="cirle cirle-right"></div>
       <div class="failure-mask" v-if=" type  == 'used' ||  type  == 'expire'"></div>
@@ -99,7 +99,10 @@
        * @description 选中优惠券
        */
       selectCoupon () {
-        this.$emit('selectCoupon',this.item)
+        if(this.type == 'select') {
+          this.$emit('selectCoupon',this.item)
+        }
+
       },
 
       /**

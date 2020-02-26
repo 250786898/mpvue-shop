@@ -109,6 +109,7 @@ export default {
         font-size:32rpx;
         line-height:45rpx;
         width: 360rpx;
+        @include ellipsis(2);
       }
       .goods-desc{
         color:#999999;

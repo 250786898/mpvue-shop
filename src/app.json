@@ -1,40 +1,116 @@
 {
   "pages": [
     "pages/index/main",
-    "pages/store/select/main",
-    "pages/store/search/main",
-    "pages/city/select/main",
-    "pages/city/search/main",
     "pages/cart/main",
     "pages/cart/activitiesGoods/main",
     "pages/mine/main",
-    "pages/location/main",
-    "pages/goods/detail/main",
-    "pages/goods/search/main",
-    "pages/order/preview/main",
-    "pages/order/index/main",
-    "pages/order/detail/main",
-    "pages/order/returns/main",
-    "pages/order/returndetail/main",
-    "pages/order/returngoods/main",
-    "pages/order/returnapply/main",
-    "pages/order/payResult/main",
     "pages/mine/auth/main",
     "pages/mine/bind/main",
     "pages/mine/info/main",
-    "pages/category/main",
     "pages/mine/serviceAgreement/main",
-    "pages/settings/index/main",
-    "pages/pickup/index/main",
-    "pages/pickup/detail/main",
-    "pages/pickup/instruction/main",
-    "pages/network/exceptions/main",
-    "pages/coupon/index/main",
-    "pages/coupon/applicableStores/main",
-    "pages/coupon/applicableGoods/main",
-    "pages/coupon/fetch/main",
-    "pages/coupon/select/main",
-    "pages/activity/main"
+    "pages/live/main"
+  ],
+  "subpackages": [
+    {
+      "root": "pages/live-packages/",
+      "pages": [
+        "index/main"
+      ],
+      "plugins": {
+        "live-player-plugin": {
+          "version": "1.0.0",
+          "provider": "wx2b03c6e691cd7370"
+        }
+      }
+    },
+    {
+      "root": "pages/coupon/",
+      "pages": [
+        "index/main",
+        "applicableStores/main",
+        "applicableGoods/main",
+        "fetch/main",
+        "select/main"
+      ]
+    },
+    {
+      "root": "pages/order/",
+      "pages": [
+        "preview/main",
+        "index/main",
+        "detail/main",
+        "returns/main",
+        "returndetail/main",
+        "returngoods/main",
+        "returnapply/main",
+        "payResult/main"
+      ]
+    },
+    {
+      "root": "pages/store/",
+      "pages": [
+        "select/main",
+        "search/main"
+      ]
+    },
+    {
+      "root": "pages/city/",
+      "pages": [
+        "select/main",
+        "search/main"
+      ]
+    },
+    {
+      "root": "pages/goods/",
+      "pages": [
+        "detail/main",
+        "search/main"
+      ]
+    },
+    {
+      "root": "pages/category/",
+      "pages": [
+        "main"
+      ]
+    },
+    {
+      "root": "pages/pickup/",
+      "pages": [
+        "index/main",
+        "detail/main",
+        "instruction/main"
+      ]
+    },
+    {
+      "root": "pages/manager/",
+      "pages": [
+        "apply/main"
+      ]
+    },
+    {
+      "root": "pages/activity/",
+      "pages": [
+        "main"
+      ]
+    },
+    {
+      "root": "pages/network/",
+      "pages": [
+        "exceptions/main"
+      ]
+    },
+    {
+      "root": "pages/settings/",
+      "pages": [
+        "index/main"
+      ]
+    },
+    {
+      "root": "pages/location/",
+      "pages": [
+        "main"
+      ]
+    }
   ],
   "window": {
     "backgroundTextStyle": "dark",
@@ -54,7 +130,12 @@
         "iconPath": "static/images/home_icon.png",
         "selectedIconPath": "static/images/homee_icon.png"
       },
-
+      {
+        "pagePath": "pages/live/main",
+        "text": "直播",
+        "iconPath": "static/images/cart_icon.png",
+        "selectedIconPath": "static/images/cartt_icon.png"
+      },
       {
         "pagePath": "pages/cart/main",
         "text": "购物车",
@@ -69,6 +150,9 @@
       }
     ]
   },
+  "navigateToMiniProgramAppIdList": [
+    "wx043d129aed06db46"
+  ],
   "usingComponents": {
     "van-tab": "/static/vant-weapp/tab/index",
     "van-tabs": "/static/vant-weapp/tabs/index"

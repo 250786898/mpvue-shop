@@ -2,12 +2,12 @@
   <div class="flashsale">
     <div class="weui-cells">
       <div class="weui-cell" v-if="isSale">
-        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/details_icon_clock@2x.png" class="clock-icon">
-        <span class="take-goods-time">现在下单,</span><span class="take-goods-time-color">&nbsp;&nbsp;{{showPickUpTime}}&nbsp;&nbsp;</span> 可提货
+        <span class="weui-cell__title">提货</span>
+        <span class="take-goods-time">现在下单,<span class="take-goods-time-color">&nbsp;&nbsp;{{showPickUpTime}}</span>可提货</span>
       </div>
       <div class="weui-cell" v-else>
-        <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/details_icon_clock@2x.png" class="clock-icon">
-        <span class="take-goods-time">预计提货时间:</span><span class="take-goods-time-color">&nbsp;&nbsp;{{showPickUpTime}}&nbsp;&nbsp;</span>
+        <span class="weui-cell__title">提货</span>
+        <span class="take-goods-time">预计提货时间</span><span class="take-goods-time-color">&nbsp;&nbsp;{{showPickUpTime}}</span>
       </div>
     </div>
   </div>
@@ -25,6 +25,10 @@ export default {
     isSale: { //提货状态, 0:预售 1:正在售卖中
       type: Number,
       default: 0
+    },
+    startSaleTime: {
+      type: String,
+      default: ''
     }
   },
   computed: {
@@ -40,8 +44,11 @@ export default {
     //   return showPickUpTime
     // }
     showPickUpTime () { //显示的提货时间
-        return formatPickUpDate(this.pickupTime)
+      return this.pickupTime ? formatPickUpDate(this.pickupTime) : ''
     },
+    showStartTime () { //开始售卖的时间
+      return this.startSaleTime ? formatPickUpDate(this.startSaleTime) : ''
+    }
 
   },
   methods: {
@@ -75,6 +82,17 @@ export default {
     font-size: 24rpx;
     color: $text-black;
   }
+  .weui-cell {
+    padding: 20rpx;
+  }
+  .weui-cells__title {
+    font-size:30rpx;
+  }
+  .weui-cell__title {
+      color: #9B9B9B;
+      font-size:28rpx;
+      margin-right: 22rpx;
+    }
   img {
     margin-right: 12rpx;
     vertical-align: middle;
@@ -83,10 +101,12 @@ export default {
   }
 }
 .take-goods-time {
-  font-size: 14px;
+  font-size: 30rpx;
+  display: flex;
+  align-items: center;
   &-color{
-    color: #F7B032;
-    font-size: 14px;
+    color: #FF9900;
+    font-size: 30rpx;
   }
 }
 </style>

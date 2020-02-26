@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <div class="header">
+    <div class="header" @click="selectNonuseCoupon">
       <div class="header-title">不使用优惠券</div>
-      <radio class="header-radio" color="#01BD9F" @click="selectNonuseCoupon" :checked="isNonuseCoupon"></radio>
+      <radio class="header-radio" color="#01BD9F"  :checked="isNonuseCoupon"></radio>
     </div>
 
     <div class="coupon-list">

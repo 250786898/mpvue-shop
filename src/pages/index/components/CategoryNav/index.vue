@@ -1,7 +1,7 @@
 <template>
   <div class="category">
     <template v-for="item in list" >
-      <div class="category-item" :style="itemWidth" v-bind:key="item.turId" @click="navToCategory(item.turnPage,item.turnId)" >
+      <div class="category-item" :style="itemWidth" v-bind:key="item.turId" @click="navToCategory(item.turnType,item.turnPage,item.turnId)" >
         <img :src="item.iconUrl" alt="">
         <span class="category-item__title">{{item.iconTitle}}</span>
       </div>
@@ -33,10 +33,19 @@ export default {
   },
 
   methods: {
-    navToCategory(turnPage,turnId){
-      wx.navigateTo({
-        url: `/${turnPage}?id=${turnId}`
-      });
+    navToCategory(turnType,turnPage,turnId){
+      if(turnType ===3) {
+        //跳转其他小程序
+         wx.navigateToMiniProgram({
+          appId: turnId
+        })
+      }else{
+        //跳转分类界面
+        wx.navigateTo({
+          url: `/${turnPage}?id=${turnId}`
+        })
+      }
+
     }
   }
 }

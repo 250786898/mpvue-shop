@@ -115,7 +115,7 @@ export default {
     color: #4C4C4C;
     font-size:26rpx;
     line-height:35rpx;
-    width: 401rpx;
+    width: 578;
     text-align: center;
   }
 }

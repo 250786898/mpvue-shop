@@ -34,7 +34,7 @@ export default {
      * @description 提交当前申请
      */
     async submit() {
-      if (this.proof.refundReason && this.proof.goodsImageMore) {
+      if (this.proof.refundReason) {
         let list = this.goodList.map(item => ({
           id: item.id,
           goodsNum: item.goodsNum
@@ -72,7 +72,7 @@ export default {
         }
       } else {
         return wx.showToast({
-          title: "请完整退货信息",
+          title: "请填写退货/退款原因",
           icon: "none"
         });
       }
