@@ -73,6 +73,17 @@ class StoreModel {
     })
   }
 
+  /**
+   * @description 申请团长
+   * @param {*} data
+   */
+  applyRegiment(data){
+    return post({
+      url:"/store/data/recruitStore",
+      data:data
+    })
+  }
+
 
 }
 
