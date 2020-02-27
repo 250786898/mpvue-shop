@@ -38,12 +38,13 @@
         v-if="goodsDetailInfo.activityLimitNum"
         :num="goodsDetailInfo.activityLimitNum"
       />
-      <!-- 优惠券 -->
+      <!-- 优惠券 
       <CouponBar
         :list="couponList"
         @fetchCoupon="fetchCoupon"
         v-if="couponList && couponList.length"
       />
+      -->
     </div>
 
     <!-- 商品推荐 -->
