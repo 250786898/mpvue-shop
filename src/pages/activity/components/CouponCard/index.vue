@@ -3,9 +3,9 @@
     <div class="card-left">
       <div class="card-left-main">
         <div class="online-price">
-          <OnlinePrice :price="item.couponMoney" :signSize="30" :beforeSize="66" :showAfterSign="false" />
+          <OnlinePrice :price="item.couponMoney" :signSize="30" :beforeSize="66" :showAfterSign="true" />
         </div>
-        <div class="coupon-desc">满{{item.eliyibility}}元减{{item.couponMoney}}</div>
+        <div class="coupon-desc">{{item.couponEliyibilityName}}</div>
         </div>
      </div>
     <div class="card-right">

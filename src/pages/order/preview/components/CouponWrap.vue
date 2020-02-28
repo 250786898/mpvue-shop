@@ -2,7 +2,7 @@
   <div class="card">
     <div class="card-title">优惠券</div>
     <div class="card-content" @click="selectCoupon">
-      <span v-if="selectCouponOfsubmitOrder.systemCode">满{{selectCouponOfsubmitOrder.eliyibility}}减{{selectCouponOfsubmitOrder.couponMoney}}元</span>
+      <span v-if="selectCouponOfsubmitOrder.systemCode">{{orderInfo.couponEliyibilityName}}</span>
       <span v-else>{{orderInfo.shopCouponNum}}张优惠券可用</span>
       <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/order-right-icon.png" class="right-icon" alt="">
     </div>
