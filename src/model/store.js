@@ -79,7 +79,7 @@ class StoreModel {
    */
   applyRegiment(data){
     return post({
-      url:"/store/data/recruitStore",
+      url:"/store/franchiseeApi/recruitStore",
       data:data
     })
   }

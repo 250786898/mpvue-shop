@@ -1,3 +1,5 @@
+import { post } from '@/http/api'
+
 class UserModel {
   constructor () {
 
@@ -17,7 +19,17 @@ class UserModel {
             resolve(false)
           }
         }
-      })  
+      })
+    })
+  }
+
+  /**
+   * @description 判断用户是否申请过团长
+   */
+  judgeIsApply(){
+    return post ({
+      url:"store/franchiseeApi/judgeIsApply",
+      data:{}
     })
   }
 

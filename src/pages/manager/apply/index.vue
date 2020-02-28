@@ -52,14 +52,17 @@
       </div>
     </div>
 
-    <button class="submit-btn" @click="apply">提交申请</button>
+    <button class="submit-btn" @click="apply" v-if="!isApplied">提交申请</button>
   </div>
 </template>
 
 <script>
 import StoreModel from "@/model/store";
 const storeModel = new StoreModel();
+import UserModel from '@/model/user';
+const userModel = new UserModel();
 import { Api } from "@/http/api";
+
 
 export default {
   data() {
@@ -70,13 +73,25 @@ export default {
         franchiseeTel: "",
         franchiseeName: "",
         notes: ""
-      }
+      },
+      isApplied:false //当前用户是否申请过
     };
   },
 
-  onLoad() {
+   async onLoad() {
     wx.hideHomeButton();
     Object.assign(this.$data, this.$options.data()); //解决mpvue初始化未清空状态问题
+    const res = await userModel.judgeIsApply();
+    if(res.code === Api.CODES.SUCCESS){
+      this.info = {
+        uptown: res.data.uptown,
+        franchiseeAddress: res.data.franchiseeAddress,
+        franchiseeTel: res.data.franchiseeTel,
+        franchiseeName: res.data.franchiseeName,
+        notes: res.data.notes
+      }
+      this.isApplied = true;
+    }
   },
 
   onShareAppMessage() {
@@ -101,6 +116,7 @@ export default {
       if (isNotEmpty && isValidTel) {
         const res = await storeModel.applyRegiment(this.info);
         if (res.code === Api.CODES.SUCCESS) {
+          this.isApplied = true;
           wx.showToast({
             title: "申请成功",
             icon: "success",
@@ -108,7 +124,7 @@ export default {
           });
         } else {
           wx.showToast({
-            title: res.data.message,
+            title: res.message,
             icon: "none",
             duration: 1500
           });

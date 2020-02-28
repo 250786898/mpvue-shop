@@ -13,7 +13,7 @@
     <div class="item" @click="applyManager">
       <div class="item-left">
         <img src="/static/images/mine-manager-icon.png" class="item-left__icon mine-manager-icon">
-        <span class="item-left__desc">申请团长</span>
+        <span class="item-left__desc">招募团长</span>
       </div>
       <div class="item-right">
         <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/me_icon_blackarrow.png.png" alt="">
@@ -57,9 +57,7 @@ export default {
      * @description 申请团长
      */
     applyManager () {
-      wx.navigateTo({
-        url: '/pages/manager/apply/main'
-      })
+      this.$emit('applyManager');
     },
 
     /**
