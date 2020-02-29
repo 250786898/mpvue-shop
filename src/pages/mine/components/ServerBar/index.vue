@@ -10,15 +10,15 @@
         <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/me_icon_blackarrow.png.png" alt="">
       </div>
     </div>
-    <!-- <div class="item" @click="applyManager">
+    <div class="item" @click="applyManager" v-if="showRecuit">
       <div class="item-left">
         <img src="/static/images/mine-manager-icon.png" class="item-left__icon mine-manager-icon">
-        <span class="item-left__desc">申请团长</span>
+        <span class="item-left__desc">招募团长</span>
       </div>
       <div class="item-right">
         <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/me_icon_blackarrow.png.png" alt="">
       </div>
-    </div> -->
+    </div>
     <div class="item">
       <button open-type="contact" class="contact-btn">
         <div class="item-left">
@@ -44,22 +44,25 @@
 </template>
 
 <script>
+
 export default {
   props: {
     userInfo: {
       type: Object,
       default: () => {}
-    }
+    },
+    showRecuit:{
+      type: Number
+    } //是否显示招募团长入口
   },
+
   methods: {
 
     /**
      * @description 申请团长
      */
     applyManager () {
-      wx.navigateTo({
-        url: '/pages/manager/apply/main'
-      })
+      this.$emit('applyManager');
     },
 
     /**
@@ -92,13 +95,14 @@ export default {
     align-items: center;
     background: #ffffff;
     justify-content: space-between;
+    font-size: 30rpx;
   }
   .item{
     display: flex;
     align-items: center;
     justify-content: space-between;
     font-size: 30rpx;
-    border-bottom: 1rpx solid #E4E4E4;
+    border-bottom: 1rpx solid rgba(204,204,204,0.3);
     height:106rpx;
     box-sizing: border-box;
     &:nth-last-of-type(1) {
@@ -113,11 +117,7 @@ export default {
         height: 42rpx;
         margin-right: 21rpx;
       }
-      .mine-manager-icon{
-        // width: 30rpx;
-        // height: 38rpx;
-        // margin-right: 31rpx;
-      }
+
     }
     &-right{
       display: flex;

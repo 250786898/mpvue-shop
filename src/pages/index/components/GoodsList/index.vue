@@ -376,7 +376,7 @@ export default {
 .goods-recommend {
   width: 710rpx;
   box-sizing: border-box;
-  border-radius: 10rpx;
+  border-radius: 20rpx;
   overflow: hidden;
   .goods-list {
     padding: 0 20rpx;

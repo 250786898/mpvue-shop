@@ -150,7 +150,8 @@ export default {
     font-size:32rpx;
     line-height: 40rpx;
     padding-right: 72rpx;
-    padding-bottom: 10rpx;
+    margin-bottom: 9rpx;
+    @include ellipsis(2);
   }
   .failure-text,.failure-good-name{
     color: #999999;

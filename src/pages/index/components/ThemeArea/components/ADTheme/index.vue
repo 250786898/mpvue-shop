@@ -93,7 +93,7 @@ export default {
 <style lang="scss" scoped>
 .theme{
   img{
-    border-radius: 10rpx;
+    border-radius: 20rpx;
   }
   .weui-flex__item{
     width: 50%;

@@ -124,6 +124,6 @@ export default {
   vertical-align: middle;
   width: 100%;
   height: 280rpx;
-  border-radius: 10rpx;
+  border-radius: 20rpx;
 }
 </style>

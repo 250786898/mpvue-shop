@@ -35,6 +35,7 @@ export default {
   background: #F1F1F1;
   padding: 20rpx;
   box-sizing: border-box;
+  min-height: calc(100vh - 114rpx);
   .list{
     display: flex;
     justify-content: space-between;

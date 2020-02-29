@@ -236,7 +236,7 @@ export default {
     width:100%;
     height: 74rpx;
     background:rgba(246,246,246,1);
-    border-radius:15rpx;
+    border-radius:20rpx;
     display: flex;
     align-items: center;
     padding: 0 20rpx;

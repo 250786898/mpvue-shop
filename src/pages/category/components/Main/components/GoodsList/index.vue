@@ -58,7 +58,7 @@ export default {
       color: #727272;
       font-size: 28rpx;
       padding: 19rpx 0 19rpx;
-      border-bottom: 1px solid #e6e6e6;
+      border-bottom: 1px solid #E4E4E4;
     }
   }
   .empty-goods-tip {

@@ -120,7 +120,7 @@ export default {
     padding-top: 28rpx;
     box-sizing: border-box;
     box-sizing: border-box;
-    border-bottom: 1px solid #E6E6E6;
+    border-bottom: 1rpx solid #E4E4E4;
     &-top{
       .goods-name{
         color:#272727;

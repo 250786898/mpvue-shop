@@ -41,8 +41,12 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    &:nth-last-of-type(1){
+      padding-top: 20rpx;
+    }
     &:nth-of-type(1) {
-      margin-bottom: 30rpx;
+      padding-bottom: 20rpx;
+      border-bottom: 1rpx solid #e4e4e4;
     }
   }
 }
