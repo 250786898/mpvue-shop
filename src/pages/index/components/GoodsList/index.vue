@@ -1,17 +1,5 @@
 <template>
   <view class="goods-recommend min-contaner" id="goods-list">
-    <!-- <goods-list-tab /> -->
-    <!-- <div class="goods-recommend__title" :class="{'fixed-tab' : isCeiling}" :style="isCeiling ? fixedTop : '' " v-if="tab.length == 1">
-        <span v-for="item in tab" :key="item.id">{{item.activityName}}</span>
-    </div>-->
-
-    <img
-      src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/pull_down_refresh_icon.gif"
-      alt
-      class="tab-loading-icon"
-      v-if="loading"
-    />
-
     <div v-if="tab.length && !loading">
       <van-tabs
         @tab="tabChange"
@@ -47,21 +35,28 @@
     </div>
 
     <!-- 触底刷新loading -->
-    <LjLoading v-if="reachBottomLoading"/>
+    <LjLoading v-if="reachBottomLoading" />
 
     <!-- 加载更多 -->
     <div class="goods-recommend__footer">
-      <div class="goods-tabs__tip" v-if="!reachBottomLoading && !tabLoading && goodsList.length && isAllLoaded">我是有底线的！</div>
+      <div
+        class="goods-tabs__tip"
+        v-if="!reachBottomLoading && !tabLoading && goodsList.length && isAllLoaded"
+      >我是有底线的！</div>
     </div>
 
+    <!-- 加载gif图 -->
     <img
       src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/pull_down_refresh_icon.gif"
       alt
       class="tab-loading-icon"
-      v-if="tabLoading"
+      v-if="loading || tabLoading"
     />
 
-    <div class="empty-goods-tip" v-if="!reachBottomLoading && !loading && !tabLoading && goodsList.length == 0 && !loading">
+    <div
+      class="empty-goods-tip"
+      v-if="!reachBottomLoading && !loading && !tabLoading && goodsList.length == 0 && !loading"
+    >
       <EmptyGoods />
     </div>
   </view>
@@ -242,11 +237,11 @@ export default {
     /**
      * @description  切换分类
      */
-    tabChange({
-      mp: {
-        detail: { index }
+    tabChange({mp: { detail: { index }  } }) {
+      if(this.activeIndex == index) {
+        return
       }
-    }) {
+      console.log('index',this.activeIndex,index)
       if (this.isCeiling) {
         //如果已经处于吸顶状态切换到初始化相对应的滚动条
         const ceilingDistance = this.indexGoodsTop - this.indexBarHeight
@@ -307,7 +302,6 @@ export default {
 .min-contaner {
   min-height: 1300rpx;
 }
-
 
 //tab栏样式
 .fixed-tab {

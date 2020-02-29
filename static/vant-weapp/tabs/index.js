@@ -65,7 +65,11 @@ VantComponent({
         },
         border: {
             type: Boolean,
-            value: true
+            value: true,
+            observer (value) {
+              this.setLine(true);
+              console.log('observer border',value)
+            }
         },
         ellipsis: {
             type: Boolean,
