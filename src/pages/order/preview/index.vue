@@ -4,7 +4,8 @@
     <!-- <pickup-time /> -->
     <submit-goods-list :list="orderInfo.cartOrderVoList" />
     <CouponWrap :orderInfo="orderInfo" />
-    <buyer-message v-model="buyerMessage " />
+    <!-- 买家留言 -->
+    <!-- <buyer-message v-model="buyerMessage " /> -->
     <!-- 支付方式 -->
     <payways></payways>
     <price-info :orderInfo="orderInfo" />

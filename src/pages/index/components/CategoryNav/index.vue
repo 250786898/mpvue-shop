@@ -54,7 +54,7 @@ export default {
 <style lang="scss" scoped>
 .category{
   background: #fff;
-  border-radius:10rpx;
+  border-radius:20rpx;
   padding: 30rpx 0 6rpx;
   display: flex;
   margin-bottom: 20rpx;

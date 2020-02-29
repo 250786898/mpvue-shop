@@ -37,12 +37,10 @@ export default {
 
 <style lang="scss" scoped>
 .card{
-  padding: 0 30rpx;
   box-sizing: border-box;
   &-content{
     padding: 30rpx 0rpx;
     display: flex;
-    border-bottom: 1rpx solid #E4E4E4;
   }
   .goods-img {
     width: 192rpx;

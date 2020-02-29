@@ -11,6 +11,7 @@
           placeholder="请输入小区名称"
           placeholder-style="color:#D2D2D2;font-size:30rpx;"
           v-model="info.uptown"
+          :disabled="isApplied"
         />
       </div>
       <div class="item">
@@ -30,6 +31,8 @@
           placeholder="请输入手机号"
           placeholder-style="color:#D2D2D2;font-size:30rpx;"
           v-model="info.franchiseeTel"
+          @blur="telValid"
+          :disabled="isApplied"
         />
       </div>
       <div class="item">
@@ -39,6 +42,7 @@
           placeholder="请输入姓名"
           placeholder-style="color:#D2D2D2;font-size:30rpx;"
           v-model="info.franchiseeName"
+          :disabled="isApplied"
         />
       </div>
       <div class="item">
@@ -48,6 +52,7 @@
           placeholder="请输入备注、选填"
           placeholder-style="color:#D2D2D2;font-size:30rpx;"
           v-model="info.notes"
+          :disabled="isApplied"
         />
       </div>
     </div>
@@ -59,10 +64,9 @@
 <script>
 import StoreModel from "@/model/store";
 const storeModel = new StoreModel();
-import UserModel from '@/model/user';
+import UserModel from "@/model/user";
 const userModel = new UserModel();
 import { Api } from "@/http/api";
-
 
 export default {
   data() {
@@ -74,22 +78,21 @@ export default {
         franchiseeName: "",
         notes: ""
       },
-      isApplied:false //当前用户是否申请过
+      isApplied: false //当前用户是否申请过
     };
   },
 
-   async onLoad() {
-    wx.hideHomeButton();
+  async onLoad() {
     Object.assign(this.$data, this.$options.data()); //解决mpvue初始化未清空状态问题
     const res = await userModel.judgeIsApply();
-    if(res.code === Api.CODES.SUCCESS){
+    if (res.code === Api.CODES.SUCCESS) {
       this.info = {
         uptown: res.data.uptown,
         franchiseeAddress: res.data.franchiseeAddress,
         franchiseeTel: res.data.franchiseeTel,
         franchiseeName: res.data.franchiseeName,
         notes: res.data.notes
-      }
+      };
       this.isApplied = true;
     }
   },
@@ -137,7 +140,7 @@ export default {
         });
       } else if (!isValidTel) {
         wx.showToast({
-          title: "请填写正确手机号",
+          title: "请填写11位手机号~",
           icon: "none",
           duration: 1500
         });
@@ -149,12 +152,27 @@ export default {
      */
     chooseAddress() {
       let _this = this;
-      wx.chooseLocation({
-        success: function(res) {
-          _this.info.franchiseeAddress = res.address;
-        },
-        fail: function() {}
-      });
+      if (!this.isApplied) {
+        wx.chooseLocation({
+          success: function(res) {
+            _this.info.franchiseeAddress = res.address;
+          },
+          fail: function() {}
+        });
+      }
+    },
+
+    /**
+     * @description 手机号验证
+     */
+    telValid(e) {
+      if (!(this.info.franchiseeTel.length === 11)) {
+        wx.showToast({
+          title: "请填写11位手机号~",
+          icon: "none",
+          duration: 1500
+        });
+      }
     }
   }
 };

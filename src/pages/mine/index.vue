@@ -15,6 +15,7 @@
         @toSettings="toSettings"
         :userInfo="personCenter"
         @applyManager="applyManager"
+        :showRecuit="isShowRecruitStore"
       />
     </div>
   </div>
@@ -29,8 +30,10 @@ import { mapState } from "vuex";
 import UserModer from "@/model/user";
 import { Api, ORDER_STATE, ORDER_STATE_TEXT } from "@/http/api";
 import { resgiterOrLogin } from "../../utils/index";
+import RegimentModel from '@/model/regiment';
 
 const userModel = new UserModer();
+const regimentModel = new RegimentModel();
 export default {
   components: {
     TopBar,
@@ -42,7 +45,8 @@ export default {
     return {
       ORDER_STATE,
       ORDER_STATE_TEXT,
-      completedTipShown: false
+      completedTipShown: false,
+      isShowRecruitStore:0 //是否显示招募团长入口
     };
   },
   computed: {
@@ -171,7 +175,7 @@ export default {
     }
   },
 
-  onShow() {
+  async onShow() {
     if (this.sessionId) {
       if (!this.personCenter.nickname) {
         wx.showLoading({ title: "加载中" });
@@ -195,6 +199,12 @@ export default {
     }
 
     this.$store.dispatch("syncCartTabbarBadge");
+
+    const res = await regimentModel.judgeIsApply();
+    if(res.code===Api.CODES.SUCCESS ){
+    console.log('结果',res);
+      this.isShowRecruitStore = res.data.isShowRecruitStore
+    }
   }
 };
 </script>

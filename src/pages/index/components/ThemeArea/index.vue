@@ -37,5 +37,7 @@ export default {
 <style lang="scss" scoped>
 .theme{
   margin-bottom: 20rpx;
+  border-radius: 20rpx;
+  overflow: hidden;
 }
 </style>
