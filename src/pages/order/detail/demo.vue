@@ -44,7 +44,7 @@
              <img src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/orderdetail.png" alt="">
             <div style="margin-left:31rpx;">
               待提货
-              <!-- <div class="desc">提货时间 ：{{  order.pickTime }}</div> -->
+              <div class="desc">提货时间 ：{{  order.pickTime }}</div>
 
             </div>
           </template>
@@ -56,7 +56,7 @@
           <template v-else>
             <div>
               待核销
-              <!-- <div class="desc">提货时间:{{ deliveryRange }}<template v-if="order.orderType !=1 && order.orderType !=6">(期间未提货自动退款)</template></div> -->
+              <div class="desc">提货时间:{{ deliveryRange }}<template v-if="order.orderType !=1 && order.orderType !=6">(期间未提货自动退款)</template></div>
             </div>
           </template>
         </template>

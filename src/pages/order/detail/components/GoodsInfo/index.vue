@@ -2,7 +2,7 @@
   <div class="card">
     <div class="goods-list">
       <div class="goods-item" v-for="item in orderInfo.orderGoodsList" v-bind:key="item.goodsId">
-        <GoodsCard :item="item" />
+        <GoodsCard :item="item" :order-info="orderInfo" />
       </div>
 
     </div>

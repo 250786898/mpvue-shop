@@ -173,7 +173,6 @@ export default {
   },
 
   async mounted() {
-
     wx.showTabBar()
     this.initPageData()
 

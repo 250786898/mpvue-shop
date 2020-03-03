@@ -8,7 +8,7 @@
         <div class="goodsName">{{ item.goodsName }}</div>
         <div class="pickup-time">
           <!-- <span class="already-pickup" v-if="true">09月30日已提货</span> -->
-          <!-- <span class="wait-pickup" v-else>×月×日可提货</span> -->
+          <span class="wait-pickup" v-if="orderInfo.state == 20">{{pickUpTime}}可提货</span>
         </div>
       </div>
       <div class="after-sell" v-if="item.refundState != 0" @click="navToAfterSell">
@@ -25,6 +25,7 @@
 
 <script>
 import OnlinePrice from '@/components/OnlinePrice'
+import {formatPickUpDate} from '@/utils/index'
 export default {
   components: {
     OnlinePrice
@@ -33,6 +34,17 @@ export default {
     item: {
       type: Object,
       default: () => ({})
+    },
+    orderInfo: { //订单信息
+      type: Object,
+      default: () => ({})
+    }
+  },
+  computed: {
+    pickUpTime () {
+      // return 'aaaa'
+      console.log('+++pickUpTime++',this.orderInfo)
+      return this.orderInfo.pickupTime ? formatPickUpDate(this.orderInfo.pickupTime) : ''
     }
   },
   methods: {
