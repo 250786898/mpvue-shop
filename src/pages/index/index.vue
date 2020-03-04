@@ -202,6 +202,7 @@ export default {
     }
   },
 
+
   onLoad () {
     console.log('this.$mp.page.options',this.$mp.page.options,this.$mp.page.options.mtaCount)
     mta.Page.init() //第三方mta数据统计
@@ -301,7 +302,10 @@ export default {
      * @description 已经授权情况确认相关门店业务
      */
     async authedComfirmStore() {
-      this.setLocationInfoForAuthedLocate()
+      // this.setLocationInfoForAuthedLocate()
+      //用户每次进入程序都需要更新当前用户定位
+      location = await this.setUserLocationInfo() //设置用户相关定位信息：经纬度，详情地址
+      this.$store.commit('setLocationInfo', location) //已经授权定位信息到vuex，方便其他组件使用
 
       const shareStoreId = this.$mp.page.options.shareStoreId //通过点击分享进来
       //判断是否从分享进来的
@@ -405,6 +409,7 @@ export default {
         location = await this.setUserLocationInfo() //设置用户相关定位信息：经纬度，详情地址
         this.$store.commit('setLocationInfo', location) //已经授权从缓存中存定位信息到vuex，方便其他组件使用
       }
+
     },
 
     async checkStoreIsNoService() {
@@ -438,7 +443,7 @@ export default {
             const cityName = res.poisData[0].cityname //用户定位当前城市
             // this.longitude = locationInfo.longitude
             // this.latitude = locationInfo.latitude
-            console.log('setUserLocationInfo', locationInfo)
+            console.log('++++++++setUserLocationInfo+++++++', locationInfo)
             this.$store.commit('setLocationInfo', locationInfo) //用户定位相关信息存到vuex
             this.$store.commit('setcityname', cityName)
             this.$store.commit('setLocateCity', cityName)

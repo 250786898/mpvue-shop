@@ -10,7 +10,6 @@ require('./styles/common.scss')
 require('./styles/variable.scss')
 require('./styles/mixin.scss')
 
-
 // wx.hideTabBar() //隐藏tab
 checkUpdateApp()
 onNetworkStatusChange()
