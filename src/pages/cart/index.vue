@@ -152,6 +152,7 @@
        * @description 初始化，加载购物车列表
        */
       getCartList() {
+        console.log('+++购物车getCartList++++')
         return Api.cart.cartList({
           storeId: this.storeId,
           carts: 'all'

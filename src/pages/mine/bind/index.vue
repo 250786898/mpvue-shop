@@ -55,7 +55,7 @@ export default {
   },
 
   computed: {
-    ...mapState(["wxUserInfo"])
+    ...mapState(["wxUserInfo","locateCity"])
   },
 
   methods: {
@@ -152,13 +152,19 @@ export default {
       console.log("loging");
       wx.showLoading({ title: "登录中" });
       console.log("formId", this.formId);
+      const location = userModel.getUserLocationFromStorage()
+      console.log('location',this.wxUserInfo)
       Api.auths
         .loginByWechat({
           openid,
           mobile,
+          area: this.locateCity,
           nickname: this.wxUserInfo.nickName,
           avatar: this.wxUserInfo.avatarUrl,
-          formId: this.formId
+          sex: this.wxUserInfo.gender,
+          formId: this.formId,
+          longitude: location.longitude,
+          latitude: location.latitude
         })
         .then(res => {
           this.$store.dispatch("login", res.data.sessionId);

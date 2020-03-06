@@ -87,6 +87,7 @@ export default {
    */
   updateCartNum({ state, commit, dispatch }) {
     if(state.storeId) { //存在门店才更新购物车数量
+      console.log('存在门店才更新购物车数量')
       Api.cart.count({
         storeId: state.storeId
       }).then(res => {
@@ -135,6 +136,7 @@ export default {
       wx.hideLoading()
       if (res.code === Api.CODES.SUCCESS) {
         wx.showToast({ title: '添加成功' })
+        console.log('addToCart添加到购物车0')
         dispatch('updateCartNum')
         Vue.prototype.$bus.$emit('updateCart')
       } else if (res.code === 40001) {

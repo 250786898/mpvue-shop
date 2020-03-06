@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex'
 export default {
   props: {
     orderInfo: {
@@ -31,7 +31,7 @@ export default {
   },
 
   computed: {
-    ...mapState(["selectCouponOfsubmitOrder"])
+    ...mapState(['selectCouponOfsubmitOrder'])
   },
 
   methods: {
@@ -39,23 +39,23 @@ export default {
      * @description  选择优惠券
      */
     selectCoupon() {
-      const couponList = JSON.stringify(this.orderInfo.shopCoupons);
-      console.log("couponList", couponList);
+      const couponList = JSON.stringify(this.orderInfo.shopCoupons)
+      console.log('couponList', couponList)
       if (this.orderInfo.shopCouponNum) {
         wx.navigateTo({
           url: `/pages/coupon/select/main?couponList=${couponList}`
-        });
+        })
       }
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
-@import "@/styles/variable.scss";
+@import '@/styles/variable.scss';
 .card {
   padding: 0 30rpx;
-    background: #ffffff;
+  background: #ffffff;
   &-item {
     border-bottom: 1rpx solid #e4e4e4;
     font-size: 28rpx;

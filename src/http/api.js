@@ -174,10 +174,10 @@ export const Api = {
     },
 
     // 4.3. 微信授权登录
-    loginByWechat({ mobile, openid, nickname, avatar }) {
+    loginByWechat({ mobile,area, openid,longitude, latitude, nickname, avatar, sex   }) {
       return post({
         url: '/auths/loginByWechat',
-        data: { mobile, openid, nickname, avatar }
+        data: { mobile ,area, openid, longitude, latitude , nickname, avatar, sex  }
       })
     },
 

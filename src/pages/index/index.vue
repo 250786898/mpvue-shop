@@ -117,6 +117,7 @@ export default {
 
   computed: {
     ...mapState([
+      'sessionId',
       'location',
       'storeId',
       'shopDetail',
@@ -152,6 +153,10 @@ export default {
       wx.showShareMenu({
         withShareTicket: true
       })
+      if(this.sessionId) {
+        this.initUpdateCartNum() //只有登录才更新购物车数量
+      }
+
       this.loadAndShowCouponDialog() //加载显示优惠券弹窗
       this.updateStoreInfo() //更新门店相关信息
       this.updateStoreData() //更新新的门店数据
@@ -212,6 +217,11 @@ export default {
 
   },
 
+  onShow () {
+    this.updateCartNum()
+  },
+
+
 
   /**
    * @description  鉴定滚动事件，从而是否显示回到顶部按钮和当前定位显示
@@ -238,6 +248,22 @@ export default {
       (this.isCeiling = false); //设置时段活动商品不吸顶
       this.hideComfirmStoreDialog()
       this.hideSelectStoreDialog()
+    },
+
+    /**
+     * @description 初始化更新购物车数量，需要调用count接口
+     */
+    initUpdateCartNum() {
+      this.$store.dispatch('updateCartNum')
+    },
+
+
+    /**
+     * @description 直接更新购物车数量，不需要调用count接口
+     */
+    updateCartNum () {
+      console.log('++++++updateCartNum++++++')
+      this.$store.dispatch('syncCartTabbarBadge')
     },
 
     /**

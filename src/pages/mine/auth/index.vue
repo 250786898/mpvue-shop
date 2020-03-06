@@ -18,17 +18,21 @@
 <script>
   import { Api } from '@/http/api'
   import UserModer from '@/model/user'
-
+  import { mapState } from "vuex";
   const userModel = new UserModer()
 
   export default {
     data () {
       return {}
     },
-
+    computed: {
+      ...mapState(["wxUserInfo"])
+    },
+// wxUserInfo
     onShow () {
       // this.checkAuthUserInfo()
     },
+
 
     methods: {
 

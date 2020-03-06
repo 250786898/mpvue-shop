@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import { getCurrentRouter } from '../utils'
   export default {
     props: {
       count: { //当前添加商品数量
@@ -48,6 +49,8 @@
           goodsId: this.goodsInfo.id,
           activityId: this.goodsInfo.activityId,
           activityGoodsId: ''
+        }).then(res => {
+          this.$bus.$emit('updateCartNum')
         })
       }
     }

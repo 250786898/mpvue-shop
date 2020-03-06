@@ -24,6 +24,14 @@ class UserModel {
   }
 
   /**
+   * @description 从缓存获取用户定位信息
+   */
+  getUserLocationFromStorage() {
+    const location = wx.getStorageSync('location')
+    return location ? location : ''
+  }
+
+  /**
    * @description 判断用户是否申请过团长
    */
   judgeIsApply(){
