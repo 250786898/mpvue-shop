@@ -64,7 +64,7 @@ export default {
     align-items: center;
     justify-content: space-between;
     box-sizing: border-box;
-    border-radius: 10rpx 10rpx 0rpx 0;
+    border-radius: 10rpx;
     &-title {
       font-weight: bold;
     }

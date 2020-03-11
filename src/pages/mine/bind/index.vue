@@ -58,6 +58,7 @@ export default {
     ...mapState(["wxUserInfo","locateCity"])
   },
 
+
   methods: {
     uploadFormId: function(e) {
       this.formId = e.target.formId;
@@ -118,10 +119,10 @@ export default {
                   this.$store.commit("setOpenId", res.data.openid);
                   this.$store.commit("setWxPhoneNumber", res.data.mobile);
                   // 登录注册
-                  this.login({
+                  this.loginByAuthUserInfo({
                     openid: res.data.openid,
                     mobile: res.data.mobile
-                  });
+                  })
                 }
               });
           },
@@ -146,6 +147,35 @@ export default {
 
     toRegister() {
       wx.navigateTo({ url: "/pages/mine/register/main" });
+    },
+
+    /**|
+     * @description 根据是否授权用户信息登录
+     */
+   loginByAuthUserInfo({openid, mobile}){
+      wx.getSetting({
+        success: (res)=>{
+          console.log('authSetting',res)
+          if(res.authSetting['scope.userInfo']) {
+            console.log('已经授权用户信息')
+            //已经授权用户信息,直接获取授权用户信息并登录
+            wx.getUserInfo({
+              success: (userRes)=>{
+                //把用户信息存到vuex
+                this.$store.commit('setWxUserInfo',userRes.userInfo)
+                this.login({openid, mobile})
+              }
+            })
+
+          }else {
+            console.log('如果未授权用户信息，跳转授权用户信息界面')
+            //如果未授权用户信息，跳转授权用户信息界面
+            wx.redirectTo({
+              url: '/pages/mine/auth/main'
+            })
+          }
+        }
+      })
     },
 
     login({ openid, mobile }) {
