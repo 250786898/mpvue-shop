@@ -11,7 +11,7 @@
           {{ item.goodsName }}
         </div>
         <div class="goods-desc" v-if="item.goodsSellDesc">{{ item.goodsSellDesc || '' }}</div>
-        <div class="limit-tag" v-if="item.activityLimitNum">限购</div>
+        <div class="limit-tag" v-if="item.activityLimitNum">限量秒杀</div>
       </div>
        <div class="card-main-bottom">
          <div class="card-main-bottom-left">

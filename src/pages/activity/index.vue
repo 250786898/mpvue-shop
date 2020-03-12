@@ -9,7 +9,9 @@
         <EmptyIcon :title="'您来晚了,优惠券已抢光~'"/>
       </template>
     </div>
-    <to-home />
+    <div class="to-home-icon">
+      <to-home-icon />
+    </div>
     <to-coupon />
     <button class="fetch-btn" v-if="isShowFetchBtn" @click="fetchCoupon">一键领取</button>
   </div>
@@ -19,7 +21,7 @@
 import TopBg from './components/TopBg'
 import CouponList from './components/CouponList/index'
 import toCoupon from './components/ToCoupon'
-import toHome from './components/toHome'
+import ToHomeIcon from '@/components/ToHomeIcon'
 import EmptyIcon from './components/EmptyCouponTip'
 import CouponModel from '@/model/coupon'
 import { Api } from '@/http/api'
@@ -28,7 +30,7 @@ export default {
   components: {
     TopBg,
     CouponList,
-    toHome,
+    ToHomeIcon,
     toCoupon,
     EmptyIcon
   },
@@ -126,6 +128,11 @@ export default {
     );
     color: #fe4662;
     font-size: 34rpx;
+  }
+  .to-home-icon{
+    position: fixed;
+    bottom: 254rpx;
+    left: 20rpx;
   }
 }
 </style>

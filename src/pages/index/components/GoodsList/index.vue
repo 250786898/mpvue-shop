@@ -46,16 +46,20 @@
     </div>
 
     <!-- 加载gif图 -->
-    <img
+    <div class="tab-loading-icon" v-if="tab && tab.length">
+      <FreshLoading v-if="loading || tabLoading"/>
+    </div>
+
+    <!-- <img
       src="https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/wechatv01/pull_down_refresh_icon.gif"
       alt
-      class="tab-loading-icon"
-      v-if="loading || tabLoading"
-    />
+
+
+    /> -->
 
     <div
       class="empty-goods-tip"
-      v-if="!reachBottomLoading && !loading && !tabLoading && goodsList.length == 0 && !loading"
+      v-if="!reachBottomLoading && !loading && !tabLoading && goodsList.length == 0 "
     >
       <EmptyGoods />
     </div>
@@ -70,6 +74,7 @@ import BaseGoodsCard from '../BaseGoodsCard/index'
 import GoodsCard from './components/GoodsCard'
 import BeginGoodsCard from '../BeginGoodsCard/index'
 import LjLoading from '@/components/LjLoading'
+import FreshLoading from '@/components/FreshLoading'
 import GoodsModel from '@/model/goods'
 
 const goodsModel = new GoodsModel()
@@ -103,7 +108,8 @@ export default {
     BaseGoodsCard,
     BeginGoodsCard,
     GoodsCard,
-    LjLoading
+    LjLoading,
+    FreshLoading
   },
   computed: {
     ...mapState(['storeId', 'indexGoodsTop', 'indexBarHeight']),

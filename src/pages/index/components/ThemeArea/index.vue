@@ -1,6 +1,5 @@
 <template>
   <div class="theme">
-
      <!-- swiper -->
      <IndexSwiper v-if="themeType == 'swiper'" :list="list"/>
      <ImageTheme :list="list" v-else-if="themeType == 'image'"/>

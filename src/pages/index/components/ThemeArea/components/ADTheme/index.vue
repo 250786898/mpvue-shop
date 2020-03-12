@@ -1,7 +1,7 @@
 <template>
   <div class="theme weui-flex">
     <!-- adType === 'ADOne' -->
-    <div v-if=" adType === 'ADOne'" class="ad-one">
+    <div v-if="adType === 'ADOne'" class="ad-one">
       <div class="weui-flex" >
         <div class="weui-flex__item ad-one-left"  >
            <block v-for="(item,index) in list" v-bind:key="item.turnId">
@@ -79,7 +79,11 @@ export default {
         wx.navigateToMiniProgram({
           appId: turnId
         })
-      }else {
+      }else if (turnType == 4){
+         wx.navigateTo({
+          url: `/pages/activity/theme/main?id=${turnId}`
+        })
+      } else {
         //其他类型
         wx.navigateTo({
           url: `/${turnUrl}?id=${turnId}`
@@ -94,6 +98,7 @@ export default {
 .theme{
   img{
     border-radius: 20rpx;
+    position: relative;
   }
   .weui-flex__item{
     width: 50%;

@@ -90,7 +90,8 @@
     {
       "root": "pages/activity/",
       "pages": [
-        "main"
+        "main",
+        "theme/main"
       ]
     },
     {

@@ -61,6 +61,7 @@
       class="footer__bg"
       mode="widthFix"
     />
+    <!-- popupShowed -->
     <pickup-result-popup :shown="popupShowed"></pickup-result-popup>
   </div>
 </template>

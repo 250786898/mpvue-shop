@@ -54,6 +54,11 @@ fly.interceptors.response.use(res => {
       resgiterOrLogin()
       redirectLock = false
     }
+  }else if(res.data.code === 0){
+    wx.showToast({
+      title: res.data.message,
+      icon: 'none'
+    })
   }
   return res.data
 },

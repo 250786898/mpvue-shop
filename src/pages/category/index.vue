@@ -15,6 +15,7 @@
         @getMoreGoodList="getMoreGoodList"
         :secondaryCateIndex="secondaryCateIndex"
       />
+
     </div>
   </div>
 </template>

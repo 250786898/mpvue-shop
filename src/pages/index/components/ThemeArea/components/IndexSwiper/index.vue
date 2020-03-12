@@ -79,6 +79,10 @@ export default {
         wx.navigateToMiniProgram({
           appId: turnId
         })
+      }else if (turnType == 4){
+         wx.navigateTo({
+          url: `/pages/activity/theme/main?id=${turnId}`
+        })
       }else {
         //其他类型
         wx.navigateTo({

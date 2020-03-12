@@ -16,11 +16,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.icon-container{
-  position: fixed;
-  bottom: 254rpx;
-  left: 20rpx;
-}
 .icon{
   width: 80rpx;
   height: 80rpx;;

@@ -1,7 +1,7 @@
 <template>
   <div v-if="shown" class="dialog">
     <div class="backdrop"></div>
-    <div class="welcome-dialog" @click="hide">
+    <div class="welcome-dialog">
       <div class="welcome-dialog-img">
         <img :src="imgSrc" mode="widthFix" @click.stop="fetchCoupon">
         <icon type="cancel" class="welcome-dialog__footer" size="24" color="#fff" @click="hide"></icon>

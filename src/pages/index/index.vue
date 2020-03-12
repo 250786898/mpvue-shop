@@ -95,7 +95,7 @@ export default {
     ThemeArea,
     CouponDialog,
     StoreStatusShow,
-    LjLoading
+    LjLoading,
   },
 
   data() {
@@ -178,6 +178,7 @@ export default {
   },
 
   async mounted() {
+    // console.log('aaa',dahsdkjhsajd)
     wx.showTabBar()
     this.initPageData()
 
@@ -222,7 +223,6 @@ export default {
   },
 
 
-
   /**
    * @description  鉴定滚动事件，从而是否显示回到顶部按钮和当前定位显示
    * */
@@ -236,6 +236,18 @@ export default {
     wx.showNavigationBarLoading()
     this.returnTop()
     this.updateStoreData()
+    // this.loadAndShowCouponDialog() //加载显示优惠券弹窗
+  },
+
+  /*
+    * @description 页面分享
+  */
+  onShareAppMessage() {
+    return {
+      title: '满世界给你找好吃的',
+      path: `/pages/index/main?shareStoreId=${this.storeId}`,
+      imageUrl: ''
+    }
   },
 
   methods: {
@@ -772,18 +784,9 @@ export default {
         this.isCeiling = false
       }
     }
-  },
-
-  /*
-    * @description 页面分享
-    */
-  onShareAppMessage() {
-    return {
-      title: '满世界给你找好吃的',
-      path: `/pages/index/main?shareStoreId=${this.storeId}`,
-      imageUrl: ''
-    }
   }
+
+
 }
 </script>
 
