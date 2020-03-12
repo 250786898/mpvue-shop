@@ -1,7 +1,7 @@
 <template>
   <div class="card">
       <div class="card-main">
-         <div class="card-title">买家留言</div>
+         <div class="card-title">订单备注</div>
           <div class="card-content">
             <input
               type="text"
@@ -47,14 +47,13 @@ export default {
   padding: 0 30rpx;
   box-sizing: border-box;
   background: #ffffff;
-  border-top-left-radius: 10rpx;
-  border-top-right-radius: 10rpx;
+  border-radius: 10rpx;
+  margin-bottom: 20rpx;
   &-main{
     display: flex;
     height: 87rpx;
     align-items: center;
     justify-content:space-between;
-    border-bottom: 1rpx #E4E4E4 solid;
   }
   &-title{
     font-weight: bold;
@@ -63,6 +62,7 @@ export default {
     color: #999999;
     &__input{
       text-align: right;
+      width: 500rpx;
     }
   }
 }
