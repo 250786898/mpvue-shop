@@ -14,7 +14,7 @@ class ActivityModel {
     return get({
       url: '/timedActivity/findThemeGoods',
       data: {
-        storeId: 210003,
+        storeId,
         activityId,pageNumber,pageSize
       }
     })
