@@ -1,31 +1,32 @@
 <template>
   <div class="container">
     <div class="banner" v-if="bannerUrl">
-      <img :src="bannerUrl">
+      <img :src="bannerUrl" />
     </div>
-
-
 
     <div class="container-main">
       <div class="goods-list" v-if="goodsList && goodsList.length > 0">
-        <template v-for="item in goodsList">
-          <div class="goods-item" :key="item.goodsId">
+        <template v-for="(item,index) in goodsList">
+          <div class="goods-item" :key="index">
             <GoodsRowItem :item="item" />
           </div>
         </template>
       </div>
-      <div class="empty-goods-tip"  v-if="!reachBottomLoading && !loading  && goodsList.length == 0 ">
+      <div
+        class="empty-goods-tip"
+        v-if="!reachBottomLoading && !loading  && goodsList.length == 0 "
+      >
         <EmptyGoods />
       </div>
     </div>
 
     <!-- 加载中loading -->
     <div class="fresh-loading" v-if="loading">
-      <FreshLoading  />
+      <FreshLoading />
     </div>
 
-     <!-- 触底刷新loading -->
-    <LjLoading  v-if="reachBottomLoading"/>
+    <!-- 触底刷新loading -->
+    <LjLoading v-if="reachBottomLoading" />
 
     <!-- 加载更多 -->
     <div class="goods-recommend__footer">
@@ -56,13 +57,14 @@ import { mapState } from 'vuex'
 import { Api } from '@/http/api'
 
 const activityModel = new ActivityModel()
-const PAGE_SIZE = 4 //每次加载页数
+const PAGE_SIZE = 10 //每次加载页数
 export default {
   data() {
     return {
-      bannerUrl: 'https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/87860115453.jpg', //活动banner
+      title: '', //页面标题
+      bannerUrl: '', //活动banner
       currentPage: 1, //当前页数
-      activityId: '6643778362433085440', //当前分类编码
+      activityId: '', //当前分类编码
       goodsList: [], //商品列表
       isAllLoaded: false, //是否全部加载完毕
       loading: true, //数据加载中
@@ -70,9 +72,9 @@ export default {
     }
   },
 
-   computed: {
-    ...mapState(['storeId']),
-   },
+  computed: {
+    ...mapState(['storeId'])
+  },
 
   components: {
     GoodsRowItem,
@@ -83,7 +85,8 @@ export default {
     FreshLoading
   },
 
-  mounted() {
+  onShow() {
+    Object.assign(this.$data, this.$options.data())
     this.loading = true
     this.setActivityId()
     this.getActivityThemeById()
@@ -114,7 +117,7 @@ export default {
   */
   onShareAppMessage() {
     return {
-      title: '满世界给你找好吃的'
+      title: this.title
     }
   },
 
@@ -132,11 +135,11 @@ export default {
     /**
      * @description 设置活动Id
      */
-    setActivityId () {
-      const activityId =  this.$mp.page.options.id
-      if(activityId) {
+    setActivityId() {
+      const activityId = this.$mp.page.options.id
+      if (activityId) {
         this.activityId = activityId
-      }else{
+      } else {
         wx.hideLoading()
         wx.showToast({
           title: '活动Id不得为空', //提示的内容,
@@ -145,14 +148,13 @@ export default {
           mask: true //显示透明蒙层，防止触摸穿透,
         })
       }
-
     },
 
     /**
      * @param {string} title 页面标题
      * @description 设置页面标题
      */
-    setNavigationBarTitle (title) {
+    setNavigationBarTitle(title) {
       wx.setNavigationBarTitle({
         title
       })
@@ -162,15 +164,13 @@ export default {
      * @param {string} bannerUrl banner图片地址
      * @description 设置banner地址
      */
-    setBannerUrl (bannerUrl) {
+    setBannerUrl(bannerUrl) {
       this.bannerUrl = bannerUrl
     },
 
-
-
-  /**
-   * @description 获取活动主题信息
-   */
+    /**
+     * @description 获取活动主题信息
+     */
     getActivityThemeById() {
       let promise
       return (promise = activityModel
@@ -183,11 +183,18 @@ export default {
         .then(res => {
           if (res.code == Api.CODES.SUCCESS) {
             const data = res.data
-            this.setNavigationBarTitle(data.activity.activityName)
-            this.setBannerUrl(data.activity.activityImage)
+            if(data.activity) {
+                this.title = data.activity.activityName
+                this.setNavigationBarTitle(data.activity.activityName)
+                this.setBannerUrl(data.activity.activityImage)
+            }
+
+            console.log('data.goodsList',data.goodsList)
             if (data.goodsList != null) {
+              console.log('不为空')
               this.goodsList = this.goodsList.concat(data.goodsList)
             } else {
+              console.log('//没有可以加载的数据了，显示到底')
               //没有可以加载的数据了，显示到底
               this.isAllLoaded = true
             }
@@ -197,9 +204,8 @@ export default {
           setTimeout(() => {
             wx.hideNavigationBarLoading()
             wx.stopPullDownRefresh()
-            this.loading = false,
-            this.reachBottomLoading = false
-          },1000)
+            ;(this.loading = false), (this.reachBottomLoading = false)
+          }, 1000)
         }))
     }
   }
@@ -214,6 +220,7 @@ page {
 
 <style lang="scss" scoped>
 .container {
+  padding-bottom: 362rpx;
   .banner {
     width: 750rpx;
     height: 466rpx;

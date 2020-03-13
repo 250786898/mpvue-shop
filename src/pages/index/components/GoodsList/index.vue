@@ -46,8 +46,8 @@
     </div>
 
     <!-- 加载gif图 -->
-    <div class="tab-loading-icon" v-if="tab && tab.length">
-      <FreshLoading v-if="loading || tabLoading"/>
+    <div class="tab-loading-icon" v-if="tab && tab.length & ( loading || tabLoading ) ">
+      <FreshLoading />
     </div>
 
     <!-- <img

@@ -42,24 +42,29 @@ fly.interceptors.request.use(req => {
 
 let redirectLock = false
 fly.interceptors.response.use(res => {
-  if (res.data.code === 40001) {
+  if (res.data.code === Api.CODES.SESSION_ERROR) {
 
     let pages = getCurrentPages()
     let current = pages[pages.length - 1]
 
     console.log('40001')
-    if (config.ALL_GUEST_PAGES.indexOf(current.route) === -1) {
+    if (config.ALL_GUEST_PAGES.indexOf(current.route) === -1) { //判断该请求的页面组件是否是游客模式，如果不是跳转登录授权页
       if (redirectLock) return
       redirectLock = true
       resgiterOrLogin()
       redirectLock = false
     }
-  }else if(res.data.code === 0){
-    wx.showToast({
-      title: res.data.message,
-      icon: 'none'
+  }else if(res.data.code === Api.CODES.NO_THEME_AUTH) {
+    //新人专享：没有访问改页面权利直接返回首页
+    wx.switchTab({
+      url: '/pages/index/main'
     })
-  }
+  // }else if(res.data.code === 0){
+  //   wx.showToast({
+  //     title: res.data.message,
+  //     icon: 'none'
+  //   })
+   }
   return res.data
 },
   err => {
@@ -135,8 +140,9 @@ export const UPLOAD_URL = `${apiURL}common/upload`
 
 export const Api = {
   CODES: {
-    SUCCESS: 1,
-    FAILED: 0,
+    SUCCESS: 1, //接口调用成功
+    FAILED: 0, //接口调用时报
+    NO_THEME_AUTH: 3, //没有访问主题模块权限
     UNVALID_PARAMS: 10003,
     SESSION_ERROR: 40001, // 未登录
     INEXISTENT_STORE: 60002 //门店下架或者不存在

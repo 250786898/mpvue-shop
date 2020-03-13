@@ -11,8 +11,12 @@
           {{ item.goodsName }}
         </div>
         <div class="goods-desc" v-if="item.goodsSellDesc">{{ item.goodsSellDesc || '' }}</div>
-        <div class="limit">
-           <div class="limit-tag" v-if="item.activityLimitNum" >限购</div>
+         <div class="label-box">
+          <!-- v-if="item.activityLimitNum" -->
+          <div class="label-box-item limit-label" v-if="item.activityLimitNum">限量秒杀</div>
+          <div class="label-box-item new-label"  v-if="item.limitType == 1">新人专享</div>
+
+          <!-- 限购{{item.activityLimitNum}}件 -->
         </div>
 
       </div>
@@ -188,6 +192,29 @@ export default {
         color:#787878;
         font-size: 20rpx;
       }
+    }
+  }
+  .label-box {
+    display: flex;
+    margin-top: 20rpx;
+    margin-bottom: 20rpx;
+    height: 28rpx;
+    &-item {
+      width:110rpx;
+      height:28rpx;
+      border:2rpx solid rgba(248,172,8,1);
+      border-radius:14px;
+      line-height: 28rpx;
+      text-align: center;
+      color: #f8ac08;
+      font-size: 20rpx;
+    }
+    .limit-label{
+      margin-right: 10rpx;
+    }
+    .new-label{
+      border-color: #FF0000;
+      color: #FF0000;
     }
   }
   &-mask{

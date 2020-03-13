@@ -18,7 +18,6 @@ export default {
   mounted () {
     console.log('loadTimerloadTimerloadTimerloadTimerloadTimerloadTimerloadTimerloadTimerloadTimerloadTimerloadTimerloadTimerloadTimerloadTimer')
     this.loadTimer = setInterval(() => {
-      console.log('loadTimer1',this.positionY)
       this.positionY = this.positionY +1
     }, 600)
   },

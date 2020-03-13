@@ -2,9 +2,12 @@
   <div v-if="shown" class="popup">
     <div class="mask"></div>
     <div class="popnp">
-      <img src="/static/images/successful-delivery.png" class="success-icon" />
-      <p class="success-text">提货成功</p>
-      <button class="confirm" @click="confirm">确定</button>
+      <div class="popnp-main">
+        <img src="/static/images/successful-delivery.png" class="success-icon" />
+        <img src="/static/images/pickup-fresh-icon.png" class="fresh-icon" />
+        <p class="success-text">提货成功</p>
+        <button class="confirm" @click="confirm">确定</button>
+      </div>
     </div>
   </div>
 </template>
@@ -71,13 +74,19 @@ export default {
   height: 377rpx;
   background: rgba(255, 255, 255, 1);
   border-radius: 20rpx;
-  img {
+  &-main{
+    position: relative;
+    top: -58rpx;
+  }
+  .success-icon {
     vertical-align: middle;
     width: 286rpx;
     height: 125rpx;
-    position: relative;
-    top: -68rpx;
     z-index: 99;
+  }
+  .fresh-icon {
+    width: 427rpx;
+    height: 90rpx;
   }
   .success-text {
     font-size: 50rpx;
