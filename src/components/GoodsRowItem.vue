@@ -10,7 +10,7 @@
     <div class="label-box">
        <!-- v-if="item.activityLimitNum" -->
        <div class="label-box-item limit-label" v-if="item.activityLimitNum">限量秒杀</div>
-       <!-- <div class="label-box-item new-label">新人专享</div> -->
+       <div class="label-box-item new-label" v-if="item.limitType == 1">新人专享</div>
 
       <!-- 限购{{item.activityLimitNum}}件 -->
     </div>
@@ -55,7 +55,8 @@ export default {
     item: { //商品信息对象
       type: Object,
       default: () => (
-        {"id":"6643425152107290624","goodsNumErp":368803428,"goodsId":"6638724261462679552","activityId":"6643425151914352640","goodsName":"澳洲冲天壹号牛腩约450±50g","discountedPrice":35.80,"scribingPrice":45.80,"activityStock":79,"isShow":1,"sortNumber":150,"storeCount":null,"goodsImage":"https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/94054297232.jpg","isDel":0,"shareDescription":"【仅需35.8元】澳洲冲天壹号牛腩约450±50g","goodsSellDesc":"肥瘦相间，肉质紧实柔嫩","goodsNum":0,"activityLimitNum":null,"video":"","salesNum":45,"virtualSalesNum":1480,"tagList":[]}
+        {}
+        // {"id":"6643425152107290624","goodsNumErp":368803428,"goodsId":"6638724261462679552","activityId":"6643425151914352640","goodsName":"澳洲冲天壹号牛腩约450±50g","discountedPrice":35.80,"scribingPrice":45.80,"activityStock":79,"isShow":1,"sortNumber":150,"storeCount":null,"goodsImage":"https://bucketlejia.oss-cn-shenzhen.aliyuncs.com/94054297232.jpg","isDel":0,"shareDescription":"【仅需35.8元】澳洲冲天壹号牛腩约450±50g","goodsSellDesc":"肥瘦相间，肉质紧实柔嫩","goodsNum":0,"activityLimitNum":null,"video":"","salesNum":45,"virtualSalesNum":1480,"tagList":[]}
       )
     }
   },
@@ -76,7 +77,7 @@ export default {
 .card {
   width: 350rpx;
   box-sizing: border-box;
-  padding: 10rpx 18rpx 20rpx;
+  padding: 18rpx 18rpx 20rpx;
   background: #ffffff;
   margin-bottom: 10rpx;
   border-radius: 14rpx;
@@ -134,6 +135,7 @@ export default {
     display: flex;
     margin-top: 20rpx;
     margin-bottom: 20rpx;
+    height:34rpx;
     &-item {
       width:112rpx;
       height:34rpx;

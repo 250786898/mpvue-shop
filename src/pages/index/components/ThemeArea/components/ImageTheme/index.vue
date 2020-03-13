@@ -57,6 +57,11 @@ export default {
           appId: turnId
         })
       }else if (turnType == 4){
+        if (!this.sessionId) {
+          //未登录
+          resgiterOrLogin()
+          return
+        }
          wx.navigateTo({
           url: `/pages/activity/theme/main?id=${turnId}`
         })

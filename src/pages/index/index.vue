@@ -20,7 +20,7 @@
         <theme-area
           :theme-type="bannerThemeType"
           :list="storeData.bannerList"
-          v-if="storeData && storeData.bannerShow"
+          v-if="storeData.bannerShow && storeData && storeData.bannerList.length"
         />
 
         <!-- 分类导航栏  -->
@@ -33,7 +33,7 @@
         <theme-area
           :theme-type="adverThemeType"
           :list="storeData.advertisementList"
-          v-if="storeData && storeData.advertisementShow"
+          v-if="storeData.advertisementShow && storeData &&storeData.advertisementList.length"
         />
 
         <!-- 商品列表 -->

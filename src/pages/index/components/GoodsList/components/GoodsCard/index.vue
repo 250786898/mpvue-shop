@@ -120,14 +120,14 @@ export default {
         margin: 10rpx 0 0rpx;
       }
       .limit-tag{
-        width:67rpx;
-        height:30rpx;
-        line-height: 30rpx;
+        width:110rpx;
+        height:32rpx;
+        border:2rpx solid rgba(248,172,8,1);
+        border-radius:16rpx;
+        line-height: 32rpx;
         text-align: center;
-        border:1rpx solid rgba(248,172,8,1);
-        border-radius:4rpx;
         color: #F8AC08;
-        font-size: 22rpx;
+        font-size: 20rpx;
         margin-top: 15rpx;
       }
     }

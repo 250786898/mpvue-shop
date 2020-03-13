@@ -27,7 +27,7 @@
     />
 
     <!-- Type start: 提货时间 -->
-    <pickup-timer  :pickup-time="goodsDetailInfo.pickUpTime" :is-sale="goodsDetailInfo.isSale" :start-sale-time="goodsDetailInfo.startTime"  />
+    <pickup-timer  :pickup-time="goodsDetailInfo.pickUpTime" :is-sale="goodsDetailInfo.isSale" :start-sale-time="goodsDetailInfo.startTime" v-if="goodsDetailInfo.pickUpTime" />
 
     <!-- Type end; -->
 
@@ -38,7 +38,7 @@
         v-if="goodsDetailInfo.activityLimitNum"
         :num="goodsDetailInfo.activityLimitNum"
       />
-      <!-- 优惠券 
+      <!-- 优惠券
       <CouponBar
         :list="couponList"
         @fetchCoupon="fetchCoupon"
@@ -186,7 +186,7 @@ export default {
      * @description 页面分享
     */
   onShareAppMessage() {
-    let options = `id=${this.$mp.page.options.id}&shareStoreId=${this.storeId}`
+    let options = `id=${this.$mp.page.options.id}&shareStoreId=${this.storeId}&activityId=${this.$mp.page.options.activityId}`
     return {
       title: this.goodsDetailInfo.shareDescription,
       path: `/pages/goods/detail/main?${options}`,
@@ -230,6 +230,7 @@ export default {
 
       this.showPageLoading = true //页面加载组件开启
       let params = {
+        activityId: options.activityId ? options.activityId : '', //活动主题Id
         type: options.type ? options.type : '', // 为2通过首页banner跳转过来
         goodsId: options.id,
         storeId: this.storeId
