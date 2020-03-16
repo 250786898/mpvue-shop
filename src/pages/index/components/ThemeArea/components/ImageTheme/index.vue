@@ -5,7 +5,7 @@
       class="slide-image"
       mode
       @click="navToDetail(imgInfo.turnType,imgInfo.turnPage,imgInfo.turnId)"
-      v-if="imgInfo"
+      v-if="imgInfo && imgInfo.state"
     />
   </div>
 </template>
