@@ -27,7 +27,15 @@ export default {
      * @description 跳转申请售后页面
      */
     applyReturns() {
-      console.log('applyReturns',this.orderId)
+      if(this.orderInfo.refundDateOut) {
+        wx.showModal({
+          title: "提示",
+          content: "订单签收超过7天，不能为您提供售后退款服务",
+          showCancel: false,
+          cancelText: "知道了"
+        })
+        return false
+      }
       wx.navigateTo({
         url: `/pages/order/returngoods/main?id=${ this.orderId }`
       })
